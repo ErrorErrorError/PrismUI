@@ -7,20 +7,37 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1384D27E24BD184700655884 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1384D27D24BD184700655884 /* AppDelegate.swift */; };
-		1384D28024BD184700655884 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1384D27F24BD184700655884 /* ViewController.swift */; };
+		134CE95524BD1C7F00D9D845 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134CE94E24BD1C7F00D9D845 /* AppDelegate.swift */; };
+		134CE95724BD1C7F00D9D845 /* PresetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134CE95124BD1C7F00D9D845 /* PresetsViewController.swift */; };
+		134CE95824BD1C7F00D9D845 /* ModesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134CE95224BD1C7F00D9D845 /* ModesViewController.swift */; };
+		134CE95924BD1C7F00D9D845 /* MainSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134CE95324BD1C7F00D9D845 /* MainSplitViewController.swift */; };
+		134CE95A24BD1C7F00D9D845 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134CE95424BD1C7F00D9D845 /* KeyboardViewController.swift */; };
+		134CE95C24BD26B700D9D845 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134CE95B24BD26B700D9D845 /* BaseViewController.swift */; };
+		134CE95E24BD31CF00D9D845 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134CE95D24BD31CF00D9D845 /* main.swift */; };
+		134CE96324BD3A3D00D9D845 /* KeyboardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134CE96224BD3A3D00D9D845 /* KeyboardLayout.swift */; };
+		134CE96C24BD44B400D9D845 /* libPrismDriver.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 134CE96524BD427800D9D845 /* libPrismDriver.a */; };
+		134CE97924BD7B8F00D9D845 /* KeyColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134CE97824BD7B8F00D9D845 /* KeyColorView.swift */; };
 		1384D28224BD184800655884 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1384D28124BD184800655884 /* Assets.xcassets */; };
-		1384D28524BD184800655884 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1384D28324BD184800655884 /* Main.storyboard */; };
+		13FEACD224BE4B88009B86ED /* PrismController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FEACD124BE4B88009B86ED /* PrismController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		134CE94E24BD1C7F00D9D845 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		134CE95124BD1C7F00D9D845 /* PresetsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresetsViewController.swift; sourceTree = "<group>"; };
+		134CE95224BD1C7F00D9D845 /* ModesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModesViewController.swift; sourceTree = "<group>"; };
+		134CE95324BD1C7F00D9D845 /* MainSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainSplitViewController.swift; sourceTree = "<group>"; };
+		134CE95424BD1C7F00D9D845 /* KeyboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
+		134CE95B24BD26B700D9D845 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		134CE95D24BD31CF00D9D845 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		134CE96224BD3A3D00D9D845 /* KeyboardLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardLayout.swift; sourceTree = "<group>"; };
+		134CE96524BD427800D9D845 /* libPrismDriver.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libPrismDriver.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		134CE96F24BD4CCE00D9D845 /* PrismUI-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrismUI-Bridging-Header.h"; sourceTree = "<group>"; };
+		134CE97824BD7B8F00D9D845 /* KeyColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyColorView.swift; sourceTree = "<group>"; };
 		1384D27A24BD184700655884 /* PrismUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrismUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		1384D27D24BD184700655884 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1384D27F24BD184700655884 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1384D28124BD184800655884 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		1384D28424BD184800655884 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1384D28624BD184800655884 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1384D28724BD184800655884 /* PrismUI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PrismUI.entitlements; sourceTree = "<group>"; };
+		13FEACD124BE4B88009B86ED /* PrismController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -28,17 +45,65 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				134CE96C24BD44B400D9D845 /* libPrismDriver.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		134CE94C24BD1C7F00D9D845 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				134CE97824BD7B8F00D9D845 /* KeyColorView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		134CE94D24BD1C7F00D9D845 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				134CE94E24BD1C7F00D9D845 /* AppDelegate.swift */,
+				134CE95D24BD31CF00D9D845 /* main.swift */,
+				13FEACD124BE4B88009B86ED /* PrismController.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		134CE95024BD1C7F00D9D845 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				134CE95124BD1C7F00D9D845 /* PresetsViewController.swift */,
+				134CE95224BD1C7F00D9D845 /* ModesViewController.swift */,
+				134CE95324BD1C7F00D9D845 /* MainSplitViewController.swift */,
+				134CE95424BD1C7F00D9D845 /* KeyboardViewController.swift */,
+				134CE95B24BD26B700D9D845 /* BaseViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		134CE96124BD39F200D9D845 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				134CE96224BD3A3D00D9D845 /* KeyboardLayout.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		134CE96424BD427800D9D845 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				134CE96524BD427800D9D845 /* libPrismDriver.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		1384D27124BD184700655884 = {
 			isa = PBXGroup;
 			children = (
 				1384D27C24BD184700655884 /* PrismUI */,
 				1384D27B24BD184700655884 /* Products */,
+				134CE96424BD427800D9D845 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -53,10 +118,12 @@
 		1384D27C24BD184700655884 /* PrismUI */ = {
 			isa = PBXGroup;
 			children = (
-				1384D27D24BD184700655884 /* AppDelegate.swift */,
-				1384D27F24BD184700655884 /* ViewController.swift */,
+				134CE96F24BD4CCE00D9D845 /* PrismUI-Bridging-Header.h */,
+				134CE96124BD39F200D9D845 /* Utils */,
+				134CE95024BD1C7F00D9D845 /* Controllers */,
+				134CE94D24BD1C7F00D9D845 /* Core */,
+				134CE94C24BD1C7F00D9D845 /* Views */,
 				1384D28124BD184800655884 /* Assets.xcassets */,
-				1384D28324BD184800655884 /* Main.storyboard */,
 				1384D28624BD184800655884 /* Info.plist */,
 				1384D28724BD184800655884 /* PrismUI.entitlements */,
 			);
@@ -73,6 +140,7 @@
 				1384D27624BD184700655884 /* Sources */,
 				1384D27724BD184700655884 /* Frameworks */,
 				1384D27824BD184700655884 /* Resources */,
+				13FEACD024BE450A009B86ED /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -122,34 +190,50 @@
 			buildActionMask = 2147483647;
 			files = (
 				1384D28224BD184800655884 /* Assets.xcassets in Resources */,
-				1384D28524BD184800655884 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		13FEACD024BE450A009B86ED /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1384D27624BD184700655884 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1384D28024BD184700655884 /* ViewController.swift in Sources */,
-				1384D27E24BD184700655884 /* AppDelegate.swift in Sources */,
+				134CE95524BD1C7F00D9D845 /* AppDelegate.swift in Sources */,
+				134CE95E24BD31CF00D9D845 /* main.swift in Sources */,
+				134CE95924BD1C7F00D9D845 /* MainSplitViewController.swift in Sources */,
+				134CE95A24BD1C7F00D9D845 /* KeyboardViewController.swift in Sources */,
+				134CE95824BD1C7F00D9D845 /* ModesViewController.swift in Sources */,
+				134CE97924BD7B8F00D9D845 /* KeyColorView.swift in Sources */,
+				134CE95724BD1C7F00D9D845 /* PresetsViewController.swift in Sources */,
+				13FEACD224BE4B88009B86ED /* PrismController.swift in Sources */,
+				134CE96324BD3A3D00D9D845 /* KeyboardLayout.swift in Sources */,
+				134CE95C24BD26B700D9D845 /* BaseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		1384D28324BD184800655884 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1384D28424BD184800655884 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		1384D28824BD184800655884 /* Debug */ = {
@@ -279,8 +363,10 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.errorerrorerror.PrismUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/PrismUI/PrismUI-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -299,8 +385,10 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.errorerrorerror.PrismUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/PrismUI/PrismUI-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
