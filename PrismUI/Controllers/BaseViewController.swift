@@ -10,6 +10,6 @@ import Cocoa
 
 class BaseViewController: NSViewController {
     override func loadView() {
-      self.view = NSView()
+      self.view = NSVisualEffectView()
     }
 }

@@ -8,15 +8,32 @@
 
 import Cocoa
 
-class KeyColorView: NSView, CALayerDelegate {
+class KeyColorView: NSControl, CALayerDelegate {
 
     var text: NSString = NSString()
+
     var color: NSColor = .white {
-      willSet(value) {
-        layer?.backgroundColor = value.cgColor
+      willSet(newValue) {
+        layer?.backgroundColor = newValue.cgColor
+        if newValue.scaledBrightness < 0.5 {
+            layer?.borderColor = NSColor.white.usingColorSpace(.genericRGB)!
+                .darkerColor(percent: Double(newValue.scaledBrightness)).cgColor
+        } else {
+            layer?.borderColor = newValue.darkerColor(percent: 0.5).cgColor
+        }
         layer?.setNeedsDisplay()
       }
     }
+
+    var isSelected = false {
+        didSet(oldValue) {
+            isSelected ? delegate?.didSelect(self) : delegate?.didDeselect(self)
+            layer?.borderWidth = isSelected ? 5 : 0
+            layer?.setNeedsDisplay()
+        }
+    }
+
+    weak var delegate: KeyColorViewDelegate?
 
     let textStyle: NSParagraphStyle = {
         let style = NSMutableParagraphStyle()
@@ -28,7 +45,7 @@ class KeyColorView: NSView, CALayerDelegate {
         let new = CALayer()
         new.cornerRadius = 4.0
         new.borderColor = NSColor.lightGray.cgColor
-        new.borderWidth = 2
+        new.borderWidth = 0
         new.shadowOffset = CGSize(width: 0, height: -0.5)
         new.shadowColor = NSColor.black.cgColor
         new.shadowRadius = 0
@@ -37,9 +54,8 @@ class KeyColorView: NSView, CALayerDelegate {
         return new
     }()
 
-    init(color: NSColor, text: String) {
+    init(text: String) {
         super.init(frame: NSRect.zero)
-        self.color = color
         self.text = text as NSString
 
         setup()
@@ -64,6 +80,7 @@ class KeyColorView: NSView, CALayerDelegate {
 
     override func mouseUp(with event: NSEvent) {
         super.mouseUp(with: event)
+        self.isSelected = !isSelected
     }
 }
 
@@ -77,4 +94,9 @@ extension NSString {
                                   height: size.height)
         self.draw(in: centeredRect, withAttributes: attributes)
     }
+}
+
+protocol KeyColorViewDelegate: AnyObject {
+    func didSelect(_ sender: KeyColorView)
+    func didDeselect(_ sender: KeyColorView)
 }

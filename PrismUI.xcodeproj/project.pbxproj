@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1337E60424C00E36008F2C89 /* PrismEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1337E60324C00E36008F2C89 /* PrismEffect.swift */; };
+		1337E60624C01B5F008F2C89 /* NSColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1337E60524C01B5F008F2C89 /* NSColor+Extension.swift */; };
+		1337E60824C03707008F2C89 /* NoDividerSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1337E60724C03707008F2C89 /* NoDividerSplitView.swift */; };
 		134CE95524BD1C7F00D9D845 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134CE94E24BD1C7F00D9D845 /* AppDelegate.swift */; };
 		134CE95724BD1C7F00D9D845 /* PresetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134CE95124BD1C7F00D9D845 /* PresetsViewController.swift */; };
 		134CE95824BD1C7F00D9D845 /* ModesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134CE95224BD1C7F00D9D845 /* ModesViewController.swift */; };
@@ -17,11 +20,27 @@
 		134CE96324BD3A3D00D9D845 /* KeyboardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134CE96224BD3A3D00D9D845 /* KeyboardLayout.swift */; };
 		134CE96C24BD44B400D9D845 /* libPrismDriver.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 134CE96524BD427800D9D845 /* libPrismDriver.a */; };
 		134CE97924BD7B8F00D9D845 /* KeyColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134CE97824BD7B8F00D9D845 /* KeyColorView.swift */; };
+		1357BD9424C0D94B00A9D58D /* ColorWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1357BD9324C0D94B00A9D58D /* ColorWheelView.swift */; };
 		1384D28224BD184800655884 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1384D28124BD184800655884 /* Assets.xcassets */; };
-		13FEACD224BE4B88009B86ED /* PrismController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FEACD124BE4B88009B86ED /* PrismController.swift */; };
+		13B395E124C69FCD00BC159E /* RawDeviceProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B395E024C69FCD00BC159E /* RawDeviceProtocols.swift */; };
+		13B395E424C6A26C00BC159E /* IOHIDDevice+GetProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B395E324C6A26C00BC159E /* IOHIDDevice+GetProperty.swift */; };
+		13B395E624C6A70900BC159E /* IOHIDDevice+FeatureReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B395E524C6A70900BC159E /* IOHIDDevice+FeatureReport.swift */; };
+		13B395E824C6A78800BC159E /* IOHIDDevice+Write.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B395E724C6A78800BC159E /* IOHIDDevice+Write.swift */; };
+		13B395EE24C6AD2400BC159E /* PrismDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B395ED24C6AD2400BC159E /* PrismDevice.swift */; };
+		13B395F024C6B48700BC159E /* HIDDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B395EF24C6B48700BC159E /* HIDDevice.swift */; };
+		13B395F224C6BBF000BC159E /* IOHIDManager+Configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B395F124C6BBF000BC159E /* IOHIDManager+Configure.swift */; };
+		13B395F424C6BDD200BC159E /* PrismDeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B395F324C6BDD200BC159E /* PrismDeviceModel.swift */; };
+		13B395F624C6C00D00BC159E /* HIDDriver+PrismDeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B395F524C6C00D00BC159E /* HIDDriver+PrismDeviceModel.swift */; };
+		13FEACD224BE4B88009B86ED /* PrismDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FEACD124BE4B88009B86ED /* PrismDriver.swift */; };
+		13FEACD724BEDD45009B86ED /* PrismKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FEACD624BEDD45009B86ED /* PrismKey.swift */; };
+		4EE2D008240733F7C050689F /* Pods_PrismUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C08081D643B770DF1F5178 /* Pods_PrismUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		00C08081D643B770DF1F5178 /* Pods_PrismUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrismUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1337E60324C00E36008F2C89 /* PrismEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismEffect.swift; sourceTree = "<group>"; };
+		1337E60524C01B5F008F2C89 /* NSColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+Extension.swift"; sourceTree = "<group>"; };
+		1337E60724C03707008F2C89 /* NoDividerSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDividerSplitView.swift; sourceTree = "<group>"; };
 		134CE94E24BD1C7F00D9D845 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		134CE95124BD1C7F00D9D845 /* PresetsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresetsViewController.swift; sourceTree = "<group>"; };
 		134CE95224BD1C7F00D9D845 /* ModesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModesViewController.swift; sourceTree = "<group>"; };
@@ -33,11 +52,24 @@
 		134CE96524BD427800D9D845 /* libPrismDriver.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libPrismDriver.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		134CE96F24BD4CCE00D9D845 /* PrismUI-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrismUI-Bridging-Header.h"; sourceTree = "<group>"; };
 		134CE97824BD7B8F00D9D845 /* KeyColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyColorView.swift; sourceTree = "<group>"; };
+		1357BD9324C0D94B00A9D58D /* ColorWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorWheelView.swift; sourceTree = "<group>"; };
 		1384D27A24BD184700655884 /* PrismUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrismUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1384D28124BD184800655884 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1384D28624BD184800655884 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1384D28724BD184800655884 /* PrismUI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PrismUI.entitlements; sourceTree = "<group>"; };
-		13FEACD124BE4B88009B86ED /* PrismController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismController.swift; sourceTree = "<group>"; };
+		13B395E024C69FCD00BC159E /* RawDeviceProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawDeviceProtocols.swift; sourceTree = "<group>"; };
+		13B395E324C6A26C00BC159E /* IOHIDDevice+GetProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IOHIDDevice+GetProperty.swift"; sourceTree = "<group>"; };
+		13B395E524C6A70900BC159E /* IOHIDDevice+FeatureReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IOHIDDevice+FeatureReport.swift"; sourceTree = "<group>"; };
+		13B395E724C6A78800BC159E /* IOHIDDevice+Write.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IOHIDDevice+Write.swift"; sourceTree = "<group>"; };
+		13B395ED24C6AD2400BC159E /* PrismDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismDevice.swift; sourceTree = "<group>"; };
+		13B395EF24C6B48700BC159E /* HIDDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HIDDevice.swift; path = PrismUI/Driver/HIDSwift/HIDDevice.swift; sourceTree = SOURCE_ROOT; };
+		13B395F124C6BBF000BC159E /* IOHIDManager+Configure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IOHIDManager+Configure.swift"; sourceTree = "<group>"; };
+		13B395F324C6BDD200BC159E /* PrismDeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismDeviceModel.swift; sourceTree = "<group>"; };
+		13B395F524C6C00D00BC159E /* HIDDriver+PrismDeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HIDDriver+PrismDeviceModel.swift"; sourceTree = "<group>"; };
+		13FEACD124BE4B88009B86ED /* PrismDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismDriver.swift; sourceTree = "<group>"; };
+		13FEACD624BEDD45009B86ED /* PrismKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismKey.swift; sourceTree = "<group>"; };
+		15747D84AFE6667ADB3C2E4F /* Pods-PrismUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrismUI.debug.xcconfig"; path = "Target Support Files/Pods-PrismUI/Pods-PrismUI.debug.xcconfig"; sourceTree = "<group>"; };
+		C68ECFAA71BE30DF82042E44 /* Pods-PrismUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrismUI.release.xcconfig"; path = "Target Support Files/Pods-PrismUI/Pods-PrismUI.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +78,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				134CE96C24BD44B400D9D845 /* libPrismDriver.a in Frameworks */,
+				4EE2D008240733F7C050689F /* Pods_PrismUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,6 +89,8 @@
 			isa = PBXGroup;
 			children = (
 				134CE97824BD7B8F00D9D845 /* KeyColorView.swift */,
+				1337E60724C03707008F2C89 /* NoDividerSplitView.swift */,
+				1357BD9324C0D94B00A9D58D /* ColorWheelView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -65,7 +100,6 @@
 			children = (
 				134CE94E24BD1C7F00D9D845 /* AppDelegate.swift */,
 				134CE95D24BD31CF00D9D845 /* main.swift */,
-				13FEACD124BE4B88009B86ED /* PrismController.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -86,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				134CE96224BD3A3D00D9D845 /* KeyboardLayout.swift */,
+				1337E60524C01B5F008F2C89 /* NSColor+Extension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -94,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				134CE96524BD427800D9D845 /* libPrismDriver.a */,
+				00C08081D643B770DF1F5178 /* Pods_PrismUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -104,6 +140,7 @@
 				1384D27C24BD184700655884 /* PrismUI */,
 				1384D27B24BD184700655884 /* Products */,
 				134CE96424BD427800D9D845 /* Frameworks */,
+				D960B0921A9C84FC10D4FF1E /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -118,7 +155,9 @@
 		1384D27C24BD184700655884 /* PrismUI */ = {
 			isa = PBXGroup;
 			children = (
+				13B395DC24C69CCA00BC159E /* Driver */,
 				134CE96F24BD4CCE00D9D845 /* PrismUI-Bridging-Header.h */,
+				13FEACD524BEDAE1009B86ED /* Model */,
 				134CE96124BD39F200D9D845 /* Utils */,
 				134CE95024BD1C7F00D9D845 /* Controllers */,
 				134CE94D24BD1C7F00D9D845 /* Core */,
@@ -130,6 +169,73 @@
 			path = PrismUI;
 			sourceTree = "<group>";
 		};
+		13B395DC24C69CCA00BC159E /* Driver */ = {
+			isa = PBXGroup;
+			children = (
+				13B395F724C6CEE400BC159E /* PrismDriver */,
+				13B395DD24C69E5700BC159E /* HIDSwift */,
+			);
+			path = Driver;
+			sourceTree = "<group>";
+		};
+		13B395DD24C69E5700BC159E /* HIDSwift */ = {
+			isa = PBXGroup;
+			children = (
+				13B395E224C6A04600BC159E /* Extensions */,
+				13B395EF24C6B48700BC159E /* HIDDevice.swift */,
+				13B395E024C69FCD00BC159E /* RawDeviceProtocols.swift */,
+			);
+			path = HIDSwift;
+			sourceTree = "<group>";
+		};
+		13B395E224C6A04600BC159E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				13B395E324C6A26C00BC159E /* IOHIDDevice+GetProperty.swift */,
+				13B395E524C6A70900BC159E /* IOHIDDevice+FeatureReport.swift */,
+				13B395E724C6A78800BC159E /* IOHIDDevice+Write.swift */,
+				13B395F124C6BBF000BC159E /* IOHIDManager+Configure.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		13B395F724C6CEE400BC159E /* PrismDriver */ = {
+			isa = PBXGroup;
+			children = (
+				13B395F824C6CF0300BC159E /* Extensions */,
+				13FEACD124BE4B88009B86ED /* PrismDriver.swift */,
+				13B395ED24C6AD2400BC159E /* PrismDevice.swift */,
+				13B395F324C6BDD200BC159E /* PrismDeviceModel.swift */,
+			);
+			path = PrismDriver;
+			sourceTree = "<group>";
+		};
+		13B395F824C6CF0300BC159E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				13B395F524C6C00D00BC159E /* HIDDriver+PrismDeviceModel.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		13FEACD524BEDAE1009B86ED /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				13FEACD624BEDD45009B86ED /* PrismKey.swift */,
+				1337E60324C00E36008F2C89 /* PrismEffect.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D960B0921A9C84FC10D4FF1E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				15747D84AFE6667ADB3C2E4F /* Pods-PrismUI.debug.xcconfig */,
+				C68ECFAA71BE30DF82042E44 /* Pods-PrismUI.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -137,6 +243,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1384D28A24BD184800655884 /* Build configuration list for PBXNativeTarget "PrismUI" */;
 			buildPhases = (
+				E969A3BD1AA266092BC7797C /* [CP] Check Pods Manifest.lock */,
 				1384D27624BD184700655884 /* Sources */,
 				1384D27724BD184700655884 /* Frameworks */,
 				1384D27824BD184700655884 /* Resources */,
@@ -211,7 +318,29 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which \"${PODS_ROOT}/SwiftLint/swiftlint\" >/dev/null; then \n    ${PODS_ROOT}/SwiftLint/swiftlint\nelif which swiftlint >/dev/null; then\n    swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		E969A3BD1AA266092BC7797C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PrismUI-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -220,15 +349,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13B395F424C6BDD200BC159E /* PrismDeviceModel.swift in Sources */,
 				134CE95524BD1C7F00D9D845 /* AppDelegate.swift in Sources */,
+				13B395EE24C6AD2400BC159E /* PrismDevice.swift in Sources */,
+				13B395F624C6C00D00BC159E /* HIDDriver+PrismDeviceModel.swift in Sources */,
+				13B395E824C6A78800BC159E /* IOHIDDevice+Write.swift in Sources */,
 				134CE95E24BD31CF00D9D845 /* main.swift in Sources */,
+				1337E60624C01B5F008F2C89 /* NSColor+Extension.swift in Sources */,
 				134CE95924BD1C7F00D9D845 /* MainSplitViewController.swift in Sources */,
+				13B395F224C6BBF000BC159E /* IOHIDManager+Configure.swift in Sources */,
+				13FEACD724BEDD45009B86ED /* PrismKey.swift in Sources */,
 				134CE95A24BD1C7F00D9D845 /* KeyboardViewController.swift in Sources */,
 				134CE95824BD1C7F00D9D845 /* ModesViewController.swift in Sources */,
 				134CE97924BD7B8F00D9D845 /* KeyColorView.swift in Sources */,
+				13B395E624C6A70900BC159E /* IOHIDDevice+FeatureReport.swift in Sources */,
 				134CE95724BD1C7F00D9D845 /* PresetsViewController.swift in Sources */,
-				13FEACD224BE4B88009B86ED /* PrismController.swift in Sources */,
+				13B395E124C69FCD00BC159E /* RawDeviceProtocols.swift in Sources */,
+				1337E60424C00E36008F2C89 /* PrismEffect.swift in Sources */,
+				13FEACD224BE4B88009B86ED /* PrismDriver.swift in Sources */,
 				134CE96324BD3A3D00D9D845 /* KeyboardLayout.swift in Sources */,
+				1357BD9424C0D94B00A9D58D /* ColorWheelView.swift in Sources */,
+				13B395F024C6B48700BC159E /* HIDDevice.swift in Sources */,
+				1337E60824C03707008F2C89 /* NoDividerSplitView.swift in Sources */,
+				13B395E424C6A26C00BC159E /* IOHIDDevice+GetProperty.swift in Sources */,
 				134CE95C24BD26B700D9D845 /* BaseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -351,6 +494,7 @@
 		};
 		1384D28B24BD184800655884 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 15747D84AFE6667ADB3C2E4F /* Pods-PrismUI.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = PrismUI/PrismUI.entitlements;
@@ -373,6 +517,7 @@
 		};
 		1384D28C24BD184800655884 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C68ECFAA71BE30DF82042E44 /* Pods-PrismUI.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = PrismUI/PrismUI.entitlements;

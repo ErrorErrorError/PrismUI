@@ -12,5 +12,7 @@ import Cocoa
 class PresetsViewController: BaseViewController {
      override func viewDidLoad() {
         super.viewDidLoad()
+
+        (self.view as? NSVisualEffectView)?.material = .sidebar
     }
 }

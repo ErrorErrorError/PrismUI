@@ -9,6 +9,6 @@
 #ifndef PrismUI_Bridging_Header_h
 #define PrismUI_Bridging_Header_h
 
-#include <PrismDriver/prismcommon.h>
+#include <PrismDriver/prismdriver.h>
 
 #endif /* PrismUI_Bridging_Header_h */

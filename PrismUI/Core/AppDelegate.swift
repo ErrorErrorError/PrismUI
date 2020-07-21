@@ -11,6 +11,8 @@ import Cocoa
 //@NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
+    var prismDriver: PrismDriver?
+
     let mainWindow: NSWindow = {
         let window = NSWindow()
         window.setContentSize(NSSize(width: 1280, height: 720))
@@ -24,6 +26,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        prismDriver = PrismDriver.shared
         let splitViewController = MainSplitViewController()
         mainWindow.contentViewController = splitViewController
     }
