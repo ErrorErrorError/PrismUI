@@ -8,8 +8,8 @@
 
 import Cocoa
 
-class BaseViewController: NSViewController {
-    override func loadView() {
+public class BaseViewController: NSViewController {
+    public override func loadView() {
       self.view = NSVisualEffectView()
     }
 }

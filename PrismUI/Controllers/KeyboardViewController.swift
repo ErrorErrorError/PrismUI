@@ -35,7 +35,7 @@ class KeyboardViewController: BaseViewController {
         let padding: CGFloat = 5
         let desiredKeyWidth: CGFloat = model == .perKey ? 50 : 60
         let desiredKeyHeight = desiredKeyWidth
-        let xOffset: CGFloat = model == .perKey ? 15 : 65
+        let xOffset: CGFloat = model == .perKey ? 35 : 85
         let keyboardHeight = 6 * desiredKeyHeight
         var xPos = xOffset
         var yPos: CGFloat = (720 - keyboardHeight) / 2 + keyboardHeight - desiredKeyHeight

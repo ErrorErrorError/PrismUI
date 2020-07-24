@@ -10,6 +10,20 @@ import Cocoa
 
 extension NSColor {
 
+    public func getHSB() -> PrismHSB {
+        return PrismHSB(hue: self.hueComponent,
+                   saturation: self.saturationComponent,
+                   brightness: self.brightnessComponent,
+                   alpha: self.alphaComponent)
+    }
+
+    public func getRGB() -> PrismRGB {
+        return PrismRGB(red: self.redComponent,
+                        green: self.greenComponent,
+                        blue: self.blueComponent,
+                        alpha: self.alphaComponent)
+    }
+
     // Workaround: `NSColor`'s `brightnessComponent` is sometimes a value in [0-255] instead of in [0-1]
     /// Brightness value scaled between 0 and 1
     var scaledBrightness: CGFloat {

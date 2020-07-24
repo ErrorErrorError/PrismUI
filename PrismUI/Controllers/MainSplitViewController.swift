@@ -20,7 +20,7 @@ class MainSplitViewController: NSSplitViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.setFrameSize(NSSize(width: 1280, height: 720))
+        view.setFrameSize(NSSize(width: 1380, height: 720))
         modesViewController.delegate = self
 
         setupSplitViewItems()
@@ -33,8 +33,8 @@ class MainSplitViewController: NSSplitViewController {
         sidebarItem.maximumThickness = 200
 
         leftSideItem = NSSplitViewItem(contentListWithViewController: modesViewController)
-        leftSideItem.minimumThickness = 240
-        leftSideItem.maximumThickness = 240
+        leftSideItem.minimumThickness = 300
+        leftSideItem.maximumThickness = 300
 
         rightSideItem = NSSplitViewItem(viewController: keyboardViewController)
         splitView.dividerStyle = .thin

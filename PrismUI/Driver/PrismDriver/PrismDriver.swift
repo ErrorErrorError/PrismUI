@@ -8,6 +8,7 @@
 // From https://github.com/Sherlouk/Codedeck/blob/master/Sources/HIDSwift/HIDDeviceMonitor.swift
 
 import Cocoa
+import IOKit.network
 
 class PrismDriver: NSObject {
 
@@ -15,13 +16,17 @@ class PrismDriver: NSObject {
 
     private var monitoringThread: Thread?
     internal var models = PrismDeviceModel.allCases.map({ $0.productInformation() })
+//    private var dispatchQueue: DispatchQueue?
 
     public var prismDevice: PrismDevice?
 
     private override init() {
         super.init()
-        monitoringThread = Thread(target: self, selector: #selector(start), object: nil)
-        monitoringThread?.start()
+        DispatchQueue.global(qos: .background).async {
+            self.start()
+        }
+//        monitoringThread = Thread(target: self, selector: #selector(start), object: nil)
+//        monitoringThread?.start()
     }
 
     @objc func start() {
@@ -67,13 +72,12 @@ class PrismDriver: NSObject {
         }
     }
 
-    func stop() {
-        monitoringThread?.cancel()
-        monitoringThread = nil
-    }
+//    func stop() {
+//        monitoringThread?.cancel()
+//        monitoringThread = nil
+//    }
 
-    deinit {
-        stop()
-    }
-
+//    deinit {
+//        stop()
+//    }
 }

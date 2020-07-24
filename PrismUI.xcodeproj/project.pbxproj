@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		130B9A2424C7C70600989667 /* PrismColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130B9A2324C7C70600989667 /* PrismColorPicker.swift */; };
+		130B9A2624C7C76A00989667 /* PrismColorGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130B9A2524C7C76A00989667 /* PrismColorGraphView.swift */; };
+		130B9A2824C7E1D600989667 /* PrismColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130B9A2724C7E1D600989667 /* PrismColor.swift */; };
 		1337E60424C00E36008F2C89 /* PrismEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1337E60324C00E36008F2C89 /* PrismEffect.swift */; };
 		1337E60624C01B5F008F2C89 /* NSColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1337E60524C01B5F008F2C89 /* NSColor+Extension.swift */; };
 		1337E60824C03707008F2C89 /* NoDividerSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1337E60724C03707008F2C89 /* NoDividerSplitView.swift */; };
@@ -31,6 +34,7 @@
 		13B395F224C6BBF000BC159E /* IOHIDManager+Configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B395F124C6BBF000BC159E /* IOHIDManager+Configure.swift */; };
 		13B395F424C6BDD200BC159E /* PrismDeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B395F324C6BDD200BC159E /* PrismDeviceModel.swift */; };
 		13B395F624C6C00D00BC159E /* HIDDriver+PrismDeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B395F524C6C00D00BC159E /* HIDDriver+PrismDeviceModel.swift */; };
+		13B8825524C8BAB600700325 /* PrismColorSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B8825424C8BAB600700325 /* PrismColorSliderView.swift */; };
 		13FEACD224BE4B88009B86ED /* PrismDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FEACD124BE4B88009B86ED /* PrismDriver.swift */; };
 		13FEACD724BEDD45009B86ED /* PrismKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FEACD624BEDD45009B86ED /* PrismKey.swift */; };
 		4EE2D008240733F7C050689F /* Pods_PrismUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C08081D643B770DF1F5178 /* Pods_PrismUI.framework */; };
@@ -38,6 +42,9 @@
 
 /* Begin PBXFileReference section */
 		00C08081D643B770DF1F5178 /* Pods_PrismUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrismUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		130B9A2324C7C70600989667 /* PrismColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismColorPicker.swift; sourceTree = "<group>"; };
+		130B9A2524C7C76A00989667 /* PrismColorGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismColorGraphView.swift; sourceTree = "<group>"; };
+		130B9A2724C7E1D600989667 /* PrismColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismColor.swift; sourceTree = "<group>"; };
 		1337E60324C00E36008F2C89 /* PrismEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismEffect.swift; sourceTree = "<group>"; };
 		1337E60524C01B5F008F2C89 /* NSColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+Extension.swift"; sourceTree = "<group>"; };
 		1337E60724C03707008F2C89 /* NoDividerSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDividerSplitView.swift; sourceTree = "<group>"; };
@@ -66,6 +73,7 @@
 		13B395F124C6BBF000BC159E /* IOHIDManager+Configure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IOHIDManager+Configure.swift"; sourceTree = "<group>"; };
 		13B395F324C6BDD200BC159E /* PrismDeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismDeviceModel.swift; sourceTree = "<group>"; };
 		13B395F524C6C00D00BC159E /* HIDDriver+PrismDeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HIDDriver+PrismDeviceModel.swift"; sourceTree = "<group>"; };
+		13B8825424C8BAB600700325 /* PrismColorSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismColorSliderView.swift; sourceTree = "<group>"; };
 		13FEACD124BE4B88009B86ED /* PrismDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismDriver.swift; sourceTree = "<group>"; };
 		13FEACD624BEDD45009B86ED /* PrismKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismKey.swift; sourceTree = "<group>"; };
 		15747D84AFE6667ADB3C2E4F /* Pods-PrismUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrismUI.debug.xcconfig"; path = "Target Support Files/Pods-PrismUI/Pods-PrismUI.debug.xcconfig"; sourceTree = "<group>"; };
@@ -85,6 +93,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		130B9A2224C7C6EA00989667 /* PrismColorPicker */ = {
+			isa = PBXGroup;
+			children = (
+				130B9A2324C7C70600989667 /* PrismColorPicker.swift */,
+				130B9A2524C7C76A00989667 /* PrismColorGraphView.swift */,
+				13B8825424C8BAB600700325 /* PrismColorSliderView.swift */,
+			);
+			path = PrismColorPicker;
+			sourceTree = "<group>";
+		};
 		134CE94C24BD1C7F00D9D845 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -121,6 +139,7 @@
 			children = (
 				134CE96224BD3A3D00D9D845 /* KeyboardLayout.swift */,
 				1337E60524C01B5F008F2C89 /* NSColor+Extension.swift */,
+				130B9A2724C7E1D600989667 /* PrismColor.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -155,6 +174,7 @@
 		1384D27C24BD184700655884 /* PrismUI */ = {
 			isa = PBXGroup;
 			children = (
+				130B9A2224C7C6EA00989667 /* PrismColorPicker */,
 				13B395DC24C69CCA00BC159E /* Driver */,
 				134CE96F24BD4CCE00D9D845 /* PrismUI-Bridging-Header.h */,
 				13FEACD524BEDAE1009B86ED /* Model */,
@@ -367,12 +387,16 @@
 				13B395E124C69FCD00BC159E /* RawDeviceProtocols.swift in Sources */,
 				1337E60424C00E36008F2C89 /* PrismEffect.swift in Sources */,
 				13FEACD224BE4B88009B86ED /* PrismDriver.swift in Sources */,
+				130B9A2824C7E1D600989667 /* PrismColor.swift in Sources */,
 				134CE96324BD3A3D00D9D845 /* KeyboardLayout.swift in Sources */,
 				1357BD9424C0D94B00A9D58D /* ColorWheelView.swift in Sources */,
+				13B8825524C8BAB600700325 /* PrismColorSliderView.swift in Sources */,
 				13B395F024C6B48700BC159E /* HIDDevice.swift in Sources */,
+				130B9A2424C7C70600989667 /* PrismColorPicker.swift in Sources */,
 				1337E60824C03707008F2C89 /* NoDividerSplitView.swift in Sources */,
 				13B395E424C6A26C00BC159E /* IOHIDDevice+GetProperty.swift in Sources */,
 				134CE95C24BD26B700D9D845 /* BaseViewController.swift in Sources */,
+				130B9A2624C7C76A00989667 /* PrismColorGraphView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
