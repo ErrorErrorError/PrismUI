@@ -33,6 +33,7 @@ public class PrismColorPicker: BaseViewController {
        let label = NSTextField()
         label.placeholderString = "000000"
         label.setupTextField()
+        label.action = #selector(onTextEntered(_:))
         return label
     }()
 
@@ -47,6 +48,7 @@ public class PrismColorPicker: BaseViewController {
        let label = NSTextField()
         label.placeholderString = "255"
         label.setupTextField()
+        label.action = #selector(onTextEntered(_:))
         return label
     }()
 
@@ -61,6 +63,7 @@ public class PrismColorPicker: BaseViewController {
        let label = NSTextField()
         label.placeholderString = "255"
         label.setupTextField()
+        label.action = #selector(onTextEntered(_:))
         return label
     }()
 
@@ -75,6 +78,7 @@ public class PrismColorPicker: BaseViewController {
        let label = NSTextField()
         label.placeholderString = "255"
         label.setupTextField()
+        label.action = #selector(onTextEntered(_:))
         return label
     }()
 
@@ -89,6 +93,10 @@ public class PrismColorPicker: BaseViewController {
         rColorField.delegate = self
         gColorField.delegate = self
         bColorField.delegate = self
+        hexColorField.target = self
+        rColorField.target = self
+        gColorField.target = self
+        bColorField.target = self
 
         view.addSubview(colorGraphView)
         view.addSubview(colorSliderView)
@@ -106,7 +114,7 @@ public class PrismColorPicker: BaseViewController {
 
         setupConstraints()
 
-        setColor(newColor: PrismHSB(hue: 1, saturation: 1, brightness: 1))
+        setColor(newColor: PrismRGB(red: 1.0, green: 1.0, blue: 1.0))
     }
 
     private func setupConstraints() {
@@ -161,14 +169,6 @@ public class PrismColorPicker: BaseViewController {
         bColorField.bottomAnchor.constraint(equalTo: bLabel.bottomAnchor).isActive = true
     }
 
-    private func updateGraphViewFromSlider(newColor: PrismHSB) {
-        guard let originalColor = colorGraphView.color.copy() as? PrismHSB else { return }
-        let modifiedColor = PrismHSB(hue: newColor.hue,
-                                     saturation: originalColor.saturation,
-                                     brightness: originalColor.brightness)
-        colorGraphView.color = modifiedColor
-    }
-
     public func setColor(newColor: PrismHSB) {
         colorGraphView.color = newColor
         guard let modifiedColor = newColor.copy() as? PrismHSB else { return }
@@ -184,11 +184,37 @@ public class PrismColorPicker: BaseViewController {
         setColor(newColor: newColor.toHSV())
     }
 
+    @objc private func onTextEntered(_ textField: NSTextField) {
+        let stringValue = textField.stringValue
+        if textField == hexColorField {
+            let color = PrismRGB(hexString: stringValue)
+            setColor(newColor: color)
+        } else {
+            guard let rInt = Int(rColorField.stringValue) else { return }
+            guard let gInt = Int(gColorField.stringValue) else { return }
+            guard let bInt = Int(bColorField.stringValue) else { return }
+            let color = PrismRGB(red: rInt, green: gInt, blue: bInt)
+            setColor(newColor: color)
+        }
+    }
+}
+
+// MARK: Updates Color picker based on set color method
+extension PrismColorPicker {
+
+    private func updateGraphViewFromSlider(newColor: PrismHSB) {
+        guard let originalColor = colorGraphView.color.copy() as? PrismHSB else { return }
+        let modifiedColor = PrismHSB(hue: newColor.hue,
+                                     saturation: originalColor.saturation,
+                                     brightness: originalColor.brightness)
+        colorGraphView.color = modifiedColor
+    }
+
     private func updateHexText(newColor: PrismRGB) {
         hexColorField.stringValue = String(format: "%02X%02X%02X",
                                            Int(newColor.red * 255),
                                            Int(newColor.green * 255),
-                                           Int(newColor.green * 255))
+                                           Int(newColor.blue * 255))
     }
 
     private func updateRGBText(newColor: PrismRGB) {
@@ -200,6 +226,7 @@ public class PrismColorPicker: BaseViewController {
 }
 
 extension PrismColorPicker: PrismColorSliderDelegate, PrismColorGraphDelegate {
+
     func didColorChange(color: PrismHSB, mouseUp: Bool) {
         let toRGB = color.toRGB()
         updateHexText(newColor: toRGB)
@@ -229,6 +256,7 @@ extension NSTextField {
         self.isBezeled = false
         self.font = NSFont.boldSystemFont(ofSize: 14)
         self.refusesFirstResponder = true
+        self.setContentHuggingPriority(.defaultHigh, for: .horizontal)
     }
 
     func setAsLabel() {
@@ -247,7 +275,7 @@ extension NSTextField {
 extension PrismColorPicker: NSTextFieldDelegate {
 
     private func hexColorValidation(_ string: String) -> Bool {
-        return string.count == 6 && string.containsOnlyHexCharacters
+        return string.count == 6 && string.isHexadecimalChar
     }
 
     private func intColorRangeValidation(_ string: String) -> Bool {
@@ -308,7 +336,7 @@ extension String {
             }
         }
     }
-    var containsOnlyHexCharacters: Bool {
+    var isHexadecimalChar: Bool {
         return !contains {
             switch $0 {
             case "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "a", "b",

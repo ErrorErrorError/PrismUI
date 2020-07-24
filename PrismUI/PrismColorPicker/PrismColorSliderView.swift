@@ -105,8 +105,8 @@ internal class PrismColorSliderView: NSView {
         let yAxis = min(max(point.y, 0), height)
         let hue = yAxis / height
         newColor.hue = hue
-        delegate?.didHueChanged(newColor: color, mouseUp: mouseUp)
         color = newColor
+        delegate?.didHueChanged(newColor: color, mouseUp: mouseUp)
     }
 
     private var clickedBounds = false

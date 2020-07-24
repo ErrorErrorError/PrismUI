@@ -71,9 +71,9 @@ class PrismColorGraphView: NSView {
                                 space: colorSpace,
                                 bitmapInfo: bitmapInfo)
         guard let buffer = context?.data?.bindMemory(to: UInt32.self, capacity: width * height) else { return }
-        let white = PrismRGB(red: 1, green: 1, blue: 1)
-        let black = PrismRGB(red: 0, green: 0, blue: 0)
-        let transparent = PrismRGB(red: 0, green: 0, blue: 0, alpha: 0)
+        let white = PrismRGB(red: 1.0, green: 1.0, blue: 1.0)
+        let black = PrismRGB(red: 0.0, green: 0.0, blue: 0.0)
+        let transparent = PrismRGB(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
         for row in 0..<height {
             for column in 0..<width {
                 let index = row * width + column
@@ -150,9 +150,8 @@ class PrismColorGraphView: NSView {
         let brightness = yAxis / self.bounds.size.height
         newColor.saturation = saturation
         newColor.brightness = brightness
-
-        delegate?.didColorChange(color: color, mouseUp: mouseUp)
         color = newColor
+        delegate?.didColorChange(color: color, mouseUp: mouseUp)
     }
 }
 
