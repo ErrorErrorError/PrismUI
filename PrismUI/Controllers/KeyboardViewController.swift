@@ -13,6 +13,10 @@ class KeyboardViewController: BaseViewController {
 
     var keys: NSMutableArray = NSMutableArray()
 
+    override func loadView() {
+        view = DragSelectionView()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -93,9 +97,11 @@ class KeyboardViewController: BaseViewController {
 extension KeyboardViewController: KeyColorViewDelegate {
     func didSelect(_ sender: KeyColorView) {
 //        let index = view.subviews.firstIndex(of: sender)!
+//        print(sender)
     }
 
     func didDeselect(_ sender: KeyColorView) {
 //        let index = view.subviews.firstIndex(of: sender)!
+//        print(sender)
     }
 }

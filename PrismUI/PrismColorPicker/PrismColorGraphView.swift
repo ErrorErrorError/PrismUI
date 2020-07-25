@@ -21,7 +21,6 @@ class PrismColorGraphView: NSView {
         }
     }
 
-
     weak var delegate: PrismColorGraphDelegate?
 
     override init(frame frameRect: NSRect) {

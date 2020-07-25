@@ -25,6 +25,8 @@
 		134CE97924BD7B8F00D9D845 /* KeyColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134CE97824BD7B8F00D9D845 /* KeyColorView.swift */; };
 		1357BD9424C0D94B00A9D58D /* ColorWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1357BD9324C0D94B00A9D58D /* ColorWheelView.swift */; };
 		1384D28224BD184800655884 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1384D28124BD184800655884 /* Assets.xcassets */; };
+		1393AEF924CC050800B53788 /* DragSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1393AEF824CC050800B53788 /* DragSelectionView.swift */; };
+		1393AEFB24CC069F00B53788 /* NSView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1393AEFA24CC069F00B53788 /* NSView+Extensions.swift */; };
 		13B395E124C69FCD00BC159E /* RawDeviceProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B395E024C69FCD00BC159E /* RawDeviceProtocols.swift */; };
 		13B395E424C6A26C00BC159E /* IOHIDDevice+GetProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B395E324C6A26C00BC159E /* IOHIDDevice+GetProperty.swift */; };
 		13B395E624C6A70900BC159E /* IOHIDDevice+FeatureReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B395E524C6A70900BC159E /* IOHIDDevice+FeatureReport.swift */; };
@@ -64,6 +66,8 @@
 		1384D28124BD184800655884 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1384D28624BD184800655884 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1384D28724BD184800655884 /* PrismUI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PrismUI.entitlements; sourceTree = "<group>"; };
+		1393AEF824CC050800B53788 /* DragSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragSelectionView.swift; sourceTree = "<group>"; };
+		1393AEFA24CC069F00B53788 /* NSView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSView+Extensions.swift"; sourceTree = "<group>"; };
 		13B395E024C69FCD00BC159E /* RawDeviceProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawDeviceProtocols.swift; sourceTree = "<group>"; };
 		13B395E324C6A26C00BC159E /* IOHIDDevice+GetProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IOHIDDevice+GetProperty.swift"; sourceTree = "<group>"; };
 		13B395E524C6A70900BC159E /* IOHIDDevice+FeatureReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IOHIDDevice+FeatureReport.swift"; sourceTree = "<group>"; };
@@ -106,9 +110,11 @@
 		134CE94C24BD1C7F00D9D845 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1393AEFC24CC06F100B53788 /* Extensions */,
 				134CE97824BD7B8F00D9D845 /* KeyColorView.swift */,
 				1337E60724C03707008F2C89 /* NoDividerSplitView.swift */,
 				1357BD9324C0D94B00A9D58D /* ColorWheelView.swift */,
+				1393AEF824CC050800B53788 /* DragSelectionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -187,6 +193,14 @@
 				1384D28724BD184800655884 /* PrismUI.entitlements */,
 			);
 			path = PrismUI;
+			sourceTree = "<group>";
+		};
+		1393AEFC24CC06F100B53788 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1393AEFA24CC069F00B53788 /* NSView+Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		13B395DC24C69CCA00BC159E /* Driver */ = {
@@ -386,9 +400,11 @@
 				134CE95724BD1C7F00D9D845 /* PresetsViewController.swift in Sources */,
 				13B395E124C69FCD00BC159E /* RawDeviceProtocols.swift in Sources */,
 				1337E60424C00E36008F2C89 /* PrismEffect.swift in Sources */,
+				1393AEFB24CC069F00B53788 /* NSView+Extensions.swift in Sources */,
 				13FEACD224BE4B88009B86ED /* PrismDriver.swift in Sources */,
 				130B9A2824C7E1D600989667 /* PrismColor.swift in Sources */,
 				134CE96324BD3A3D00D9D845 /* KeyboardLayout.swift in Sources */,
+				1393AEF924CC050800B53788 /* DragSelectionView.swift in Sources */,
 				1357BD9424C0D94B00A9D58D /* ColorWheelView.swift in Sources */,
 				13B8825524C8BAB600700325 /* PrismColorSliderView.swift in Sources */,
 				13B395F024C6B48700BC159E /* HIDDevice.swift in Sources */,

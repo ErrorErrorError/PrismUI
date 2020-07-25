@@ -11,11 +11,11 @@ import Cocoa
 //@NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    var prismDriver: PrismDriver?
+    var prismDriver: PrismDriver = PrismDriver.shared
 
     let mainWindow: NSWindow = {
         let window = NSWindow()
-        window.setContentSize(NSSize(width: 1280, height: 720))
+        window.setContentSize(NSSize(width: 1380, height: 720))
         window.title = "PrismUI"
         window.titlebarAppearsTransparent = true
         window.styleMask.insert([.miniaturizable, .closable, .titled, .fullSizeContentView])
@@ -26,7 +26,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        prismDriver = PrismDriver.shared
         let splitViewController = MainSplitViewController()
         mainWindow.contentViewController = splitViewController
     }

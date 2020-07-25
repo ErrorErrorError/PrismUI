@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class KeyColorView: NSControl, CALayerDelegate {
+class KeyColorView: NSView, CALayerDelegate {
 
     var text: NSString = NSString()
 
@@ -25,10 +25,10 @@ class KeyColorView: NSControl, CALayerDelegate {
       }
     }
 
-    var isSelected = false {
+    var selected = false {
         didSet(oldValue) {
-            isSelected ? delegate?.didSelect(self) : delegate?.didDeselect(self)
-            layer?.borderWidth = isSelected ? 5 : 0
+            selected ? delegate?.didSelect(self) : delegate?.didDeselect(self)
+            layer?.borderWidth = selected ? 5 : 0
             layer?.setNeedsDisplay()
         }
     }
@@ -80,7 +80,7 @@ class KeyColorView: NSControl, CALayerDelegate {
 
     override func mouseUp(with event: NSEvent) {
         super.mouseUp(with: event)
-        self.isSelected = !isSelected
+        self.selected = !selected
     }
 }
 

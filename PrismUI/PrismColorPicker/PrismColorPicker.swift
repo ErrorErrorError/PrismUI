@@ -114,7 +114,7 @@ public class PrismColorPicker: BaseViewController {
 
         setupConstraints()
 
-        setColor(newColor: PrismRGB(red: 1.0, green: 1.0, blue: 1.0))
+        setColor(newColor: PrismRGB(red: 1.0, green: 0, blue: 0))
     }
 
     private func setupConstraints() {
