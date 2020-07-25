@@ -110,8 +110,8 @@ public class PrismRGB: NSObject {
     }
 
     func toHSV() -> PrismHSB {
-        let maxV: CGFloat = max(red, max(green, blue))
-        let minV: CGFloat = min(red, min(green, blue))
+        let maxV: CGFloat = max(red, green, blue)
+        let minV: CGFloat = min(red, green, blue)
         var hue: CGFloat = 0
         var saturation: CGFloat = 0.0
         let brightness: CGFloat = maxV

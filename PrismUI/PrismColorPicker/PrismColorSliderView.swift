@@ -12,12 +12,15 @@ internal class PrismColorSliderView: NSView {
 
     private let strokeWidth: CGFloat = 3
     private var selectorRect: NSRect!
+    private var colorHueImage: CGImage?
+    private var clickedBounds = false
     var color: PrismHSB = PrismHSB(hue: 1, saturation: 1, brightness: 1) {
-        didSet(oldValue) {
+        willSet(newValue) {
+            updateSelectorFromColor(newValue)
             needsDisplay = true
         }
     }
-    private var colorHueImage: CGImage?
+
     weak var delegate: PrismColorSliderDelegate?
 
     public override init(frame frameRect: NSRect) {
@@ -29,6 +32,16 @@ internal class PrismColorSliderView: NSView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    override func setFrameSize(_ newSize: NSSize) {
+        super.setFrameSize(newSize)
+        updateSelectorFromColor(color)
+    }
+
+}
+
+// MARK: Drawing functions
+extension PrismColorSliderView {
 
     public override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
@@ -83,13 +96,6 @@ internal class PrismColorSliderView: NSView {
 
     private func drawSelector(_ context: CGContext) {
         context.resetClip()
-        let width: CGFloat = bounds.size.width
-        let height: CGFloat = bounds.size.height
-
-        let xAxis = width/2 - selectorRect.width/2
-        let yAxis = color.hue * (height - selectorRect.height)
-        selectorRect.origin = NSPoint(x: xAxis, y: yAxis)
-
         color.nsColor.setFill()
         context.fillEllipse(in: selectorRect)
 
@@ -99,9 +105,14 @@ internal class PrismColorSliderView: NSView {
         context.resetClip()
     }
 
+}
+
+// MARK: Update functions
+extension PrismColorSliderView {
+
     private func updateColorFromPoint(point: NSPoint, mouseUp: Bool = false) {
         guard let newColor = color.copy() as? PrismHSB else { return }
-        let height = bounds.height - selectorRect.height/2
+        let height = bounds.height - selectorRect.height
         let yAxis = min(max(point.y, 0), height)
         let hue = yAxis / height
         newColor.hue = hue
@@ -109,44 +120,62 @@ internal class PrismColorSliderView: NSView {
         delegate?.didHueChanged(newColor: color, mouseUp: mouseUp)
     }
 
-    private var clickedBounds = false
+    private func updateSelectorFromColor(_ newColor: PrismHSB) {
+        let width: CGFloat = bounds.size.width
+        let height: CGFloat = bounds.size.height - selectorRect.height
+
+        let xAxis = width/2 - selectorRect.width/2
+        let yAxis = newColor.hue * height
+        selectorRect.origin = NSPoint(x: xAxis, y: yAxis)
+    }
+
+    private func updateSelectorFromPoint(_ newPoint: CGPoint) {
+        let width = bounds.size.width - selectorRect.width
+        let height = bounds.size.height - selectorRect.height
+        var xAxis = newPoint.x - selectorRect.width/2
+        var yAxis = newPoint.y - selectorRect.height/2
+        xAxis = min(max(xAxis, 0), width)
+        yAxis = min(max(yAxis, 0), height)
+        selectorRect.origin = CGPoint(x: xAxis, y: yAxis)
+    }
+
 }
 
 extension PrismColorSliderView {
+
     override func mouseDown(with event: NSEvent) {
             super.mouseDown(with: event)
-        guard let localPoint = window?.contentView?.convert(event.locationInWindow, to: self) else {
+        guard let newPoint = window?.contentView?.convert(event.locationInWindow, to: self) else {
             print("Could not convert window point to local point")
             return
         }
-        if self.selectorRect.contains(localPoint) {
+        if self.selectorRect.contains(newPoint) {
+            updateSelectorFromPoint(newPoint)
+            updateColorFromPoint(point: selectorRect.origin)
             clickedBounds = true
-            updateColorFromPoint(point: localPoint)
         }
     }
 
     override func mouseDragged(with event: NSEvent) {
         super.mouseDragged(with: event)
-        guard let localPoint = window?.contentView?.convert(event.locationInWindow, to: self) else {
+        guard let newPoint = window?.contentView?.convert(event.locationInWindow, to: self) else {
             print("Could not convert window point to local point")
             return
         }
-        if clickedBounds {
-                updateColorFromPoint(point: localPoint)
-        }
+
+        guard clickedBounds else { return }
+        updateSelectorFromPoint(newPoint)
+        updateColorFromPoint(point: selectorRect.origin)
     }
 
     override func mouseUp(with event: NSEvent) {
         super.mouseUp(with: event)
-        guard let localPoint = window?.contentView?.convert(event.locationInWindow, to: self) else {
-            print("Could not convert window point to local point")
-            return
-        }
         if clickedBounds {
-            updateColorFromPoint(point: localPoint, mouseUp: true)
+            updateColorFromPoint(point: selectorRect.origin, mouseUp: true)
             clickedBounds = false
         }
     }
+
 }
 
 internal protocol PrismColorSliderDelegate: AnyObject {

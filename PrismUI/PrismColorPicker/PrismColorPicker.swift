@@ -170,18 +170,13 @@ public class PrismColorPicker: BaseViewController {
     }
 
     public func setColor(newColor: PrismHSB) {
-        colorGraphView.color = newColor
-        guard let modifiedColor = newColor.copy() as? PrismHSB else { return }
-        modifiedColor.saturation = 1
-        modifiedColor.brightness = 1
-        colorSliderView.color = modifiedColor
-        let toRGB = newColor.toRGB()
-        updateHexText(newColor: toRGB)
-        updateRGBText(newColor: toRGB)
+        updateTextLabel(newColor: newColor.toRGB())
+        updateColorGraphAndSlider(newColor: newColor)
     }
 
     public func setColor(newColor: PrismRGB) {
-        setColor(newColor: newColor.toHSV())
+        updateTextLabel(newColor: newColor)
+        updateColorGraphAndSlider(newColor: newColor.toHSV())
     }
 
     @objc private func onTextEntered(_ textField: NSTextField) {
@@ -196,6 +191,7 @@ public class PrismColorPicker: BaseViewController {
             let color = PrismRGB(red: rInt, green: gInt, blue: bInt)
             setColor(newColor: color)
         }
+        view.window?.makeFirstResponder(view)
     }
 }
 
@@ -210,35 +206,42 @@ extension PrismColorPicker {
         colorGraphView.color = modifiedColor
     }
 
-    private func updateHexText(newColor: PrismRGB) {
+    private func updateTextLabel(newColor: PrismRGB) {
+        let red = Int(newColor.red * 255)
+        let green = Int(newColor.green * 255)
+        let blue = Int(newColor.blue * 255)
+        rColorField.stringValue = "\(red)"
+        gColorField.stringValue = "\(green)"
+        bColorField.stringValue = "\(blue)"
+
         hexColorField.stringValue = String(format: "%02X%02X%02X",
-                                           Int(newColor.red * 255),
-                                           Int(newColor.green * 255),
-                                           Int(newColor.blue * 255))
+                                           red,
+                                           green,
+                                           blue
+        )
     }
 
-    private func updateRGBText(newColor: PrismRGB) {
-        rColorField.stringValue = "\(Int(newColor.red * 255))"
-        gColorField.stringValue = "\(Int(newColor.green * 255))"
-        bColorField.stringValue = "\(Int(newColor.blue * 255))"
+    private func updateColorGraphAndSlider(newColor: PrismHSB) {
+        colorGraphView.color = newColor
+        guard let modifiedColor = newColor.copy() as? PrismHSB else { return }
+        modifiedColor.saturation = 1
+        modifiedColor.brightness = 1
+        colorSliderView.color = modifiedColor
     }
-
 }
 
 extension PrismColorPicker: PrismColorSliderDelegate, PrismColorGraphDelegate {
 
     func didColorChange(color: PrismHSB, mouseUp: Bool) {
         let toRGB = color.toRGB()
-        updateHexText(newColor: toRGB)
-        updateRGBText(newColor: toRGB)
+        updateTextLabel(newColor: toRGB)
         delegate?.didColorChange(newColor: toRGB, finishedChanging: mouseUp)
     }
 
     func didHueChanged(newColor: PrismHSB, mouseUp: Bool) {
         updateGraphViewFromSlider(newColor: newColor)
         let rgb = colorGraphView.color.toRGB()
-        updateHexText(newColor: rgb)
-        updateRGBText(newColor: rgb)
+        updateTextLabel(newColor: rgb)
         delegate?.didColorChange(newColor: rgb, finishedChanging: mouseUp)
     }
 }
@@ -308,6 +311,7 @@ extension PrismColorPicker: NSTextFieldDelegate {
             textField.stringValue = self.oldStringBeforeEditing
         }
         textField.resignFirstResponder()
+        oldStringBeforeEditing = ""
     }
 
     public func controlTextDidChange(_ obj: Notification) {
