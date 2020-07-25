@@ -12,7 +12,7 @@ import Cocoa
 class KeyboardViewController: BaseViewController {
 
     var keys: NSMutableArray = NSMutableArray()
-
+    private var prismDriver: PrismDriver!
     override func loadView() {
         view = DragSelectionView()
     }
@@ -21,10 +21,12 @@ class KeyboardViewController: BaseViewController {
         super.viewDidLoad()
 
         (self.view as? NSVisualEffectView)?.material = .contentBackground
-        guard let prismDevice = PrismDriver.shared.prismDevice else {
-            print("Keyboard model not found")
-            return
-        }
+        prismDriver = PrismDriver.shared
+    }
+
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        guard let prismDevice = prismDriver.prismDevice else { return }
         setupKeyboardLayout(model: prismDevice.model)
     }
 
@@ -39,10 +41,11 @@ class KeyboardViewController: BaseViewController {
         let padding: CGFloat = 5
         let desiredKeyWidth: CGFloat = model == .perKey ? 50 : 60
         let desiredKeyHeight = desiredKeyWidth
-        let xOffset: CGFloat = model == .perKey ? 35 : 85
         let keyboardHeight = 6 * desiredKeyHeight
-        var xPos = xOffset
-        var yPos: CGFloat = (720 - keyboardHeight) / 2 + keyboardHeight - desiredKeyHeight
+        let keyboardWidth = ((model == .perKey) ? 20 : 15) * desiredKeyWidth
+        let xOffset: CGFloat = (view.frame.width - keyboardWidth) / 2
+        var xPos: CGFloat = xOffset
+        var yPos: CGFloat = (view.frame.height - keyboardHeight) / 2 + keyboardHeight - desiredKeyHeight
 
         for (index, row) in keyboardMap.enumerated() {
             for (subIndex, widthFract) in row.enumerated() {

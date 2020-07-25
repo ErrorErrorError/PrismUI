@@ -22,11 +22,8 @@ class PrismDriver: NSObject {
 
     private override init() {
         super.init()
-        DispatchQueue.global(qos: .background).async {
-            self.start()
-        }
-//        monitoringThread = Thread(target: self, selector: #selector(start), object: nil)
-//        monitoringThread?.start()
+        monitoringThread = Thread(target: self, selector: #selector(start), object: nil)
+        monitoringThread?.start()
     }
 
     @objc func start() {
@@ -72,12 +69,12 @@ class PrismDriver: NSObject {
         }
     }
 
-//    func stop() {
-//        monitoringThread?.cancel()
-//        monitoringThread = nil
-//    }
+    func stop() {
+        monitoringThread?.cancel()
+        monitoringThread = nil
+    }
 
-//    deinit {
-//        stop()
-//    }
+    deinit {
+        stop()
+    }
 }
