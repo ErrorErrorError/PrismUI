@@ -8,32 +8,9 @@
 
 import Cocoa
 
-class KeyColorView: NSView, CALayerDelegate {
+class KeyColorView: ColorView {
 
     var text: NSString = NSString()
-
-    var color: NSColor = .white {
-      willSet(newValue) {
-        layer?.backgroundColor = newValue.cgColor
-        if newValue.scaledBrightness < 0.5 {
-            layer?.borderColor = NSColor.white.usingColorSpace(.genericRGB)!
-                .darkerColor(percent: Double(newValue.scaledBrightness)).cgColor
-        } else {
-            layer?.borderColor = newValue.darkerColor(percent: 0.5).cgColor
-        }
-        layer?.setNeedsDisplay()
-      }
-    }
-
-    var selected = false {
-        didSet(oldValue) {
-            selected ? delegate?.didSelect(self) : delegate?.didDeselect(self)
-            layer?.borderWidth = selected ? 5 : 0
-            layer?.setNeedsDisplay()
-        }
-    }
-
-    weak var delegate: KeyColorViewDelegate?
 
     let textStyle: NSParagraphStyle = {
         let style = NSMutableParagraphStyle()
@@ -41,46 +18,14 @@ class KeyColorView: NSView, CALayerDelegate {
         return style
     }()
 
-    let newLayer: CALayer = {
-        let new = CALayer()
-        new.cornerRadius = 4.0
-        new.borderColor = NSColor.lightGray.cgColor
-        new.borderWidth = 0
-        new.shadowOffset = CGSize(width: 0, height: -0.5)
-        new.shadowColor = NSColor.black.cgColor
-        new.shadowRadius = 0
-        new.shadowOpacity = 0.2
-        new.allowsEdgeAntialiasing = true
-        return new
-    }()
-
-    init(text: String) {
-        super.init(frame: NSRect.zero)
+    convenience init(text: String) {
+        self.init()
         self.text = text as NSString
-
-        setup()
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    private func setup() {
-        wantsLayer = true
-        layer = newLayer
-        layer!.delegate = self
-        layer!.backgroundColor = color.cgColor
-        layer!.setNeedsDisplay()
     }
 
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         text.drawVerticallyCentered(in: dirtyRect, withAttributes: [NSAttributedString.Key.paragraphStyle: textStyle])
-    }
-
-    override func mouseUp(with event: NSEvent) {
-        super.mouseUp(with: event)
-        self.selected = !selected
     }
 }
 
@@ -94,9 +39,4 @@ extension NSString {
                                   height: size.height)
         self.draw(in: centeredRect, withAttributes: attributes)
     }
-}
-
-protocol KeyColorViewDelegate: AnyObject {
-    func didSelect(_ sender: KeyColorView)
-    func didDeselect(_ sender: KeyColorView)
 }

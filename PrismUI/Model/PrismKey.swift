@@ -13,7 +13,7 @@ struct PrismKey {
     var keycode: UInt8 = 0
     var effectId: UInt8 = 0
     var duration: UInt16 = 0
-    var mainColor: prism_rgb = prism_rgb()
-    var activeColor: prism_rgb = prism_rgb()
-    var mode: per_key_modes = steady
+    var mainColor: PrismRGB = PrismRGB(red: 1.0, green: 0.0, blue: 0.0)
+    var activeColor: PrismRGB = PrismRGB(red: 0, green: 0, blue: 0)
+//    var mode: per_key_modes = steady
 }

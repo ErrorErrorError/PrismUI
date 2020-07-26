@@ -9,9 +9,25 @@
 
 import Cocoa
 
-class DragSelectionView: NSView {
+class DragSelectionView: NSVisualEffectView {
 
     private var selectionLayer: CAShapeLayer?
+    private var selectionRect: NSRect? = .zero {
+        didSet {
+            subviews.forEach { view in
+                if let view = view as? ColorView {
+                    if let rect = selectionRect {
+                        let contains = contain(view, in: rect)
+                        if contains != view.isSelected {
+                            view.isSelected = contains
+                        }
+                    }
+                }
+            }
+
+            needsDisplay = true
+        }
+    }
 
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
@@ -21,11 +37,10 @@ class DragSelectionView: NSView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func draw(_ dirtyRect: NSRect) {
-        super.draw(dirtyRect)
+    override func updateLayer() {
+        super.updateLayer()
         selectionLayer?.removeFromSuperlayer()
         selectionLayer = CAShapeLayer(layer: layer!)
-        selectionLayer?.lineWidth = 1
         if let rect = selectionRect {
             let path = CGPath(rect: rect, transform: nil)
             selectionLayer?.lineWidth = 1
@@ -52,7 +67,7 @@ class DragSelectionView: NSView {
         didSet {
             var wasClicked = false
             subviews.forEach { view in
-                if let view = view as? KeyColorView, !wasClicked {
+                if let view = view as? ColorView, !wasClicked {
                     if let pointDown = downPoint {
                         wasClicked = view.frame.contains(pointDown)
                     }
@@ -60,27 +75,11 @@ class DragSelectionView: NSView {
             }
             if !wasClicked && downPoint != nil {
                 subviews.forEach {
-                    if let view = $0 as? KeyColorView, view.selected {
-                        view.selected = false
+                    if let view = $0 as? ColorView, view.isSelected {
+                        view.isSelected = false
                     }
                 }
             }
-        }
-    }
-    private var selectionRect: NSRect? = .zero {
-        didSet {
-            subviews.forEach { view in
-                if let view = view as? KeyColorView {
-                    if let rect = selectionRect {
-                        let contains = contain(view, in: rect)
-                        if contains != view.selected {
-                            view.selected = contains
-                        }
-                    }
-                }
-            }
-
-            needsDisplay = true
         }
     }
 

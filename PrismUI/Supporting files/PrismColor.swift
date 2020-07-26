@@ -23,21 +23,6 @@ public class PrismHSB: NSObject, NSCopying {
         self.alpha = alpha
     }
 
-    public var nsColor: NSColor {
-        get {
-            return NSColor(hue: self.hue,
-                           saturation: self.saturation,
-                           brightness: self.brightness,
-                           alpha: self.alpha)
-        }
-        set(newColor) {
-            self.hue = newColor.hueComponent
-            self.saturation = newColor.saturationComponent
-            self.brightness = newColor.brightnessComponent
-            self.alpha = newColor.alphaComponent
-        }
-    }
-
     func toRGB() -> PrismRGB {
         if saturation == 0.0 { return PrismRGB(red: brightness, green: brightness, blue: brightness) }
 
@@ -74,10 +59,10 @@ public class PrismHSB: NSObject, NSCopying {
 
 public class PrismRGB: NSObject {
 
-    let red: CGFloat // [0, 1]
-    let green: CGFloat // [0, 1]
-    let blue: CGFloat // [0, 1]
-    let alpha: CGFloat // [0, 1]
+    var red: CGFloat // [0, 1]
+    var green: CGFloat // [0, 1]
+    var blue: CGFloat // [0, 1]
+    var alpha: CGFloat // [0, 1]
 
     public init(red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat = 1.0) {
         self.red = red
@@ -141,4 +126,42 @@ public class PrismRGB: NSObject {
         hsb.alpha = alpha
         return hsb
     }
+}
+
+extension PrismRGB {
+
+    public var nsColor: NSColor {
+        get {
+            return NSColor(deviceRed: self.red,
+                           green: self.green,
+                           blue: self.blue,
+                           alpha: self.alpha)
+        }
+        set(newColor) {
+            self.red = newColor.redComponent
+            self.green = newColor.greenComponent
+            self.blue = newColor.blueComponent
+            self.alpha = newColor.alphaComponent
+        }
+    }
+
+}
+
+extension PrismHSB {
+
+    public var nsColor: NSColor {
+        get {
+            return NSColor(deviceHue: self.hue,
+                           saturation: self.saturation,
+                           brightness: self.brightness,
+                           alpha: self.alpha)
+        }
+        set(newColor) {
+            self.hue = newColor.hueComponent
+            self.saturation = newColor.saturationComponent
+            self.brightness = newColor.brightnessComponent
+            self.alpha = newColor.alphaComponent
+        }
+    }
+
 }

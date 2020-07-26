@@ -118,7 +118,6 @@ extension PrismColorGraphView {
         NSColor.white.setStroke()
         context.setLineWidth(strokeWidth)
         context.strokeEllipse(in: selectorRect.insetBy(dx: strokeWidth/2, dy: strokeWidth/2))
-        context.resetClip()
     }
 
 }

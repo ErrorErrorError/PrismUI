@@ -10,14 +10,14 @@ import Cocoa
 
 extension NSColor {
 
-    public func getHSB() -> PrismHSB {
+    var prismHSB: PrismHSB {
         return PrismHSB(hue: self.hueComponent,
-                   saturation: self.saturationComponent,
-                   brightness: self.brightnessComponent,
-                   alpha: self.alphaComponent)
+                       saturation: self.saturationComponent,
+                       brightness: self.brightnessComponent,
+                       alpha: self.alphaComponent)
     }
 
-    public func getRGB() -> PrismRGB {
+    var prismRGB: PrismRGB {
         return PrismRGB(red: self.redComponent,
                         green: self.greenComponent,
                         blue: self.blueComponent,
