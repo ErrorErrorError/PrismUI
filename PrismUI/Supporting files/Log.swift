@@ -13,6 +13,7 @@ import PrismDriver
 final class Log {
     static func debug(_ message: String) {
         os_log("%{public}@", log: .prismUI, type: .info, message)
+        ////// TESTING COMMITTTTT
     }
 
     static func error(_ message: String) {
