@@ -27,18 +27,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        mainWindow.delegate = self
         let splitViewController = MainSplitViewController()
         mainWindow.contentViewController = splitViewController
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
-    }
-}
-
-extension AppDelegate: NSWindowDelegate {
-    func windowWillClose(_ notification: Notification) {
-        NSApp.terminate(nil)
     }
 }
