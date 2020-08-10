@@ -14,6 +14,7 @@ final class Log {
     static func debug(_ message: String) {
         os_log("%{public}@", log: .prismUI, type: .info, message)
         ////// TESTING COMMITTTTT
+        //// SECOND COMMITTTTTT
     }
 
     static func error(_ message: String) {
