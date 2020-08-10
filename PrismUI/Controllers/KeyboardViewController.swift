@@ -26,6 +26,7 @@ class KeyboardViewController: BaseViewController {
     override func viewDidAppear() {
         super.viewDidAppear()
         guard let prismDevice = PrismDriver.shared.prismDevice else { return }
+        Log.debug("test")
         setupKeyboardLayout(model: prismDevice.model)
     }
 
@@ -62,7 +63,7 @@ class KeyboardViewController: BaseViewController {
                 self.view.addSubview(keyView)
                 xPos += desiredKeyWidth * widthFract
 
-                let keycode = keycodeArray[index][subIndex]
+//                let keycode = keycodeArray[index][subIndex]
 //                self.keys.add(PrismKey(region: getRegionKey(keyChar, keycode: keycode),
 //                                            keycode: keycode,
 //                                            effectId: 0,
