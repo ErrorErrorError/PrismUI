@@ -11,6 +11,14 @@ import Cocoa
 
 class ModesViewController: BaseViewController {
 
+    // Keys array
+
+    static let keyArray = NSMutableArray()
+
+    // Selector array
+
+    static let selectorArray = NSMutableArray()
+
     // MARK: Common initialization
 
     let presetsButton: NSButton = {
@@ -22,23 +30,20 @@ class ModesViewController: BaseViewController {
     }()
 
     let modesLabel: NSTextField = {
-        let label = NSTextField()
-        label.setAsLabel()
-        label.textColor = NSColor.headerTextColor
+        let label = NSTextField(labelWithString: "EFFECT")
         label.font = NSFont.boldSystemFont(ofSize: 12)
-        label.stringValue = "EFFECT"
         return label
     }()
 
     let modesPopUp: NSPopUpButton = {
         let popup = NSPopUpButton()
-        popup.addItem(withTitle: "Steady")
-        popup.addItem(withTitle: "ColorShift")
-        popup.addItem(withTitle: "Breathing")
-        popup.addItem(withTitle: "Reactive")
-        popup.addItem(withTitle: "Disabled")
-        popup.addItem(withTitle: "Mixed")
-        popup.item(withTitle: "Mixed")?.isHidden = true
+        popup.addItem(withTitle: PrismModes.steady.rawValue)
+        popup.addItem(withTitle: PrismModes.colorShift.rawValue)
+        popup.addItem(withTitle: PrismModes.breathing.rawValue)
+        popup.addItem(withTitle: PrismModes.reactive.rawValue)
+        popup.addItem(withTitle: PrismModes.disabled.rawValue)
+        popup.addItem(withTitle: PrismModes.mixed.rawValue)
+        popup.item(withTitle: PrismModes.mixed.rawValue)?.isHidden = true
         popup.action = #selector(didModesPopupChanged(_:))
         return popup
     }()
@@ -46,9 +51,8 @@ class ModesViewController: BaseViewController {
     let colorPicker: PrismColorPicker = PrismColorPicker()
 
     let speedText: NSTextField = {
-        let label = NSTextField()
+        let label = NSTextField(labelWithString: "Speed")
         label.setAsLabel()
-        label.stringValue = "Speed"
         return label
     }()
 
@@ -58,12 +62,19 @@ class ModesViewController: BaseViewController {
         return slider
     }()
 
+    // MARK: ColorShift and Breathing
+
+    let multiSlider: PrismMultiSliderView = {
+        let slider = PrismMultiSliderView()
+        slider.isHidden = true
+        return slider
+    }()
+
     // MARK: Reactive initialization
 
     let reactActiveText: NSTextField = {
-        let label = NSTextField()
+        let label = NSTextField(labelWithString: "Active")
         label.setAsLabel()
-        label.stringValue = "Active"
         label.isHidden = true
         return label
     }()
@@ -76,9 +87,8 @@ class ModesViewController: BaseViewController {
     }()
 
     let reactRestText: NSTextField = {
-        let label = NSTextField()
+        let label = NSTextField(labelWithString: "Rest")
         label.setAsLabel()
-        label.stringValue = "Rest"
         label.isHidden = true
         return label
     }()
@@ -105,11 +115,13 @@ class ModesViewController: BaseViewController {
         presetsButton.target = self
         modesPopUp.target = self
         colorPicker.delegate = self
+        multiSlider.selectorDelegate = self
 //        reactActiveColor.delegate = self
 //        reactRestColor.delegate = self
         view.addSubview(presetsButton)
         view.addSubview(modesLabel)
         view.addSubview(modesPopUp)
+        view.addSubview(multiSlider)
         view.addSubview(reactActiveText)
         view.addSubview(reactActiveColor)
         view.addSubview(reactRestText)
@@ -159,7 +171,13 @@ class ModesViewController: BaseViewController {
         reactRestText.trailingAnchor.constraint(equalTo: colorPicker.view.trailingAnchor).isActive = true
         reactRestText.centerYAnchor.constraint(equalTo: reactRestColor.centerYAnchor).isActive = true
 
-        // Color
+        // ColorShift cconstraints
+
+        multiSlider.leadingAnchor.constraint(equalTo: colorPicker.view.leadingAnchor).isActive = true
+        multiSlider.trailingAnchor.constraint(equalTo: colorPicker.view.trailingAnchor).isActive = true
+        multiSlider.topAnchor.constraint(equalTo: colorPicker.view.bottomAnchor).isActive = true
+        multiSlider.heightAnchor.constraint(equalToConstant: heightView).isActive = true
+
     }
 
     @objc func onButtonClicked(_ sender: NSButton) {
@@ -170,10 +188,26 @@ class ModesViewController: BaseViewController {
     @objc func didModesPopupChanged(_ sender: NSPopUpButton) {
         print("sender: \(String(describing: sender.titleOfSelectedItem))")
         switch sender.titleOfSelectedItem {
-        case "Steady":
+        case PrismModes.steady.rawValue:
             showReactiveMode(shouldShow: false)
-        case "Reactive":
+            showColorShiftMode(shouldShow: false)
+            showBreadingMode(shouldShow: false)
+        case PrismModes.reactive.rawValue:
+            showColorShiftMode(shouldShow: false)
+            showBreadingMode(shouldShow: false)
             showReactiveMode()
+        case PrismModes.colorShift.rawValue:
+            showReactiveMode(shouldShow: false)
+            showBreadingMode(shouldShow: false)
+            showColorShiftMode()
+        case PrismModes.breathing.rawValue:
+            showReactiveMode(shouldShow: false)
+            showColorShiftMode(shouldShow: false)
+            showBreadingMode()
+        case PrismModes.disabled.rawValue:
+            showReactiveMode(shouldShow: false)
+            showColorShiftMode(shouldShow: false)
+            showBreadingMode(shouldShow: false)
         default:
             Log.error("Mode Unavalilable")
         }
@@ -189,11 +223,45 @@ extension ModesViewController {
         reactRestColor.isHidden = !shouldShow
     }
 
+    private func showColorShiftMode(shouldShow: Bool = true) {
+        if shouldShow { multiSlider.mode = .colorShift }
+        multiSlider.isHidden = !shouldShow
+    }
+
+    private func showBreadingMode(shouldShow: Bool = true) {
+        if shouldShow { multiSlider.mode = .breathing }
+        multiSlider.isHidden = !shouldShow
+    }
 }
 
 extension ModesViewController: PrismColorPickerDelegate {
     func didColorChange(newColor: PrismRGB, finishedChanging: Bool) {
+        switch modesPopUp.titleOfSelectedItem {
+        case PrismModes.steady.rawValue:
+            ModesViewController.keyArray.filter { ($0 as? ColorView) != nil }.forEach {
+                guard let colorView = $0 as? ColorView else { return }
+                colorView.color = newColor.nsColor
+            }
+        case PrismModes.colorShift.rawValue,
+             PrismModes.breathing.rawValue:
+            ModesViewController.selectorArray.filter { ($0 as? PrismSelector) != nil }.forEach {
+                guard let selector = $0 as? PrismSelector else { return }
+                selector.color = newColor.toHSV()
+            }
+        default:
+            break
+        }
+    }
+}
 
+extension ModesViewController: PrismSelectionDelegate {
+
+    func didSelect(_ sender: PrismSelector) {
+        ModesViewController.selectorArray.add(sender)
+    }
+
+    func didDeselect(_ sender: PrismSelector) {
+        ModesViewController.selectorArray.remove(sender)
     }
 }
 

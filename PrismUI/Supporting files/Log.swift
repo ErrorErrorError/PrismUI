@@ -8,7 +8,6 @@
 
 import Foundation
 import OSLog
-import PrismDriver
 
 final class Log {
     static func debug(_ message: String) {
@@ -22,5 +21,4 @@ final class Log {
 
 extension OSLog {
     static let prismUI = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "PrismUI")
-    static let prismDriver = OSLog(subsystem: Bundle(for: PrismDriver.self).bundleIdentifier!, category: "PrismDriver")
 }

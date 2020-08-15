@@ -1,8 +1,8 @@
 //
-//  NSTextField+Extensions.swift
+//  NSTextField+Extension.swift
 //  PrismUI
 //
-//  Created by Erik Bautista on 7/25/20.
+//  Created by Erik Bautista on 8/14/20.
 //  Copyright © 2020 ErrorErrorError. All rights reserved.
 //
 
@@ -21,14 +21,8 @@ extension NSTextField {
     }
 
     func setAsLabel() {
-        self.isEditable = false
-        self.isBezeled = false
-        self.isBordered = false
-        self.drawsBackground = false
-        self.isSelectable = false
         self.textColor = NSColor.secondaryLabelColor
         self.font = NSFont.systemFont(ofSize: 14)
         self.setContentHuggingPriority(.defaultHigh, for: .horizontal)
     }
-
 }

@@ -145,6 +145,14 @@ extension PrismRGB {
         }
     }
 
+    public var cgColor: CGColor {
+        get {
+            return CGColor(srgbRed: self.red,
+                           green: self.green,
+                           blue: self.blue,
+                           alpha: self.alpha)
+        }
+    }
 }
 
 extension PrismHSB {
@@ -163,5 +171,4 @@ extension PrismHSB {
             self.alpha = newColor.alphaComponent
         }
     }
-
 }

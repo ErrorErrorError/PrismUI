@@ -7,7 +7,6 @@
 //
 
 import Cocoa
-import PrismDriver
 
 //@NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {

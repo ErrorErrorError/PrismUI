@@ -17,7 +17,7 @@ class ColorView: NSView, CALayerDelegate {
       willSet(newValue) {
         layer?.backgroundColor = newValue.cgColor
         if newValue.scaledBrightness < 0.5 {
-            layer?.borderColor = NSColor.white.usingColorSpace(.genericRGB)!
+            layer?.borderColor = NSColor.white.usingColorSpace(.deviceRGB)!
                 .darkerColor(percent: Double(newValue.scaledBrightness)).cgColor
         } else {
             layer?.borderColor = newValue.darkerColor(percent: 0.5).cgColor
@@ -27,7 +27,7 @@ class ColorView: NSView, CALayerDelegate {
     }
 
     var isSelected = false {
-        didSet(oldValue) {
+        didSet {
             isSelected ? delegate?.didSelect(self) : delegate?.didDeselect(self)
             layer?.borderWidth = isSelected ? 5 : 0
             layer?.setNeedsDisplay()

@@ -10,8 +10,7 @@ import Cocoa
 
 class PrismColorGraphView: NSView {
 
-    private let strokeWidth: CGFloat = 3
-    private var selectorRect: NSRect!
+    private var selector: PrismSelector!
     private var saturationValueImage: CGImage?
     private var clickedBounds = false
     var color: PrismHSB = PrismHSB(hue: 1.0, saturation: 1.0, brightness: 1.0) {
@@ -25,7 +24,8 @@ class PrismColorGraphView: NSView {
 
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
-        selectorRect = NSRect(x: 0, y: 0, width: 26, height: 26)
+        selector = PrismSelector(frame: NSRect(x: 0, y: 0, width: 26, height: 26))
+        addSubview(selector)
     }
 
     required init?(coder: NSCoder) {
@@ -45,8 +45,8 @@ extension PrismColorGraphView {
         super.draw(dirtyRect)
         guard let context = NSGraphicsContext.current?.cgContext else { return }
         let path = CGPath(roundedRect: bounds,
-                          cornerWidth: selectorRect.width/2,
-                          cornerHeight: selectorRect.height/2,
+                          cornerWidth: selector.frame.width/2,
+                          cornerHeight: selector.frame.height/2,
                           transform: nil)
         context.beginPath()
         context.addPath(path)
@@ -54,7 +54,6 @@ extension PrismColorGraphView {
         context.clip()
         drawBackgroundColor(context)
         drawSaturationBrightnessOverlay(context)
-        drawSelector(context)
     }
 
     private func drawBackgroundColor(_ context: CGContext) {
@@ -86,6 +85,7 @@ extension PrismColorGraphView {
         let white = PrismRGB(red: 1.0, green: 1.0, blue: 1.0)
         let black = PrismRGB(red: 0.0, green: 0.0, blue: 0.0)
         let transparent = PrismRGB(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
+
         for row in 0..<height {
             for column in 0..<width {
                 let index = row * width + column
@@ -110,16 +110,6 @@ extension PrismColorGraphView {
         saturationValueImage = image
         contextDraw.draw(saturationValueImage!, in: bounds)
     }
-
-    private func drawSelector(_ context: CGContext) {
-        color.nsColor.setFill()
-        context.fillEllipse(in: selectorRect)
-
-        NSColor.white.setStroke()
-        context.setLineWidth(strokeWidth)
-        context.strokeEllipse(in: selectorRect.insetBy(dx: strokeWidth/2, dy: strokeWidth/2))
-    }
-
 }
 
 // MARK: Update selector and color
@@ -127,8 +117,8 @@ extension PrismColorGraphView {
 
     private func updateColorFromPoint(point: NSPoint, mouseUp: Bool = false) {
         guard let newColor = color.copy() as? PrismHSB else { return }
-        let width = bounds.size.width - selectorRect.width
-        let height = bounds.size.height - selectorRect.height
+        let width = bounds.size.width - selector.frame.width
+        let height = bounds.size.height - selector.frame.height
         let xAxis: CGFloat = min(max(point.x, 0), width)
         let yAxis: CGFloat = min(max(point.y, 0), height)
 
@@ -141,24 +131,25 @@ extension PrismColorGraphView {
     }
 
     private func updateSelectorFromColor(_ newColor: PrismHSB) {
-        let width: CGFloat = bounds.size.width - selectorRect.width
-        let height: CGFloat = bounds.size.height - selectorRect.height
+        let width: CGFloat = bounds.size.width - selector.frame.width
+        let height: CGFloat = bounds.size.height - selector.frame.height
 
         let xAxis = newColor.saturation * width
         let yAxis = newColor.brightness * height
-        selectorRect.origin = NSPoint(x: xAxis, y: yAxis)
+        selector.frame.origin = NSPoint(x: xAxis, y: yAxis)
+        selector.color = color
     }
 
     private func updateSelectorFromPoint(_ newPoint: CGPoint) {
-        let width = bounds.size.width - selectorRect.width
-        let height = bounds.size.height - selectorRect.height
-        var xAxis = newPoint.x - selectorRect.width/2
-        var yAxis = newPoint.y - selectorRect.height/2
+        let width = bounds.size.width - selector.frame.width
+        let height = bounds.size.height - selector.frame.height
+        var xAxis = newPoint.x - selector.frame.width/2
+        var yAxis = newPoint.y - selector.frame.height/2
         xAxis = min(max(xAxis, 0), width)
         yAxis = min(max(yAxis, 0), height)
-        selectorRect.origin = CGPoint(x: xAxis, y: yAxis)
+        selector.frame.origin = CGPoint(x: xAxis, y: yAxis)
+        selector.color = color
     }
-
 }
 
 // MARK: Color Function Methods
@@ -199,7 +190,7 @@ extension PrismColorGraphView {
             return
         }
             updateSelectorFromPoint(newPoint)
-            updateColorFromPoint(point: selectorRect.origin)
+            updateColorFromPoint(point: selector.frame.origin)
             clickedBounds = true
     }
 
@@ -212,13 +203,13 @@ extension PrismColorGraphView {
 
         guard clickedBounds else { return }
         updateSelectorFromPoint(newPoint)
-        updateColorFromPoint(point: selectorRect.origin)
+        updateColorFromPoint(point: selector.frame.origin)
     }
 
     override func mouseUp(with event: NSEvent) {
         super.mouseUp(with: event)
         if clickedBounds {
-            updateColorFromPoint(point: selectorRect.origin, mouseUp: true)
+            updateColorFromPoint(point: selector.frame.origin, mouseUp: true)
             clickedBounds = false
         }
     }

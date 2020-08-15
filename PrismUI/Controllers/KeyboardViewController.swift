@@ -7,7 +7,6 @@
 //
 
 import Cocoa
-import PrismDriver
 
 class KeyboardViewController: BaseViewController {
 
@@ -26,7 +25,6 @@ class KeyboardViewController: BaseViewController {
     override func viewDidAppear() {
         super.viewDidAppear()
         guard let prismDevice = PrismDriver.shared.prismDevice else { return }
-        Log.debug("test")
         setupKeyboardLayout(model: prismDevice.model)
     }
 
@@ -37,7 +35,7 @@ class KeyboardViewController: BaseViewController {
 
         let keyboardMap = model == .perKey ? KeyboardLayout.perKeyMap : KeyboardLayout.perKeyGS65KeyMap
         let keyboardKeyNames = model == .perKey ? KeyboardLayout.perKeyNames : KeyboardLayout.perKeyGS65KeyNames
-        let keycodeArray = (model == .perKey ? KeyboardLayout.perKeyCodes : KeyboardLayout.perKeyGS65KeyCodes)
+//        let keycodeArray = (model == .perKey ? KeyboardLayout.perKeyCodes : KeyboardLayout.perKeyGS65KeyCodes)
         let padding: CGFloat = 5
         let desiredKeyWidth: CGFloat = model == .perKey ? 50 : 60
         let desiredKeyHeight = desiredKeyWidth
@@ -101,10 +99,12 @@ extension KeyboardViewController: ColorViewDelegate {
     func didSelect(_ sender: ColorView) {
 //        let index = view.subviews.firstIndex(of: sender)!
 //        print(sender)
+        ModesViewController.keyArray.add(sender)
     }
 
     func didDeselect(_ sender: ColorView) {
 //        let index = view.subviews.firstIndex(of: sender)!
 //        print(sender)
+        ModesViewController.keyArray.remove(sender)
     }
 }
