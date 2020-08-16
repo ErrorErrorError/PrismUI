@@ -19,7 +19,7 @@ final class KeyboardLayout {
         [1.25, 1, 1, 4.75, 1, 1, 1, 1, 1, 1, 1]
     ]
 
-    static let perKeyGS65KeyNames = [
+    static let perKeyGS65KeyNames: [[String]] = [
         ["ESC", "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10", "F11", "F12", "PRT", "DEL"],
         ["`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "BACKSPACE", "HOME"],
         ["TAB", "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "[", "]", "\\", "PGUP"],
@@ -46,7 +46,7 @@ final class KeyboardLayout {
         [2, 1, 1, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
     ]
 
-    static let perKeyNames = [
+    static let perKeyNames: [[String]] = [
         ["ESC", "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10", "F11", "F12", "PRT", "SCR", "BRK", "INS", "DEL", "PGUP", "PGDN"],
         ["`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "BACKSPACE", "NUMLOCK", "/", "*", "-"],
         ["TAB", "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "[", "]", "\\", "7", "8", "9"],

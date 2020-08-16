@@ -146,17 +146,14 @@ extension PrismRGB {
     }
 
     public var cgColor: CGColor {
-        get {
-            return CGColor(srgbRed: self.red,
-                           green: self.green,
-                           blue: self.blue,
-                           alpha: self.alpha)
-        }
+        return CGColor(srgbRed: self.red,
+                       green: self.green,
+                       blue: self.blue,
+                       alpha: self.alpha)
     }
 }
 
 extension PrismHSB {
-
     public var nsColor: NSColor {
         get {
             return NSColor(deviceHue: self.hue,

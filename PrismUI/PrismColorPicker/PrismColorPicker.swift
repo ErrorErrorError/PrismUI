@@ -24,7 +24,7 @@ public class PrismColorPicker: BaseViewController {
 
     let hashtagLabel: NSTextField = {
         let label = NSTextField(labelWithString: "#")
-        label.setAsLabel()
+        label.setupLabel()
         return label
     }()
 
@@ -38,7 +38,7 @@ public class PrismColorPicker: BaseViewController {
 
     let rLabel: NSTextField = {
         let label = NSTextField(labelWithString: "R")
-        label.setAsLabel()
+        label.setupLabel()
         return label
     }()
 
@@ -52,7 +52,7 @@ public class PrismColorPicker: BaseViewController {
 
     let gLabel: NSTextField = {
         let label = NSTextField(labelWithString: "G")
-        label.setAsLabel()
+        label.setupLabel()
         return label
     }()
 
@@ -66,7 +66,7 @@ public class PrismColorPicker: BaseViewController {
 
     let bLabel: NSTextField = {
         let label = NSTextField(labelWithString: "B")
-        label.setAsLabel()
+        label.setupLabel()
         return label
     }()
 

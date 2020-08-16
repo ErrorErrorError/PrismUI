@@ -10,6 +10,12 @@ import Cocoa
 
 class KeyColorView: ColorView {
 
+    var prismKey = PrismKey() {
+        didSet {
+            color = prismKey.mainColor.nsColor
+        }
+    }
+
     var text: NSString = NSString()
 
     let textStyle: NSParagraphStyle = {

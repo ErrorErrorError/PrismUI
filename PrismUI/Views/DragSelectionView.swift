@@ -18,8 +18,8 @@ class DragSelectionView: NSVisualEffectView {
                 if let view = view as? ColorView {
                     if let rect = selectionRect {
                         let contains = contain(view, in: rect)
-                        if contains != view.isSelected {
-                            view.isSelected = contains
+                        if contains != view.selected {
+                            view.selected = contains
                         }
                     }
                 }
@@ -75,8 +75,8 @@ class DragSelectionView: NSVisualEffectView {
             }
             if !wasClicked && downPoint != nil {
                 subviews.forEach {
-                    if let view = $0 as? ColorView, view.isSelected {
-                        view.isSelected = false
+                    if let view = $0 as? ColorView, view.selected {
+                        view.selected = false
                     }
                 }
             }

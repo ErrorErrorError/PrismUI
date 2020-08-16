@@ -11,7 +11,7 @@ import Cocoa
 //@NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    var prismDriver: PrismDriver = PrismDriver.shared
+    let driver: PrismDriver = PrismDriver.shared
 
     let mainWindow: NSWindow = {
         let window = NSWindow()
@@ -32,7 +32,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
+        driver.stop()
     }
 }
 

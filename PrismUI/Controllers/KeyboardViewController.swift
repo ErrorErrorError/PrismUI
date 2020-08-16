@@ -35,7 +35,7 @@ class KeyboardViewController: BaseViewController {
 
         let keyboardMap = model == .perKey ? KeyboardLayout.perKeyMap : KeyboardLayout.perKeyGS65KeyMap
         let keyboardKeyNames = model == .perKey ? KeyboardLayout.perKeyNames : KeyboardLayout.perKeyGS65KeyNames
-//        let keycodeArray = (model == .perKey ? KeyboardLayout.perKeyCodes : KeyboardLayout.perKeyGS65KeyCodes)
+        let keycodeArray = (model == .perKey ? KeyboardLayout.perKeyCodes : KeyboardLayout.perKeyGS65KeyCodes)
         let padding: CGFloat = 5
         let desiredKeyWidth: CGFloat = model == .perKey ? 50 : 60
         let desiredKeyHeight = desiredKeyWidth
@@ -58,53 +58,48 @@ class KeyboardViewController: BaseViewController {
                     key.color = .red
                     return key
                 }()
-                self.view.addSubview(keyView)
+                view.addSubview(keyView)
                 xPos += desiredKeyWidth * widthFract
 
-//                let keycode = keycodeArray[index][subIndex]
-//                self.keys.add(PrismKey(region: getRegionKey(keyChar, keycode: keycode),
-//                                            keycode: keycode,
-//                                            effectId: 0,
-//                                            duration: 0,
-//                                            mainColor: prism_rgb(r: 255, g: 0, b: 0),
-//                                            activeColor: prism_rgb(r: 0, g: 0, b: 0),
-//                                            mode: steady
-//                    )
-//                )
+                let keycode = keycodeArray[index][subIndex]
+                keyView.prismKey = PrismKey(region: getRegionKey(keyChar, keycode: keycode),
+                                            keycode: keycode,
+                                            effectId: 0,
+                                            duration: 0)
             }
             xPos = xOffset
             yPos -= desiredKeyHeight
         }
     }
 
-//    private func getRegionKey(_ char: String, keycode: UInt8) -> UInt8 {
-//        var region: UInt8
-//        switch char {
-//        case "ESC":
-//            region = regions.0
-//        case "A":
-//            region = regions.1
-//        case "ENTER":
-//            region = regions.2
-//        case "F7":
-//            region = regions.3
-//        default:
-//            region = get_region_from_key(keycode)
-//        }
-//        return region
-//    }
+    private func getRegionKey(_ char: String, keycode: UInt8) -> UInt8 {
+        var region: UInt8
+        switch char {
+        case "ESC":
+            region = PrismKeyboard.regions[0]
+        case "A":
+            region = PrismKeyboard.regions[1]
+        case "ENTER":
+            region = PrismKeyboard.regions[2]
+        case "F7":
+            region = PrismKeyboard.regions[2]
+        default:
+            region = PrismKeyboard.getRegionFromKeycode(keycode)
+        }
+        return region
+    }
 }
 
 extension KeyboardViewController: ColorViewDelegate {
     func didSelect(_ sender: ColorView) {
 //        let index = view.subviews.firstIndex(of: sender)!
 //        print(sender)
-        ModesViewController.keyArray.add(sender)
+        PrismKeyboard.keys.add(sender)
     }
 
     func didDeselect(_ sender: ColorView) {
 //        let index = view.subviews.firstIndex(of: sender)!
 //        print(sender)
-        ModesViewController.keyArray.remove(sender)
+        PrismKeyboard.keys.remove(sender)
     }
 }

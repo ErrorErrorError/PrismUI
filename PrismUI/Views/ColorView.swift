@@ -26,10 +26,10 @@ class ColorView: NSView, CALayerDelegate {
       }
     }
 
-    var isSelected = false {
+    var selected = false {
         didSet {
-            isSelected ? delegate?.didSelect(self) : delegate?.didDeselect(self)
-            layer?.borderWidth = isSelected ? 5 : 0
+            selected ? delegate?.didSelect(self) : delegate?.didDeselect(self)
+            layer?.borderWidth = selected ? 5 : 0
             layer?.setNeedsDisplay()
         }
     }
@@ -70,7 +70,7 @@ class ColorView: NSView, CALayerDelegate {
 
     override func mouseUp(with event: NSEvent) {
         super.mouseUp(with: event)
-        self.isSelected = !isSelected
+        self.selected = !selected
     }
 }
 

@@ -20,7 +20,7 @@ extension NSTextField {
         self.setContentHuggingPriority(.defaultHigh, for: .horizontal)
     }
 
-    func setAsLabel() {
+    func setupLabel() {
         self.textColor = NSColor.secondaryLabelColor
         self.font = NSFont.systemFont(ofSize: 14)
         self.setContentHuggingPriority(.defaultHigh, for: .horizontal)

@@ -23,7 +23,12 @@ class PrismSelector: NSView {
 
     var allowsSelection = false
 
-    var selected: Bool = false
+    var selected: Bool = false {
+        didSet {
+            selected ? delegate?.didSelect(self) : delegate?.didDeselect(self)
+            needsDisplay = true
+        }
+    }
 
     var dragging: Bool = false
 
@@ -60,30 +65,24 @@ extension PrismSelector {
     override func mouseDown(with event: NSEvent) {
         super.mouseDown(with: event)
         dragging = false
-        if allowsSelection {
-            selected = !selected
-        }
     }
 
     override func mouseDragged(with event: NSEvent) {
         super.mouseDragged(with: event)
         dragging = true
+        if selected {
+            selected = false
+        }
     }
 
     override func mouseUp(with event: NSEvent) {
         super.mouseUp(with: event)
-        if dragging || !allowsSelection {
-            dragging = false
-            selected = false
-        } else if !dragging && allowsSelection {
-            if selected {
-                delegate?.didSelect(self)
-            } else {
-                delegate?.didDeselect(self)
-            }
+
+        if allowsSelection && !dragging {
+            selected = !selected
         }
 
-        needsDisplay = true
+        dragging = false
     }
 }
 
