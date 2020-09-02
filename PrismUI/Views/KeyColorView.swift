@@ -10,9 +10,9 @@ import Cocoa
 
 class KeyColorView: ColorView {
 
-    var prismKey = PrismKey() {
+    var prismKey: PrismKey! {
         didSet {
-            color = prismKey.mainColor.nsColor
+            color = prismKey.main.nsColor
         }
     }
 
@@ -24,9 +24,11 @@ class KeyColorView: ColorView {
         return style
     }()
 
-    convenience init(text: String) {
+    convenience init(text: String, key: PrismKey) {
         self.init()
+        self.prismKey = key
         self.text = text as NSString
+        color = prismKey.main.nsColor
     }
 
     override func draw(_ dirtyRect: NSRect) {

@@ -12,18 +12,15 @@ import IOKit.hid
 
 public class HIDDevice {
 
-    public typealias ReadingCallback = (Data) -> Void
     public typealias RawDevice = WriteDevice & FeatureReportDevice
 
+    public let device: RawDevice
     public let identification: Int
     public let name: String
     public let vendorId: Int
     public let versionNumber: Int
     public let productId: Int
     public let primaryUsagePage: Int
-    public let device: RawDevice
-
-    internal var readingCallback: ReadingCallback?
 
     internal init(device: IOHIDDevice) throws {
         self.device = device

@@ -30,8 +30,8 @@ enum PrismControl {
 }
 
 struct PrismEffect {
-    var effectId: UInt16 = 0
-    var startColor: PrismRGB = PrismRGB(red: 0, green: 0, blue: 0)
+    var identifier: UInt8 = 0
+    var start: PrismRGB = PrismRGB(red: 0.0, green: 0.0, blue: 0.0)
     var waveActive: Bool = false
     var direction: PrismDirection = .inward
     var control: PrismControl = .xyAxis

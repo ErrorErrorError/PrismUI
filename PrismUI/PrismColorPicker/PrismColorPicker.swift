@@ -166,13 +166,13 @@ public class PrismColorPicker: BaseViewController {
     }
 
     public func setColor(newColor: PrismHSB) {
-        updateTextLabel(newColor: newColor.toRGB())
+        updateTextLabel(newColor: newColor.rgb)
         updateColorGraphAndSlider(newColor: newColor)
     }
 
     public func setColor(newColor: PrismRGB) {
         updateTextLabel(newColor: newColor)
-        updateColorGraphAndSlider(newColor: newColor.toHSV())
+        updateColorGraphAndSlider(newColor: newColor.hsb)
     }
 
     @objc private func onTextEntered(_ textField: NSTextField) {
@@ -229,14 +229,14 @@ extension PrismColorPicker {
 extension PrismColorPicker: PrismColorSliderDelegate, PrismColorGraphDelegate {
 
     func didColorChange(color: PrismHSB, mouseUp: Bool) {
-        let toRGB = color.toRGB()
+        let toRGB = color.rgb
         updateTextLabel(newColor: toRGB)
         delegate?.didColorChange(newColor: toRGB, finishedChanging: mouseUp)
     }
 
     func didHueChanged(newColor: PrismHSB, mouseUp: Bool) {
         updateGraphViewFromSlider(newColor: newColor)
-        let rgb = colorGraphView.color.toRGB()
+        let rgb = colorGraphView.color.rgb
         updateTextLabel(newColor: rgb)
         delegate?.didColorChange(newColor: rgb, finishedChanging: mouseUp)
     }

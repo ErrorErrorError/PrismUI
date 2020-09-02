@@ -16,7 +16,7 @@ public class PrismDriver: NSObject {
     private var monitoringThread: Thread?
     internal var models = PrismDeviceModel.allCases.map({ $0.productInformation() })
 
-    public var prismDevice: PrismDevice?
+    public var devices: NSMutableArray = NSMutableArray()
 
     private override init() {
         super.init()
@@ -32,12 +32,12 @@ public class PrismDriver: NSObject {
 
         let matchingCallback: IOHIDDeviceCallback = { inContext, _, _, device in
             let this = unsafeBitCast(inContext, to: PrismDriver.self)
-            this.rawDeviceAdded(rawDevice: device)
+            this.deviceAdded(rawDevice: device)
         }
 
         let removalCallback: IOHIDDeviceCallback = { inContext, _, _, device in
             let this = unsafeBitCast(inContext, to: PrismDriver.self)
-            this.rawDeviceRemoved(rawDevice: device)
+            this.deviceRemoved(rawDevice: device)
         }
 
         let context = unsafeBitCast(self, to: UnsafeMutableRawPointer.self)
@@ -47,22 +47,22 @@ public class PrismDriver: NSObject {
         RunLoop.current.run()
     }
 
-    func rawDeviceAdded(rawDevice: IOHIDDevice) {
+    private func deviceAdded(rawDevice: IOHIDDevice) {
         do {
             let device = try HIDDevice(device: rawDevice)
             let prismDevice = try PrismDevice(device: device)
-            self.prismDevice = prismDevice
+            self.devices.add(prismDevice)
             Log.debug("Added \(prismDevice)")
         } catch {
             Log.error("\(error)")
         }
     }
 
-    func rawDeviceRemoved(rawDevice: IOHIDDevice) {
+    private func deviceRemoved(rawDevice: IOHIDDevice) {
         do {
             let device = try HIDDevice(device: rawDevice)
             let prismDevice = try PrismDevice(device: device)
-            self.prismDevice = prismDevice == self.prismDevice ? nil : self.prismDevice
+            self.devices.remove(prismDevice)
             Log.debug("Removed \(prismDevice)")
         } catch {
             Log.error("\(error)")

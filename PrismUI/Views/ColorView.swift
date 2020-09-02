@@ -13,14 +13,14 @@ class ColorView: NSView, CALayerDelegate {
 
     weak var delegate: ColorViewDelegate?
 
-    var color: NSColor = .white {
-      willSet(newValue) {
-        layer?.backgroundColor = newValue.cgColor
-        if newValue.scaledBrightness < 0.5 {
+    var color: NSColor = .red {
+      didSet {
+        layer?.backgroundColor = color.cgColor
+        if color.scaledBrightness < 0.5 {
             layer?.borderColor = NSColor.white.usingColorSpace(.deviceRGB)!
-                .darkerColor(percent: Double(newValue.scaledBrightness)).cgColor
+                .darkerColor(percent: Double(color.scaledBrightness)).cgColor
         } else {
-            layer?.borderColor = newValue.darkerColor(percent: 0.5).cgColor
+            layer?.borderColor = color.darkerColor(percent: 0.5).cgColor
         }
         layer?.setNeedsDisplay()
       }

@@ -9,11 +9,11 @@
 import Foundation
 
 public struct PrismKey {
-    var region: UInt8 = 0
-    var keycode: UInt8 = 0
-    var effectId: UInt8 = 0
+    let region: UInt8
+    let keycode: UInt8
+    var effect: PrismEffect?
     var duration: UInt16 = 0
-    var mainColor: PrismRGB = PrismRGB(red: 1.0, green: 0.0, blue: 0.0)
-    var activeColor: PrismRGB = PrismRGB(red: 0, green: 0, blue: 0)
+    var main = PrismRGB(red: 1.0, green: 0.0, blue: 0.0)
+    var active = PrismRGB(red: 0, green: 0, blue: 0)
     var mode: PrismModes = .steady
 }

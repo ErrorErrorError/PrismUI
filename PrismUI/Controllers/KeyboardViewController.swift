@@ -10,8 +10,6 @@ import Cocoa
 
 class KeyboardViewController: BaseViewController {
 
-    var keys: NSMutableArray = NSMutableArray()
-
     override func loadView() {
         view = DragSelectionView()
     }
@@ -24,7 +22,7 @@ class KeyboardViewController: BaseViewController {
 
     override func viewDidAppear() {
         super.viewDidAppear()
-        guard let prismDevice = PrismDriver.shared.prismDevice else { return }
+        guard let prismDevice = PrismDriver.shared.devices.firstObject as? PrismDevice else { return }
         setupKeyboardLayout(model: prismDevice.model)
     }
 
@@ -52,20 +50,15 @@ class KeyboardViewController: BaseViewController {
                 let keyHeight = (isDoubleHeight ? (2 * desiredKeyHeight) - padding : desiredKeyHeight - padding)
                 let keyChar = keyboardKeyNames[index][subIndex]
                 let keyView: KeyColorView = {
-                    let key = KeyColorView(text: keyChar)
+                    let keycode = keycodeArray[index][subIndex]
+                    let prismKey = PrismKey(region: getRegionKey(keyChar, keycode: keycode), keycode: keycode)
+                    let key = KeyColorView(text: keyChar, key: prismKey)
                     key.frame = NSRect(x: xPos + padding, y: yPos - padding, width: keyWidth, height: keyHeight)
                     key.delegate = self
-                    key.color = .red
                     return key
                 }()
                 view.addSubview(keyView)
                 xPos += desiredKeyWidth * widthFract
-
-                let keycode = keycodeArray[index][subIndex]
-                keyView.prismKey = PrismKey(region: getRegionKey(keyChar, keycode: keycode),
-                                            keycode: keycode,
-                                            effectId: 0,
-                                            duration: 0)
             }
             xPos = xOffset
             yPos -= desiredKeyHeight
@@ -92,14 +85,10 @@ class KeyboardViewController: BaseViewController {
 
 extension KeyboardViewController: ColorViewDelegate {
     func didSelect(_ sender: ColorView) {
-//        let index = view.subviews.firstIndex(of: sender)!
-//        print(sender)
         PrismKeyboard.keys.add(sender)
     }
 
     func didDeselect(_ sender: ColorView) {
-//        let index = view.subviews.firstIndex(of: sender)!
-//        print(sender)
         PrismKeyboard.keys.remove(sender)
     }
 }

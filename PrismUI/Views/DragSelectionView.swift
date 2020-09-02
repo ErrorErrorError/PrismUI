@@ -90,8 +90,9 @@ class DragSelectionView: NSVisualEffectView {
 
     override func mouseDragged(with event: NSEvent) {
         super.mouseDragged(with: event)
+        guard let downPoint = downPoint else { return }
         let currentPoint = convert(event.locationInWindow, from: nil)
-        selectionRect = frame.rect(from: downPoint!, to: currentPoint)
+        selectionRect = frame.rect(from: downPoint, to: currentPoint)
     }
 
     override func mouseUp(with event: NSEvent) {

@@ -18,10 +18,12 @@ class ModesViewController: BaseViewController {
     // MARK: Common initialization
 
     let presetsButton: NSButton = {
-        let button = NSButton()
-        button.action = #selector(onButtonClicked(_:))
+        let image = NSImage(named: "NSSidebarTemplate")!
+        let button = NSButton(image: image,
+                              target: nil,
+                              action: #selector(onButtonClicked(_:)))
         button.bezelStyle = .rounded
-        button.image = NSImage(named: "NSSidebarTemplate")
+        button.identifier = .presets
         return button
     }()
 
@@ -54,8 +56,13 @@ class ModesViewController: BaseViewController {
     }()
 
     let speedSlider: NSSlider = {
-       let slider = NSSlider()
+       let slider = NSSlider(value: 300,
+                             minValue: 100,
+                             maxValue: 1000,
+                             target: nil,
+                             action: #selector(onSliderChanged(_:)))
         slider.isHidden = true
+        slider.identifier = .speed
         return slider
     }()
 
@@ -71,6 +78,73 @@ class ModesViewController: BaseViewController {
         let slider = PrismMultiSliderView()
         slider.isHidden = true
         return slider
+    }()
+
+    // MARK: ColorShift items
+
+    let waveToggle: NSButton = {
+        let check = NSButton(checkboxWithTitle: "Wave Mode",
+                             target: nil,
+                             action: #selector(onButtonClicked(_:)))
+        check.state = .on
+        check.identifier = .waveToggle
+        check.isHidden = true
+        return check
+    }()
+
+    let originButton: NSButton = {
+        let button = NSButton(title: "Origin",
+                              target: nil,
+                              action: #selector(onButtonClicked(_:)))
+        button.isHidden = true
+        button.identifier = .origin
+        return button
+    }()
+
+    let waveDirectionControl: NSSegmentedControl = {
+        let segmented = NSSegmentedControl(labels: ["XY", "X", "Y"],
+                                           trackingMode: .selectOne,
+                                           target: nil,
+                                           action: #selector(onButtonClicked(_:)))
+        segmented.selectedSegment = 0
+        segmented.identifier = .xyDirection
+        segmented.isHidden = true
+        return segmented
+    }()
+
+    let waveInwardOutwardControl: NSSegmentedControl = {
+        let segmented = NSSegmentedControl(labels: ["Out", "In"],
+                                           trackingMode: .selectOne,
+                                           target: nil,
+                                           action: #selector(onButtonClicked(_:)))
+        segmented.selectedSegment = 0
+        segmented.identifier = .inwardOutward
+        segmented.isHidden = true
+        return segmented
+    }()
+
+    let pulseLabel: NSTextField = {
+        let label = NSTextField(labelWithString: "Pulse")
+        label.font = NSFont.boldSystemFont(ofSize: 12)
+        label.isHidden = true
+        return label
+    }()
+
+    let pulseSlider: NSSlider = {
+        let slider = NSSlider(value: 100,
+                              minValue: 30,
+                              maxValue: 1000,
+                              target: nil,
+                              action: #selector(onSliderChanged(_:)))
+        slider.isHidden = true
+        slider.identifier = .pulse
+        return slider
+    }()
+
+    let pulseValue: NSTextField = {
+        let label = NSTextField(labelWithString: "10")
+        label.isHidden = true
+        return label
     }()
 
     // MARK: Reactive initialization
@@ -117,6 +191,12 @@ class ModesViewController: BaseViewController {
 
         presetsButton.target = self
         modesPopUp.target = self
+        speedSlider.target = self
+        waveToggle.target = self
+        pulseSlider.target = self
+        originButton.target = self
+        waveDirectionControl.target = self
+        waveInwardOutwardControl.target = self
         colorPicker.delegate = self
         reactActiveColor.delegate = self
         reactRestColor.delegate = self
@@ -128,6 +208,13 @@ class ModesViewController: BaseViewController {
         view.addSubview(speedLabel)
         view.addSubview(speedSlider)
         view.addSubview(speedValue)
+        view.addSubview(waveToggle)
+        view.addSubview(originButton)
+        view.addSubview(waveDirectionControl)
+        view.addSubview(waveInwardOutwardControl)
+        view.addSubview(pulseLabel)
+        view.addSubview(pulseSlider)
+        view.addSubview(pulseValue)
         view.addSubview(reactActiveText)
         view.addSubview(reactActiveColor)
         view.addSubview(reactRestText)
@@ -164,8 +251,8 @@ class ModesViewController: BaseViewController {
 
         reactActiveColor.leadingAnchor.constraint(equalTo: colorPicker.view.leadingAnchor).isActive = true
         reactActiveColor.topAnchor.constraint(equalTo: colorPicker.view.bottomAnchor).isActive = true
-        reactActiveColor.widthAnchor.constraint(equalToConstant: heightView).isActive = true
-        reactActiveColor.heightAnchor.constraint(equalToConstant: heightView).isActive = true
+        reactActiveColor.widthAnchor.constraint(equalToConstant: heightView - 8).isActive = true
+        reactActiveColor.heightAnchor.constraint(equalToConstant: heightView - 8).isActive = true
 
         reactActiveText.leadingAnchor.constraint(equalTo: reactActiveColor.trailingAnchor, constant: 10).isActive = true
         reactActiveText.centerYAnchor.constraint(equalTo: reactActiveColor.centerYAnchor).isActive = true
@@ -187,20 +274,79 @@ class ModesViewController: BaseViewController {
         multiSlider.heightAnchor.constraint(equalToConstant: heightView).isActive = true
 
         speedLabel.leadingAnchor.constraint(equalTo: colorPicker.view.leadingAnchor).isActive = true
-        speedLabel.topAnchor.constraint(equalTo: colorPicker.view.bottomAnchor, constant: heightView).isActive = true
+        speedLabel.topAnchor.constraint(equalTo: colorPicker.view.bottomAnchor, constant: heightView + 8).isActive = true
         speedLabel.trailingAnchor.constraint(equalTo: colorPicker.view.trailingAnchor).isActive = true
 
         speedSlider.leadingAnchor.constraint(equalTo: colorPicker.view.leadingAnchor).isActive = true
-        speedSlider.topAnchor.constraint(equalTo: speedLabel.bottomAnchor, constant: 8).isActive = true
+        speedSlider.topAnchor.constraint(equalTo: speedLabel.bottomAnchor, constant: 4).isActive = true
+        speedSlider.trailingAnchor.constraint(equalTo: colorPicker.view.trailingAnchor, constant: -28).isActive = true
 
         speedValue.leadingAnchor.constraint(equalTo: speedSlider.trailingAnchor, constant: 8).isActive = true
         speedValue.topAnchor.constraint(equalTo: speedSlider.topAnchor).isActive = true
         speedValue.trailingAnchor.constraint(equalTo: colorPicker.view.trailingAnchor).isActive = true
+
+        waveToggle.topAnchor.constraint(equalTo: speedSlider.bottomAnchor, constant: 12).isActive = true
+        waveToggle.leadingAnchor.constraint(equalTo: colorPicker.view.leadingAnchor).isActive = true
+
+        originButton.trailingAnchor.constraint(equalTo: colorPicker.view.trailingAnchor).isActive = true
+        originButton.centerYAnchor.constraint(equalTo: waveToggle.centerYAnchor).isActive = true
+
+        waveDirectionControl.topAnchor.constraint(equalTo: waveToggle.bottomAnchor, constant: 12).isActive = true
+        waveDirectionControl.leadingAnchor.constraint(equalTo: waveToggle.leadingAnchor).isActive = true
+
+        waveInwardOutwardControl.centerYAnchor.constraint(equalTo: waveDirectionControl.centerYAnchor).isActive = true
+        waveInwardOutwardControl.trailingAnchor.constraint(equalTo: colorPicker.view.trailingAnchor).isActive = true
+
+        pulseLabel.topAnchor.constraint(equalTo: waveDirectionControl.bottomAnchor, constant: 12).isActive = true
+        pulseLabel.leadingAnchor.constraint(equalTo: colorPicker.view.leadingAnchor).isActive = true
+
+        pulseSlider.leadingAnchor.constraint(equalTo: colorPicker.view.leadingAnchor).isActive = true
+        pulseSlider.topAnchor.constraint(equalTo: pulseLabel.bottomAnchor, constant: 4).isActive = true
+        pulseSlider.trailingAnchor.constraint(equalTo: colorPicker.view.trailingAnchor, constant: -28).isActive = true
+
+        pulseValue.leadingAnchor.constraint(equalTo: pulseSlider.trailingAnchor, constant: 8).isActive = true
+        pulseValue.topAnchor.constraint(equalTo: pulseSlider.topAnchor).isActive = true
+        pulseValue.trailingAnchor.constraint(equalTo: colorPicker.view.trailingAnchor).isActive = true
+    }
+}
+
+// MARK: Actions
+
+extension ModesViewController {
+
+    @objc func onSliderChanged(_ sender: NSSlider) {
+        guard let identifierr = sender.identifier else { return }
+        switch identifierr {
+        case .speed:
+            speedValue.stringValue = "\(sender.intValue.description.dropLast(2))s"
+        case .pulse:
+            pulseValue.stringValue = "\(sender.intValue.description.dropLast(1))"
+        default:
+            Log.debug("Slider not implemented \(String(describing: sender.identifier))")
+        }
     }
 
     @objc func onButtonClicked(_ sender: NSButton) {
-        Log.debug("button presssed")
-        delegate?.didClickOnPresetsButton()
+        guard let identifier = sender.identifier else { return }
+        Log.debug("Button pressed \(identifier)")
+        switch identifier {
+        case .presets:
+            delegate?.didClickOnPresetsButton()
+        case .origin:
+            break
+        case .xyDirection:
+            break
+        case .inwardOutward:
+            break
+        case .waveToggle:
+            let enabled = sender.state == .on
+            originButton.isEnabled = enabled
+            waveDirectionControl.isEnabled = enabled
+            waveInwardOutwardControl.isEnabled = enabled
+            pulseSlider.isEnabled = enabled
+        default:
+            break
+        }
     }
 
     @objc func didPopupChanged(_ sender: NSPopUpButton) {
@@ -246,6 +392,18 @@ extension ModesViewController {
         reactActiveColor.isHidden = !shouldShow
         reactRestText.isHidden = !shouldShow
         reactRestColor.isHidden = !shouldShow
+        speedLabel.isHidden = !shouldShow
+        speedSlider.isHidden = !shouldShow
+        speedValue.isHidden = !shouldShow
+
+        if shouldShow {
+            speedSlider.minValue = 100
+            speedSlider.maxValue = 1000
+            speedSlider.intValue = 300
+            reactActiveColor.color = PrismRGB(red: 0xff, green: 0x0, blue: 0x0).nsColor
+            reactActiveColor.color = PrismRGB(red: 0x0, green: 0x0, blue: 0x0).nsColor
+            onSliderChanged(speedSlider)
+        }
     }
 
     private func showColorShiftMode(shouldShow: Bool = true) {
@@ -253,12 +411,32 @@ extension ModesViewController {
             guard let selector = $0 as? PrismSelector else { return }
             selector.selected = false
         }
-        if shouldShow { multiSlider.mode = .colorShift }
         ModesViewController.selectorArray.removeAllObjects()
         multiSlider.isHidden = !shouldShow
         speedLabel.isHidden = !shouldShow
         speedSlider.isHidden = !shouldShow
         speedValue.isHidden = !shouldShow
+        waveToggle.isHidden = !shouldShow
+        originButton.isHidden = !shouldShow
+        waveDirectionControl.isHidden = !shouldShow
+        waveInwardOutwardControl.isHidden = !shouldShow
+        pulseLabel.isHidden = !shouldShow
+        pulseSlider.isHidden = !shouldShow
+        pulseValue.isHidden = !shouldShow
+
+        if shouldShow {
+            multiSlider.mode = .colorShift
+            speedSlider.minValue = 100
+            speedSlider.maxValue = 3000
+            speedSlider.intValue = 300
+            pulseSlider.intValue = 100
+            waveToggle.state = .off
+            waveInwardOutwardControl.selectedSegment = 1
+            waveDirectionControl.selectedSegment = 0
+            onButtonClicked(waveToggle)
+            onSliderChanged(speedSlider)
+            onSliderChanged(pulseSlider)
+        }
     }
 
     private func showBreadingMode(shouldShow: Bool = true) {
@@ -266,12 +444,19 @@ extension ModesViewController {
             guard let selector = $0 as? PrismSelector else { return }
             selector.selected = false
         }
-        if shouldShow { multiSlider.mode = .breathing }
         ModesViewController.selectorArray.removeAllObjects()
         multiSlider.isHidden = !shouldShow
         speedLabel.isHidden = !shouldShow
         speedSlider.isHidden = !shouldShow
         speedValue.isHidden = !shouldShow
+
+        if shouldShow {
+            multiSlider.mode = .breathing
+            speedSlider.minValue = 200
+            speedSlider.maxValue = 3000
+            speedSlider.intValue = 400
+            onSliderChanged(speedSlider)
+        }
     }
 }
 
@@ -283,13 +468,13 @@ extension ModesViewController: PrismColorPickerDelegate {
         case PrismModes.steady.rawValue:
             PrismKeyboard.keys.filter { ($0 as? KeyColorView) != nil }.forEach {
                 guard let colorView = $0 as? KeyColorView else { return }
-                colorView.prismKey.mainColor = newColor
+                colorView.prismKey.main = newColor
             }
         case PrismModes.colorShift.rawValue,
              PrismModes.breathing.rawValue:
             ModesViewController.selectorArray.filter { ($0 as? PrismSelector) != nil }.forEach {
                 guard let selector = $0 as? PrismSelector else { return }
-                selector.color = newColor.toHSV()
+                selector.color = newColor.hsb
             }
         case PrismModes.reactive.rawValue:
             ModesViewController.selectorArray.filter { ($0 as? ColorView) != nil }.forEach {
@@ -335,4 +520,16 @@ extension ModesViewController: ColorViewDelegate {
 
 protocol ModesViewControllerDelegate: AnyObject {
     func didClickOnPresetsButton()
+}
+
+// MARK: Identifiers
+
+private extension NSUserInterfaceItemIdentifier {
+    static let speed = NSUserInterfaceItemIdentifier(rawValue: "speed-slider")
+    static let pulse = NSUserInterfaceItemIdentifier(rawValue: "pulse-slider")
+    static let waveToggle = NSUserInterfaceItemIdentifier(rawValue: "wave")
+    static let origin = NSUserInterfaceItemIdentifier(rawValue: "origin")
+    static let xyDirection = NSUserInterfaceItemIdentifier(rawValue: "xy-direction")
+    static let inwardOutward = NSUserInterfaceItemIdentifier(rawValue: "inward-outward")
+    static let presets = NSUserInterfaceItemIdentifier(rawValue: "presets")
 }

@@ -80,7 +80,7 @@ extension PrismColorSliderView {
         for index in 0..<totalPixels {
             let hue: CGFloat = 1 - CGFloat(index / width) / CGFloat(height)
             let hsbColor = PrismHSB(hue: hue, saturation: 1, brightness: 1)
-            let rgbColor = hsbColor.toRGB()
+            let rgbColor = hsbColor.rgb
             buffer?[index] =
                 UInt32(rgbColor.red * 255) << 24 |
                 UInt32(rgbColor.green * 255) << 16 |

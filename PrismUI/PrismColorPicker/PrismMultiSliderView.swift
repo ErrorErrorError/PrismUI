@@ -116,6 +116,7 @@ public class PrismMultiSliderView: NSView {
 extension PrismMultiSliderView {
 
     private func createDefaultColorShift() {
+        maxSize = 14
         subviews.forEach { $0.removeFromSuperview() }
         let centerView = (frame.size.height - selectorSize.height) / 2
 
@@ -129,20 +130,21 @@ extension PrismMultiSliderView {
         thumbOne.delegate = selectorDelegate
         thumbTwo.delegate = selectorDelegate
         thumbThree.delegate = selectorDelegate
-        thumbOne.color = PrismRGB(red: 1.0, green: 0.0, blue: 0.88).toHSV()
-        thumbTwo.color = PrismRGB(red: 1.0, green: 0xea/0xff, blue: 0.0).toHSV()
-        thumbThree.color = PrismRGB(red: 0.0, green: 0xcc/0xff, blue: 1.0).toHSV()
+        thumbOne.color = PrismRGB(red: 1.0, green: 0.0, blue: 0.88).hsb
+        thumbTwo.color = PrismRGB(red: 1.0, green: 0xea/0xff, blue: 0.0).hsb
+        thumbThree.color = PrismRGB(red: 0.0, green: 0xcc/0xff, blue: 1.0).hsb
         addSubview(thumbOne)
         addSubview(thumbTwo)
         addSubview(thumbThree)
     }
 
     private func createDefaultBreathing() {
+        maxSize = 4
         subviews.forEach { $0.removeFromSuperview() }
         let centerView = (frame.size.height - selectorSize.height) / 2
         let selector = PrismSelector(frame: NSRect(origin: CGPoint(x: 0, y: centerView), size: selectorSize))
         selector.allowsSelection = true
-        selector.color = PrismRGB(red: 1.0, green: 0.0, blue: 0.0).toHSV()
+        selector.color = PrismRGB(red: 1.0, green: 0.0, blue: 0.0).hsb
         selector.delegate = selectorDelegate
         addSubview(selector)
     }

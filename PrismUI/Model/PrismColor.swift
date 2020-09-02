@@ -23,31 +23,73 @@ public class PrismHSB: NSObject, NSCopying {
         self.alpha = alpha
     }
 
-    func toRGB() -> PrismRGB {
-        if saturation == 0.0 { return PrismRGB(red: brightness, green: brightness, blue: brightness) }
+    var rgb: PrismRGB {
+        get {
+            if saturation == 0.0 { return PrismRGB(red: brightness, green: brightness, blue: brightness) }
 
-        let angle: CGFloat = (hue * 360.0 >= 360.0 ? 0.0 : hue * 360.0)
-        let sector: CGFloat = angle / 60.0 // Sector
-        let roundedSector = floor(sector)
-        let factorial = sector - roundedSector // Factorial part of h
+            let angle: CGFloat = (hue * 360.0 >= 360.0 ? 0.0 : hue * 360.0)
+            let sector: CGFloat = angle / 60.0 // Sector
+            let roundedSector = floor(sector)
+            let factorial = sector - roundedSector // Factorial part of h
 
-        let point: CGFloat = brightness * (1.0 - saturation)
-        let queue: CGFloat = brightness * (1.0 - (saturation * factorial))
-        let testy: CGFloat = brightness * (1.0 - (saturation * (1.0 - factorial)))
+            let point: CGFloat = brightness * (1.0 - saturation)
+            let queue: CGFloat = brightness * (1.0 - (saturation * factorial))
+            let testy: CGFloat = brightness * (1.0 - (saturation * (1.0 - factorial)))
 
-        switch roundedSector {
-        case 0:
-            return PrismRGB(red: brightness, green: testy, blue: point, alpha: alpha)
-        case 1:
-            return PrismRGB(red: queue, green: brightness, blue: point, alpha: alpha)
-        case 2:
-            return PrismRGB(red: point, green: brightness, blue: testy, alpha: alpha)
-        case 3:
-            return PrismRGB(red: point, green: queue, blue: brightness, alpha: alpha)
-        case 4:
-            return PrismRGB(red: testy, green: point, blue: brightness, alpha: alpha)
-        default:
-            return PrismRGB(red: brightness, green: point, blue: queue, alpha: alpha)
+            switch roundedSector {
+            case 0:
+                return PrismRGB(red: brightness, green: testy, blue: point, alpha: alpha)
+            case 1:
+                return PrismRGB(red: queue, green: brightness, blue: point, alpha: alpha)
+            case 2:
+                return PrismRGB(red: point, green: brightness, blue: testy, alpha: alpha)
+            case 3:
+                return PrismRGB(red: point, green: queue, blue: brightness, alpha: alpha)
+            case 4:
+                return PrismRGB(red: testy, green: point, blue: brightness, alpha: alpha)
+            default:
+                return PrismRGB(red: brightness, green: point, blue: queue, alpha: alpha)
+            }
+        }
+
+        set(prismRGB) {
+            let red = prismRGB.red
+            let green = prismRGB.green
+            let blue = prismRGB.blue
+            let alpha = prismRGB.alpha
+            let maxV: CGFloat = max(red, green, blue)
+            let minV: CGFloat = min(red, green, blue)
+            var hue: CGFloat = 0
+            var saturation: CGFloat = 0.0
+            let brightness: CGFloat = maxV
+
+            let delta: CGFloat = maxV - minV
+            guard delta > 0.00001 else {
+                self.hue = 0.0
+                self.saturation = 0.0
+                self.brightness = maxV
+                return
+            }
+            saturation = maxV == 0.0 ? 0.0 : delta / maxV
+
+            if maxV == minV {
+                hue = 0.0
+            } else {
+                if maxV == red {
+                    hue = (green - blue) / delta + (green < blue ? 6.0 : 0.0)
+                } else if maxV == green {
+                    hue = (blue - red) / delta + 2.0
+                } else if maxV == blue {
+                    hue = (red - green) / delta + 4.0
+                }
+
+                hue /= 6.0
+            }
+
+            self.hue = hue
+            self.saturation = saturation
+            self.brightness = brightness
+            self.alpha = alpha
         }
     }
 
@@ -57,8 +99,7 @@ public class PrismHSB: NSObject, NSCopying {
     }
 }
 
-public class PrismRGB: NSObject {
-
+public class PrismRGB: NSObject, NSCopying {
     var red: CGFloat // [0, 1]
     var green: CGFloat // [0, 1]
     var blue: CGFloat // [0, 1]
@@ -88,13 +129,14 @@ public class PrismRGB: NSObject {
             self.init(red: 1.0, green: 1.0, blue: 1.0)
             return
         }
+
         self.init(red: CGFloat((hexInt >> 16) & 0xFF) / 255.0,
                   green: CGFloat((hexInt >> 8) & 0xFF) / 255.0,
                   blue: CGFloat((hexInt >> 0) & 0xFF) / 255.0,
                   alpha: 1.0)
     }
 
-    func toHSV() -> PrismHSB {
+    var hsb: PrismHSB {
         let maxV: CGFloat = max(red, green, blue)
         let minV: CGFloat = min(red, green, blue)
         var hue: CGFloat = 0
@@ -115,7 +157,6 @@ public class PrismRGB: NSObject {
             } else if maxV == blue {
                 hue = (red - green) / delta + 4.0
             }
-
             hue /= 6.0
         }
 
@@ -125,6 +166,11 @@ public class PrismRGB: NSObject {
         hsb.brightness = brightness
         hsb.alpha = alpha
         return hsb
+    }
+
+    public func copy(with zone: NSZone? = nil) -> Any {
+        let copy = PrismRGB(red: red, green: green, blue: blue, alpha: alpha)
+        return copy
     }
 }
 
