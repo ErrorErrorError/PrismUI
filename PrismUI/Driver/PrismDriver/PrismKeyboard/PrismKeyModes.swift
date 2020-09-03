@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum PrismModes: String {
+public enum PrismKeyModes: String {
     case steady = "Steady"
     case colorShift = "ColorShift"
     case breathing = "Breathing"

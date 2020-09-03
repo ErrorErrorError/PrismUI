@@ -17,7 +17,7 @@ public class PrismMultiSliderView: NSView {
     var currentSelector: PrismSelector?
     var outsideBounds: Bool = false
     var firstMouseDown: NSPoint = .zero
-    var mode: PrismModes = .colorShift {
+    var mode: PrismKeyModes = .colorShift {
         didSet {
             if mode == .colorShift {
                 createDefaultColorShift()

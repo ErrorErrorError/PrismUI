@@ -12,13 +12,13 @@ import IOKit.hid
 extension IOHIDDevice {
 
     public func sendFeatureReport(data: Data) -> IOReturn {
-
-        guard IOHIDDeviceOpen(self, IOOptionBits(kIOHIDOptionsTypeNone)) == kIOReturnSuccess else {
-            print("Could not open usb port")
+        var returnValue = IOHIDDeviceOpen(self, IOOptionBits(kIOHIDOptionsTypeNone))
+        guard returnValue == kIOReturnSuccess else {
+            Log.error("Could not open usb port: \(String(cString: mach_error_string(returnValue)))")
             return kIOReturnNotOpen
         }
 
-        let returnValue = IOHIDDeviceSetReport(
+        returnValue = IOHIDDeviceSetReport(
             self,
             kIOHIDReportTypeFeature,
             CFIndex(data[0]),
@@ -29,16 +29,16 @@ extension IOHIDDevice {
         Thread.sleep(forTimeInterval: 0.02)
 
         guard returnValue == kIOReturnSuccess else {
-            print("Could not send feature report")
+            Log.error("Could send feature report: \(String(cString: mach_error_string(returnValue)))")
             return returnValue
         }
 
-        guard IOHIDDeviceClose(self, IOOptionBits(kIOHIDOptionsTypeNone)) == kIOReturnSuccess else {
-            print("Could not close usb port")
-            return kIOReturnStillOpen
+        returnValue = IOHIDDeviceClose(self, IOOptionBits(kIOHIDOptionsTypeNone))
+        guard returnValue  == kIOReturnSuccess else {
+            Log.error("Could not close usb port: \(String(cString: mach_error_string(returnValue)))")
+            return returnValue
         }
 
-        return kIOReturnSuccess
+        return returnValue
     }
-
 }

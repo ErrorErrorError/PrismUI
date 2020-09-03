@@ -15,8 +15,9 @@ public class PrismKey {
     var duration: UInt16 = 0x012c
     var main = PrismRGB(red: 1.0, green: 0.0, blue: 0.0)
     var active = PrismRGB()
-    var mode: PrismModes = .steady {
+    var mode: PrismKeyModes = .steady {
         willSet(value) {
+            guard value != mode else { return }
             switch value {
             case .steady:
                 self.effect = nil

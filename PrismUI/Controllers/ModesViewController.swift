@@ -35,11 +35,11 @@ class ModesViewController: BaseViewController {
 
     let modesPopUp: NSPopUpButton = {
         let popup = NSPopUpButton()
-        popup.addItem(withTitle: PrismModes.steady.rawValue)
-        popup.addItem(withTitle: PrismModes.colorShift.rawValue)
-        popup.addItem(withTitle: PrismModes.breathing.rawValue)
-        popup.addItem(withTitle: PrismModes.reactive.rawValue)
-        popup.addItem(withTitle: PrismModes.disabled.rawValue)
+        popup.addItem(withTitle: PrismKeyModes.steady.rawValue)
+        popup.addItem(withTitle: PrismKeyModes.colorShift.rawValue)
+        popup.addItem(withTitle: PrismKeyModes.breathing.rawValue)
+        popup.addItem(withTitle: PrismKeyModes.reactive.rawValue)
+        popup.addItem(withTitle: PrismKeyModes.disabled.rawValue)
         popup.addItem(withTitle: "Mixed")
         popup.item(withTitle: "Mixed")?.isHidden = true
         popup.action = #selector(didPopupChanged(_:))
@@ -363,23 +363,23 @@ extension ModesViewController {
     @objc func didPopupChanged(_ sender: NSPopUpButton) {
         Log.debug("sender: \(String(describing: sender.titleOfSelectedItem))")
         switch sender.titleOfSelectedItem {
-        case PrismModes.steady.rawValue:
+        case PrismKeyModes.steady.rawValue:
             showReactiveMode(shouldShow: false)
             showColorShiftMode(shouldShow: false)
             showBreadingMode(shouldShow: false)
-        case PrismModes.reactive.rawValue:
+        case PrismKeyModes.reactive.rawValue:
             showColorShiftMode(shouldShow: false)
             showBreadingMode(shouldShow: false)
             showReactiveMode()
-        case PrismModes.colorShift.rawValue:
+        case PrismKeyModes.colorShift.rawValue:
             showReactiveMode(shouldShow: false)
             showBreadingMode(shouldShow: false)
             showColorShiftMode()
-        case PrismModes.breathing.rawValue:
+        case PrismKeyModes.breathing.rawValue:
             showReactiveMode(shouldShow: false)
             showColorShiftMode(shouldShow: false)
             showBreadingMode()
-        case PrismModes.disabled.rawValue:
+        case PrismKeyModes.disabled.rawValue:
             showReactiveMode(shouldShow: false)
             showColorShiftMode(shouldShow: false)
             showBreadingMode(shouldShow: false)
@@ -392,7 +392,7 @@ extension ModesViewController {
     }
 }
 
-// MARK: Modes state
+// MARK: PerKey Modes state
 
 extension ModesViewController {
 
@@ -479,8 +479,24 @@ extension ModesViewController {
 extension ModesViewController: PrismColorPickerDelegate {
 
     func didColorChange(newColor: PrismRGB, finishedChanging: Bool) {
+        guard let device = PrismDriver.shared.currentDevice else {
+            return
+        }
+
+        if device.isKeyboardDevice && device.model != .threeRegion {
+            updatePerKeyColors(newColor: newColor, finished: finishedChanging)
+        } else if device.isKeyboardDevice && device.model == .threeRegion {
+            // TODO: Update three region keyboard viw
+        }
+    }
+}
+
+// MARK: device settings
+extension ModesViewController {
+
+    func updatePerKeyColors(newColor: PrismRGB, finished: Bool) {
         switch modesPopUp.titleOfSelectedItem {
-        case PrismModes.steady.rawValue:
+        case PrismKeyModes.steady.rawValue:
             PrismKeyboard.keysSelected.filter { ($0 as? KeyColorView) != nil }.forEach {
                 guard let colorView = $0 as? KeyColorView else { return }
                 guard let prismKey = colorView.prismKey else { return }
@@ -488,13 +504,13 @@ extension ModesViewController: PrismColorPickerDelegate {
                 prismKey.main = newColor
                 colorView.prismKey = prismKey
             }
-        case PrismModes.colorShift.rawValue,
-             PrismModes.breathing.rawValue:
+        case PrismKeyModes.colorShift.rawValue,
+             PrismKeyModes.breathing.rawValue:
             ModesViewController.selectorArray.filter { ($0 as? PrismSelector) != nil }.forEach {
                 guard let selector = $0 as? PrismSelector else { return }
                 selector.color = newColor.hsb
             }
-        case PrismModes.reactive.rawValue:
+        case PrismKeyModes.reactive.rawValue:
             ModesViewController.selectorArray.filter { ($0 as? ColorView) != nil }.forEach {
                 guard let colorView = $0 as? ColorView else { return }
                 colorView.color = newColor.nsColor
@@ -509,24 +525,27 @@ extension ModesViewController: PrismColorPickerDelegate {
                 colorView.prismKey = prismKey
             }
 
+        case PrismKeyModes.disabled.rawValue:
+            break
         default:
-            Log.debug("Color change not implemented for \(String(describing: modesPopUp.titleOfSelectedItem))")
+            Log.debug("Per keyboard mode not implemented for \(String(describing: modesPopUp.titleOfSelectedItem))")
             return
         }
 
-        if finishedChanging {
+        if finished {
             updateDevice()
         }
     }
 
-    func updateDevice() {
-        if PrismKeyboard.keysSelected.count > 0 {
+    func updateDevice(forced: Bool = false) {
+        if PrismKeyboard.keysSelected.count > 0 || forced {
             guard let device = PrismDriver.shared.currentDevice, device.model != .threeRegion else {
                 return
             }
             device.update()
         }
     }
+
 }
 
 // MARK: Selector delegate

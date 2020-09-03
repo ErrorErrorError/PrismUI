@@ -180,12 +180,14 @@ public class PrismColorPicker: BaseViewController {
         if textField == hexColorField {
             let color = PrismRGB(hexString: stringValue)
             setColor(newColor: color)
+            delegate?.didColorChange(newColor: color, finishedChanging: true)
         } else {
             guard let rInt = Int(rColorField.stringValue) else { return }
             guard let gInt = Int(gColorField.stringValue) else { return }
             guard let bInt = Int(bColorField.stringValue) else { return }
             let color = PrismRGB(red: rInt, green: gInt, blue: bInt)
             setColor(newColor: color)
+            delegate?.didColorChange(newColor: color, finishedChanging: true)
         }
         view.window?.makeFirstResponder(view)
     }
