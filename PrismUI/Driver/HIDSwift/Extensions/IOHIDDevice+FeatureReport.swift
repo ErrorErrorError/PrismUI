@@ -26,6 +26,8 @@ extension IOHIDDevice {
             data.count
         )
 
+        Thread.sleep(forTimeInterval: 0.02)
+
         guard returnValue == kIOReturnSuccess else {
             print("Could not send feature report")
             return returnValue

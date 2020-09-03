@@ -57,6 +57,7 @@ class KeyboardViewController: BaseViewController {
                     key.delegate = self
                     return key
                 }()
+                PrismKeyboard.keys.add(keyView.prismKey!)
                 view.addSubview(keyView)
                 xPos += desiredKeyWidth * widthFract
             }
@@ -75,7 +76,7 @@ class KeyboardViewController: BaseViewController {
         case "ENTER":
             region = PrismKeyboard.regions[2]
         case "F7":
-            region = PrismKeyboard.regions[2]
+            region = PrismKeyboard.regions[3]
         default:
             region = PrismKeyboard.getRegionFromKeycode(keycode)
         }
@@ -85,10 +86,10 @@ class KeyboardViewController: BaseViewController {
 
 extension KeyboardViewController: ColorViewDelegate {
     func didSelect(_ sender: ColorView) {
-        PrismKeyboard.keys.add(sender)
+        PrismKeyboard.keysSelected.add(sender)
     }
 
     func didDeselect(_ sender: ColorView) {
-        PrismKeyboard.keys.remove(sender)
+        PrismKeyboard.keysSelected.remove(sender)
     }
 }

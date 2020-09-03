@@ -174,14 +174,6 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		134CE96124BD39F200D9D845 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				134CE96224BD3A3D00D9D845 /* KeyboardLayout.swift */,
-			);
-			path = Utils;
-			sourceTree = "<group>";
-		};
 		134CE96424BD427800D9D845 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -215,7 +207,6 @@
 				1386D12224CCF73400B91092 /* Supporting files */,
 				130B9A2224C7C6EA00989667 /* PrismColorPicker */,
 				13FEACD524BEDAE1009B86ED /* Model */,
-				134CE96124BD39F200D9D845 /* Utils */,
 				134CE95024BD1C7F00D9D845 /* Controllers */,
 				134CE94D24BD1C7F00D9D845 /* Core */,
 				134CE94C24BD1C7F00D9D845 /* Views */,
@@ -254,6 +245,7 @@
 				13B9F91524E6897D00FAFA88 /* PrismDriver.swift */,
 				13C161E724E7B06900384C07 /* PrismModes.swift */,
 				13513B2024E8B3ED00D2A842 /* PrismKeyboard.swift */,
+				134CE96224BD3A3D00D9D845 /* KeyboardLayout.swift */,
 			);
 			path = PrismDriver;
 			sourceTree = "<group>";

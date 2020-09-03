@@ -11,7 +11,7 @@ import Cocoa
 //@NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    let driver: PrismDriver = PrismDriver.shared
+    let driver = PrismDriver.shared
 
     let mainWindow: NSWindow = {
         let window = NSWindow()

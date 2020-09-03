@@ -40,8 +40,8 @@ class ModesViewController: BaseViewController {
         popup.addItem(withTitle: PrismModes.breathing.rawValue)
         popup.addItem(withTitle: PrismModes.reactive.rawValue)
         popup.addItem(withTitle: PrismModes.disabled.rawValue)
-        popup.addItem(withTitle: PrismModes.mixed.rawValue)
-        popup.item(withTitle: PrismModes.mixed.rawValue)?.isHidden = true
+        popup.addItem(withTitle: "Mixed")
+        popup.item(withTitle: "Mixed")?.isHidden = true
         popup.action = #selector(didPopupChanged(_:))
         return popup
     }()
@@ -274,7 +274,8 @@ class ModesViewController: BaseViewController {
         multiSlider.heightAnchor.constraint(equalToConstant: heightView).isActive = true
 
         speedLabel.leadingAnchor.constraint(equalTo: colorPicker.view.leadingAnchor).isActive = true
-        speedLabel.topAnchor.constraint(equalTo: colorPicker.view.bottomAnchor, constant: heightView + 8).isActive = true
+        speedLabel.topAnchor.constraint(equalTo: colorPicker.view.bottomAnchor,
+                                        constant: heightView + 8).isActive = true
         speedLabel.trailingAnchor.constraint(equalTo: colorPicker.view.trailingAnchor).isActive = true
 
         speedSlider.leadingAnchor.constraint(equalTo: colorPicker.view.leadingAnchor).isActive = true
@@ -319,10 +320,20 @@ extension ModesViewController {
         switch identifierr {
         case .speed:
             speedValue.stringValue = "\(sender.intValue.description.dropLast(2))s"
+            PrismKeyboard.keysSelected.filter { ($0 as? KeyColorView) != nil }.forEach {
+                guard let prismKey = ($0 as? KeyColorView)?.prismKey else { return }
+                prismKey.duration = UInt16(sender.intValue)
+            }
         case .pulse:
             pulseValue.stringValue = "\(sender.intValue.description.dropLast(1))"
         default:
             Log.debug("Slider not implemented \(String(describing: sender.identifier))")
+            return
+        }
+
+        let event = NSApplication.shared.currentEvent
+        if event?.type == NSEvent.EventType.leftMouseUp {
+            updateDevice()
         }
     }
 
@@ -374,7 +385,10 @@ extension ModesViewController {
             showBreadingMode(shouldShow: false)
         default:
             Log.error("Mode Unavalilable")
+            return
         }
+        colorPicker.setColor(newColor: PrismRGB(red: 1.0, green: 0, blue: 0))
+        didColorChange(newColor: colorPicker.colorGraphView.color.rgb, finishedChanging: true)
     }
 }
 
@@ -401,7 +415,7 @@ extension ModesViewController {
             speedSlider.maxValue = 1000
             speedSlider.intValue = 300
             reactActiveColor.color = PrismRGB(red: 0xff, green: 0x0, blue: 0x0).nsColor
-            reactActiveColor.color = PrismRGB(red: 0x0, green: 0x0, blue: 0x0).nsColor
+            reactRestColor.color = PrismRGB(red: 0x0, green: 0x0, blue: 0x0).nsColor
             onSliderChanged(speedSlider)
         }
     }
@@ -463,12 +477,16 @@ extension ModesViewController {
 // MARK: Color Picker delegate
 
 extension ModesViewController: PrismColorPickerDelegate {
+
     func didColorChange(newColor: PrismRGB, finishedChanging: Bool) {
         switch modesPopUp.titleOfSelectedItem {
         case PrismModes.steady.rawValue:
-            PrismKeyboard.keys.filter { ($0 as? KeyColorView) != nil }.forEach {
+            PrismKeyboard.keysSelected.filter { ($0 as? KeyColorView) != nil }.forEach {
                 guard let colorView = $0 as? KeyColorView else { return }
-                colorView.prismKey.main = newColor
+                guard let prismKey = colorView.prismKey else { return }
+                prismKey.mode = .steady
+                prismKey.main = newColor
+                colorView.prismKey = prismKey
             }
         case PrismModes.colorShift.rawValue,
              PrismModes.breathing.rawValue:
@@ -481,13 +499,32 @@ extension ModesViewController: PrismColorPickerDelegate {
                 guard let colorView = $0 as? ColorView else { return }
                 colorView.color = newColor.nsColor
             }
+
+            PrismKeyboard.keysSelected.filter { ($0 as? KeyColorView) != nil }.forEach {
+                guard let colorView = $0 as? KeyColorView else { return }
+                guard let prismKey = colorView.prismKey else { return }
+                prismKey.mode = .reactive
+                prismKey.active = reactActiveColor.color.prismRGB
+                prismKey.main = reactRestColor.color.prismRGB
+                colorView.prismKey = prismKey
+            }
+
         default:
             Log.debug("Color change not implemented for \(String(describing: modesPopUp.titleOfSelectedItem))")
             return
         }
 
-        if finishedChanging && PrismKeyboard.keys.count > 0 {
-            Log.debug("Update Keyboard")
+        if finishedChanging {
+            updateDevice()
+        }
+    }
+
+    func updateDevice() {
+        if PrismKeyboard.keysSelected.count > 0 {
+            guard let device = PrismDriver.shared.currentDevice, device.model != .threeRegion else {
+                return
+            }
+            device.update()
         }
     }
 }

@@ -14,6 +14,10 @@ public final class PrismKeyboard {
 
     static let keys = NSMutableArray()
 
+    // Selected KeyColorView array
+
+    static let keysSelected = NSMutableArray()
+
     // Effects array
 
     static let effects = NSMutableArray()
@@ -184,7 +188,7 @@ public final class PrismKeyboard {
         0x52    // NULL
     ]
 
-    class func getRegionFromKeycode(_ keycode: UInt8) -> UInt8 {
+    static func getRegionFromKeycode(_ keycode: UInt8) -> UInt8 {
         for key in modifiers where key == keycode {
             return regions[0]
         }

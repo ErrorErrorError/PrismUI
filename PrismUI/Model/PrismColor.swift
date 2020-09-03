@@ -100,10 +100,15 @@ public class PrismHSB: NSObject, NSCopying {
 }
 
 public class PrismRGB: NSObject, NSCopying {
+
     var red: CGFloat // [0, 1]
     var green: CGFloat // [0, 1]
     var blue: CGFloat // [0, 1]
     var alpha: CGFloat // [0, 1]
+
+    convenience override init() {
+        self.init(red: 0, green: 0, blue: 0, alpha: 0)
+    }
 
     public init(red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat = 1.0) {
         self.red = red
@@ -197,6 +202,19 @@ extension PrismRGB {
                        blue: self.blue,
                        alpha: self.alpha)
     }
+
+    public var redInt: UInt8 {
+        return UInt8((red * 255))
+    }
+
+    public var greenInt: UInt8 {
+        return UInt8((green * 255))
+    }
+
+    public var blueInt: UInt8 {
+        return UInt8((blue * 255))
+    }
+
 }
 
 extension PrismHSB {

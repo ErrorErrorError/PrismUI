@@ -14,5 +14,4 @@ enum PrismModes: String {
     case breathing = "Breathing"
     case reactive = "Reactive"
     case disabled = "Disabled"
-    case mixed = "Mixed"
 }

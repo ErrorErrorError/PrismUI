@@ -8,12 +8,38 @@
 
 import Foundation
 
-public struct PrismKey {
+public class PrismKey {
     let region: UInt8
     let keycode: UInt8
     var effect: PrismEffect?
-    var duration: UInt16 = 0
+    var duration: UInt16 = 0x012c
     var main = PrismRGB(red: 1.0, green: 0.0, blue: 0.0)
-    var active = PrismRGB(red: 0, green: 0, blue: 0)
-    var mode: PrismModes = .steady
+    var active = PrismRGB()
+    var mode: PrismModes = .steady {
+        willSet(value) {
+            switch value {
+            case .steady:
+                self.effect = nil
+                self.duration = 0x012c
+                self.main = PrismRGB()
+                self.active = PrismRGB()
+            case .colorShift:
+                break
+            case .breathing:
+                break
+            case .reactive:
+                self.effect = nil
+                self.duration = 0x012c
+                self.main = PrismRGB()
+                self.active = PrismRGB()
+            case .disabled:
+                break
+            }
+        }
+    }
+
+    init(region: UInt8, keycode: UInt8) {
+        self.region = region
+        self.keycode = keycode
+    }
 }

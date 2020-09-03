@@ -13,6 +13,7 @@ import IOKit.hid
 public class PrismDriver: NSObject {
 
     public static let shared = PrismDriver()
+    public var currentDevice: PrismDevice?
     private var monitoringThread: Thread?
     internal var models = PrismDeviceModel.allCases.map({ $0.productInformation() })
 
@@ -52,6 +53,9 @@ public class PrismDriver: NSObject {
             let device = try HIDDevice(device: rawDevice)
             let prismDevice = try PrismDevice(device: device)
             self.devices.add(prismDevice)
+            if currentDevice == nil {
+                currentDevice = prismDevice
+            }
             Log.debug("Added \(prismDevice)")
         } catch {
             Log.error("\(error)")
@@ -63,6 +67,9 @@ public class PrismDriver: NSObject {
             let device = try HIDDevice(device: rawDevice)
             let prismDevice = try PrismDevice(device: device)
             self.devices.remove(prismDevice)
+            if prismDevice == currentDevice {
+                currentDevice = nil
+            }
             Log.debug("Removed \(prismDevice)")
         } catch {
             Log.error("\(error)")

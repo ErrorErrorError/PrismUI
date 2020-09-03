@@ -137,7 +137,7 @@ extension PrismColorGraphView {
         let xAxis = newColor.saturation * width
         let yAxis = newColor.brightness * height
         selector.frame.origin = NSPoint(x: xAxis, y: yAxis)
-        selector.color = color
+        selector.color = newColor
     }
 
     private func updateSelectorFromPoint(_ newPoint: CGPoint) {
@@ -148,7 +148,7 @@ extension PrismColorGraphView {
         xAxis = min(max(xAxis, 0), width)
         yAxis = min(max(yAxis, 0), height)
         selector.frame.origin = CGPoint(x: xAxis, y: yAxis)
-        selector.color = color
+        selector.needsDisplay = true
     }
 }
 

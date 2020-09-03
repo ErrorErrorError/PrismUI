@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class KeyboardLayout {
+public final class KeyboardLayout {
 
     static let perKeyGS65KeyMap: [[CGFloat]] = [
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
