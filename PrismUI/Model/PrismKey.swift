@@ -24,17 +24,21 @@ public class PrismKey {
                 self.duration = 0x012c
                 self.main = PrismRGB()
                 self.active = PrismRGB()
-            case .colorShift:
-                break
-            case .breathing:
-                break
+            case .colorShift,
+                 .breathing:
+                self.main = PrismRGB()
+                self.active = PrismRGB()
+                effect = nil
             case .reactive:
                 self.effect = nil
                 self.duration = 0x012c
                 self.main = PrismRGB()
                 self.active = PrismRGB()
             case .disabled:
-                break
+                self.effect = nil
+                self.duration = 0x012c
+                self.main = PrismRGB()
+                self.active = PrismRGB()
             }
         }
     }

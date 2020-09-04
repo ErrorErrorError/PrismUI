@@ -58,7 +58,7 @@ public class PrismEffect: Equatable {
             lhs.direction == rhs.direction &&
             lhs.control == rhs.control &&
             lhs.origin == rhs.origin &&
-            lhs.waveLength == rhs.waveLength &&
+            lhs.pulse == rhs.pulse &&
             lhs.transitions == rhs.transitions
     }
 
@@ -68,7 +68,7 @@ public class PrismEffect: Equatable {
     var direction: PrismDirection = .xyAxis
     var control: PrismControl = .inward
     var origin: PrismPoint = PrismPoint()
-    var waveLength: UInt16 = 0
+    var pulse: UInt16 = 0
     var transitions: [PrismTransition]
     var transitionDuration: UInt16 {
         return transitions.compactMap { $0.duration }.reduce(0, +)

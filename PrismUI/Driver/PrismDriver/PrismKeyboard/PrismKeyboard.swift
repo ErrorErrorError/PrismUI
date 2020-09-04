@@ -286,8 +286,8 @@ extension PrismKeyboard {
                              effect.direction != .xAxis ? 0x01 : 0x00,
                              0x00,
                              // Wave Length
-                             UInt8(effect.waveLength & 0x00ff),
-                             UInt8((effect.waveLength & 0xff00) >> 8)
+                             UInt8(effect.pulse & 0x00ff),
+                             UInt8((effect.pulse & 0xff00) >> 8)
                 ], count: 10)
             } else {
                 fillZeros = [UInt8](repeating: 0x00, count: 10)
