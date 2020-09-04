@@ -10,11 +10,38 @@ import Cocoa
 
 public class PrismHSB: NSObject, NSCopying {
 
+    public override func isEqual(_ object: Any?) -> Bool {
+        if let object = object as? PrismHSB {
+            return hue == object.hue &&
+                saturation == object.saturation &&
+                brightness == object.brightness &&
+                alpha == object.alpha
+        }
+
+        return false
+    }
+
     // All var range are from 0..1
-    public var hue: CGFloat
-    public var saturation: CGFloat
-    public var brightness: CGFloat
-    public var alpha: CGFloat
+    public var hue: CGFloat {
+        didSet {
+            hue.clamped(min: 0.0, max: 1.0)
+        }
+    }
+    public var saturation: CGFloat {
+        didSet {
+            saturation.clamped(min: 0.0, max: 1.0)
+        }
+    }
+    public var brightness: CGFloat {
+        didSet {
+            brightness.clamped(min: 0.0, max: 1.0)
+        }
+    }
+    public var alpha: CGFloat {
+        didSet {
+            alpha.clamped(min: 0.0, max: 1.0)
+        }
+    }
 
     public init(hue: CGFloat, saturation: CGFloat, brightness: CGFloat, alpha: CGFloat = 1.0) {
         self.hue = hue
@@ -101,23 +128,51 @@ public class PrismHSB: NSObject, NSCopying {
 
 public class PrismRGB: NSObject, NSCopying {
 
-    var red: CGFloat // [0, 1]
-    var green: CGFloat // [0, 1]
-    var blue: CGFloat // [0, 1]
-    var alpha: CGFloat // [0, 1]
+    public override func isEqual(_ object: Any?) -> Bool {
+        if let object = object as? PrismRGB {
+            return red == object.red &&
+                green == object.green &&
+                blue == object.blue &&
+                alpha == object.alpha
+        }
+
+        return false
+    }
+
+    // [0, 1]
+    public var red: CGFloat {
+        didSet {
+            red.clamped(min: 0.0, max: 1.0)
+        }
+    }
+    public var green: CGFloat {
+        didSet {
+            green.clamped(min: 0.0, max: 1.0)
+        }
+    }
+    public var blue: CGFloat {
+        didSet {
+            blue.clamped(min: 0.0, max: 1.0)
+        }
+    }
+    public var alpha: CGFloat {
+        didSet {
+            alpha.clamped(min: 0.0, max: 1.0)
+        }
+    }
 
     convenience override init() {
         self.init(red: 0, green: 0, blue: 0, alpha: 0)
     }
 
     public init(red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat = 1.0) {
-        self.red = red
-        self.green = green
-        self.blue = blue
-        self.alpha = alpha
+        self.red = CGFloat(min(max(red, 0.0), 1.0))
+        self.green = CGFloat(min(max(green, 0.0), 1.0))
+        self.blue = CGFloat(min(max(blue, 0.0), 1.0))
+        self.alpha = CGFloat(min(max(alpha, 0.0), 1.0))
     }
 
-    convenience init(red: Int, green: Int, blue: Int, alpha: Int = 255) {
+    convenience init(red: UInt8, green: UInt8, blue: UInt8, alpha: UInt8 = 255) {
         let rClamped = CGFloat(min(max(red, 0), 255))
         let gClamped = CGFloat(min(max(green, 0), 255))
         let bClamped = CGFloat(min(max(blue, 0), 255))
@@ -126,6 +181,12 @@ public class PrismRGB: NSObject, NSCopying {
                   green: gClamped / 255.0,
                   blue: bClamped / 255.0,
                   alpha: aClamped / 255.0)
+    }
+    convenience init(red: Int, green: Int, blue: Int, alpha: Int = 255) {
+        self.init(red: UInt8(red),
+                  green: UInt8(green),
+                  blue: UInt8(blue),
+                  alpha: UInt8(alpha))
     }
 
     convenience init(hexString: String) {
@@ -215,6 +276,28 @@ extension PrismRGB {
         return UInt8((blue * 255))
     }
 
+    public var alphaInt: UInt8 {
+        return UInt8((alpha * 255))
+    }
+
+    public func colorDelta(target: PrismRGB, duration: UInt16) -> PrismRGB {
+        var duration = duration
+        if duration < 32 {
+            duration = 32
+        }
+
+        let divisible: CGFloat = CGFloat(duration / 16)
+        var deltaR = (target.red - self.red) / divisible
+        var deltaG = (target.green - self.green) / divisible
+        var deltaB = (target.blue - self.blue) / divisible
+
+        // Handle underflow
+        if deltaR < 0.0 { deltaR += 1 }
+        if deltaG < 0.0 { deltaG += 1 }
+        if deltaB < 0.0 { deltaB += 1 }
+
+        return PrismRGB(red: deltaR, green: deltaG, blue: deltaB)
+    }
 }
 
 extension PrismHSB {
@@ -230,6 +313,17 @@ extension PrismHSB {
             self.saturation = newColor.saturationComponent
             self.brightness = newColor.brightnessComponent
             self.alpha = newColor.alphaComponent
+        }
+    }
+}
+
+private extension CGFloat {
+
+    mutating func clamped(min: CGFloat, max: CGFloat) {
+        if self > max {
+            self = max
+        } else if self < min {
+            self = min
         }
     }
 }

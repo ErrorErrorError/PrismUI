@@ -27,11 +27,12 @@ public class PrismMultiSliderView: NSView {
             needsDisplay = true
         }
     }
-    weak var selectorDelegate: PrismSelectionDelegate?
 
-    convenience init (selectionDelegate: PrismSelectionDelegate? = nil) {
+    weak var delegate: PrismMultiSliderDelegate?
+
+    convenience init (delegate: PrismMultiSliderDelegate? = nil) {
         self.init(frame: NSRect.zero)
-        self.selectorDelegate = selectionDelegate
+        self.delegate = delegate
     }
 
     public override init(frame frameRect: NSRect) {
@@ -49,6 +50,17 @@ public class PrismMultiSliderView: NSView {
         createDefaultColorShift()
     }
 
+    func getSubviewsInOrder() -> [PrismSelector] {
+        let subviewsInOrder = subviews.sorted { (slider1, slider2) -> Bool in
+            return slider1.frame.origin.x < slider2.frame.origin.x
+        }
+        return (subviewsInOrder as? [PrismSelector]) ?? []
+    }
+}
+
+// MARK: Drawing functions
+
+extension PrismMultiSliderView {
     public override func draw(_ dirtyRect: NSRect) {
         guard let context = NSGraphicsContext.current?.cgContext else { return }
         let clipRect = bounds.insetBy(dx: selectorSize.width/2, dy: selectorSize.height/2)
@@ -105,16 +117,18 @@ public class PrismMultiSliderView: NSView {
         }
     }
 
-    func getSubviewsInOrder() -> [PrismSelector] {
-        let subviewsInOrder = subviews.sorted { (slider1, slider2) -> Bool in
-            return slider1.frame.origin.x < slider2.frame.origin.x
-        }
-        return (subviewsInOrder as? [PrismSelector]) ?? []
+    private func getDrawBounds() -> NSRect {
+        var drawBounds = bounds
+        drawBounds.size.width -= selectorSize.width/2
+        drawBounds.origin.x = selectorSize.width/2
+        return drawBounds
     }
+
 }
 
-extension PrismMultiSliderView {
+// MARK: PrismKeyboard mode functions
 
+extension PrismMultiSliderView {
     private func createDefaultColorShift() {
         maxSize = 14
         subviews.forEach { $0.removeFromSuperview() }
@@ -127,9 +141,9 @@ extension PrismMultiSliderView {
         thumbOne.allowsSelection = true
         thumbTwo.allowsSelection = true
         thumbThree.allowsSelection = true
-        thumbOne.delegate = selectorDelegate
-        thumbTwo.delegate = selectorDelegate
-        thumbThree.delegate = selectorDelegate
+        thumbOne.delegate = self
+        thumbTwo.delegate = self
+        thumbThree.delegate = self
         thumbOne.color = PrismRGB(red: 1.0, green: 0.0, blue: 0.88).hsb
         thumbTwo.color = PrismRGB(red: 1.0, green: 0xea/0xff, blue: 0.0).hsb
         thumbThree.color = PrismRGB(red: 0.0, green: 0xcc/0xff, blue: 1.0).hsb
@@ -145,19 +159,55 @@ extension PrismMultiSliderView {
         let selector = PrismSelector(frame: NSRect(origin: CGPoint(x: 0, y: centerView), size: selectorSize))
         selector.allowsSelection = true
         selector.color = PrismRGB(red: 1.0, green: 0.0, blue: 0.0).hsb
-        selector.delegate = selectorDelegate
+        selector.delegate = self
         addSubview(selector)
+    }
+
+    public func colorShiftTransitions(speed: CGFloat) -> [PrismTransition] {
+        return calculateTransitions(speed: speed)
+    }
+
+    public func breathingTransitions(speed: CGFloat) -> [PrismTransition] {
+        var newTransitions: [PrismTransition] = []
+        let transitions = calculateTransitions(speed: speed)
+
+        for index in 0..<transitions.count {
+            let transition = transitions[index]
+            let newDuration = transition.duration / 2
+            transition.duration = newDuration
+            newTransitions.append(transition)
+            let newTrans = PrismTransition(color: PrismRGB(), duration: newDuration)
+            newTransitions.append(newTrans)
+        }
+
+        return newTransitions
+    }
+
+    private func calculateTransitions(speed: CGFloat) -> [PrismTransition] {
+        var transitions: [PrismTransition] = []
+        let selectors = getSubviewsInOrder()
+        let width = getDrawBounds().size.width
+        for index in 0..<selectors.count {
+            let selector = selectors[index]
+            let distance: CGFloat
+            if (index + 1) < selectors.count {
+                let nextSelector = selectors[index + 1]
+                distance = (nextSelector.frame.origin.x - selector.frame.origin.x) / width
+            } else {
+                let firstSelector = selectors[0]
+                distance = ((width - selector.frame.origin.x) + firstSelector.frame.origin.x) / width
+            }
+            let transition = PrismTransition(color: selector.color.rgb, duration: UInt16(speed * distance))
+            transitions.append(transition)
+        }
+
+        return transitions
     }
 }
 
-extension PrismMultiSliderView {
+// MARK: Action functions
 
-    private func getDrawBounds() -> NSRect {
-        var drawBounds = bounds
-        drawBounds.size.width -= selectorSize.width/2
-        drawBounds.origin.x = selectorSize.width/2
-        return drawBounds
-    }
+extension PrismMultiSliderView {
 
     private func updateSelectorFromPoint(selector: PrismSelector, newPoint: NSPoint, animate: Bool = false) {
         let centerView = (frame.size.height - selectorSize.height) / 2
@@ -223,12 +273,12 @@ extension PrismMultiSliderView {
             let rect = getDrawBounds()
             let selector = PrismSelector(frame: NSRect(origin: newPoint, size: selectorSize))
             selector.allowsSelection = true
-            selector.delegate = selectorDelegate
+            selector.delegate = self
             updateSelectorFromPoint(selector: selector, newPoint: newPoint)
             selector.color = gradient.interpolatedColor(atLocation: newPoint.x/rect.width).prismHSB
             addSubview(selector)
-            currentSelector = selector
             needsDisplay = true
+            delegate?.added(selector)
         }
     }
 
@@ -259,4 +309,25 @@ extension PrismMultiSliderView {
 
         needsDisplay = true
     }
+}
+
+extension PrismMultiSliderView: PrismSelectorDelegate {
+    func didSelect(_ sender: PrismSelector) {
+        delegate?.didSelect(sender)
+    }
+
+    func didDeselect(_ sender: PrismSelector) {
+        delegate?.didDeselect(sender)
+    }
+
+    func event(_ sender: PrismSelector, _ event: NSEvent) {
+        delegate?.event(sender, event)
+    }
+}
+
+protocol PrismMultiSliderDelegate: AnyObject {
+    func didSelect(_ sender: PrismSelector)
+    func didDeselect(_ sender: PrismSelector)
+    func event(_ sender: PrismSelector, _ event: NSEvent)
+    func added(_ sender: PrismSelector)
 }

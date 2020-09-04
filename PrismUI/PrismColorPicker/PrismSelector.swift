@@ -32,7 +32,7 @@ class PrismSelector: NSView {
 
     var dragging: Bool = false
 
-    weak var delegate: PrismSelectionDelegate?
+    weak var delegate: PrismSelectorDelegate?
 
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
@@ -73,6 +73,7 @@ extension PrismSelector {
         if selected {
             selected = false
         }
+        delegate?.event(self, event)
     }
 
     override func mouseUp(with event: NSEvent) {
@@ -83,10 +84,12 @@ extension PrismSelector {
         }
 
         dragging = false
+        delegate?.event(self, event)
     }
 }
 
-protocol PrismSelectionDelegate: AnyObject {
+protocol PrismSelectorDelegate: AnyObject {
     func didSelect(_ sender: PrismSelector)
     func didDeselect(_ sender: PrismSelector)
+    func event(_ sender: PrismSelector, _ event: NSEvent)
 }

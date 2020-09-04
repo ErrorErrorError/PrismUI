@@ -221,6 +221,102 @@ public final class PrismKeyboard: PrismDevice {
 
 extension PrismKeyboard {
 
+    private func updateEffectKeyboard() -> IOReturn {
+        let effects = PrismKeyboard.effects.compactMap { $0 as? PrismEffect }
+        guard effects.count > 0 else { return kIOReturnNotFound }
+
+        for effect in effects {
+            var data = Data(capacity: 0x20c)
+            data.append([0x0b, 0x0], count: 2) // Start Packet
+            guard effect.transitions.count > 0 else {
+                // Must have at least one transition or will throw error
+                return kIOReturnError
+            }
+
+            // Transitions - each transition will take 8 bytes
+            let transitions = effect.transitions
+            for (index, transition) in transitions.enumerated() {
+                let idx = UInt8(index)
+                data.append([index == 0 ? effect.identifier : idx], count: 1)
+
+                // Calculate color difference
+                let nextColor = (index + 1) < transitions.count ? transitions[index + 1].color : effect.start
+                let colorDelta = transition.color.colorDelta(target: nextColor, duration: transition.duration)
+
+                data.append([0x0,
+                             colorDelta.redInt,
+                             colorDelta.greenInt,
+                             colorDelta.blueInt,
+                             0x0,
+
+                             // Separates the duration into two bytes
+                             UInt8(transition.duration & 0x00ff),
+                             UInt8((transition.duration & 0xff00) >> 8)
+                ], count: 7)
+            }
+
+            // Fill spaces
+            var fillZeros = [UInt8](repeating: 0x00, count: 0x84 - data.count)
+            data.append(fillZeros, count: fillZeros.count)
+
+            // Set starting color, each value will have 2 bytes
+            data.append([(effect.start.redInt & 0x0f) << 4,
+                         (effect.start.redInt & 0xf0) >> 4,
+                         (effect.start.greenInt & 0x0f) << 4,
+                         (effect.start.greenInt & 0xf0) >> 4,
+                         (effect.start.blueInt & 0x0f) << 4,
+                         (effect.start.blueInt & 0xf0) >> 4,
+                         // Separator
+                         0xff,
+                         0x00
+            ], count: 8)
+
+            // Wave mode
+
+            if effect.waveActive {
+                let origin = effect.origin
+                             // Split origin into two bytes
+                data.append([UInt8(origin.xAxis & 0x00ff),
+                             UInt8((origin.xAxis & 0xff00) >> 8),
+                             UInt8(origin.yAxis & 0x00ff),
+                             UInt8((origin.yAxis & 0xff00) >> 8),
+                             // Direction Control
+                             effect.direction != .yAxis ? 0x01 : 0x00,
+                             0x00,
+                             effect.direction != .xAxis ? 0x01 : 0x00,
+                             0x00,
+                             // Wave Length
+                             UInt8(effect.waveLength & 0x00ff),
+                             UInt8((effect.waveLength & 0xff00) >> 8)
+                ], count: 10)
+            } else {
+                fillZeros = [UInt8](repeating: 0x00, count: 10)
+                data.append(fillZeros, count: fillZeros.count)
+            }
+                         // Transition count
+            data.append([UInt8(effect.transitions.count),
+                         0x00,
+                         // Total effect length
+                         UInt8(effect.transitionDuration & 0x00ff),
+                         UInt8((effect.transitionDuration & 0xff00) >> 8),
+                         // Wave Direction
+                         effect.control == .inward ? 0x01 : 0x00
+            ], count: 5)
+
+            // Fill remaining with zeros
+            fillZeros = [UInt8](repeating: 0x00, count: 0x20c - data.count)
+            data.append(fillZeros, count: fillZeros.count)
+
+            let result = device.sendFeatureReport(data: data)
+            guard result == kIOReturnSuccess else {
+                Log.debug("Could not send effect report: \(String(cString: mach_error_string(result)))")
+                return result
+            }
+        }
+
+        return kIOReturnSuccess
+    }
+
     private func updatePerKeyKeyboard() {
         DispatchQueue.global(qos: .utility).async {
             let keysSelected = PrismKeyboard.keysSelected
@@ -232,6 +328,13 @@ extension PrismKeyboard {
             let updateAlphanums = keysSelected.filter { $0.region == PrismKeyboard.regions[1] }.count > 0
             let updateEnter = keysSelected.filter { $0.region == PrismKeyboard.regions[2] }.count > 0
             let updateSpecial = keysSelected.filter { $0.region == PrismKeyboard.regions[3] }.count > 0
+
+            // Update effects first
+            let result = self.updateEffectKeyboard()
+            guard result == kIOReturnSuccess || result == kIOReturnNotFound else {
+                Log.error("Cannot update effect: \(String(cString: mach_error_string(result)))")
+                return
+            }
 
             // Send feature report
             var lastByte: UInt8 = 0
@@ -330,5 +433,8 @@ extension PrismKeyboard {
             Log.error("Error updating keyboard: \(String(cString: mach_error_string(result)))")
         }
     }
+}
 
+enum PrismError: Error {
+    case runtimeError(String)
 }
