@@ -11,6 +11,8 @@ import Cocoa
 
 class ModesViewController: BaseViewController {
 
+    var updatePending = false
+
     // MARK: Selector array
 
     static let selectorArray = NSMutableArray()
@@ -51,7 +53,7 @@ class ModesViewController: BaseViewController {
     }()
 
     let speedSlider: NSSlider = {
-       let slider = NSSlider(value: 300,
+        let slider = NSSlider(value: 300,
                              minValue: 100,
                              maxValue: 2000,
                              target: nil,
@@ -307,6 +309,7 @@ extension ModesViewController {
             guard let device = PrismDriver.shared.currentDevice, device.model != .threeRegion else {
                 return
             }
+
             device.update()
         }
     }

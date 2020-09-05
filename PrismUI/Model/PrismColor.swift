@@ -162,7 +162,7 @@ public class PrismRGB: NSObject, NSCopying {
     }
 
     convenience override init() {
-        self.init(red: 0, green: 0, blue: 0, alpha: 1)
+        self.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
     }
 
     public init(red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat = 1.0) {

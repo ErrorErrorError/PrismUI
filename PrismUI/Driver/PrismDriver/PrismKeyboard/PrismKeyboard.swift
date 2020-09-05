@@ -307,7 +307,7 @@ extension PrismKeyboard {
             fillZeros = [UInt8](repeating: 0x00, count: 0x20c - data.count)
             data.append(fillZeros, count: fillZeros.count)
 
-            let result = device.sendFeatureReport(data: data)
+            let result = sendFeatureReport(data: data)
             guard result == kIOReturnSuccess else {
                 Log.debug("Could not send effect report: \(String(cString: mach_error_string(result)))")
                 return result
@@ -318,7 +318,7 @@ extension PrismKeyboard {
     }
 
     private func updatePerKeyKeyboard() {
-        DispatchQueue.global(qos: .utility).async {
+        commandMutex.async {
             let keysSelected = PrismKeyboard.keysSelected
                 .compactMap { $0 as? KeyColorView }
                 .compactMap { $0.prismKey }
@@ -362,7 +362,6 @@ extension PrismKeyboard {
             }
 
             // Update keyboard
-
             self.writeToKeyboard(lastByte: lastByte)
         }
     }
@@ -373,7 +372,7 @@ extension PrismKeyboard {
         data.append([0x0d, 0x0, 0x02], count: 3)
         data.append([UInt8](repeating: 0, count: 60), count: 60)
         data.append([lastByte], count: 1)
-        let result = device.write(data: data)
+        let result = write(data: data)
         if result != kIOReturnSuccess {
             Log.error("Error writing keyboard: \(String(cString: mach_error_string(result)))")
         }
@@ -428,7 +427,7 @@ extension PrismKeyboard {
         // Fill rest of data with the remaining capacity
         let sizeRemaining = 0x20c - data.count
         data.append([UInt8](repeating: 0, count: sizeRemaining), count: sizeRemaining)
-        let result = device.sendFeatureReport(data: data)
+        let result = sendFeatureReport(data: data)
         if result != kIOReturnSuccess {
             Log.error("Error updating keyboard: \(String(cString: mach_error_string(result)))")
         }

@@ -13,6 +13,7 @@ public enum PrismDeviceModel: CaseIterable {
     case perKey
     case perKeyGS65
     case threeRegion
+    case unknown
 
     public func productInformation() -> IOHIDManager.ProductInformation {
         return .init(vendorId: vendorId,
@@ -25,6 +26,8 @@ public enum PrismDeviceModel: CaseIterable {
         switch self {
         case .perKey, .perKeyGS65: return 0x1038
         case .threeRegion: return 0x1770
+        default:
+            return 0
         }
     }
 
@@ -32,6 +35,8 @@ public enum PrismDeviceModel: CaseIterable {
         switch self {
         case .perKey, .perKeyGS65: return 0x1122
         case .threeRegion: return 0xff00
+        default:
+            return 0
         }
     }
 
@@ -40,6 +45,8 @@ public enum PrismDeviceModel: CaseIterable {
         case .perKey: return 0x230
         case .perKeyGS65: return 0x229
         case .threeRegion: return 0x110
+        default:
+            return 0
         }
     }
 
@@ -47,6 +54,8 @@ public enum PrismDeviceModel: CaseIterable {
         switch self {
         case .perKey, .perKeyGS65: return 0xffc0
         case .threeRegion: return 0xffa0
+        default:
+            return 0
         }
     }
 }

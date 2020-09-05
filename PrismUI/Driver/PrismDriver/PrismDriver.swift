@@ -50,16 +50,15 @@ public class PrismDriver: NSObject {
 
     private func deviceAdded(rawDevice: IOHIDDevice) {
         do {
-            let device = try HIDDevice(device: rawDevice)
-            var prismDevice = try PrismDevice(device: device)
+            var prismDevice = try PrismDevice(device: rawDevice)
             if prismDevice.isKeyboardDevice {
-                prismDevice = try PrismKeyboard(device: device)
+                prismDevice = try PrismKeyboard(device: rawDevice)
             }
             if currentDevice == nil {
                 currentDevice = prismDevice
             }
             self.devices.add(prismDevice)
-            Log.debug("Added \(device.description)")
+            Log.debug("Added \(prismDevice.description)")
         } catch {
             Log.error("\(error)")
         }
@@ -67,16 +66,15 @@ public class PrismDriver: NSObject {
 
     private func deviceRemoved(rawDevice: IOHIDDevice) {
         do {
-            let device = try HIDDevice(device: rawDevice)
-            var prismDevice = try PrismDevice(device: device)
+            var prismDevice = try PrismDevice(device: rawDevice)
             if prismDevice.isKeyboardDevice {
-                prismDevice = try PrismKeyboard(device: device)
+                prismDevice = try PrismKeyboard(device: rawDevice)
             }
             if prismDevice == currentDevice {
                 currentDevice = nil
             }
             self.devices.remove(prismDevice)
-            Log.debug("Removed \(device.description)")
+            Log.debug("Removed \(prismDevice.description)")
         } catch {
             Log.error("\(error)")
         }

@@ -18,28 +18,11 @@ public class PrismKey {
     var mode: PrismKeyModes = .steady {
         willSet(value) {
             guard value != mode else { return }
-            switch value {
-            case .steady:
-                self.effect = nil
-                self.duration = 0x012c
-                self.main = PrismRGB()
-                self.active = PrismRGB()
-            case .colorShift,
-                 .breathing:
-                self.main = PrismRGB()
-                self.active = PrismRGB()
-                effect = nil
-            case .reactive:
-                self.effect = nil
-                self.duration = 0x012c
-                self.main = PrismRGB()
-                self.active = PrismRGB()
-            case .disabled:
-                self.effect = nil
-                self.duration = 0x012c
-                self.main = PrismRGB()
-                self.active = PrismRGB()
-            }
+            // Reset effect to a default state
+            self.effect = nil
+            self.duration = 0x012c
+            self.main = PrismRGB()
+            self.active = PrismRGB()
         }
     }
 
