@@ -6,28 +6,22 @@
 //  Copyright © 2020 ErrorErrorError. All rights reserved.
 //
 
-import Foundation
+import Cocoa
 
 // Per Key Setup view
 
 extension ModesViewController {
 
-    func perKeySetup() {
-        presetsButton.target = self
-        modesPopUp.target = self
+    func perKeyLayoutSetup() {
         speedSlider.target = self
         waveToggle.target = self
         pulseSlider.target = self
         originButton.target = self
         waveDirectionControl.target = self
         waveInwardOutwardControl.target = self
-        colorPicker.delegate = self
         reactActiveColor.delegate = self
         reactRestColor.delegate = self
         multiSlider.delegate = self
-        view.addSubview(presetsButton)
-        view.addSubview(modesLabel)
-        view.addSubview(modesPopUp)
         view.addSubview(multiSlider)
         view.addSubview(speedLabel)
         view.addSubview(speedSlider)
@@ -44,9 +38,6 @@ extension ModesViewController {
         view.addSubview(reactRestText)
         view.addSubview(reactRestColor)
 
-        addChild(colorPicker)
-        view.addSubview(colorPicker.view)
-
         modesPopUp.addItem(withTitle: PrismKeyModes.steady.rawValue)
         modesPopUp.addItem(withTitle: PrismKeyModes.colorShift.rawValue)
         modesPopUp.addItem(withTitle: PrismKeyModes.breathing.rawValue)
@@ -54,30 +45,16 @@ extension ModesViewController {
         modesPopUp.addItem(withTitle: PrismKeyModes.disabled.rawValue)
         modesPopUp.addItem(withTitle: "Mixed")
         modesPopUp.item(withTitle: "Mixed")?.isHidden = true
+        modesPopUp.selectItem(withTitle: PrismKeyModes.steady.rawValue)
 
         perKeySetupContraints()
+        updatePending = false
     }
 
     private func perKeySetupContraints() {
         view.subviews.forEach { subview in
             subview.translatesAutoresizingMaskIntoConstraints = false
         }
-
-        let edgeMargin: CGFloat = 18
-
-        presetsButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: edgeMargin).isActive = true
-        presetsButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
-
-        modesLabel.leadingAnchor.constraint(equalTo: presetsButton.leadingAnchor).isActive = true
-        modesLabel.topAnchor.constraint(equalTo: presetsButton.bottomAnchor, constant: 20).isActive = true
-
-        modesPopUp.leadingAnchor.constraint(equalTo: modesLabel.leadingAnchor).isActive = true
-        modesPopUp.topAnchor.constraint(equalTo: modesLabel.bottomAnchor, constant: 4).isActive = true
-
-        colorPicker.view.leadingAnchor.constraint(equalTo: modesPopUp.leadingAnchor).isActive = true
-        colorPicker.view.topAnchor.constraint(equalTo: modesPopUp.bottomAnchor, constant: 20).isActive = true
-        colorPicker.view.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -edgeMargin).isActive = true
-        colorPicker.view.heightAnchor.constraint(equalToConstant: 180).isActive = true
 
         // Reactive Constraints
         let heightView: CGFloat = 40
@@ -144,7 +121,86 @@ extension ModesViewController {
     }
 }
 
+// MARK: Action PerKey
+
+extension ModesViewController {
+    func handlePerKeyPopup(_ sender: NSPopUpButton) {
+        Log.debug("sender: \(String(describing: sender.titleOfSelectedItem))")
+        switch sender.titleOfSelectedItem {
+        case PrismKeyModes.steady.rawValue:
+            showReactiveMode(shouldShow: false)
+            showColorShiftMode(shouldShow: false)
+            showBreadingMode(shouldShow: false)
+        case PrismKeyModes.reactive.rawValue:
+            showColorShiftMode(shouldShow: false)
+            showBreadingMode(shouldShow: false)
+            showReactiveMode()
+        case PrismKeyModes.colorShift.rawValue:
+            showReactiveMode(shouldShow: false)
+            showBreadingMode(shouldShow: false)
+            showColorShiftMode()
+        case PrismKeyModes.breathing.rawValue:
+            showReactiveMode(shouldShow: false)
+            showColorShiftMode(shouldShow: false)
+            showBreadingMode()
+        case PrismKeyModes.disabled.rawValue:
+            showReactiveMode(shouldShow: false)
+            showColorShiftMode(shouldShow: false)
+            showBreadingMode(shouldShow: false)
+        default:
+            Log.error("Effect Unavalilable for perKey")
+            return
+        }
+
+        colorPicker.setColor(newColor: PrismRGB(red: 1.0, green: 0, blue: 0))
+        didColorChange(newColor: colorPicker.colorGraphView.color.rgb, finishedChanging: true)
+    }
+
+    func handlePerKeyButtonClicked(_ sender: NSButton, update: Bool = true) {
+        guard let identifier = sender.identifier else { return }
+        switch identifier {
+        case .presets:
+            delegate?.didClickOnPresetsButton()
+            return
+        case .origin,
+             .xyDirection,
+             .inwardOutward:
+            break
+        case .waveToggle:
+            let enabled = sender.state == .on
+            originButton.isEnabled = enabled
+            waveDirectionControl.isEnabled = enabled
+            waveInwardOutwardControl.isEnabled = enabled
+            pulseSlider.isEnabled = enabled
+        default:
+            Log.debug("Unkown button pressed \(identifier)")
+            return
+        }
+
+        didColorChange(newColor: colorPicker.colorGraphView.color.rgb, finishedChanging: update)
+    }
+
+    func handlePerKeySliderChanged(_ sender: NSSlider, update: Bool = true) {
+        guard let identifierr = sender.identifier else { return }
+        switch identifierr {
+        case .speed:
+            speedValue.stringValue = "\(sender.intValue.description.dropLast(2))s"
+        case .pulse:
+            pulseValue.stringValue = "\(sender.intValue.description.dropLast(1))"
+        default:
+            Log.debug("Slider not implemented \(String(describing: sender.identifier))")
+            return
+        }
+
+        let event = NSApplication.shared.currentEvent
+        if event?.type == NSEvent.EventType.leftMouseUp && update {
+            didColorChange(newColor: colorPicker.colorGraphView.color.rgb, finishedChanging: true)
+        }
+    }
+}
+
 // MARK: device settings
+
 extension ModesViewController {
 
     // MARK: PerKey Modes state
@@ -237,10 +293,12 @@ extension ModesViewController {
             PrismKeyboard.keysSelected.filter { ($0 as? KeyColorView) != nil }.forEach {
                 guard let colorView = $0 as? KeyColorView else { return }
                 guard let prismKey = colorView.prismKey else { return }
-                prismKey.mode = .steady
-                prismKey.main = newColor
+                if prismKey.mode != .steady || prismKey.main != newColor {
+                    prismKey.mode = .steady
+                    prismKey.main = newColor
+                    updatePending = true
+                }
                 colorView.prismKey = prismKey
-                updatePending = true
             }
         case PrismKeyModes.colorShift,
              PrismKeyModes.breathing:
@@ -274,9 +332,15 @@ extension ModesViewController {
             PrismKeyboard.keysSelected.filter { ($0 as? KeyColorView) != nil }.forEach {
                 guard let colorView = $0 as? KeyColorView else { return }
                 guard let prismKey = colorView.prismKey else { return }
+                let activeColor = reactActiveColor.color.prismRGB
+                let baseColor = reactRestColor.color.prismRGB
+                if prismKey.mode != .reactive || prismKey.active != activeColor || prismKey.main != baseColor {
+                    
+                }
                 prismKey.mode = .reactive
-                prismKey.active = reactActiveColor.color.prismRGB
-                prismKey.main = reactRestColor.color.prismRGB
+                prismKey.active = activeColor
+                prismKey.main = baseColor
+                prismKey.duration = UInt16(speedSlider.intValue)
                 colorView.prismKey = prismKey
                 updatePending = true
             }
@@ -345,4 +409,87 @@ extension ModesViewController {
             .filter { !PrismKeyboard.keys.compactMap { ($0 as? PrismKey)?.effect }.contains($0) }
         PrismKeyboard.effects.removeObjects(in: effectsNotUsed)
     }
+
+    func removePerKeySettingsLayout() {
+        let perKeyViews = [
+            multiSlider,
+            speedLabel,
+            speedSlider,
+            speedValue,
+            waveToggle,
+            originButton,
+            waveDirectionControl,
+            waveInwardOutwardControl,
+            pulseLabel,
+            pulseSlider,
+            pulseValue,
+            reactActiveText,
+            reactActiveColor,
+            reactRestText,
+            reactRestColor
+        ]
+
+        perKeyViews.forEach { $0.animator().removeFromSuperview() }
+        modesPopUp.removeAllItems()
+    }
+}
+
+// MARK: MultiSlider Selector delegate
+
+extension ModesViewController: PrismMultiSliderDelegate {
+
+    func added(_ sender: PrismSelector) {
+        didColorChange(newColor: sender.color.rgb, finishedChanging: true)
+    }
+
+    func event(_ sender: PrismSelector, _ event: NSEvent) {
+        switch event.type {
+        case .leftMouseDragged:
+            selectorDragging = true
+            didColorChange(newColor: colorPicker.colorGraphView.color.rgb, finishedChanging: false)
+        case .leftMouseUp:
+            if !selectorDragging {
+                if ModesViewController.selectorArray.count == 1 {
+                    colorPicker.setColor(newColor: sender.color.rgb)
+                }
+            } else {
+                didColorChange(newColor: colorPicker.colorGraphView.color.rgb, finishedChanging: true)
+                selectorDragging = false
+            }
+        default:
+            Log.debug("Event not valid: \(event.type.rawValue)")
+        }
+    }
+
+    func didSelect(_ sender: PrismSelector) {
+        ModesViewController.selectorArray.add(sender)
+    }
+
+    func didDeselect(_ sender: PrismSelector) {
+        ModesViewController.selectorArray.remove(sender)
+    }
+}
+
+// MARK: Reactive delegate
+
+extension ModesViewController: ColorViewDelegate {
+    func didSelect(_ sender: ColorView) {
+        ModesViewController.selectorArray.add(sender)
+    }
+
+    func didDeselect(_ sender: ColorView) {
+        ModesViewController.selectorArray.remove(sender)
+    }
+}
+
+// MARK: Identifiers
+
+extension NSUserInterfaceItemIdentifier {
+    static let speed = NSUserInterfaceItemIdentifier(rawValue: "speed-slider")
+    static let pulse = NSUserInterfaceItemIdentifier(rawValue: "pulse-slider")
+    static let waveToggle = NSUserInterfaceItemIdentifier(rawValue: "wave")
+    static let origin = NSUserInterfaceItemIdentifier(rawValue: "origin")
+    static let xyDirection = NSUserInterfaceItemIdentifier(rawValue: "xy-direction")
+    static let inwardOutward = NSUserInterfaceItemIdentifier(rawValue: "inward-outward")
+    static let presets = NSUserInterfaceItemIdentifier(rawValue: "presets")
 }

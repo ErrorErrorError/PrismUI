@@ -59,6 +59,7 @@ public class PrismDriver: NSObject {
             }
             self.devices.add(prismDevice)
             Log.debug("Added \(prismDevice.description)")
+            NotificationCenter.default.post(name: .prismDeviceAdded, object: prismDevice)
         } catch {
             Log.error("\(error)")
         }
@@ -75,6 +76,7 @@ public class PrismDriver: NSObject {
             }
             self.devices.remove(prismDevice)
             Log.debug("Removed \(prismDevice.description)")
+            NotificationCenter.default.post(name: .prismDeviceRemoved, object: prismDevice)
         } catch {
             Log.error("\(error)")
         }
@@ -88,4 +90,9 @@ public class PrismDriver: NSObject {
     deinit {
         stop()
     }
+}
+
+extension Notification.Name {
+    public static let prismDeviceAdded = Notification.Name(rawValue: "prismDeviceAdded")
+    public static let prismDeviceRemoved = Notification.Name(rawValue: "prismDeviceRemoved")
 }

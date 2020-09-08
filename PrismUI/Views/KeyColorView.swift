@@ -36,7 +36,7 @@ class KeyColorView: ColorView {
 
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
-        let textColor: NSColor = color.scaledBrightness < 0.5 ? .white : .black
+        let textColor: NSColor = color.isDarkColor ? .white : .black
         let attributes = [NSAttributedString.Key.paragraphStyle: textStyle,
                           NSAttributedString.Key.foregroundColor: textColor]
         text.drawVerticallyCentered(in: dirtyRect,

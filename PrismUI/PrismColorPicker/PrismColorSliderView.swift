@@ -25,6 +25,8 @@ internal class PrismColorSliderView: NSView {
 
     public override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
+        wantsLayer = true
+        layer?.masksToBounds = false
         selector = PrismSelector(frame: NSRect(x: 0, y: 0, width: 26, height: 26))
         addSubview(selector)
     }

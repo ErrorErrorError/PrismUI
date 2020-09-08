@@ -12,7 +12,6 @@ class MainSplitViewController: NSSplitViewController {
 
     let presetsViewController = PresetsViewController()
     let modesViewController = ModesViewController()
-    let keyboardViewController = KeyboardViewController()
 
     var sidebarItem: NSSplitViewItem!
     var leftSideItem: NSSplitViewItem!
@@ -24,6 +23,14 @@ class MainSplitViewController: NSSplitViewController {
         modesViewController.delegate = self
 
         setupSplitViewItems()
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(onMainDeviceChanged(_:)),
+                                               name: .prismCurrentDeviceChanged,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(onDeviceRemoved(_:)),
+                                               name: .prismDeviceRemoved,
+                                               object: nil)
     }
 
     private func setupSplitViewItems() {
@@ -36,7 +43,15 @@ class MainSplitViewController: NSSplitViewController {
         leftSideItem.minimumThickness = 300
         leftSideItem.maximumThickness = 300
 
-        rightSideItem = NSSplitViewItem(viewController: keyboardViewController)
+        guard let device = PrismDriver.shared.currentDevice else { return }
+        var viewController: NSViewController?
+        if device.isKeyboardDevice {
+            viewController = KeyboardViewController()
+        } else {
+            return
+        }
+
+        rightSideItem = NSSplitViewItem(viewController: viewController!)
         splitView.dividerStyle = .thin
 
         addSplitViewItem(sidebarItem)
@@ -50,6 +65,29 @@ class MainSplitViewController: NSSplitViewController {
         if !clicked {
             sidebarItem.animator().isCollapsed = true
         }
+    }
+}
+
+// MARK: Observe device changes
+
+extension MainSplitViewController {
+
+    @objc private func onMainDeviceChanged(_ notification: NSNotification) {
+        guard let device = notification.object as? PrismDevice else { return }
+        if device.isKeyboardDevice {
+            if !(rightSideItem.viewController is KeyboardViewController) {
+                removeSplitViewItem(rightSideItem)
+                rightSideItem = NSSplitViewItem(viewController: KeyboardViewController())
+                addSplitViewItem(rightSideItem)
+            }
+            Log.debug("perKeyDevice loading keyboard")
+        } else {
+            Log.debug("device not implemented \(device.model)")
+        }
+    }
+
+    @objc private func onDeviceRemoved(_ notification: NSNotification) {
+
     }
 }
 

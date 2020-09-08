@@ -10,6 +10,8 @@ import Foundation
 
 public final class PrismKeyboard: PrismDevice {
 
+    static let packageSize = 0x20c
+
     // Keys array
 
     static let keys = NSMutableArray()
@@ -188,26 +190,6 @@ public final class PrismKeyboard: PrismDevice {
         0x52    // NULL
     ]
 
-    static func getRegionFromKeycode(_ keycode: UInt8) -> UInt8 {
-        for key in modifiers where key == keycode {
-            return regions[0]
-        }
-
-        for key in alphanums where key == keycode {
-            return regions[1]
-        }
-
-        for key in enter where key == keycode {
-            return regions[2]
-        }
-
-        for key in special where key == keycode {
-            return regions[3]
-        }
-
-        return 0
-    }
-
     public override func update() {
         Log.debug("Updating \(model) with new commands")
         if model != .threeRegion {
@@ -227,11 +209,11 @@ extension PrismKeyboard {
 
         for effect in effects {
             guard effect.transitions.count > 0 else {
-                // Must have at least one transition or will throw error
+                // Must have at least one transition or will return error
                 return kIOReturnError
             }
 
-            var data = Data(capacity: 0x20c)
+            var data = Data(capacity: PrismKeyboard.packageSize)
             data.append([0x0b, 0x00], count: 2) // Start Packet
 
             // Transitions - each transition will take 8 bytes
@@ -245,9 +227,7 @@ extension PrismKeyboard {
 
                 data.append([index == 0 ? effect.identifier : idx,
                              0x0,
-                             colorDelta.redInt,
-                             colorDelta.greenInt,
-                             colorDelta.blueInt,
+                             colorDelta.redInt, colorDelta.greenInt, colorDelta.blueInt,
                              0x0,
                              UInt8(transition.duration & 0x00ff),
                              UInt8((transition.duration & 0xff00) >> 8)
@@ -273,17 +253,15 @@ extension PrismKeyboard {
 
             if effect.waveActive {
                 let origin = effect.origin
-                             // Split origin into two bytes
+
                 data.append([UInt8(origin.xAxis & 0x00ff),
                              UInt8((origin.xAxis & 0xff00) >> 8),
                              UInt8(origin.yAxis & 0x00ff),
                              UInt8((origin.yAxis & 0xff00) >> 8),
-                             // Direction Control
                              effect.direction != .yAxis ? 0x01 : 0x00,
                              0x00,
                              effect.direction != .xAxis ? 0x01 : 0x00,
                              0x00,
-                             // Wave Length
                              UInt8(effect.pulse & 0x00ff),
                              UInt8((effect.pulse & 0xff00) >> 8)
                 ], count: 10)
@@ -291,18 +269,16 @@ extension PrismKeyboard {
                 fillZeros = [UInt8](repeating: 0x00, count: 10)
                 data.append(fillZeros, count: fillZeros.count)
             }
-                         // Transition count
+
             data.append([UInt8(effect.transitions.count),
                          0x00,
-                         // Total effect length
                          UInt8(effect.transitionDuration & 0x00ff),
                          UInt8((effect.transitionDuration & 0xff00) >> 8),
-                         // Wave Direction
                          effect.control == .inward ? 0x01 : 0x00
             ], count: 5)
 
             // Fill remaining with zeros
-            fillZeros = [UInt8](repeating: 0x00, count: 0x20c - data.count)
+            fillZeros = [UInt8](repeating: 0x00, count: PrismKeyboard.packageSize - data.count)
             data.append(fillZeros, count: fillZeros.count)
 
             let result = sendFeatureReport(data: data)
@@ -311,7 +287,6 @@ extension PrismKeyboard {
                 return result
             }
         }
-
         return kIOReturnSuccess
     }
 
@@ -360,11 +335,11 @@ extension PrismKeyboard {
             }
 
             // Update keyboard
-            self.writeToKeyboard(lastByte: lastByte)
+            self.writeToPerKeyKeyboard(lastByte: lastByte)
         }
     }
 
-    private func writeToKeyboard(lastByte: UInt8) {
+    private func writeToPerKeyKeyboard(lastByte: UInt8) {
         var data = Data(capacity: 0x40)
 
         data.append([0x0d, 0x0, 0x02], count: 3)
@@ -377,7 +352,7 @@ extension PrismKeyboard {
     }
 
     private func writeKeysToKeyboard(region: UInt8, keycodes: [UInt8]) {
-        var data = Data(capacity: 0x20c)
+        var data = Data(capacity: PrismKeyboard.packageSize)
 
         // This array contains only the usable keys
         let keyboardKeys = PrismKeyboard.keys.compactMap { $0 as? PrismKey }.filter { $0.region == region }
@@ -423,12 +398,32 @@ extension PrismKeyboard {
         }
 
         // Fill rest of data with the remaining capacity
-        let sizeRemaining = 0x20c - data.count
+        let sizeRemaining = PrismKeyboard.packageSize - data.count
         data.append([UInt8](repeating: 0, count: sizeRemaining), count: sizeRemaining)
         let result = sendFeatureReport(data: data)
         if result != kIOReturnSuccess {
             Log.error("Error updating keyboard: \(String(cString: mach_error_string(result)))")
         }
+    }
+
+    static func getRegionFromKeycode(_ keycode: UInt8) -> UInt8 {
+        for key in modifiers where key == keycode {
+            return regions[0]
+        }
+
+        for key in alphanums where key == keycode {
+            return regions[1]
+        }
+
+        for key in enter where key == keycode {
+            return regions[2]
+        }
+
+        for key in special where key == keycode {
+            return regions[3]
+        }
+
+        return 0
     }
 }
 

@@ -19,6 +19,8 @@ class ModesViewController: BaseViewController {
 
     // MARK: Common initialization
 
+    let edgeMargin: CGFloat = 18
+
     let presetsButton: NSButton = {
         let image = NSImage(named: "NSSidebarTemplate")!
         let button = NSButton(image: image,
@@ -29,6 +31,17 @@ class ModesViewController: BaseViewController {
         return button
     }()
 
+    let deviceLabel: NSTextField = {
+        let label = NSTextField(labelWithString: "DEVICE")
+        label.font = NSFont.boldSystemFont(ofSize: 12)
+        return label
+    }()
+
+    let devicesPopup: NSPopUpButton = {
+        let popup = NSPopUpButton(title: "", target: nil, action: #selector(onChangedDevicePopup(_:)))
+        return popup
+    }()
+
     let modesLabel: NSTextField = {
         let label = NSTextField(labelWithString: "EFFECT")
         label.font = NSFont.boldSystemFont(ofSize: 12)
@@ -37,7 +50,7 @@ class ModesViewController: BaseViewController {
 
     let modesPopUp: NSPopUpButton = {
         let popup = NSPopUpButton()
-        popup.action = #selector(didPopupChanged(_:))
+        popup.action = #selector(didEffectPopupChanged(_:))
         return popup
     }()
 
@@ -176,7 +189,7 @@ class ModesViewController: BaseViewController {
 
     weak var delegate: ModesViewControllerDelegate?
 
-    private var selectorDragging = false
+    var selectorDragging = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -188,14 +201,76 @@ class ModesViewController: BaseViewController {
             }
         }
 
+        initCommonViews()
+
         guard let device = PrismDriver.shared.currentDevice else { return }
         if device.isKeyboardDevice {
             if device.model != .threeRegion {
-                perKeySetup()
+                perKeyLayoutSetup()
             } else {
                 // TODO: Setup three region views
             }
         }
+    }
+
+    private func initCommonViews() {
+        presetsButton.target = self
+        modesPopUp.target = self
+        colorPicker.delegate = self
+        devicesPopup.target = self
+
+        view.addSubview(presetsButton)
+        view.addSubview(deviceLabel)
+        view.addSubview(devicesPopup)
+        view.addSubview(modesLabel)
+        view.addSubview(modesPopUp)
+
+        addChild(colorPicker)
+        view.addSubview(colorPicker.view)
+
+        for deviceName in PrismDriver.shared.devices.compactMap({ ($0 as? PrismDevice)?.name }) {
+            devicesPopup.addItem(withTitle: deviceName)
+        }
+
+        if let currentDevice = PrismDriver.shared.currentDevice {
+            devicesPopup.selectItem(withTitle: currentDevice.name)
+        }
+
+        initCommonConstraints()
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(onPrismDeviceAdded(_:)),
+                                               name: .prismDeviceAdded,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(onPrismDeviceRemoved(_:)),
+                                               name: .prismDeviceAdded,
+                                               object: nil)
+    }
+
+    private func initCommonConstraints() {
+        view.subviews.forEach { subview in
+            subview.translatesAutoresizingMaskIntoConstraints = false
+        }
+
+        presetsButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: edgeMargin).isActive = true
+        presetsButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
+
+        deviceLabel.leadingAnchor.constraint(equalTo: presetsButton.leadingAnchor).isActive = true
+        deviceLabel.topAnchor.constraint(equalTo: presetsButton.bottomAnchor, constant: 20).isActive = true
+
+        devicesPopup.leadingAnchor.constraint(equalTo: deviceLabel.leadingAnchor).isActive = true
+        devicesPopup.topAnchor.constraint(equalTo: deviceLabel.bottomAnchor, constant: 4).isActive = true
+
+        modesLabel.leadingAnchor.constraint(equalTo: devicesPopup.leadingAnchor).isActive = true
+        modesLabel.topAnchor.constraint(equalTo: devicesPopup.bottomAnchor, constant: 10).isActive = true
+
+        modesPopUp.leadingAnchor.constraint(equalTo: modesLabel.leadingAnchor).isActive = true
+        modesPopUp.topAnchor.constraint(equalTo: modesLabel.bottomAnchor, constant: 4).isActive = true
+
+        colorPicker.view.leadingAnchor.constraint(equalTo: modesPopUp.leadingAnchor).isActive = true
+        colorPicker.view.topAnchor.constraint(equalTo: modesPopUp.bottomAnchor, constant: 20).isActive = true
+        colorPicker.view.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -edgeMargin).isActive = true
+        colorPicker.view.heightAnchor.constraint(equalToConstant: 180).isActive = true
     }
 }
 
@@ -203,83 +278,60 @@ class ModesViewController: BaseViewController {
 
 extension ModesViewController {
 
-    @objc func onSliderChanged(_ sender: NSSlider, update: Bool = true) {
-        guard let identifierr = sender.identifier else { return }
-        switch identifierr {
-        case .speed:
-            speedValue.stringValue = "\(sender.intValue.description.dropLast(2))s"
-            PrismKeyboard.keysSelected.filter { ($0 as? KeyColorView) != nil }.forEach {
-                guard let prismKey = ($0 as? KeyColorView)?.prismKey else { return }
-                prismKey.duration = UInt16(sender.intValue)
-            }
-        case .pulse:
-            pulseValue.stringValue = "\(sender.intValue.description.dropLast(1))"
-        default:
-            Log.debug("Slider not implemented \(String(describing: sender.identifier))")
-            return
-        }
+    @objc private func onPrismDeviceAdded(_ notification: NSNotification) {
+        print("deviceAdded: \(notification)")
+        guard let newDevice = notification.object as? PrismDevice else { return }
+        devicesPopup.addItem(withTitle: newDevice.name)
+    }
 
-        let event = NSApplication.shared.currentEvent
-        if event?.type == NSEvent.EventType.leftMouseUp && update {
-            didColorChange(newColor: colorPicker.colorGraphView.color.rgb, finishedChanging: true)
+    @objc private func onPrismDeviceRemoved(_ notification: NSNotification) {
+        print("deviceAdded: \(notification)")
+        guard let removeDevice = notification.object as? PrismDevice else { return }
+        devicesPopup.removeItem(withTitle: removeDevice.name)
+        if removeDevice.isKeyboardDevice && removeDevice.model != .threeRegion {
+            removePerKeySettingsLayout()
+        } else {
+            // TODO: Remove layout effects
+        }
+    }
+
+    @objc private func onChangedDevicePopup(_ sender: NSPopUpButton) {
+        guard let title = sender.titleOfSelectedItem else { return }
+        let devices = PrismDriver.shared.devices.compactMap { $0 as? PrismDevice }
+        guard let selectedDevice = devices.filter({ $0.name == title }).first else { return }
+        updateLayoutWithNewDevice(device: selectedDevice)
+        PrismDriver.shared.currentDevice = selectedDevice
+        NotificationCenter.default.post(name: .prismCurrentDeviceChanged, object: selectedDevice)
+    }
+
+    @objc func onSliderChanged(_ sender: NSSlider, update: Bool = true) {
+        guard let device = PrismDriver.shared.currentDevice else { return }
+        if device.isKeyboardDevice && device.model != .threeRegion {
+            handlePerKeySliderChanged(sender, update: update)
+        } else {
+            Log.debug("Did not update slider \(sender.identifier?.rawValue ?? "nil") for " +
+                "\(PrismDriver.shared.currentDevice?.name ?? "nil")")
         }
     }
 
     @objc func onButtonClicked(_ sender: NSButton, update: Bool = true) {
-        guard let identifier = sender.identifier else { return }
-        Log.debug("Button pressed \(identifier)")
-        switch identifier {
-        case .presets:
-            delegate?.didClickOnPresetsButton()
-            return
-        case .origin,
-             .xyDirection,
-             .inwardOutward:
-            break
-        case .waveToggle:
-            let enabled = sender.state == .on
-            originButton.isEnabled = enabled
-            waveDirectionControl.isEnabled = enabled
-            waveInwardOutwardControl.isEnabled = enabled
-            pulseSlider.isEnabled = enabled
-        default:
-            Log.debug("Unkown button pressed \(identifier)")
-            return
+        guard let device = PrismDriver.shared.currentDevice else { return }
+        if device.isKeyboardDevice && device.model != .threeRegion {
+            handlePerKeyButtonClicked(sender, update: update)
+        } else {
+            Log.debug("Did not update button \(sender.identifier?.rawValue ?? "nil") for " +
+                "\(PrismDriver.shared.currentDevice?.name ?? "nil")")
         }
-
-        didColorChange(newColor: colorPicker.colorGraphView.color.rgb, finishedChanging: update)
     }
 
-    @objc func didPopupChanged(_ sender: NSPopUpButton) {
-        Log.debug("sender: \(String(describing: sender.titleOfSelectedItem))")
-        switch sender.titleOfSelectedItem {
-        case PrismKeyModes.steady.rawValue:
-            showReactiveMode(shouldShow: false)
-            showColorShiftMode(shouldShow: false)
-            showBreadingMode(shouldShow: false)
-        case PrismKeyModes.reactive.rawValue:
-            showColorShiftMode(shouldShow: false)
-            showBreadingMode(shouldShow: false)
-            showReactiveMode()
-        case PrismKeyModes.colorShift.rawValue:
-            showReactiveMode(shouldShow: false)
-            showBreadingMode(shouldShow: false)
-            showColorShiftMode()
-        case PrismKeyModes.breathing.rawValue:
-            showReactiveMode(shouldShow: false)
-            showColorShiftMode(shouldShow: false)
-            showBreadingMode()
-        case PrismKeyModes.disabled.rawValue:
-            showReactiveMode(shouldShow: false)
-            showColorShiftMode(shouldShow: false)
-            showBreadingMode(shouldShow: false)
-        default:
-            Log.error("Mode Unavalilable")
-            return
+    @objc func didEffectPopupChanged(_ sender: NSPopUpButton) {
+        guard let device = PrismDriver.shared.currentDevice else { return }
+        if device.isKeyboardDevice && device.model != .threeRegion {
+            handlePerKeyPopup(sender)
+        } else {
+            Log.debug("Did not update effecct \(sender.identifier?.rawValue ?? "nil") for " +
+                "\(PrismDriver.shared.currentDevice?.name ?? "nil")")
         }
-
-        colorPicker.setColor(newColor: PrismRGB(red: 1.0, green: 0, blue: 0))
-        didColorChange(newColor: colorPicker.colorGraphView.color.rgb, finishedChanging: true)
     }
 }
 
@@ -300,9 +352,20 @@ extension ModesViewController: PrismColorPickerDelegate {
     }
 }
 
-// MARK: Update device
+// MARK: Device functions
 
 extension ModesViewController {
+
+    func updateLayoutWithNewDevice(device: PrismDevice) {
+        if device != PrismDriver.shared.currentDevice {
+            removePerKeySettingsLayout()
+            // TODO: Remove other layouts so we can prepare for the next layout
+
+            if device.model == .perKey || device.model == .perKeyGS65 {
+                perKeyLayoutSetup()
+            }
+        }
+    }
 
     func updateDevice(forced: Bool = false) {
         if PrismKeyboard.keysSelected.count > 0 || forced {
@@ -315,68 +378,14 @@ extension ModesViewController {
     }
 }
 
-// MARK: MultiSlider Selector delegate
-
-extension ModesViewController: PrismMultiSliderDelegate {
-
-    func added(_ sender: PrismSelector) {
-        didColorChange(newColor: sender.color.rgb, finishedChanging: true)
-    }
-
-    func event(_ sender: PrismSelector, _ event: NSEvent) {
-        switch event.type {
-        case .leftMouseDragged:
-            selectorDragging = true
-            didColorChange(newColor: colorPicker.colorGraphView.color.rgb, finishedChanging: false)
-        case .leftMouseUp:
-            if !selectorDragging {
-                if ModesViewController.selectorArray.count == 1 {
-                    colorPicker.setColor(newColor: sender.color.rgb)
-                }
-            } else {
-                didColorChange(newColor: colorPicker.colorGraphView.color.rgb, finishedChanging: true)
-                selectorDragging = false
-            }
-        default:
-            Log.debug("Event not valid: \(event.type.rawValue)")
-        }
-    }
-
-    func didSelect(_ sender: PrismSelector) {
-        ModesViewController.selectorArray.add(sender)
-    }
-
-    func didDeselect(_ sender: PrismSelector) {
-        ModesViewController.selectorArray.remove(sender)
-    }
-}
-
-// MARK: Reactive delegate
-
-extension ModesViewController: ColorViewDelegate {
-    func didSelect(_ sender: ColorView) {
-        ModesViewController.selectorArray.add(sender)
-    }
-
-    func didDeselect(_ sender: ColorView) {
-        ModesViewController.selectorArray.remove(sender)
-    }
-}
-
 // MARK: Button sidebar delegate
 
 protocol ModesViewControllerDelegate: AnyObject {
     func didClickOnPresetsButton()
 }
 
-// MARK: Identifiers
+// MARK: Notification broadcast
 
-private extension NSUserInterfaceItemIdentifier {
-    static let speed = NSUserInterfaceItemIdentifier(rawValue: "speed-slider")
-    static let pulse = NSUserInterfaceItemIdentifier(rawValue: "pulse-slider")
-    static let waveToggle = NSUserInterfaceItemIdentifier(rawValue: "wave")
-    static let origin = NSUserInterfaceItemIdentifier(rawValue: "origin")
-    static let xyDirection = NSUserInterfaceItemIdentifier(rawValue: "xy-direction")
-    static let inwardOutward = NSUserInterfaceItemIdentifier(rawValue: "inward-outward")
-    static let presets = NSUserInterfaceItemIdentifier(rawValue: "presets")
+extension Notification.Name {
+    public static let prismCurrentDeviceChanged = Notification.Name(rawValue: "prismCurrentDeviceChanged")
 }

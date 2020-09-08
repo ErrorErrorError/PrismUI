@@ -94,6 +94,8 @@ public class PrismColorPicker: BaseViewController {
         gColorField.target = self
         bColorField.target = self
 
+        view.wantsLayer = true
+        view.layer?.masksToBounds = false
         view.addSubview(colorGraphView)
         view.addSubview(colorSliderView)
         view.addSubview(colorDropperIcon)
