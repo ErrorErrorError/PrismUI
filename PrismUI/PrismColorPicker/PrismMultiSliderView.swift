@@ -135,8 +135,8 @@ extension PrismMultiSliderView {
         let centerView = (frame.size.height - selectorSize.height) / 2
 
         let thumbOne = PrismSelector(frame: NSRect(origin: CGPoint(x: 0, y: centerView), size: selectorSize))
-        let thumbTwo = PrismSelector(frame: NSRect(origin: CGPoint(x: 60, y: centerView), size: selectorSize))
-        let thumbThree = PrismSelector(frame: NSRect(origin: CGPoint(x: 120, y: centerView), size: selectorSize))
+        let thumbTwo = PrismSelector(frame: NSRect(origin: CGPoint(x: 76, y: centerView), size: selectorSize))
+        let thumbThree = PrismSelector(frame: NSRect(origin: CGPoint(x: 152, y: centerView), size: selectorSize))
 
         thumbOne.allowsSelection = true
         thumbTwo.allowsSelection = true
@@ -305,8 +305,8 @@ extension PrismMultiSliderView {
             updateSelectorFromPoint(selector: selector, newPoint: NSPoint(x: newPoint.x, y: 0), animate: true)
         }
 
+        outsideBounds = false
         currentSelector = nil
-
         needsDisplay = true
     }
 }

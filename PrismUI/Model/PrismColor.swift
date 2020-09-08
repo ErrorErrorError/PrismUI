@@ -280,7 +280,7 @@ extension PrismRGB {
         return UInt8((alpha * 255))
     }
 
-    public func colorDelta(target: PrismRGB, duration: UInt16) -> PrismRGB {
+    public func delta(target: PrismRGB, duration: UInt16) -> PrismRGB {
         var duration = duration
         if duration < 32 {
             duration = 32

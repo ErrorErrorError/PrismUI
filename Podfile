@@ -7,4 +7,6 @@ target 'PrismUI' do
 
   # Pods for PrismUI
   pod 'SwiftLint'
+  pod 'RxSwift', '~> 5'
+  pod 'RxCocoa', '~> 5'
 end

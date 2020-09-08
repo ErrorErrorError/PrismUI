@@ -194,7 +194,7 @@ extension ModesViewController {
         if shouldShow {
             multiSlider.mode = .colorShift
             speedSlider.minValue = 100
-            speedSlider.maxValue = 2000
+            speedSlider.maxValue = 3000
             speedSlider.intValue = 300
             pulseSlider.intValue = 100
             waveToggle.state = .off
@@ -220,7 +220,7 @@ extension ModesViewController {
         if shouldShow {
             multiSlider.mode = .breathing
             speedSlider.minValue = 200
-            speedSlider.maxValue = 2000
+            speedSlider.maxValue = 3000
             speedSlider.intValue = 400
             onSliderChanged(speedSlider, update: false)
         }

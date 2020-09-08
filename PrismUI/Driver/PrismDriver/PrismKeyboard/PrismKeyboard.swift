@@ -209,7 +209,7 @@ public final class PrismKeyboard: PrismDevice {
     }
 
     public override func update() {
-        Log.debug("Updating \(model)")
+        Log.debug("Updating \(model) with new commands")
         if model != .threeRegion {
             updatePerKeyKeyboard()
         } else {
@@ -221,40 +221,38 @@ public final class PrismKeyboard: PrismDevice {
 
 extension PrismKeyboard {
 
-    private func updateEffectKeyboard() -> IOReturn {
+    private func writeEffectsToKeyboard() -> IOReturn {
         let effects = PrismKeyboard.effects.compactMap { $0 as? PrismEffect }
         guard effects.count > 0 else { return kIOReturnNotFound }
 
         for effect in effects {
-            var data = Data(capacity: 0x20c)
-            data.append([0x0b, 0x0], count: 2) // Start Packet
             guard effect.transitions.count > 0 else {
                 // Must have at least one transition or will throw error
                 return kIOReturnError
             }
 
+            var data = Data(capacity: 0x20c)
+            data.append([0x0b, 0x00], count: 2) // Start Packet
+
             // Transitions - each transition will take 8 bytes
             let transitions = effect.transitions
             for (index, transition) in transitions.enumerated() {
                 let idx = UInt8(index)
-                data.append([index == 0 ? effect.identifier : idx], count: 1)
 
                 // Calculate color difference
                 let nextColor = (index + 1) < transitions.count ? transitions[index + 1].color : effect.start
-                let colorDelta = transition.color.colorDelta(target: nextColor, duration: transition.duration)
+                let colorDelta = transition.color.delta(target: nextColor, duration: transition.duration)
 
-                data.append([0x0,
+                data.append([index == 0 ? effect.identifier : idx,
+                             0x0,
                              colorDelta.redInt,
                              colorDelta.greenInt,
                              colorDelta.blueInt,
                              0x0,
-
-                             // Separates the duration into two bytes
                              UInt8(transition.duration & 0x00ff),
                              UInt8((transition.duration & 0xff00) >> 8)
-                ], count: 7)
+                ], count: 8)
             }
-
             // Fill spaces
             var fillZeros = [UInt8](repeating: 0x00, count: 0x84 - data.count)
             data.append(fillZeros, count: fillZeros.count)
@@ -330,7 +328,7 @@ extension PrismKeyboard {
             let updateSpecial = keysSelected.filter { $0.region == PrismKeyboard.regions[3] }.count > 0
 
             // Update effects first
-            let result = self.updateEffectKeyboard()
+            let result = self.writeEffectsToKeyboard()
             guard result == kIOReturnSuccess || result == kIOReturnNotFound else {
                 Log.error("Cannot update effect: \(String(cString: mach_error_string(result)))")
                 return
@@ -340,22 +338,22 @@ extension PrismKeyboard {
             var lastByte: UInt8 = 0
             if updateModifiers {
                 lastByte = 0x2d
-                self.writeKeyFeatureReport(region: PrismKeyboard.regions[0], keycodes: PrismKeyboard.modifiers)
+                self.writeKeysToKeyboard(region: PrismKeyboard.regions[0], keycodes: PrismKeyboard.modifiers)
             }
 
             if updateAlphanums {
                 lastByte = 0x08
-                self.writeKeyFeatureReport(region: PrismKeyboard.regions[1], keycodes: PrismKeyboard.alphanums)
+                self.writeKeysToKeyboard(region: PrismKeyboard.regions[1], keycodes: PrismKeyboard.alphanums)
             }
 
             if updateEnter {
                 lastByte = 0x87
-                self.writeKeyFeatureReport(region: PrismKeyboard.regions[2], keycodes: PrismKeyboard.enter)
+                self.writeKeysToKeyboard(region: PrismKeyboard.regions[2], keycodes: PrismKeyboard.enter)
             }
 
             if updateSpecial {
                 lastByte = 0x44
-                self.writeKeyFeatureReport(region: PrismKeyboard.regions[3],
+                self.writeKeysToKeyboard(region: PrismKeyboard.regions[3],
                                            keycodes: self.model == .perKey ?
                                             PrismKeyboard.special :
                                             PrismKeyboard.specialGS65)
@@ -378,7 +376,7 @@ extension PrismKeyboard {
         }
     }
 
-    private func writeKeyFeatureReport(region: UInt8, keycodes: [UInt8]) {
+    private func writeKeysToKeyboard(region: UInt8, keycodes: [UInt8]) {
         var data = Data(capacity: 0x20c)
 
         // This array contains only the usable keys

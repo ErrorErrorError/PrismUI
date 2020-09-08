@@ -7,17 +7,20 @@
 //
 
 import Cocoa
+import RxSwift
+import RxCocoa
 
 class KeyColorView: ColorView {
 
     var prismKey: PrismKey! {
         didSet {
-            color = prismKey.main.nsColor
+            updateAnimation()
         }
     }
 
     var text: NSString = NSString()
 
+    var transitionIndex = 0
     let textStyle: NSParagraphStyle = {
         let style = NSMutableParagraphStyle()
         style.alignment = .center
@@ -38,6 +41,59 @@ class KeyColorView: ColorView {
                           NSAttributedString.Key.foregroundColor: textColor]
         text.drawVerticallyCentered(in: dirtyRect,
                                     withAttributes: attributes)
+    }
+}
+
+// Update Animation
+extension KeyColorView: CAAnimationDelegate {
+
+    private func updateAnimation() {
+        layer?.removeAllAnimations()
+        color = prismKey.main.nsColor
+        if prismKey.effect != nil {
+            transitionIndex = 0
+            animateEffect()
+        }
+    }
+
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        if flag {
+            self.animateEffect()
+        }
+    }
+
+    @objc func updateTextColorBackground() {
+        guard let presentationLayer = self.layer?.presentation() else { return }
+        guard let cgColor = presentationLayer.backgroundColor else { return }
+        guard let nsColor = NSColor(cgColor: cgColor) else { return }
+        self.color = nsColor
+    }
+
+    private func animateEffect() {
+        guard let waveLayer = layer else {
+            return
+        }
+
+        guard let effect = prismKey.effect else {
+            return
+        }
+
+        waveLayer.removeAllAnimations()
+        let transitions = effect.transitions
+        let previousTransition = transitions[transitionIndex]
+        let animation = CABasicAnimation(keyPath: "backgroundColor")
+        animation.delegate = self
+        animation.fromValue = previousTransition.color.cgColor
+        if transitionIndex + 1 < transitions.count {
+            transitionIndex += 1
+        } else {
+            transitionIndex = 0
+        }
+        let nextTransition = transitions[transitionIndex]
+        animation.toValue = nextTransition.color.cgColor
+        animation.duration = CFTimeInterval(CGFloat(previousTransition.duration) / 100)
+        color = nextTransition.color.nsColor
+        waveLayer.add(animation, forKey: #keyPath(CALayer.backgroundColor))
     }
 }
 

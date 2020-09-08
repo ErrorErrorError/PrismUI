@@ -180,6 +180,7 @@ extension PrismColorGraphView {
     }
 
 }
+
 // MARK: Mouse events
 extension PrismColorGraphView {
 

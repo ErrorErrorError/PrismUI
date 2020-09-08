@@ -55,7 +55,7 @@ class ModesViewController: BaseViewController {
     let speedSlider: NSSlider = {
         let slider = NSSlider(value: 300,
                              minValue: 100,
-                             maxValue: 2000,
+                             maxValue: 3000,
                              target: nil,
                              action: #selector(onSliderChanged(_:update:)))
         slider.isHidden = true

@@ -16,11 +16,13 @@ class ColorView: NSView, CALayerDelegate {
     var color: NSColor = .red {
       didSet {
         layer?.backgroundColor = color.cgColor
-        if color.scaledBrightness < 0.5 {
-            layer?.borderColor = NSColor.white.usingColorSpace(.deviceRGB)!
-                .darkerColor(percent: Double(color.scaledBrightness)).cgColor
-        } else {
-            layer?.borderColor = color.darkerColor(percent: 0.5).cgColor
+        if selected {
+            if color.scaledBrightness < 0.5 {
+                layer?.borderColor = NSColor.white.usingColorSpace(.deviceRGB)!
+                    .darkerColor(percent: Double(color.scaledBrightness)).cgColor
+            } else {
+                layer?.borderColor = color.darkerColor(percent: 0.5).cgColor
+            }
         }
         layer?.setNeedsDisplay()
       }
@@ -28,8 +30,19 @@ class ColorView: NSView, CALayerDelegate {
 
     var selected = false {
         didSet {
-            selected ? delegate?.didSelect(self) : delegate?.didDeselect(self)
-            layer?.borderWidth = selected ? 5 : 0
+            if selected {
+                delegate?.didSelect(self)
+                if color.scaledBrightness < 0.5 {
+                    layer?.borderColor = NSColor.white.usingColorSpace(.deviceRGB)!
+                        .darkerColor(percent: Double(color.scaledBrightness)).cgColor
+                } else {
+                    layer?.borderColor = color.darkerColor(percent: 0.5).cgColor
+                }
+            } else {
+                delegate?.didDeselect(self)
+                layer?.borderColor = NSColor.gray.cgColor
+            }
+            layer?.borderWidth = selected ? 5 : 1
             layer?.setNeedsDisplay()
         }
     }

@@ -17,7 +17,7 @@ public class PrismKey {
     var active = PrismRGB()
     var mode: PrismKeyModes = .steady {
         willSet(value) {
-            guard value != mode else { return }
+//            guard value != mode else { return }
             // Reset effect to a default state
             self.effect = nil
             self.duration = 0x012c

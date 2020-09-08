@@ -26,7 +26,7 @@ extension IOHIDDevice {
             data.count
         )
 
-        Thread.sleep(forTimeInterval: 0.02)
+        Thread.sleep(forTimeInterval: 0.05)
 
         guard returnValue == kIOReturnSuccess else {
             Log.error("Could send feature report: \(String(cString: mach_error_string(returnValue)))")
