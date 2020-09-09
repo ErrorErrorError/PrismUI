@@ -329,33 +329,38 @@ extension ModesViewController {
                 colorView.color = newColor.nsColor
             }
 
+            let activeColor = reactActiveColor.color.prismRGB
+            let baseColor = reactRestColor.color.prismRGB
+            let speedDuration = UInt16(speedSlider.intValue)
+
             PrismKeyboard.keysSelected.filter { ($0 as? KeyColorView) != nil }.forEach {
                 guard let colorView = $0 as? KeyColorView else { return }
                 guard let prismKey = colorView.prismKey else { return }
-                let activeColor = reactActiveColor.color.prismRGB
-                let baseColor = reactRestColor.color.prismRGB
-                if prismKey.mode != .reactive || prismKey.active != activeColor || prismKey.main != baseColor {
-                    
+                if prismKey.mode != .reactive ||
+                    prismKey.active != activeColor ||
+                    prismKey.main != baseColor ||
+                    prismKey.duration != speedDuration {
+                    prismKey.mode = .reactive
+                    prismKey.active = activeColor
+                    prismKey.main = baseColor
+                    prismKey.duration = speedDuration
+                    colorView.prismKey = prismKey
+                    updatePending = true
                 }
-                prismKey.mode = .reactive
-                prismKey.active = activeColor
-                prismKey.main = baseColor
-                prismKey.duration = UInt16(speedSlider.intValue)
-                colorView.prismKey = prismKey
-                updatePending = true
             }
         case PrismKeyModes.disabled:
             PrismKeyboard.keysSelected.filter { ($0 as? KeyColorView) != nil }.forEach {
                 guard let colorView = $0 as? KeyColorView else { return }
                 guard let prismKey = colorView.prismKey else { return }
-                prismKey.mode = .disabled
-                colorView.prismKey = prismKey
-                updatePending = true
+                if prismKey.mode != .disabled {
+                    prismKey.mode = .disabled
+                    colorView.prismKey = prismKey
+                    updatePending = true
+                }
             }
         }
 
         removeUnusedEffecs()
-
         if finished && updatePending {
             updateDevice()
             updatePending = false
@@ -485,11 +490,9 @@ extension ModesViewController: ColorViewDelegate {
 // MARK: Identifiers
 
 extension NSUserInterfaceItemIdentifier {
-    static let speed = NSUserInterfaceItemIdentifier(rawValue: "speed-slider")
     static let pulse = NSUserInterfaceItemIdentifier(rawValue: "pulse-slider")
     static let waveToggle = NSUserInterfaceItemIdentifier(rawValue: "wave")
     static let origin = NSUserInterfaceItemIdentifier(rawValue: "origin")
     static let xyDirection = NSUserInterfaceItemIdentifier(rawValue: "xy-direction")
     static let inwardOutward = NSUserInterfaceItemIdentifier(rawValue: "inward-outward")
-    static let presets = NSUserInterfaceItemIdentifier(rawValue: "presets")
 }

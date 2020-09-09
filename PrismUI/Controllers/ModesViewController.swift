@@ -389,3 +389,8 @@ protocol ModesViewControllerDelegate: AnyObject {
 extension Notification.Name {
     public static let prismCurrentDeviceChanged = Notification.Name(rawValue: "prismCurrentDeviceChanged")
 }
+
+extension NSUserInterfaceItemIdentifier {
+    static let speed = NSUserInterfaceItemIdentifier(rawValue: "speed-slider")
+    static let presets = NSUserInterfaceItemIdentifier(rawValue: "presets")
+}
