@@ -9,7 +9,7 @@
 [![GitHub forks](https://img.shields.io/github/forks/ErrorErrorError/PrismUI)](https://github.com/ErrorErrorError/PrismUI/network)
 [![GitHub issues](https://img.shields.io/github/issues/ErrorErrorError/PrismUI)](https://github.com/ErrorErrorError/PrismUI/issues)
 [![GitHub stars](https://img.shields.io/github/stars/ErrorErrorError/PrismUI)](https://github.com/ErrorErrorError/PrismUI/stargazers)
-[![GitHub license](https://img.shields.io/github/license/ErrorErrorError/PrismUI)](https://github.com/ErrorErrorError/PrismUI/blob/master/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/ErrorErrorError/PrismUI)](https://github.com/ErrorErrorError/PrismUI/blob/master/LICENSE) [![Join the chat at https://gitter.im/ErrorErrorError/PrismUI](https://badges.gitter.im/ErrorErrorError/PrismUI.svg)](https://gitter.im/ErrorErrorError/PrismUI?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 > Control MSI Laptops x Steelseries RGB peripherals on macOS!
 
