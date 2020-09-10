@@ -54,7 +54,7 @@ public class PrismDevice {
     }
 
     public func update() {
-        Log.error("Update unknown device not implemented for: \(identification)")
+        Log.error("Update unknown device not implemented for: \(name):\(identification)")
     }
 }
 
