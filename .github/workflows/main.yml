@@ -1,0 +1,21 @@
+name: Build and Test
+
+on: 
+  - push
+  - pull_request
+
+jobs:
+  CI:
+
+    runs-on: macos-10.15
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Prepare Env
+      run: |
+        pod install        
+
+    - name: Debug Build
+      run: |
+        xcodebuild -workspace PrismUI.xcworkspace -scheme PrismUI -configuration Debug -derivedDataPath build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty && exit ${PIPESTATUS[0]}
