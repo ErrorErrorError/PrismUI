@@ -34,6 +34,8 @@
 		1386D12424CCF76900B91092 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1386D12324CCF76900B91092 /* Log.swift */; };
 		1386D12824CD058A00B91092 /* ColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1386D12724CD058A00B91092 /* ColorView.swift */; };
 		138EEB1F2509E88D0038EDCC /* NotSupportedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138EEB1E2509E88D0038EDCC /* NotSupportedViewController.swift */; };
+		138EEB212509F13C0038EDCC /* NSLocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138EEB202509F13C0038EDCC /* NSLocalizedString.swift */; };
+		138EEB252509F6F50038EDCC /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 138EEB242509F6F50038EDCC /* MainMenu.xib */; };
 		1393AEF924CC050800B53788 /* DragSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1393AEF824CC050800B53788 /* DragSelectionView.swift */; };
 		1393AEFB24CC069F00B53788 /* NSView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1393AEFA24CC069F00B53788 /* NSView+Extensions.swift */; };
 		13A0EC4225082A0100F552F1 /* KeyboardViewController + PerKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A0EC4125082A0100F552F1 /* KeyboardViewController + PerKey.swift */; };
@@ -84,6 +86,8 @@
 		1386D12324CCF76900B91092 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		1386D12724CD058A00B91092 /* ColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorView.swift; sourceTree = "<group>"; };
 		138EEB1E2509E88D0038EDCC /* NotSupportedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotSupportedViewController.swift; sourceTree = "<group>"; };
+		138EEB202509F13C0038EDCC /* NSLocalizedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLocalizedString.swift; sourceTree = "<group>"; };
+		138EEB242509F6F50038EDCC /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		1393AEF824CC050800B53788 /* DragSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragSelectionView.swift; sourceTree = "<group>"; };
 		1393AEFA24CC069F00B53788 /* NSView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSView+Extensions.swift"; sourceTree = "<group>"; };
 		13A0EC4125082A0100F552F1 /* KeyboardViewController + PerKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyboardViewController + PerKey.swift"; sourceTree = "<group>"; };
@@ -176,6 +180,7 @@
 			children = (
 				134CE94E24BD1C7F00D9D845 /* AppDelegate.swift */,
 				134CE95D24BD31CF00D9D845 /* main.swift */,
+				138EEB242509F6F50038EDCC /* MainMenu.xib */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -245,6 +250,7 @@
 				1337E60524C01B5F008F2C89 /* NSColor+Extension.swift */,
 				1386D12324CCF76900B91092 /* Log.swift */,
 				13C56B2624E693F100C8C998 /* NSTextField+Extension.swift */,
+				138EEB202509F13C0038EDCC /* NSLocalizedString.swift */,
 			);
 			path = "Supporting files";
 			sourceTree = "<group>";
@@ -369,6 +375,7 @@
 			files = (
 				138160CD250868DF007E13EA /* README.md in Resources */,
 				1384D28224BD184800655884 /* Assets.xcassets in Resources */,
+				138EEB252509F6F50038EDCC /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,6 +454,7 @@
 				1337E60624C01B5F008F2C89 /* NSColor+Extension.swift in Sources */,
 				134CE95924BD1C7F00D9D845 /* MainSplitViewController.swift in Sources */,
 				13C161E824E7B06900384C07 /* PrismKeyModes.swift in Sources */,
+				138EEB212509F13C0038EDCC /* NSLocalizedString.swift in Sources */,
 				13FEACD724BEDD45009B86ED /* PrismKey.swift in Sources */,
 				13B9F91F24E6897D00FAFA88 /* HIDDriver+PrismDeviceModel.swift in Sources */,
 				134CE95A24BD1C7F00D9D845 /* KeyboardViewController.swift in Sources */,

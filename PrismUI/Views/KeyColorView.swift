@@ -7,8 +7,6 @@
 //
 
 import Cocoa
-import RxSwift
-import RxCocoa
 
 class KeyColorView: ColorView {
 

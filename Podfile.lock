@@ -1,16 +1,20 @@
 PODS:
+  - Sparkle (1.23.0)
   - SwiftLint (0.39.2)
 
 DEPENDENCIES:
+  - Sparkle
   - SwiftLint
 
 SPEC REPOS:
   trunk:
+    - Sparkle
     - SwiftLint
 
 SPEC CHECKSUMS:
+  Sparkle: 55b1a87ba69d56913375a281546b7c82dec95bb0
   SwiftLint: 22ccbbe3b8008684be5955693bab135e0ed6a447
 
-PODFILE CHECKSUM: 7e47f02a33a0e5a793c2e3343973b564be1af9d9
+PODFILE CHECKSUM: b6c9747b264c05e8c38823b8540ab5270b20ba19
 
 COCOAPODS: 1.9.3
