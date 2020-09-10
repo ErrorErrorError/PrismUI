@@ -43,12 +43,18 @@ class MainSplitViewController: NSSplitViewController {
         leftSideItem.minimumThickness = 300
         leftSideItem.maximumThickness = 300
 
-        guard let device = PrismDriver.shared.currentDevice else { return }
         var viewController: NSViewController?
-        if device.isKeyboardDevice {
-            viewController = KeyboardViewController()
+
+        if let device = PrismDriver.shared.currentDevice {
+            if device.isKeyboardDevice {
+                viewController = KeyboardViewController()
+            } else {
+                // TODO: Support other non keyboard devices
+                viewController = NotSupportedViewController()
+            }
         } else {
-            return
+            viewController = NotSupportedViewController()
+            (viewController as? NotSupportedViewController)?.label.stringValue = .noDevicesAvaliable
         }
 
         rightSideItem = NSSplitViewItem(viewController: viewController!)
@@ -74,15 +80,16 @@ extension MainSplitViewController {
 
     @objc private func onMainDeviceChanged(_ notification: NSNotification) {
         guard let device = notification.object as? PrismDevice else { return }
-        if device.isKeyboardDevice {
+        if device.isKeyboardDevice && device.model != .threeRegion {
             if !(rightSideItem.viewController is KeyboardViewController) {
                 removeSplitViewItem(rightSideItem)
                 rightSideItem = NSSplitViewItem(viewController: KeyboardViewController())
                 addSplitViewItem(rightSideItem)
             }
-            Log.debug("perKeyDevice loading keyboard")
         } else {
-            Log.debug("device not implemented \(device.model)")
+            removeSplitViewItem(rightSideItem)
+            rightSideItem = NSSplitViewItem(viewController: NotSupportedViewController())
+            addSplitViewItem(rightSideItem)
         }
     }
 

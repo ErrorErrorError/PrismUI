@@ -203,12 +203,15 @@ class ModesViewController: BaseViewController {
 
         initCommonViews()
 
-        guard let device = PrismDriver.shared.currentDevice else { return }
-        if device.isKeyboardDevice {
-            if device.model != .threeRegion {
-                perKeyLayoutSetup()
+        if let device = PrismDriver.shared.currentDevice {
+            if device.isKeyboardDevice {
+                if device.model != .threeRegion {
+                    perKeyLayoutSetup()
+                } else {
+                    // TODO: Setup three region views
+                }
             } else {
-                // TODO: Setup three region views
+                // TODO: Setup non keyboard
             }
         }
     }
@@ -234,6 +237,9 @@ class ModesViewController: BaseViewController {
 
         if let currentDevice = PrismDriver.shared.currentDevice {
             devicesPopup.selectItem(withTitle: currentDevice.name)
+        } else {
+            devicesPopup.addItem(withTitle: "No device selected")
+            devicesPopup.selectItem(withTitle: "No device selected")
         }
 
         initCommonConstraints()
@@ -299,9 +305,11 @@ extension ModesViewController {
         guard let title = sender.titleOfSelectedItem else { return }
         let devices = PrismDriver.shared.devices.compactMap { $0 as? PrismDevice }
         guard let selectedDevice = devices.filter({ $0.name == title }).first else { return }
+        devicesPopup.item(withTitle: "No device selected")?.isHidden = true
         updateLayoutWithNewDevice(device: selectedDevice)
         PrismDriver.shared.currentDevice = selectedDevice
         NotificationCenter.default.post(name: .prismCurrentDeviceChanged, object: selectedDevice)
+        Log.debug("Changed currently selected device: \(selectedDevice.description)")
     }
 
     @objc func onSliderChanged(_ sender: NSSlider, update: Bool = true) {
