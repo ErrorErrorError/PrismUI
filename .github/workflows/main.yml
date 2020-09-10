@@ -14,23 +14,7 @@ jobs:
 
     - name: Prepare Env
       run: |
-        pod install
-    - name: Check Strings
-      run: |
-        for file (./PrismUI/Appearance/**/*.strings) {
-          plutil -lint $file
-          if [[ $file != *"zh-Hans"* ]]; then
-            grep -Hn "：" $file >> /tmp/chnCol.txt
-          fi
-        }
-        echo ""
-        if [[ $(cat /tmp/chnCol.txt) != "" ]]; then
-          echo "ERROR!!! Chinese Colon\"：\" exists in:"
-          echo ""
-          cat /tmp/chnCol.txt
-          exit 1
-        fi
-      shell: bash
+        pod install        
 
     - name: Debug Build
       run: |
