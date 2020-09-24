@@ -8,38 +8,6 @@
 
 import Foundation
 
-public class PrismTransition: Equatable {
-    public static func == (lhs: PrismTransition, rhs: PrismTransition) -> Bool {
-        return lhs.color == rhs.color && lhs.duration == rhs.duration
-    }
-
-    var color = PrismRGB()
-    var duration: UInt16 = 0
-
-    public init(color: PrismRGB, duration: UInt16) {
-        self.color = color
-        self.duration = duration
-    }
-}
-
-public class PrismPoint: Equatable {
-    public static func == (lhs: PrismPoint, rhs: PrismPoint) -> Bool {
-        return lhs.xAxis == rhs.xAxis && lhs.yAxis == rhs.yAxis
-    }
-
-    var xAxis: UInt16 = 0
-    var yAxis: UInt16 = 0
-
-    public init(xAxis: UInt16, yAxis: UInt16) {
-        self.xAxis = xAxis
-        self.yAxis = yAxis
-    }
-
-    convenience init() {
-        self.init(xAxis: 0, yAxis: 0)
-    }
-}
-
 public enum PrismDirection: UInt8 {
     case xyAxis = 0
     case xAxis = 1
@@ -51,17 +19,7 @@ public enum PrismControl: UInt8 {
     case inward = 1
 }
 
-public class PrismEffect: Equatable {
-    public static func == (lhs: PrismEffect, rhs: PrismEffect) -> Bool {
-        return lhs.start == rhs.start &&
-            lhs.waveActive == rhs.waveActive &&
-            lhs.direction == rhs.direction &&
-            lhs.control == rhs.control &&
-            lhs.origin == rhs.origin &&
-            lhs.pulse == rhs.pulse &&
-            lhs.transitions == rhs.transitions
-    }
-
+final class PrismEffect: NSObject {
     let identifier: UInt8
     var start: PrismRGB = PrismRGB()
     var waveActive: Bool = false
@@ -79,5 +37,65 @@ public class PrismEffect: Equatable {
         self.transitions = transitions
         self.start = transitions[0].color
         waveActive = false
+    }
+}
+
+extension PrismEffect {
+    public override func isEqual(_ object: Any?) -> Bool {
+        guard let otherEffect = object as? PrismEffect else { return false }
+        return
+            self.identifier == otherEffect.identifier &&
+            self.start == otherEffect.start &&
+            self.waveActive == otherEffect.waveActive &&
+            self.direction == otherEffect.direction &&
+            self.control == otherEffect.control &&
+            self.origin == otherEffect.origin &&
+            self.pulse == otherEffect.pulse &&
+            self.transitions == otherEffect.transitions
+    }
+
+    public override var hash: Int {
+        var hasher = Hasher()
+        hasher.combine(identifier)
+        hasher.combine(start)
+        hasher.combine(waveActive)
+        hasher.combine(direction)
+        hasher.combine(control)
+        hasher.combine(origin)
+        hasher.combine(pulse)
+        hasher.combine(transitions)
+        return hasher.finalize()
+    }
+}
+
+extension PrismEffect: Codable {
+
+    private enum CodingKeys: String, CodingKey {
+        case identifier, start, waveActive, direction, control, origin, pulse, transitions
+    }
+
+    public convenience init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let identifier = try container.decode(UInt8.self, forKey: .identifier)
+        let transitions = try container.decode([PrismTransition].self, forKey: .transitions)
+        self.init(identifier: identifier, transitions: transitions)
+        self.start = try container.decode(PrismRGB.self, forKey: .start)
+        self.waveActive = try container.decode(Bool.self, forKey: .waveActive)
+        self.direction = PrismDirection(rawValue: try container.decode(UInt8.self, forKey: .direction))!
+        self.control = PrismControl(rawValue: try container.decode(UInt8.self, forKey: .control))!
+        self.origin = try container.decode(PrismPoint.self, forKey: .origin)
+        self.pulse = try container.decode(UInt16.self, forKey: .pulse)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(identifier, forKey: .identifier)
+        try container.encode(start, forKey: .start)
+        try container.encode(waveActive, forKey: .waveActive)
+        try container.encode(direction.rawValue, forKey: .direction)
+        try container.encode(control.rawValue, forKey: .control)
+        try container.encode(origin, forKey: .origin)
+        try container.encode(pulse, forKey: .pulse)
+        try container.encode(transitions, forKey: .transitions)
     }
 }

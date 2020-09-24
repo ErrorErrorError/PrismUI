@@ -53,7 +53,7 @@ public class PrismDevice {
         versionNumber = try device.getProperty(key: kIOHIDVersionNumberKey)
     }
 
-    public func update() {
+    public func update(forceUpdate: Bool = false) {
         Log.error("Update unknown device not implemented for: \(name):\(identification)")
     }
 }

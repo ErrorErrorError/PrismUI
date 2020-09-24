@@ -190,15 +190,14 @@ public final class PrismKeyboard: PrismDevice {
         0x52    // NULL
     ]
 
-    public override func update() {
+    public override func update(forceUpdate: Bool = false) {
         Log.debug("Updating \(model) with new commands")
         if model != .threeRegion {
-            updatePerKeyKeyboard()
+            updatePerKeyKeyboard(forceUpdate: forceUpdate)
         } else {
             // TODO: Update three region keyboard
         }
     }
-
 }
 
 extension PrismKeyboard {
@@ -290,17 +289,17 @@ extension PrismKeyboard {
         return kIOReturnSuccess
     }
 
-    private func updatePerKeyKeyboard() {
+    private func updatePerKeyKeyboard(forceUpdate: Bool = false) {
         commandMutex.async {
             let keysSelected = PrismKeyboard.keysSelected
                 .compactMap { $0 as? KeyColorView }
                 .compactMap { $0.prismKey }
-            guard keysSelected.count > 0 else { return }
+            guard keysSelected.count > 0 || forceUpdate else { return }
 
-            let updateModifiers = keysSelected.filter { $0.region == PrismKeyboard.regions[0] }.count > 0
-            let updateAlphanums = keysSelected.filter { $0.region == PrismKeyboard.regions[1] }.count > 0
-            let updateEnter = keysSelected.filter { $0.region == PrismKeyboard.regions[2] }.count > 0
-            let updateSpecial = keysSelected.filter { $0.region == PrismKeyboard.regions[3] }.count > 0
+            let updateModifiers = keysSelected.filter { $0.region == PrismKeyboard.regions[0] }.count > 0 || forceUpdate
+            let updateAlphanums = keysSelected.filter { $0.region == PrismKeyboard.regions[1] }.count > 0 || forceUpdate
+            let updateEnter = keysSelected.filter { $0.region == PrismKeyboard.regions[2] }.count > 0 || forceUpdate
+            let updateSpecial = keysSelected.filter { $0.region == PrismKeyboard.regions[3] }.count > 0 || forceUpdate
 
             // Update effects first
             let result = self.writeEffectsToKeyboard()

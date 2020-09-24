@@ -126,7 +126,7 @@ public class PrismHSB: NSObject, NSCopying {
     }
 }
 
-public class PrismRGB: NSObject, NSCopying {
+public class PrismRGB: NSObject, NSCopying, Codable {
 
     public override func isEqual(_ object: Any?) -> Bool {
         if let object = object as? PrismRGB {
@@ -137,6 +137,15 @@ public class PrismRGB: NSObject, NSCopying {
         }
 
         return false
+    }
+
+    public override var hash: Int {
+        var hasher = Hasher()
+        hasher.combine(red)
+        hasher.combine(green)
+        hasher.combine(blue)
+        hasher.combine(alpha)
+        return hasher.finalize()
     }
 
     // [0, 1]

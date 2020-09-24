@@ -18,6 +18,16 @@
 		131285C324E7473C009CDBCE /* HIDDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131285BD24E7473C009CDBCE /* HIDDevice.swift */; };
 		1337E60624C01B5F008F2C89 /* NSColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1337E60524C01B5F008F2C89 /* NSColor+Extension.swift */; };
 		1337E60824C03707008F2C89 /* NoDividerSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1337E60724C03707008F2C89 /* NoDividerSplitView.swift */; };
+		134110DC251A9863004EF11A /* Chakra-perKey.bin in Resources */ = {isa = PBXBuildFile; fileRef = 134110C8251A8C7E004EF11A /* Chakra-perKey.bin */; };
+		134110DD251A9866004EF11A /* Aqua-perKey.bin in Resources */ = {isa = PBXBuildFile; fileRef = 134110C6251A8C7E004EF11A /* Aqua-perKey.bin */; };
+		134110DE251A986E004EF11A /* Default-perKey.bin in Resources */ = {isa = PBXBuildFile; fileRef = 134110C2251A8C7D004EF11A /* Default-perKey.bin */; };
+		134110DF251A986E004EF11A /* Disco-perKey.bin in Resources */ = {isa = PBXBuildFile; fileRef = 134110C9251A8C7E004EF11A /* Disco-perKey.bin */; };
+		134110E0251A986E004EF11A /* Drain-perKey.bin in Resources */ = {isa = PBXBuildFile; fileRef = 134110C7251A8C7E004EF11A /* Drain-perKey.bin */; };
+		134110E1251A986E004EF11A /* Freeway-perKey.bin in Resources */ = {isa = PBXBuildFile; fileRef = 134110C4251A8C7E004EF11A /* Freeway-perKey.bin */; };
+		134110E2251A986E004EF11A /* Rainbow Split-perKey.bin in Resources */ = {isa = PBXBuildFile; fileRef = 134110C5251A8C7E004EF11A /* Rainbow Split-perKey.bin */; };
+		134110E3251A986E004EF11A /* Roulette-perKey.bin in Resources */ = {isa = PBXBuildFile; fileRef = 134110C3251A8C7E004EF11A /* Roulette-perKey.bin */; };
+		134110EE251AAC37004EF11A /* PrismPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134110ED251AAC37004EF11A /* PrismPreset.swift */; };
+		134110F0251ABF2F004EF11A /* PresetsOutlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134110EF251ABF2F004EF11A /* PresetsOutlineView.swift */; };
 		134CE95524BD1C7F00D9D845 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134CE94E24BD1C7F00D9D845 /* AppDelegate.swift */; };
 		134CE95724BD1C7F00D9D845 /* PresetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134CE95124BD1C7F00D9D845 /* PresetsViewController.swift */; };
 		134CE95824BD1C7F00D9D845 /* ModesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134CE95224BD1C7F00D9D845 /* ModesViewController.swift */; };
@@ -29,7 +39,6 @@
 		134CE97924BD7B8F00D9D845 /* KeyColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134CE97824BD7B8F00D9D845 /* KeyColorView.swift */; };
 		13513B2124E8B3ED00D2A842 /* PrismKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13513B2024E8B3ED00D2A842 /* PrismKeyboard.swift */; };
 		13513B2424E9361500D2A842 /* PrismColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135999F824CD7CC800941DCC /* PrismColor.swift */; };
-		138160CD250868DF007E13EA /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 138160CC250868DF007E13EA /* README.md */; };
 		1384D28224BD184800655884 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1384D28124BD184800655884 /* Assets.xcassets */; };
 		1386D12424CCF76900B91092 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1386D12324CCF76900B91092 /* Log.swift */; };
 		1386D12824CD058A00B91092 /* ColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1386D12724CD058A00B91092 /* ColorView.swift */; };
@@ -39,6 +48,7 @@
 		1393AEF924CC050800B53788 /* DragSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1393AEF824CC050800B53788 /* DragSelectionView.swift */; };
 		1393AEFB24CC069F00B53788 /* NSView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1393AEFA24CC069F00B53788 /* NSView+Extensions.swift */; };
 		13A0EC4225082A0100F552F1 /* KeyboardViewController + PerKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A0EC4125082A0100F552F1 /* KeyboardViewController + PerKey.swift */; };
+		13A624092519E60F004D71F6 /* PresetsTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A624082519E60F004D71F6 /* PresetsTableRowView.swift */; };
 		13B297822501BDE4003AA30E /* ModesViewController+PerKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B297812501BDE4003AA30E /* ModesViewController+PerKey.swift */; };
 		13B8825524C8BAB600700325 /* PrismColorSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B8825424C8BAB600700325 /* PrismColorSliderView.swift */; };
 		13B9F91D24E6897D00FAFA88 /* PrismDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B9F91524E6897D00FAFA88 /* PrismDriver.swift */; };
@@ -50,6 +60,16 @@
 		13C161EA24E7B0E800384C07 /* PrismEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C161E924E7B0E800384C07 /* PrismEffect.swift */; };
 		13C56B2324E6907100C8C998 /* PrismMultiSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C56B2224E6907100C8C998 /* PrismMultiSliderView.swift */; };
 		13C56B2724E693F100C8C998 /* NSTextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C56B2624E693F100C8C998 /* NSTextField+Extension.swift */; };
+		13F819E4251BF47400E96CF9 /* PrismPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F819E3251BF47400E96CF9 /* PrismPoint.swift */; };
+		13F819E6251BF4B300E96CF9 /* PrismTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F819E5251BF4B300E96CF9 /* PrismTransition.swift */; };
+		13F819F1251C100500E96CF9 /* Default-perKeyGS65.bin in Resources */ = {isa = PBXBuildFile; fileRef = 13F819E9251C100500E96CF9 /* Default-perKeyGS65.bin */; };
+		13F819F2251C100500E96CF9 /* Aqua-perKeyGS65.bin in Resources */ = {isa = PBXBuildFile; fileRef = 13F819EA251C100500E96CF9 /* Aqua-perKeyGS65.bin */; };
+		13F819F3251C100500E96CF9 /* Chakra-perKeyGS65.bin in Resources */ = {isa = PBXBuildFile; fileRef = 13F819EB251C100500E96CF9 /* Chakra-perKeyGS65.bin */; };
+		13F819F4251C100500E96CF9 /* Drain-perKeyGS65.bin in Resources */ = {isa = PBXBuildFile; fileRef = 13F819EC251C100500E96CF9 /* Drain-perKeyGS65.bin */; };
+		13F819F5251C100500E96CF9 /* Roulette-perKeyGS65.bin in Resources */ = {isa = PBXBuildFile; fileRef = 13F819ED251C100500E96CF9 /* Roulette-perKeyGS65.bin */; };
+		13F819F6251C100500E96CF9 /* Plain-perKeyGS65.bin in Resources */ = {isa = PBXBuildFile; fileRef = 13F819EE251C100500E96CF9 /* Plain-perKeyGS65.bin */; };
+		13F819F7251C100500E96CF9 /* Freeway-perKeyGS65.bin in Resources */ = {isa = PBXBuildFile; fileRef = 13F819EF251C100500E96CF9 /* Freeway-perKeyGS65.bin */; };
+		13F819F8251C100500E96CF9 /* Rainbow Split-perKeyGS65.bin in Resources */ = {isa = PBXBuildFile; fileRef = 13F819F0251C100500E96CF9 /* Rainbow Split-perKeyGS65.bin */; };
 		13FEACD724BEDD45009B86ED /* PrismKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FEACD624BEDD45009B86ED /* PrismKey.swift */; };
 		4EE2D008240733F7C050689F /* Pods_PrismUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C08081D643B770DF1F5178 /* Pods_PrismUI.framework */; };
 /* End PBXBuildFile section */
@@ -67,6 +87,16 @@
 		131285BD24E7473C009CDBCE /* HIDDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HIDDevice.swift; sourceTree = "<group>"; };
 		1337E60524C01B5F008F2C89 /* NSColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+Extension.swift"; sourceTree = "<group>"; };
 		1337E60724C03707008F2C89 /* NoDividerSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDividerSplitView.swift; sourceTree = "<group>"; };
+		134110C2251A8C7D004EF11A /* Default-perKey.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Default-perKey.bin"; sourceTree = "<group>"; };
+		134110C3251A8C7E004EF11A /* Roulette-perKey.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Roulette-perKey.bin"; sourceTree = "<group>"; };
+		134110C4251A8C7E004EF11A /* Freeway-perKey.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Freeway-perKey.bin"; sourceTree = "<group>"; };
+		134110C5251A8C7E004EF11A /* Rainbow Split-perKey.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Rainbow Split-perKey.bin"; sourceTree = "<group>"; };
+		134110C6251A8C7E004EF11A /* Aqua-perKey.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Aqua-perKey.bin"; sourceTree = "<group>"; };
+		134110C7251A8C7E004EF11A /* Drain-perKey.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Drain-perKey.bin"; sourceTree = "<group>"; };
+		134110C8251A8C7E004EF11A /* Chakra-perKey.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Chakra-perKey.bin"; sourceTree = "<group>"; };
+		134110C9251A8C7E004EF11A /* Disco-perKey.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Disco-perKey.bin"; sourceTree = "<group>"; };
+		134110ED251AAC37004EF11A /* PrismPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismPreset.swift; sourceTree = "<group>"; };
+		134110EF251ABF2F004EF11A /* PresetsOutlineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetsOutlineView.swift; sourceTree = "<group>"; };
 		134CE94E24BD1C7F00D9D845 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		134CE95124BD1C7F00D9D845 /* PresetsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresetsViewController.swift; sourceTree = "<group>"; };
 		134CE95224BD1C7F00D9D845 /* ModesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModesViewController.swift; sourceTree = "<group>"; };
@@ -91,6 +121,7 @@
 		1393AEF824CC050800B53788 /* DragSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragSelectionView.swift; sourceTree = "<group>"; };
 		1393AEFA24CC069F00B53788 /* NSView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSView+Extensions.swift"; sourceTree = "<group>"; };
 		13A0EC4125082A0100F552F1 /* KeyboardViewController + PerKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyboardViewController + PerKey.swift"; sourceTree = "<group>"; };
+		13A624082519E60F004D71F6 /* PresetsTableRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PresetsTableRowView.swift; path = PrismUI/Model/PresetsTableRowView.swift; sourceTree = SOURCE_ROOT; };
 		13B297812501BDE4003AA30E /* ModesViewController+PerKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ModesViewController+PerKey.swift"; sourceTree = "<group>"; };
 		13B8825424C8BAB600700325 /* PrismColorSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismColorSliderView.swift; sourceTree = "<group>"; };
 		13B9F91524E6897D00FAFA88 /* PrismDriver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrismDriver.swift; sourceTree = "<group>"; };
@@ -102,6 +133,16 @@
 		13C161E924E7B0E800384C07 /* PrismEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismEffect.swift; sourceTree = "<group>"; };
 		13C56B2224E6907100C8C998 /* PrismMultiSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismMultiSliderView.swift; sourceTree = "<group>"; };
 		13C56B2624E693F100C8C998 /* NSTextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTextField+Extension.swift"; sourceTree = "<group>"; };
+		13F819E3251BF47400E96CF9 /* PrismPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismPoint.swift; sourceTree = "<group>"; };
+		13F819E5251BF4B300E96CF9 /* PrismTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismTransition.swift; sourceTree = "<group>"; };
+		13F819E9251C100500E96CF9 /* Default-perKeyGS65.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Default-perKeyGS65.bin"; sourceTree = "<group>"; };
+		13F819EA251C100500E96CF9 /* Aqua-perKeyGS65.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Aqua-perKeyGS65.bin"; sourceTree = "<group>"; };
+		13F819EB251C100500E96CF9 /* Chakra-perKeyGS65.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Chakra-perKeyGS65.bin"; sourceTree = "<group>"; };
+		13F819EC251C100500E96CF9 /* Drain-perKeyGS65.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Drain-perKeyGS65.bin"; sourceTree = "<group>"; };
+		13F819ED251C100500E96CF9 /* Roulette-perKeyGS65.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Roulette-perKeyGS65.bin"; sourceTree = "<group>"; };
+		13F819EE251C100500E96CF9 /* Plain-perKeyGS65.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Plain-perKeyGS65.bin"; sourceTree = "<group>"; };
+		13F819EF251C100500E96CF9 /* Freeway-perKeyGS65.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Freeway-perKeyGS65.bin"; sourceTree = "<group>"; };
+		13F819F0251C100500E96CF9 /* Rainbow Split-perKeyGS65.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Rainbow Split-perKeyGS65.bin"; sourceTree = "<group>"; };
 		13FEACD624BEDD45009B86ED /* PrismKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismKey.swift; sourceTree = "<group>"; };
 		15747D84AFE6667ADB3C2E4F /* Pods-PrismUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrismUI.debug.xcconfig"; path = "Target Support Files/Pods-PrismUI/Pods-PrismUI.debug.xcconfig"; sourceTree = "<group>"; };
 		C68ECFAA71BE30DF82042E44 /* Pods-PrismUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrismUI.release.xcconfig"; path = "Target Support Files/Pods-PrismUI/Pods-PrismUI.release.xcconfig"; sourceTree = "<group>"; };
@@ -163,6 +204,36 @@
 			path = PrismKeyboard;
 			sourceTree = "<group>";
 		};
+		134110AE251A8C59004EF11A /* gs65 */ = {
+			isa = PBXGroup;
+			children = (
+				13F819EA251C100500E96CF9 /* Aqua-perKeyGS65.bin */,
+				13F819EB251C100500E96CF9 /* Chakra-perKeyGS65.bin */,
+				13F819E9251C100500E96CF9 /* Default-perKeyGS65.bin */,
+				13F819EC251C100500E96CF9 /* Drain-perKeyGS65.bin */,
+				13F819EF251C100500E96CF9 /* Freeway-perKeyGS65.bin */,
+				13F819EE251C100500E96CF9 /* Plain-perKeyGS65.bin */,
+				13F819F0251C100500E96CF9 /* Rainbow Split-perKeyGS65.bin */,
+				13F819ED251C100500E96CF9 /* Roulette-perKeyGS65.bin */,
+			);
+			path = gs65;
+			sourceTree = "<group>";
+		};
+		134110C1251A8C70004EF11A /* perkey */ = {
+			isa = PBXGroup;
+			children = (
+				134110C6251A8C7E004EF11A /* Aqua-perKey.bin */,
+				134110C8251A8C7E004EF11A /* Chakra-perKey.bin */,
+				134110C2251A8C7D004EF11A /* Default-perKey.bin */,
+				134110C9251A8C7E004EF11A /* Disco-perKey.bin */,
+				134110C7251A8C7E004EF11A /* Drain-perKey.bin */,
+				134110C4251A8C7E004EF11A /* Freeway-perKey.bin */,
+				134110C5251A8C7E004EF11A /* Rainbow Split-perKey.bin */,
+				134110C3251A8C7E004EF11A /* Roulette-perKey.bin */,
+			);
+			path = perkey;
+			sourceTree = "<group>";
+		};
 		134CE94C24BD1C7F00D9D845 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -171,6 +242,8 @@
 				1337E60724C03707008F2C89 /* NoDividerSplitView.swift */,
 				1393AEF824CC050800B53788 /* DragSelectionView.swift */,
 				1386D12724CD058A00B91092 /* ColorView.swift */,
+				13A624082519E60F004D71F6 /* PresetsTableRowView.swift */,
+				134110EF251ABF2F004EF11A /* PresetsOutlineView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -206,6 +279,15 @@
 				00C08081D643B770DF1F5178 /* Pods_PrismUI.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1368068225135E090081FB80 /* Presets */ = {
+			isa = PBXGroup;
+			children = (
+				134110C1251A8C70004EF11A /* perkey */,
+				134110AE251A8C59004EF11A /* gs65 */,
+			);
+			path = Presets;
 			sourceTree = "<group>";
 		};
 		1384D27124BD184700655884 = {
@@ -247,6 +329,7 @@
 		1386D12224CCF73400B91092 /* Supporting files */ = {
 			isa = PBXGroup;
 			children = (
+				1368068225135E090081FB80 /* Presets */,
 				1337E60524C01B5F008F2C89 /* NSColor+Extension.swift */,
 				1386D12324CCF76900B91092 /* Log.swift */,
 				13C56B2624E693F100C8C998 /* NSTextField+Extension.swift */,
@@ -299,6 +382,9 @@
 				135999F824CD7CC800941DCC /* PrismColor.swift */,
 				13C161E924E7B0E800384C07 /* PrismEffect.swift */,
 				13FEACD624BEDD45009B86ED /* PrismKey.swift */,
+				134110ED251AAC37004EF11A /* PrismPreset.swift */,
+				13F819E3251BF47400E96CF9 /* PrismPoint.swift */,
+				13F819E5251BF4B300E96CF9 /* PrismTransition.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -373,7 +459,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				138160CD250868DF007E13EA /* README.md in Resources */,
+				13F819F1251C100500E96CF9 /* Default-perKeyGS65.bin in Resources */,
+				13F819F6251C100500E96CF9 /* Plain-perKeyGS65.bin in Resources */,
+				13F819F4251C100500E96CF9 /* Drain-perKeyGS65.bin in Resources */,
+				13F819F5251C100500E96CF9 /* Roulette-perKeyGS65.bin in Resources */,
+				134110DE251A986E004EF11A /* Default-perKey.bin in Resources */,
+				134110DF251A986E004EF11A /* Disco-perKey.bin in Resources */,
+				134110E0251A986E004EF11A /* Drain-perKey.bin in Resources */,
+				13F819F2251C100500E96CF9 /* Aqua-perKeyGS65.bin in Resources */,
+				13F819F7251C100500E96CF9 /* Freeway-perKeyGS65.bin in Resources */,
+				13F819F8251C100500E96CF9 /* Rainbow Split-perKeyGS65.bin in Resources */,
+				134110E1251A986E004EF11A /* Freeway-perKey.bin in Resources */,
+				134110E2251A986E004EF11A /* Rainbow Split-perKey.bin in Resources */,
+				134110E3251A986E004EF11A /* Roulette-perKey.bin in Resources */,
+				134110DD251A9866004EF11A /* Aqua-perKey.bin in Resources */,
+				134110DC251A9863004EF11A /* Chakra-perKey.bin in Resources */,
+				13F819F3251C100500E96CF9 /* Chakra-perKeyGS65.bin in Resources */,
 				1384D28224BD184800655884 /* Assets.xcassets in Resources */,
 				138EEB252509F6F50038EDCC /* MainMenu.xib in Resources */,
 			);
@@ -462,8 +563,11 @@
 				134CE97924BD7B8F00D9D845 /* KeyColorView.swift in Sources */,
 				134CE95724BD1C7F00D9D845 /* PresetsViewController.swift in Sources */,
 				131285C224E7473C009CDBCE /* IOHIDDevice+Write.swift in Sources */,
+				13A624092519E60F004D71F6 /* PresetsTableRowView.swift in Sources */,
 				131285C024E7473C009CDBCE /* IOHIDManager+Configure.swift in Sources */,
 				13C161EA24E7B0E800384C07 /* PrismEffect.swift in Sources */,
+				134110F0251ABF2F004EF11A /* PresetsOutlineView.swift in Sources */,
+				13F819E4251BF47400E96CF9 /* PrismPoint.swift in Sources */,
 				13C56B2324E6907100C8C998 /* PrismMultiSliderView.swift in Sources */,
 				13B297822501BDE4003AA30E /* ModesViewController+PerKey.swift in Sources */,
 				131285C324E7473C009CDBCE /* HIDDevice.swift in Sources */,
@@ -471,6 +575,7 @@
 				1393AEFB24CC069F00B53788 /* NSView+Extensions.swift in Sources */,
 				134CE96324BD3A3D00D9D845 /* KeyboardLayout.swift in Sources */,
 				1393AEF924CC050800B53788 /* DragSelectionView.swift in Sources */,
+				13F819E6251BF4B300E96CF9 /* PrismTransition.swift in Sources */,
 				13B8825524C8BAB600700325 /* PrismColorSliderView.swift in Sources */,
 				1386D12824CD058A00B91092 /* ColorView.swift in Sources */,
 				13C56B2724E693F100C8C998 /* NSTextField+Extension.swift in Sources */,
@@ -479,6 +584,7 @@
 				138EEB1F2509E88D0038EDCC /* NotSupportedViewController.swift in Sources */,
 				13A0EC4225082A0100F552F1 /* KeyboardViewController + PerKey.swift in Sources */,
 				130B9A2424C7C70600989667 /* PrismColorPicker.swift in Sources */,
+				134110EE251AAC37004EF11A /* PrismPreset.swift in Sources */,
 				13513B2424E9361500D2A842 /* PrismColor.swift in Sources */,
 				131285BF24E7473C009CDBCE /* IOHIDDevice+FeatureReport.swift in Sources */,
 				1337E60824C03707008F2C89 /* NoDividerSplitView.swift in Sources */,

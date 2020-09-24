@@ -45,7 +45,7 @@ class KeyColorView: ColorView {
 // Update Animation
 extension KeyColorView: CAAnimationDelegate {
 
-    private func updateAnimation() {
+    func updateAnimation() {
         layer?.removeAllAnimations()
         color = prismKey.main.nsColor
         if prismKey.effect != nil {

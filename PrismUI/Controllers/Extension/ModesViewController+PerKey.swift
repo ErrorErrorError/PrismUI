@@ -38,14 +38,14 @@ extension ModesViewController {
         view.addSubview(reactRestText)
         view.addSubview(reactRestColor)
 
-        modesPopUp.addItem(withTitle: PrismKeyModes.steady.rawValue)
-        modesPopUp.addItem(withTitle: PrismKeyModes.colorShift.rawValue)
-        modesPopUp.addItem(withTitle: PrismKeyModes.breathing.rawValue)
-        modesPopUp.addItem(withTitle: PrismKeyModes.reactive.rawValue)
-        modesPopUp.addItem(withTitle: PrismKeyModes.disabled.rawValue)
+        modesPopUp.addItem(withTitle: "\(PrismKeyModes.steady)")
+        modesPopUp.addItem(withTitle: "\(PrismKeyModes.colorShift)")
+        modesPopUp.addItem(withTitle: "\(PrismKeyModes.breathing)")
+        modesPopUp.addItem(withTitle: "\(PrismKeyModes.reactive)")
+        modesPopUp.addItem(withTitle: "\(PrismKeyModes.disabled)")
         modesPopUp.addItem(withTitle: "Mixed")
         modesPopUp.item(withTitle: "Mixed")?.isHidden = true
-        modesPopUp.selectItem(withTitle: PrismKeyModes.steady.rawValue)
+        modesPopUp.selectItem(withTitle: "\(PrismKeyModes.steady)")
 
         perKeySetupContraints()
         updatePending = false
@@ -127,23 +127,23 @@ extension ModesViewController {
     func handlePerKeyPopup(_ sender: NSPopUpButton) {
         Log.debug("sender: \(String(describing: sender.titleOfSelectedItem))")
         switch sender.titleOfSelectedItem {
-        case PrismKeyModes.steady.rawValue:
+        case "\(PrismKeyModes.steady)":
             showReactiveMode(shouldShow: false)
             showColorShiftMode(shouldShow: false)
             showBreadingMode(shouldShow: false)
-        case PrismKeyModes.reactive.rawValue:
+        case "\(PrismKeyModes.reactive)":
             showColorShiftMode(shouldShow: false)
             showBreadingMode(shouldShow: false)
             showReactiveMode()
-        case PrismKeyModes.colorShift.rawValue:
+        case "\(PrismKeyModes.colorShift)":
             showReactiveMode(shouldShow: false)
             showBreadingMode(shouldShow: false)
             showColorShiftMode()
-        case PrismKeyModes.breathing.rawValue:
+        case "\(PrismKeyModes.breathing)":
             showReactiveMode(shouldShow: false)
             showColorShiftMode(shouldShow: false)
             showBreadingMode()
-        case PrismKeyModes.disabled.rawValue:
+        case "\(PrismKeyModes.disabled)":
             showReactiveMode(shouldShow: false)
             showColorShiftMode(shouldShow: false)
             showBreadingMode(shouldShow: false)
@@ -283,8 +283,8 @@ extension ModesViewController {
     }
 
     func updatePerKeyColors(newColor: PrismRGB, finished: Bool) {
-        guard let selectedItem = modesPopUp.titleOfSelectedItem else { return }
-        guard let selectedMode = PrismKeyModes(rawValue: selectedItem) else {
+        let selectedItem = modesPopUp.indexOfSelectedItem
+        guard selectedItem != -1, let selectedMode = PrismKeyModes(rawValue: UInt32(selectedItem)) else {
             Log.debug("Unknown mode: \(selectedItem)")
             return
         }

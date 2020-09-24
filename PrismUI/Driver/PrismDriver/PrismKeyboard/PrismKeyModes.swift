@@ -8,10 +8,22 @@
 
 import Foundation
 
-public enum PrismKeyModes: String {
-    case steady = "Steady"
-    case colorShift = "ColorShift"
-    case breathing = "Breathing"
-    case reactive = "Reactive"
-    case disabled = "Disabled"
+public enum PrismKeyModes: UInt32, Codable {
+    case steady
+    case colorShift
+    case breathing
+    case reactive
+    case disabled
+}
+
+extension PrismKeyModes: CustomStringConvertible {
+    public var description: String {
+        switch self {
+        case .steady: return "Steady"
+        case .colorShift: return "ColorShift"
+        case .breathing: return "Breathing"
+        case .reactive: return "Reactive"
+        case .disabled: return "Disabled"
+        }
+    }
 }
