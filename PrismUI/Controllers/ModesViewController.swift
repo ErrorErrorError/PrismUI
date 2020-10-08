@@ -17,6 +17,10 @@ class ModesViewController: BaseViewController {
 
     static let selectorArray = NSMutableArray()
 
+    // MARK: PerKey variables
+
+    static var waveOrigin = PrismPoint()
+
     // MARK: Common initialization
 
     let edgeMargin: CGFloat = 18
@@ -348,7 +352,7 @@ extension ModesViewController {
 extension ModesViewController: PrismColorPickerDelegate {
 
     func didColorChange(newColor: PrismRGB, finishedChanging: Bool) {
-        guard let device = PrismDriver.shared.currentDevice else {
+        guard let device = PrismDriver.shared.currentDevice, device.model != .unknown else {
             return
         }
 

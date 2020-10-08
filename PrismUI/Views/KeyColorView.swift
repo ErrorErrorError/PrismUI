@@ -16,6 +16,12 @@ class KeyColorView: ColorView {
         }
     }
 
+    override var selected: Bool {
+        didSet {
+            NotificationCenter.default.post(name: .keySelectionChanged, object: nil)
+        }
+    }
+
     var text: NSString = NSString()
 
     var transitionIndex = 0
@@ -105,4 +111,8 @@ extension NSString {
                                   height: size.height)
         self.draw(in: centeredRect, withAttributes: attributes)
     }
+}
+
+extension NSNotification.Name {
+    static let keySelectionChanged = NSNotification.Name("keySelectionChanged")
 }

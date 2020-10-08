@@ -253,10 +253,10 @@ extension PrismKeyboard {
             if effect.waveActive {
                 let origin = effect.origin
 
-                data.append([UInt8(origin.xAxis & 0x00ff),
-                             UInt8((origin.xAxis & 0xff00) >> 8),
-                             UInt8(origin.yAxis & 0x00ff),
-                             UInt8((origin.yAxis & 0xff00) >> 8),
+                data.append([UInt8(origin.xPoint & 0x00ff),
+                             UInt8((origin.xPoint & 0xff00) >> 8),
+                             UInt8(origin.yPoint & 0x00ff),
+                             UInt8((origin.yPoint & 0xff00) >> 8),
                              effect.direction != .yAxis ? 0x01 : 0x00,
                              0x00,
                              effect.direction != .xAxis ? 0x01 : 0x00,

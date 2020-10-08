@@ -22,15 +22,24 @@ public enum PrismControl: UInt8 {
 final class PrismEffect: NSObject {
     let identifier: UInt8
     var start: PrismRGB = PrismRGB()
-    var waveActive: Bool = false
-    var direction: PrismDirection = .xyAxis
-    var control: PrismControl = .inward
-    var origin: PrismPoint = PrismPoint()
-    var pulse: UInt16 = 0
     var transitions: [PrismTransition]
     var transitionDuration: UInt16 {
         return transitions.compactMap { $0.duration }.reduce(0, +)
     }
+    var waveActive: Bool = false {
+        didSet {
+            if !waveActive {
+                direction = .xyAxis
+                control = .inward
+                origin = PrismPoint()
+                pulse = 100
+            }
+        }
+    }
+    var direction: PrismDirection = .xyAxis
+    var control: PrismControl = .inward
+    var origin: PrismPoint = PrismPoint()
+    var pulse: UInt16 = 100
 
     public init(identifier: UInt8, transitions: [PrismTransition]) {
         self.identifier = identifier

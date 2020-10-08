@@ -10,6 +10,8 @@ import Cocoa
 
 class KeyboardViewController: BaseViewController {
 
+    var originView: OriginEffectView?
+
     override func loadView() {
         view = DragSelectionView()
     }
@@ -34,6 +36,25 @@ class KeyboardViewController: BaseViewController {
                                                selector: #selector(updateKeyboardToPreset(_:)),
                                                name: .prismDeviceUpdateFromPreset,
                                                object: nil)
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(createPresetWindow(_:)),
+                                               name: .prismDeviceSavePreset,
+                                               object: nil)
+    }
+}
+
+// MARK: Actions
+
+extension KeyboardViewController {
+    @objc func createPresetWindow(_ notification: Notification) {
+        guard let currentWindow = view.window else {
+            Log.error("Could not show view window due to window == nil")
+             return
+        }
+
+        let window = PrismSavePresetWindow()
+        currentWindow.beginSheet(window)
     }
 
     @objc func updateKeyboardToPreset(_ notification: Notification) {
@@ -61,6 +82,7 @@ class KeyboardViewController: BaseViewController {
 
                     keyViewLoop: for keyView in view.subviews.compactMap({ $0 as? KeyColorView }) {
                         if let keyObj = keyView.prismKey, keyObj.region == key.region && keyObj.keycode == key.keycode {
+                            keyView.selected = false
                             keyObj.mode = key.mode
                             keyObj.effect = key.effect
                             keyObj.main = key.main
@@ -80,16 +102,8 @@ class KeyboardViewController: BaseViewController {
     }
 }
 
-extension KeyboardViewController: ColorViewDelegate {
-    func didSelect(_ sender: ColorView) {
-        if !PrismKeyboard.keysSelected.contains(sender) {
-            PrismKeyboard.keysSelected.add(sender)
-        }
-    }
+// MARK: Notification broadcast
 
-    func didDeselect(_ sender: ColorView) {
-        if PrismKeyboard.keysSelected.contains(sender) {
-            PrismKeyboard.keysSelected.remove(sender)
-        }
-    }
+extension Notification.Name {
+    public static let prismEffectOriginChanged: Notification.Name = .init(rawValue: "prismEffectOriginChanged")
 }

@@ -49,6 +49,15 @@ extension ModesViewController {
 
         perKeySetupContraints()
         updatePending = false
+
+        ModesViewController.waveOrigin.xPoint = 0
+        ModesViewController.waveOrigin.yPoint = 0
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(onKeySelectionChanged),
+                                               name: .keySelectionChanged,
+                                               object: nil)
+
     }
 
     private func perKeySetupContraints() {
@@ -124,36 +133,43 @@ extension ModesViewController {
 // MARK: Action PerKey
 
 extension ModesViewController {
-    func handlePerKeyPopup(_ sender: NSPopUpButton) {
+    func handlePerKeyPopup(_ sender: NSPopUpButton, update: Bool = true) {
         Log.debug("sender: \(String(describing: sender.titleOfSelectedItem))")
         switch sender.titleOfSelectedItem {
         case "\(PrismKeyModes.steady)":
             showReactiveMode(shouldShow: false)
             showColorShiftMode(shouldShow: false)
             showBreadingMode(shouldShow: false)
+            modesPopUp.item(withTitle: "Mixed")?.isHidden = true
         case "\(PrismKeyModes.reactive)":
             showColorShiftMode(shouldShow: false)
             showBreadingMode(shouldShow: false)
             showReactiveMode()
+            modesPopUp.item(withTitle: "Mixed")?.isHidden = true
         case "\(PrismKeyModes.colorShift)":
             showReactiveMode(shouldShow: false)
             showBreadingMode(shouldShow: false)
             showColorShiftMode()
+            modesPopUp.item(withTitle: "Mixed")?.isHidden = true
         case "\(PrismKeyModes.breathing)":
             showReactiveMode(shouldShow: false)
             showColorShiftMode(shouldShow: false)
             showBreadingMode()
+            modesPopUp.item(withTitle: "Mixed")?.isHidden = true
         case "\(PrismKeyModes.disabled)":
             showReactiveMode(shouldShow: false)
             showColorShiftMode(shouldShow: false)
             showBreadingMode(shouldShow: false)
+            modesPopUp.item(withTitle: "Mixed")?.isHidden = true
         default:
             Log.error("Effect Unavalilable for perKey")
             return
         }
 
         colorPicker.setColor(newColor: PrismRGB(red: 1.0, green: 0, blue: 0))
-        didColorChange(newColor: colorPicker.colorGraphView.color.rgb, finishedChanging: true)
+        if update {
+            didColorChange(newColor: colorPicker.colorGraphView.color.rgb, finishedChanging: true)
+        }
     }
 
     func handlePerKeyButtonClicked(_ sender: NSButton, update: Bool = true) {
@@ -162,9 +178,10 @@ extension ModesViewController {
         case .presets:
             delegate?.didClickOnPresetsButton()
             return
-        case .origin,
-             .xyDirection,
-             .inwardOutward:
+        case .origin:
+            NotificationCenter.default.post(name: .prismOriginToggled, object: nil)
+        case .xyDirection,
+            .inwardOutward:
             break
         case .waveToggle:
             let enabled = sender.state == .on
@@ -172,12 +189,17 @@ extension ModesViewController {
             waveDirectionControl.isEnabled = enabled
             waveInwardOutwardControl.isEnabled = enabled
             pulseSlider.isEnabled = enabled
+            if !enabled {
+                NotificationCenter.default.post(name: .prismOriginToggled, object: true)
+            }
         default:
             Log.debug("Unkown button pressed \(identifier)")
             return
         }
 
-        didColorChange(newColor: colorPicker.colorGraphView.color.rgb, finishedChanging: update)
+        if update {
+            didColorChange(newColor: colorPicker.colorGraphView.color.rgb, finishedChanging: true)
+        }
     }
 
     func handlePerKeySliderChanged(_ sender: NSSlider, update: Bool = true) {
@@ -195,6 +217,63 @@ extension ModesViewController {
         let event = NSApplication.shared.currentEvent
         if event?.type == NSEvent.EventType.leftMouseUp && update {
             didColorChange(newColor: colorPicker.colorGraphView.color.rgb, finishedChanging: true)
+        }
+    }
+
+    @objc func onKeySelectionChanged() {
+        let selectedKeys = PrismKeyboard.keysSelected.compactMap { ($0 as? KeyColorView)?.prismKey }
+        if selectedKeys.count == 0 {
+            return
+        }
+
+        let allKeysSame = selectedKeys.allSatisfy {
+            $0.effect == selectedKeys.first?.effect &&
+            $0.active == selectedKeys.first?.active &&
+            $0.main == selectedKeys.first?.main &&
+            $0.duration == selectedKeys.first?.duration &&
+            $0.mode == selectedKeys.first?.mode
+        }
+
+        if allKeysSame {
+            let key = selectedKeys.first!
+            let modeName = "\(key.mode)"
+            if modesPopUp.titleOfSelectedItem != modeName {
+                modesPopUp.selectItem(withTitle: modeName)
+                handlePerKeyPopup(modesPopUp, update: false)
+            }
+            switch modeName {
+            case "\(PrismKeyModes.steady)":
+                colorPicker.setColor(newColor: key.main)
+            case "\(PrismKeyModes.reactive)":
+                reactActiveColor.color = key.active.nsColor
+                reactRestColor.color = key.main.nsColor
+                speedSlider.intValue = Int32(key.duration)
+            case "\(PrismKeyModes.colorShift)",
+                "\(PrismKeyModes.breathing)":
+                guard let effect = key.effect else { return }
+                speedSlider.intValue = Int32(key.duration)
+                handlePerKeySliderChanged(speedSlider, update: false)
+                multiSlider.mode = modeName == "\(PrismKeyModes.colorShift)" ? .colorShift : .breathing
+                multiSlider.setSelectorsFromTransitions(transitions: effect.transitions)
+                waveToggle.state = effect.waveActive ? .on : .off
+                waveDirectionControl.selectedSegment = Int(effect.direction.rawValue)
+                waveInwardOutwardControl.selectedSegment = Int(effect.control.rawValue)
+                pulseSlider.intValue = Int32(effect.pulse)
+                handlePerKeyButtonClicked(waveToggle, update: false)
+                handlePerKeySliderChanged(pulseSlider, update: false)
+            case "\(PrismKeyModes.disabled)":
+                showReactiveMode(shouldShow: false)
+                showColorShiftMode(shouldShow: false)
+                showBreadingMode(shouldShow: false)
+            default:
+                return
+            }
+        } else {
+            modesPopUp.item(withTitle: "Mixed")?.isHidden = false
+            modesPopUp.selectItem(withTitle: "Mixed")
+            showReactiveMode(shouldShow: false)
+            showColorShiftMode(shouldShow: false)
+            showBreadingMode(shouldShow: false)
         }
     }
 }
@@ -246,6 +325,7 @@ extension ModesViewController {
         pulseLabel.isHidden = !shouldShow
         pulseSlider.isHidden = !shouldShow
         pulseValue.isHidden = !shouldShow
+        NotificationCenter.default.post(name: .prismOriginToggled, object: true)
 
         if shouldShow {
             multiSlider.mode = .colorShift
@@ -256,9 +336,12 @@ extension ModesViewController {
             waveToggle.state = .off
             waveInwardOutwardControl.selectedSegment = 1
             waveDirectionControl.selectedSegment = 0
+            ModesViewController.waveOrigin.xPoint = 0
+            ModesViewController.waveOrigin.yPoint = 0
             onButtonClicked(waveToggle, update: false)
             onSliderChanged(speedSlider, update: false)
             onSliderChanged(pulseSlider, update: false)
+            NotificationCenter.default.post(name: .prismOriginToggled, object: PrismPoint())
         }
     }
 
@@ -361,6 +444,7 @@ extension ModesViewController {
         }
 
         removeUnusedEffecs()
+
         if finished && updatePending {
             updateDevice()
             updatePending = false
@@ -389,23 +473,21 @@ extension ModesViewController {
             return nil
         }
 
-        let effect = PrismEffect(identifier: identifier, transitions: transitions)
+        var effect = PrismEffect(identifier: identifier, transitions: transitions)
         if mode == .colorShift {
             effect.waveActive = waveToggle.state == .on
-            if waveToggle.state == .on {
-                effect.origin = PrismPoint(xAxis: 0, yAxis: 0)
-                effect.pulse = UInt16(pulseValue.integerValue)
+            if effect.waveActive {
+                effect.origin = ModesViewController.waveOrigin
+                effect.pulse = UInt16(pulseSlider.intValue)
                 effect.direction = PrismDirection(rawValue: UInt8(waveDirectionControl.selectedSegment)) ?? .xyAxis
                 effect.control = PrismControl(rawValue: UInt8(waveInwardOutwardControl.selectedSegment)) ?? .inward
             }
         }
 
-        for element in PrismKeyboard.effects.compactMap({ $0 as? PrismEffect }) where element == effect {
-                return element
-        }
-
+        effect = PrismKeyboard.effects.compactMap({ $0 as? PrismEffect }).first(where: {$0 == effect}) ?? effect
         PrismKeyboard.effects.add(effect)
         return effect
+
     }
 
     private func removeUnusedEffecs() {
@@ -495,4 +577,10 @@ extension NSUserInterfaceItemIdentifier {
     static let origin = NSUserInterfaceItemIdentifier(rawValue: "origin")
     static let xyDirection = NSUserInterfaceItemIdentifier(rawValue: "xy-direction")
     static let inwardOutward = NSUserInterfaceItemIdentifier(rawValue: "inward-outward")
+}
+
+// MARK: Notifications
+
+extension Notification.Name {
+    public static let prismOriginToggled = Notification.Name(rawValue: "prismOriginToggled")
 }

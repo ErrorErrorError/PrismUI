@@ -16,8 +16,6 @@ class ColorView: NSView, CALayerDelegate {
     var color: NSColor = .red {
       didSet {
         layer?.backgroundColor = color.cgColor
-        selected = !selected
-        selected = !selected
       }
     }
 

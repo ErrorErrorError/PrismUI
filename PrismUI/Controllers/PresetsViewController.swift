@@ -36,7 +36,7 @@ class PresetsViewController: BaseViewController {
 
     let addPreset: NSButton = {
         let image = NSImage(named: NSImage.addTemplateName)!
-        let view = NSButton(image: image, target: self, action: nil)
+        let view = NSButton(image: image, target: self, action: #selector(savePreset(_:)))
         view.isBordered = false
         return view
     }()
@@ -48,6 +48,8 @@ class PresetsViewController: BaseViewController {
         outlineView.addTableColumn(column)
         outlineView.outlineTableColumn = column
         outlineView.delegate = self
+
+        addPreset.target = self
 
         treeController.objectClass = PrismPreset.self
         treeController.childrenKeyPath = "children"
@@ -95,6 +97,7 @@ class PresetsViewController: BaseViewController {
         content.removeAll()
 
         // MARK: Setup default presets
+
         guard let currentDevice = PrismDriver.shared.currentDevice, currentDevice.model != .unknown else { return }
         let deviceModel = currentDevice.model
 
@@ -224,6 +227,7 @@ extension PresetsViewController: NSOutlineViewDelegate {
 extension PresetsViewController {
 
     @objc func savePreset(_ sender: NSButton) {
+        NotificationCenter.default.post(name: .prismDeviceSavePreset, object: nil)
     }
 
     @objc func removePreset(_ sender: NSMenuItem) {
@@ -236,5 +240,6 @@ extension PresetsViewController {
 // MARK: Notification broadcast
 
 extension Notification.Name {
-    public static let prismDeviceUpdateFromPreset = Notification.Name(rawValue: "prismDeviceUpdateFromPreset")
+    public static let prismDeviceUpdateFromPreset: Notification.Name = .init(rawValue: "prismDeviceUpdateFromPreset")
+    public static let prismDeviceSavePreset: Notification.Name = .init(rawValue: "prismDeviceSavePreset")
 }

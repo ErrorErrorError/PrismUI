@@ -31,7 +31,6 @@ final class PrismKey: NSObject {
 }
 
 extension PrismKey: Codable {
-
     private enum CodingKeys: CodingKey {
         case region, keycode, effect, duration, main, active, mode
     }

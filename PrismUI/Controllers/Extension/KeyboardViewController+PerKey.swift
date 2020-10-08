@@ -44,6 +44,17 @@ extension KeyboardViewController {
             xPos = xOffset
             yPos -= desiredKeyHeight
         }
+
+        let frame = NSRect(x: xOffset + padding,
+                           y: (view.frame.height - keyboardHeight) / 2 - padding,
+                           width: keyboardWidth - padding,
+                           height: keyboardHeight - padding)
+        originView = OriginEffectView(frame: frame)
+        originView?.isHidden = true
+        view.addSubview(originView!)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(handleOriginToggle),
+                                               name: .prismOriginToggled, object: nil)
     }
 
     private func getRegionKey(_ char: String, keycode: UInt8) -> UInt8 {
@@ -61,5 +72,34 @@ extension KeyboardViewController {
             region = PrismKeyboard.getRegionFromKeycode(keycode)
         }
         return region
+    }
+}
+
+extension KeyboardViewController {
+
+    @objc func handleOriginToggle(notification: Notification) {
+        guard let originView = originView else { return }
+        if let shouldHide = notification.object as? Bool {
+            originView.isHidden = shouldHide
+        } else if let point = notification.object as? PrismPoint {
+            originView.setOrigin(origin: point)
+        } else {
+            originView.isHidden = !originView.isHidden
+        }
+    }
+}
+
+extension KeyboardViewController: ColorViewDelegate {
+
+    func didSelect(_ sender: ColorView) {
+        if !PrismKeyboard.keysSelected.contains(sender) {
+            PrismKeyboard.keysSelected.add(sender)
+        }
+    }
+
+    func didDeselect(_ sender: ColorView) {
+        if PrismKeyboard.keysSelected.contains(sender) {
+            PrismKeyboard.keysSelected.remove(sender)
+        }
     }
 }

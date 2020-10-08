@@ -17,6 +17,7 @@ public class PrismMultiSliderView: NSView {
     var currentSelector: PrismSelector?
     var outsideBounds: Bool = false
     var firstMouseDown: NSPoint = .zero
+
     var mode: PrismKeyModes = .colorShift {
         didSet {
             if mode == .colorShift {
@@ -131,40 +132,78 @@ extension PrismMultiSliderView {
 extension PrismMultiSliderView {
     private func createDefaultColorShift() {
         maxSize = 14
-        subviews.forEach { $0.removeFromSuperview() }
         let centerView = (frame.size.height - selectorSize.height) / 2
 
-        let thumbOne = PrismSelector(frame: NSRect(origin: CGPoint(x: 0, y: centerView), size: selectorSize))
-        let thumbTwo = PrismSelector(frame: NSRect(origin: CGPoint(x: 76, y: centerView), size: selectorSize))
-        let thumbThree = PrismSelector(frame: NSRect(origin: CGPoint(x: 152, y: centerView), size: selectorSize))
+        while subviews.count != 3 {
+            if subviews.count > 3 {
+                subviews.last?.removeFromSuperviewWithoutNeedingDisplay()
+            } else if subviews.count < 3 {
+                let selector = PrismSelector(frame: NSRect(origin: CGPoint(x: 0, y: centerView), size: selectorSize))
+                selector.allowsSelection = true
+                selector.delegate = self
+                addSubview(selector)
+            }
+        }
 
-        thumbOne.allowsSelection = true
-        thumbTwo.allowsSelection = true
-        thumbThree.allowsSelection = true
-        thumbOne.delegate = self
-        thumbTwo.delegate = self
-        thumbThree.delegate = self
-        thumbOne.color = PrismRGB(red: 1.0, green: 0.0, blue: 0.88).hsb
-        thumbTwo.color = PrismRGB(red: 1.0, green: 0xea/0xff, blue: 0.0).hsb
-        thumbThree.color = PrismRGB(red: 0.0, green: 0xcc/0xff, blue: 1.0).hsb
-        addSubview(thumbOne)
-        addSubview(thumbTwo)
-        addSubview(thumbThree)
+        let thumbOne = (subviews[0] as? PrismSelector)
+        let thumbTwo = (subviews[1] as? PrismSelector)
+        let thumbThree = (subviews[2] as? PrismSelector)
+
+        thumbOne?.frame.origin.x = 0
+        thumbTwo?.frame.origin.x = 76
+        thumbThree?.frame.origin.x = 152
+        thumbOne?.color = PrismRGB(red: 1.0, green: 0.0, blue: 0.88).hsb
+        thumbTwo?.color = PrismRGB(red: 1.0, green: 0xea/0xff, blue: 0.0).hsb
+        thumbThree?.color = PrismRGB(red: 0.0, green: 0xcc/0xff, blue: 1.0).hsb
     }
 
     private func createDefaultBreathing() {
         maxSize = 4
-        subviews.forEach { $0.removeFromSuperview() }
         let centerView = (frame.size.height - selectorSize.height) / 2
-        let selector = PrismSelector(frame: NSRect(origin: CGPoint(x: 0, y: centerView), size: selectorSize))
-        selector.allowsSelection = true
-        selector.color = PrismRGB(red: 1.0, green: 0.0, blue: 0.0).hsb
-        selector.delegate = self
-        addSubview(selector)
+        while subviews.count != 1 {
+            if subviews.count > 1 {
+                subviews.last?.removeFromSuperviewWithoutNeedingDisplay()
+            } else if subviews.count < 1 {
+                let selector = PrismSelector(frame: NSRect(origin: CGPoint(x: 0, y: centerView), size: selectorSize))
+                selector.allowsSelection = true
+                selector.delegate = self
+                addSubview(selector)
+            }
+        }
+
+        (subviews[0] as? PrismSelector)?.color = PrismRGB(red: 1.0, green: 0.0, blue: 0.0).hsb
     }
 
     public func colorShiftTransitions(speed: CGFloat) -> [PrismTransition] {
         return calculateTransitions(speed: speed)
+    }
+
+    func setSelectorsFromTransitions(transitions: [PrismTransition]) {
+        let centerView = (frame.size.height - selectorSize.height) / 2
+        while subviews.count != transitions.count {
+            if subviews.count > transitions.count {
+                subviews.last?.removeFromSuperviewWithoutNeedingDisplay()
+            } else if subviews.count < transitions.count {
+                let selector = PrismSelector(frame: NSRect(origin: CGPoint(x: 0, y: centerView), size: selectorSize))
+                selector.allowsSelection = true
+                selector.delegate = self
+                addSubview(selector)
+            }
+        }
+
+        let maxDuration = transitions.compactMap({ $0.duration }).reduce(0, +)
+        let width = getDrawBounds().size.width
+
+        if mode == .colorShift {
+            var originX: CGFloat = 0
+            for (index, transition) in transitions.enumerated() {
+                guard let selector = subviews[index] as? PrismSelector else { return }
+                selector.frame.origin.x = originX
+                selector.color = transition.color.hsb
+                originX += (CGFloat(transition.duration) / CGFloat(maxDuration)) * width
+            }
+        } else {
+        }
     }
 
     public func breathingTransitions(speed: CGFloat) -> [PrismTransition] {
