@@ -69,6 +69,7 @@
 		13F81A00251C3AE400E96CF9 /* Freeway-perKey.bin in Resources */ = {isa = PBXBuildFile; fileRef = 13F819FB251C3AE400E96CF9 /* Freeway-perKey.bin */; };
 		13F81A01251C3AE400E96CF9 /* Drain-perKey.bin in Resources */ = {isa = PBXBuildFile; fileRef = 13F819FC251C3AE400E96CF9 /* Drain-perKey.bin */; };
 		13F81A02251C3AE400E96CF9 /* Rainbow Split-perKey.bin in Resources */ = {isa = PBXBuildFile; fileRef = 13F819FD251C3AE400E96CF9 /* Rainbow Split-perKey.bin */; };
+		13FBFB00252FE4FD003EA04D /* MathUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FBFAFF252FE4FD003EA04D /* MathUtils.swift */; };
 		13FEACD724BEDD45009B86ED /* PrismKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FEACD624BEDD45009B86ED /* PrismKey.swift */; };
 		4EE2D008240733F7C050689F /* Pods_PrismUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C08081D643B770DF1F5178 /* Pods_PrismUI.framework */; };
 /* End PBXBuildFile section */
@@ -141,6 +142,7 @@
 		13F819FB251C3AE400E96CF9 /* Freeway-perKey.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Freeway-perKey.bin"; sourceTree = "<group>"; };
 		13F819FC251C3AE400E96CF9 /* Drain-perKey.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Drain-perKey.bin"; sourceTree = "<group>"; };
 		13F819FD251C3AE400E96CF9 /* Rainbow Split-perKey.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Rainbow Split-perKey.bin"; sourceTree = "<group>"; };
+		13FBFAFF252FE4FD003EA04D /* MathUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathUtils.swift; sourceTree = "<group>"; };
 		13FEACD624BEDD45009B86ED /* PrismKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismKey.swift; sourceTree = "<group>"; };
 		15747D84AFE6667ADB3C2E4F /* Pods-PrismUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrismUI.debug.xcconfig"; path = "Target Support Files/Pods-PrismUI/Pods-PrismUI.debug.xcconfig"; sourceTree = "<group>"; };
 		C68ECFAA71BE30DF82042E44 /* Pods-PrismUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrismUI.release.xcconfig"; path = "Target Support Files/Pods-PrismUI/Pods-PrismUI.release.xcconfig"; sourceTree = "<group>"; };
@@ -331,6 +333,7 @@
 				1386D12324CCF76900B91092 /* Log.swift */,
 				13C56B2624E693F100C8C998 /* NSTextField+Extension.swift */,
 				138EEB202509F13C0038EDCC /* NSLocalizedString.swift */,
+				13FBFAFF252FE4FD003EA04D /* MathUtils.swift */,
 			);
 			path = "Supporting files";
 			sourceTree = "<group>";
@@ -570,6 +573,7 @@
 				13A624092519E60F004D71F6 /* PresetsTableRowView.swift in Sources */,
 				131285C024E7473C009CDBCE /* IOHIDManager+Configure.swift in Sources */,
 				13C161EA24E7B0E800384C07 /* PrismEffect.swift in Sources */,
+				13FBFB00252FE4FD003EA04D /* MathUtils.swift in Sources */,
 				134110F0251ABF2F004EF11A /* PresetsOutlineView.swift in Sources */,
 				13F819E4251BF47400E96CF9 /* PrismPoint.swift in Sources */,
 				13C56B2324E6907100C8C998 /* PrismMultiSliderView.swift in Sources */,

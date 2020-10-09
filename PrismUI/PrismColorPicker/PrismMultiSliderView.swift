@@ -179,11 +179,12 @@ extension PrismMultiSliderView {
     }
 
     func setSelectorsFromTransitions(transitions: [PrismTransition]) {
+        let subviewSize = mode == .colorShift ? transitions.count : transitions.count / 2
         let centerView = (frame.size.height - selectorSize.height) / 2
-        while subviews.count != transitions.count {
-            if subviews.count > transitions.count {
+        while subviews.count != subviewSize {
+            if subviews.count > subviewSize {
                 subviews.last?.removeFromSuperviewWithoutNeedingDisplay()
-            } else if subviews.count < transitions.count {
+            } else if subviews.count < subviewSize {
                 let selector = PrismSelector(frame: NSRect(origin: CGPoint(x: 0, y: centerView), size: selectorSize))
                 selector.allowsSelection = true
                 selector.delegate = self
@@ -203,6 +204,19 @@ extension PrismMultiSliderView {
                 originX += (CGFloat(transition.duration) / CGFloat(maxDuration)) * width
             }
         } else {
+            var originX: CGFloat = 0
+            var selectorInx = 0
+            for (index, transition) in transitions.enumerated() {
+                if index % 2 != 0 {
+                    originX += (CGFloat(transition.duration) / CGFloat(maxDuration)) * width
+                    continue
+                }
+                guard let selector = subviews[selectorInx] as? PrismSelector else { return }
+                selector.frame.origin.x = originX
+                selector.color = transition.color.hsb
+                originX += (CGFloat(transition.duration) / CGFloat(maxDuration)) * width
+                selectorInx += 1
+            }
         }
     }
 

@@ -357,7 +357,7 @@ extension ModesViewController: PrismColorPickerDelegate {
         }
 
         if device.isKeyboardDevice && device.model != .threeRegion {
-            updatePerKeyColors(newColor: newColor, finished: finishedChanging)
+            updatePerKeyViews(newColor: newColor, finished: finishedChanging)
         } else if device.isKeyboardDevice && device.model == .threeRegion {
             // TODO: Update three region keyboard viw
         }

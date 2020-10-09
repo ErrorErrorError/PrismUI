@@ -37,6 +37,13 @@ extension PrismPoint {
     }
 }
 
+extension PrismPoint: NSCopying {
+    public func copy(with zone: NSZone? = nil) -> Any {
+        let copy = PrismPoint(xPoint: xPoint, yPoint: yPoint)
+        return copy
+    }
+}
+
 extension PrismPoint: Codable {
 
     private enum CodingKeys: String, CodingKey {

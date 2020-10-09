@@ -10,10 +10,16 @@ import Cocoa
 
 class OriginEffectView: NSView {
 
-    private var crosshairLocation: NSPoint!
+    private var crosshairLocation: NSPoint = NSPoint()
     private var crosshairSize: NSSize!
     private var didPointToCrosshair = false
     private var startPoint: NSPoint!
+
+    override var isHidden: Bool {
+        didSet {
+            setOrigin(origin: ModesViewController.waveOrigin)
+        }
+    }
 
     var typeOfRad: PrismDirection! {
         didSet {
@@ -33,7 +39,6 @@ class OriginEffectView: NSView {
         crosshairSize = NSSize(width: 20, height: 20)
         typeOfRad = .xyAxis
         wantsLayer = true
-        layer?.backgroundColor = NSColor(calibratedRed: 1.0, green: 1.0, blue: 1.0, alpha: 0.5).cgColor
     }
 
     required init?(coder: NSCoder) {
@@ -66,72 +71,94 @@ class OriginEffectView: NSView {
 
     override func mouseUp(with event: NSEvent) {
         let currentPoint = convert(event.locationInWindow, from: nil)
-        if (startPoint != nil) {
-            if (startPoint != currentPoint) {
-//                let getCalcVal = getCalculatedOrigin()
-//                delegate?.newValueUpdated(calcVal: getCalcVal)
+        if startPoint != nil {
+            if startPoint != currentPoint {
+                let getCalcVal = getCalculatedOrigin()
+                ModesViewController.waveOrigin.xPoint = getCalcVal.xPoint
+                ModesViewController.waveOrigin.yPoint = getCalcVal.yPoint
+                NotificationCenter.default.post(name: .prismUpdateFromNewPoint, object: nil)
             }
-
             startPoint = nil
         }
     }
 
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
-        var newColorArray: [NSColor] = []
-        var newLocation: [CGFloat] = []
 
-        if (typeOfRad == .xyAxis) {
-            for inx in 0..<colorArray.count {
-                let index = inx
-                let color = colorArray[index]
-                var location: CGFloat
-                location = CGFloat(inx + 1) / CGFloat(colorArray.count)
-                newColorArray.append(color.withAlphaComponent(0.70))
-                newLocation.append(location)
-            }
-            guard let bgGradient = NSGradient(colors: newColorArray, atLocations: newLocation, colorSpace: .genericRGB) else { return }
-            let newPointX = OriginEffectView.clamp(value: crosshairLocation!.x, inMin: 0, inMax: frame.width, outMin: -1.0, outMax: 1.0) - 1
-            let newPointY = OriginEffectView.clamp(value: crosshairLocation!.y, inMin: 0, inMax: frame.height, outMin: -1.0, outMax: 1.0) - 1
-            bgGradient.draw(in: dirtyRect, relativeCenterPosition: NSPoint(x: newPointX, y: newPointY))
-        } else if (typeOfRad == .xAxis) {
-            for inx in 0..<(colorArray.count*2) {
-                let index = (inx < colorArray.count) ? inx : (inx - colorArray.count)
-                let color = colorArray[index]
-                let newPointX = OriginEffectView.clamp(value: crosshairLocation!.x, inMin: 0, inMax: frame.width, outMin: 0.0, outMax: 1.0)
-                var location: CGFloat
-                if (inx < colorArray.count) {
-                    location = (newPointX/CGFloat(colorArray.count) * CGFloat(inx))
-                } else {
-                    location = newPointX + (((1.0 - newPointX) / CGFloat(colorArray.count)) * CGFloat(index))
-                }
-                newColorArray.append(color.withAlphaComponent(0.70))
-                newLocation.append(location)
-            }
-
-            let bgGradient = NSGradient(colors: newColorArray, atLocations: newLocation, colorSpace: .genericRGB)!
-            bgGradient.draw(in: dirtyRect, angle: 0.0)
-        } else {
-            for inx in 0..<(colorArray.count*2) {
-                let index = (inx < colorArray.count) ? inx : (inx - colorArray.count)
-                let color = colorArray[index]
-                let newPointY = OriginEffectView.clamp(value: crosshairLocation!.y, inMin: 0, inMax: frame.height, outMin: 0.0, outMax: 1.0)
-                var location: CGFloat
-                if (inx < colorArray.count) {
-                    location = (newPointY/CGFloat(colorArray.count) * CGFloat(inx))
-                } else {
-                    location = newPointY + (((1.0 - newPointY) / CGFloat(colorArray.count)) * CGFloat(index))
-                }
-                newColorArray.append(color.withAlphaComponent(0.70))
-                newLocation.append(location)
-            }
-
-            let bgGradient = NSGradient(colors: newColorArray, atLocations: newLocation, colorSpace: .genericRGB)!
-            bgGradient.draw(in: dirtyRect, angle: 90)
-        }
         guard let context = NSGraphicsContext.current?.cgContext else { return }
 
-        context.addEllipse(in: CGRect(origin: CGPoint(x: crosshairLocation.x-crosshairSize.width/2, y: crosshairLocation.y-crosshairSize.height/2),
+        var newColorArray: [CGColor] = []
+        var newLocation: [CGFloat] = []
+
+        if typeOfRad == .xyAxis {
+            for inx in 0..<colorArray.count {
+                let color = colorArray[inx]
+                var location: CGFloat
+                location = CGFloat(inx + 1) / CGFloat(colorArray.count)
+                newColorArray.append(color.withAlphaComponent(0.70).cgColor)
+                newLocation.append(location)
+            }
+
+//            guard let bgGradient = NSGradient(colors: newColorArray, atLocations: newLocation,
+//                                              colorSpace: .genericRGB) else { return }
+//            let newPointX = MathUtils.map(value: crosshairLocation.x, inMin: 0,
+//                                                   inMax: frame.width, outMin: -1.0, outMax: 1.0) - 1
+//            let newPointY = MathUtils.map(value: crosshairLocation.y, inMin: 0,
+//                                          inMax: frame.height, outMin: -1.0, outMax: 1.0) - 1
+//            bgGradient.draw(in: dirtyRect, relativeCenterPosition: NSPoint(x: newPointX, y: newPointY))
+
+            let colorSpace = CGColorSpaceCreateDeviceRGB()
+            if let gradient = CGGradient(colorsSpace: colorSpace, colors: newColorArray as CFArray,
+                                         locations: newLocation) {
+                context.drawRadialGradient(gradient,
+                                           startCenter: crosshairLocation,
+                                           startRadius: 0,
+                                           endCenter: crosshairLocation,
+                                           endRadius: frame.width / 2,
+                                           options: .drawsAfterEndLocation)
+            }
+
+        } // else if typeOfRad == .xAxis {
+//            for inx in 0..<(colorArray.count*2) {
+//                let index = (inx < colorArray.count) ? inx : (inx - colorArray.count)
+//                let color = colorArray[index]
+//                let newPointX = OriginEffectView.clamp(value: crosshairLocation!.x, inMin: 0,
+//                                                       inMax: frame.width, outMin: 0.0, outMax: 1.0)
+//                var location: CGFloat
+//                if inx < colorArray.count {
+//                    location = (newPointX/CGFloat(colorArray.count) * CGFloat(inx))
+//                } else {
+//                    location = newPointX + (((1.0 - newPointX) / CGFloat(colorArray.count)) * CGFloat(index))
+//                }
+//                newColorArray.append(color.withAlphaComponent(0.70))
+//                newLocation.append(location)
+//            }
+//
+//            let bgGradient = NSGradient(colors: newColorArray, atLocations: newLocation, colorSpace: .genericRGB)!
+//            bgGradient.draw(in: dirtyRect, angle: 0.0)
+//        } else {
+//            for inx in 0..<(colorArray.count*2) {
+//                let index = (inx < colorArray.count) ? inx : (inx - colorArray.count)
+//                let color = colorArray[index]
+//                let newPointY = OriginEffectView.clamp(value: crosshairLocation!.y, inMin: 0,
+//                                                       inMax: frame.height, outMin: 0.0, outMax: 1.0)
+//                var location: CGFloat
+//                if inx < colorArray.count {
+//                    location = (newPointY/CGFloat(colorArray.count) * CGFloat(inx))
+//                } else {
+//                    location = newPointY + (((1.0 - newPointY) / CGFloat(colorArray.count)) * CGFloat(index))
+//                }
+//                newColorArray.append(color.withAlphaComponent(0.70))
+//                newLocation.append(location)
+//            }
+//
+//            let bgGradient = NSGradient(colors: newColorArray, atLocations: newLocation, colorSpace: .genericRGB)!
+//            bgGradient.draw(in: dirtyRect, angle: 90)
+//        }
+
+        context.setStrokeColor(NSColor.black.cgColor)
+        context.addEllipse(in: CGRect(origin: CGPoint(x: crosshairLocation.x-crosshairSize.width/2,
+                                                      y: crosshairLocation.y-crosshairSize.height/2),
                                       size: crosshairSize))
         context.addLines(between: [CGPoint(x: crosshairLocation.x, y: crosshairLocation.y-14),
                                    CGPoint(x: crosshairLocation.x, y: crosshairLocation.y+14)])
@@ -139,34 +166,30 @@ class OriginEffectView: NSView {
                                    CGPoint(x: crosshairLocation.x+14, y: crosshairLocation.y)])
         context.strokePath()
     }
-//
-//    // Returns value of the coordinates in respect to SSEngine's calculations
-//
-//    func getCalculatedOrigin() -> PrismPoint {
-//        let flipYAxis = frame.height - crosshairLocation.y
-//        let xAxis = UInt16(OriginEffectView.clamp(value: crosshairLocation.x, in_min: 0, inMax: frame.width, outMin: 0, outMax: 0x10c5))
-//        let yAxis = UInt16(OriginEffectView.clamp(value: flipYAxis, in_min: 0, inMax: frame.height, outMin: 0, outMax: 0x040d))
-//        return PrismPoint(xPoint: xAxis, yPoint: yAxis)
-//    }
-//
-//    func setDefaultView() {
-//        crosshairLocation = NSPoint(x: frame.width/2, y: frame.height/2)
-//        typeOfRad = .xyAxis
-//    }
-//
+
+    // Returns value of the coordinates in respect to SSEngine's calculations
+
+    func getCalculatedOrigin() -> PrismPoint {
+        let flipYAxis = frame.height - crosshairLocation.y
+        let xAxis = UInt16(MathUtils.map(value: crosshairLocation.x, inMin: 0,
+                                         inMax: frame.width, outMin: 0, outMax: 0x105c))
+        let yAxis = UInt16(MathUtils.map(value: flipYAxis, inMin: 0,
+                                         inMax: frame.height, outMin: 0, outMax: 0x040d))
+        return PrismPoint(xPoint: xAxis, yPoint: yAxis)
+    }
+
     func setOrigin(origin: PrismPoint) {
         let flipYAxis =  0x040d - origin.yPoint
-        let xAxis = OriginEffectView.clamp(value: CGFloat(origin.xPoint), inMin: 0, inMax: 0x10c5, outMin: 0, outMax: frame.width)
-        let yAxis = OriginEffectView.clamp(value: CGFloat(flipYAxis), inMin: 0, inMax: 0x040d, outMin: 0, outMax: frame.height)
+        let xAxis = MathUtils.map(value: CGFloat(origin.xPoint), inMin: 0,
+                                           inMax: 0x105c, outMin: 0, outMax: frame.width)
+        let yAxis = MathUtils.map(value: CGFloat(flipYAxis), inMin: 0,
+                                           inMax: 0x040d, outMin: 0, outMax: frame.height)
 
         crosshairLocation = clampBounds(point: NSPoint(x: xAxis, y: yAxis))
         needsDisplay = true
     }
+}
 
-    public static func clamp(value: CGFloat, inMin: CGFloat, inMax: CGFloat, outMin: CGFloat, outMax: CGFloat) -> CGFloat {
-        let tVal = value - inMin
-        let vVal = outMax - outMin
-        let nVal = (inMax - inMin) + outMin
-        return CGFloat((tVal * vVal) / nVal)
-    }
+extension Notification.Name {
+    public static let prismUpdateFromNewPoint: Notification.Name = .init("prismUpdateFromNewPoint")
 }

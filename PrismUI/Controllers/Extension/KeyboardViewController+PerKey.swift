@@ -55,6 +55,9 @@ extension KeyboardViewController {
 
         NotificationCenter.default.addObserver(self, selector: #selector(handleOriginToggle),
                                                name: .prismOriginToggled, object: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(updateOriginView),
+                                               name: .updateOriginView, object: nil)
     }
 
     private func getRegionKey(_ char: String, keycode: UInt8) -> UInt8 {
@@ -81,10 +84,19 @@ extension KeyboardViewController {
         guard let originView = originView else { return }
         if let shouldHide = notification.object as? Bool {
             originView.isHidden = shouldHide
-        } else if let point = notification.object as? PrismPoint {
-            originView.setOrigin(origin: point)
         } else {
             originView.isHidden = !originView.isHidden
+        }
+    }
+
+    @objc func updateOriginView(notification: Notification) {
+        guard let originView = originView else { return }
+        if let point = notification.object as? PrismPoint {
+            originView.setOrigin(origin: point)
+        } else if let type = notification.object as? PrismDirection {
+            originView.typeOfRad = type
+        } else if let transitions = notification.object as? [PrismTransition] {
+            originView.colorArray = transitions.compactMap { $0.color.nsColor }
         }
     }
 }
@@ -102,4 +114,10 @@ extension KeyboardViewController: ColorViewDelegate {
             PrismKeyboard.keysSelected.remove(sender)
         }
     }
+}
+
+// MARK: Notification broadcast
+
+extension Notification.Name {
+    public static let prismEffectOriginChanged: Notification.Name = .init(rawValue: "prismEffectOriginChanged")
 }

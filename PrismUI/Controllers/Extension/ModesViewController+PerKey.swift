@@ -58,6 +58,10 @@ extension ModesViewController {
                                                name: .keySelectionChanged,
                                                object: nil)
 
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateEffectFromOrigin(notification:)),
+                                               name: .prismUpdateFromNewPoint,
+                                               object: nil)
     }
 
     private func perKeySetupContraints() {
@@ -180,6 +184,7 @@ extension ModesViewController {
             return
         case .origin:
             NotificationCenter.default.post(name: .prismOriginToggled, object: nil)
+            return
         case .xyDirection,
             .inwardOutward:
             break
@@ -222,9 +227,7 @@ extension ModesViewController {
 
     @objc func onKeySelectionChanged() {
         let selectedKeys = PrismKeyboard.keysSelected.compactMap { ($0 as? KeyColorView)?.prismKey }
-        if selectedKeys.count == 0 {
-            return
-        }
+        if selectedKeys.count == 0 { return }
 
         let allKeysSame = selectedKeys.allSatisfy {
             $0.effect == selectedKeys.first?.effect &&
@@ -251,16 +254,23 @@ extension ModesViewController {
             case "\(PrismKeyModes.colorShift)",
                 "\(PrismKeyModes.breathing)":
                 guard let effect = key.effect else { return }
-                speedSlider.intValue = Int32(key.duration)
                 handlePerKeySliderChanged(speedSlider, update: false)
                 multiSlider.mode = modeName == "\(PrismKeyModes.colorShift)" ? .colorShift : .breathing
                 multiSlider.setSelectorsFromTransitions(transitions: effect.transitions)
-                waveToggle.state = effect.waveActive ? .on : .off
-                waveDirectionControl.selectedSegment = Int(effect.direction.rawValue)
-                waveInwardOutwardControl.selectedSegment = Int(effect.control.rawValue)
-                pulseSlider.intValue = Int32(effect.pulse)
-                handlePerKeyButtonClicked(waveToggle, update: false)
+                speedSlider.intValue = Int32(key.duration)
                 handlePerKeySliderChanged(pulseSlider, update: false)
+                if key.mode == .colorShift {
+                    waveToggle.state = effect.waveActive ? .on : .off
+                    waveDirectionControl.selectedSegment = Int(effect.direction.rawValue)
+                    waveInwardOutwardControl.selectedSegment = Int(effect.control.rawValue)
+                    pulseSlider.intValue = Int32(effect.pulse)
+                    handlePerKeyButtonClicked(waveToggle, update: false)
+                    ModesViewController.waveOrigin.xPoint = effect.origin.xPoint
+                    ModesViewController.waveOrigin.yPoint = effect.origin.yPoint
+                    NotificationCenter.default.post(name: .updateOriginView, object: effect.transitions)
+                    NotificationCenter.default.post(name: .updateOriginView, object: ModesViewController.waveOrigin)
+                    NotificationCenter.default.post(name: .updateOriginView, object: effect.direction)
+                }
             case "\(PrismKeyModes.disabled)":
                 showReactiveMode(shouldShow: false)
                 showColorShiftMode(shouldShow: false)
@@ -275,6 +285,12 @@ extension ModesViewController {
             showColorShiftMode(shouldShow: false)
             showBreadingMode(shouldShow: false)
         }
+    }
+
+    // Update device from origin
+
+    @objc func updateEffectFromOrigin(notification: Notification) {
+        didColorChange(newColor: colorPicker.colorGraphView.color.rgb, finishedChanging: true)
     }
 }
 
@@ -341,7 +357,7 @@ extension ModesViewController {
             onButtonClicked(waveToggle, update: false)
             onSliderChanged(speedSlider, update: false)
             onSliderChanged(pulseSlider, update: false)
-            NotificationCenter.default.post(name: .prismOriginToggled, object: PrismPoint())
+            NotificationCenter.default.post(name: .updateOriginView, object: ModesViewController.waveOrigin)
         }
     }
 
@@ -365,7 +381,7 @@ extension ModesViewController {
         }
     }
 
-    func updatePerKeyColors(newColor: PrismRGB, finished: Bool) {
+    func updatePerKeyViews(newColor: PrismRGB, finished: Bool) {
         let selectedItem = modesPopUp.indexOfSelectedItem
         guard selectedItem != -1, let selectedMode = PrismKeyModes(rawValue: UInt32(selectedItem)) else {
             Log.debug("Unknown mode: \(selectedItem)")
@@ -395,13 +411,21 @@ extension ModesViewController {
                 Log.error("Cannot create effect package due to error in transitions.")
                 return
             }
+
+            NotificationCenter.default.post(name: .updateOriginView, object: effect.transitions)
+            NotificationCenter.default.post(name: .updateOriginView, object: effect.direction)
+
+            let speedDuration = UInt16(speedSlider.intValue)
             PrismKeyboard.keysSelected.filter { ($0 as? KeyColorView) != nil }.forEach {
                 guard let colorView = $0 as? KeyColorView else { return }
                 guard let prismKey = colorView.prismKey else { return }
-                if prismKey.effect != effect {
+                if prismKey.effect != effect ||
+                    prismKey.mode != selectedMode ||
+                    prismKey.duration != speedDuration {
                     prismKey.mode = selectedMode
                     prismKey.effect = effect
                     prismKey.main = effect.start
+                    prismKey.duration = speedDuration
                     colorView.prismKey = prismKey
                     updatePending = true
                 }
@@ -477,7 +501,7 @@ extension ModesViewController {
         if mode == .colorShift {
             effect.waveActive = waveToggle.state == .on
             if effect.waveActive {
-                effect.origin = ModesViewController.waveOrigin
+                effect.origin = ModesViewController.waveOrigin.copy() as? PrismPoint ?? PrismPoint()
                 effect.pulse = UInt16(pulseSlider.intValue)
                 effect.direction = PrismDirection(rawValue: UInt8(waveDirectionControl.selectedSegment)) ?? .xyAxis
                 effect.control = PrismControl(rawValue: UInt8(waveInwardOutwardControl.selectedSegment)) ?? .inward
@@ -583,4 +607,5 @@ extension NSUserInterfaceItemIdentifier {
 
 extension Notification.Name {
     public static let prismOriginToggled = Notification.Name(rawValue: "prismOriginToggled")
+    public static let updateOriginView: Notification.Name = .init("updateOriginView")
 }

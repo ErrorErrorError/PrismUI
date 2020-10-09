@@ -101,9 +101,3 @@ extension KeyboardViewController {
         }
     }
 }
-
-// MARK: Notification broadcast
-
-extension Notification.Name {
-    public static let prismEffectOriginChanged: Notification.Name = .init(rawValue: "prismEffectOriginChanged")
-}

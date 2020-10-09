@@ -302,6 +302,7 @@ extension PrismKeyboard {
             let updateSpecial = keysSelected.filter { $0.region == PrismKeyboard.regions[3] }.count > 0 || forceUpdate
 
             // Update effects first
+
             let result = self.writeEffectsToKeyboard()
             guard result == kIOReturnSuccess || result == kIOReturnNotFound else {
                 Log.error("Cannot update effect: \(String(cString: mach_error_string(result)))")
@@ -309,6 +310,7 @@ extension PrismKeyboard {
             }
 
             // Send feature report
+
             var lastByte: UInt8 = 0
             if updateModifiers {
                 lastByte = 0x2d
