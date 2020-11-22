@@ -35,8 +35,13 @@ class PresetsViewController: BaseViewController {
     }()
 
     let addPreset: NSButton = {
-        let image = NSImage(named: NSImage.addTemplateName)!
+        var image = NSImage(named: NSImage.addTemplateName)!
+        if #available(OSX 11.0, *) {
+            image = NSImage(systemSymbolName: "plus.circle", accessibilityDescription: "add-preset-button")!
+        }
         let view = NSButton(image: image, target: self, action: #selector(savePreset(_:)))
+        view.title = "New Preset"
+        view.imagePosition = .imageLeft
         view.isBordered = false
         return view
     }()
@@ -142,6 +147,7 @@ class PresetsViewController: BaseViewController {
             }
 
             // MARK: Get custom presets if any
+
             do {
                 var customPresetsURL = try fileManager.contentsOfDirectory(at: presetsFolder,
                                                                                   includingPropertiesForKeys: .none,
@@ -187,8 +193,7 @@ extension PresetsViewController: NSOutlineViewDelegate {
         cell.textField = textField
         cell.addSubview(textField)
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.widthAnchor.constraint(equalTo: cell.widthAnchor).isActive = true
-        textField.heightAnchor.constraint(equalTo: cell.heightAnchor).isActive = true
+        textField.centerYAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
         textField.font = NSFont.systemFont(ofSize: 13)
 
         if !node.isLeaf {

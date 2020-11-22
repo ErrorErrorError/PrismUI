@@ -26,10 +26,9 @@ class PresetsTableRowView: NSTableRowView {
     }
 
     override func didAddSubview(_ subview: NSView) {
-        subview.constraints.forEach { $0.isActive = false }
 
         if let disclosureButton = subview as? NSButton,
-            disclosureButton.identifier == NSOutlineView.disclosureButtonIdentifier {
+           disclosureButton.identifier == NSOutlineView.disclosureButtonIdentifier {
             disclosureButton.isHidden = true
             disclosureButton.removeFromSuperview()
 
@@ -39,7 +38,8 @@ class PresetsTableRowView: NSTableRowView {
             newButton.setButtonType(.toggle)
             self.addSubview(newButton)
             showHideButton = newButton
-        } else if let newButton = subview as? NSButton {
+        } else if let newButton = subview as? NSButton,
+                  newButton.identifier != NSOutlineView.disclosureButtonIdentifier {
             newButton.identifier = NSOutlineView.disclosureButtonIdentifier
             newButton.title = "Show"
             newButton.alternateTitle = "Hide"

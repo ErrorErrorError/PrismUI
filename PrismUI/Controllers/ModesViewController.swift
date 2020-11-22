@@ -199,7 +199,7 @@ class ModesViewController: BaseViewController {
         super.viewDidLoad()
 
         if let mainView = view as? NSVisualEffectView {
-            mainView.material = .windowBackground
+            mainView.material = .underPageBackground
             if let colorPickerView = colorPicker.view as? NSVisualEffectView {
                 colorPickerView.material = mainView.material
             }
@@ -225,6 +225,8 @@ class ModesViewController: BaseViewController {
         modesPopUp.target = self
         colorPicker.delegate = self
         devicesPopup.target = self
+        waveDirectionControl.target = self
+        waveInwardOutwardControl.target = self
 
         view.addSubview(presetsButton)
         view.addSubview(deviceLabel)
@@ -233,6 +235,7 @@ class ModesViewController: BaseViewController {
         view.addSubview(modesPopUp)
 
         addChild(colorPicker)
+
         view.addSubview(colorPicker.view)
 
         for deviceName in PrismDriver.shared.devices.compactMap({ ($0 as? PrismDevice)?.name }) {
