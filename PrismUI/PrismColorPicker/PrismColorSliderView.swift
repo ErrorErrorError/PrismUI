@@ -68,22 +68,20 @@ extension PrismColorSliderView {
         let colorSpace = CGColorSpaceCreateDeviceRGB()
         let bytesPerPixel = 4
         let bytesPerRow = width * bytesPerPixel
-        let data = malloc(height * bytesPerRow)
         let bitmapInfo = CGBitmapInfo.byteOrder32Little.rawValue | CGImageAlphaInfo.noneSkipLast.rawValue
-        let context = CGContext(data: data,
+        let context = CGContext(data: nil,
                                 width: width,
                                 height: height,
                                 bitsPerComponent: 8,
                                 bytesPerRow: bytesPerRow,
                                 space: colorSpace,
                                 bitmapInfo: bitmapInfo)
-        let buffer = data?.bindMemory(to: UInt32.self, capacity: totalPixels)
-        guard buffer != nil else { return }
+        guard let buffer = context?.data?.bindMemory(to: UInt32.self, capacity: totalPixels) else { return }
         for index in 0..<totalPixels {
             let hue: CGFloat = 1 - CGFloat(index / width) / CGFloat(height)
             let hsbColor = PrismHSB(hue: hue, saturation: 1, brightness: 1)
             let rgbColor = hsbColor.rgb
-            buffer?[index] =
+            buffer[index] =
                 UInt32(rgbColor.red * 255) << 24 |
                 UInt32(rgbColor.green * 255) << 16 |
                 UInt32(rgbColor.blue * 255) << 8 | 0x00000000

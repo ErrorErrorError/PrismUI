@@ -54,6 +54,7 @@ extension PrismColorGraphView {
         context.addPath(path)
         context.closePath()
         context.clip()
+        context.interpolationQuality = .high
         drawBackgroundColor(context)
         drawSaturationBrightnessOverlay(context)
     }
@@ -76,7 +77,7 @@ extension PrismColorGraphView {
         let colorSpace = CGColorSpaceCreateDeviceRGB()
         let bytesPerRow = width * 4
         let bitmapInfo = CGBitmapInfo.byteOrder32Little.rawValue | CGImageAlphaInfo.premultipliedLast.rawValue
-        let context = CGContext.init(data: nil,
+        let context = CGContext(data: nil,
                                 width: width,
                                 height: height,
                                 bitsPerComponent: 8,

@@ -38,6 +38,7 @@ extension ModesViewController {
         view.addSubview(reactRestText)
         view.addSubview(reactRestColor)
 
+        modesPopUp.removeAllItems()
         modesPopUp.addItem(withTitle: "\(PrismKeyModes.steady)")
         modesPopUp.addItem(withTitle: "\(PrismKeyModes.colorShift)")
         modesPopUp.addItem(withTitle: "\(PrismKeyModes.breathing)")
@@ -179,9 +180,6 @@ extension ModesViewController {
     func handlePerKeyButtonClicked(_ sender: NSButton, update: Bool = true) {
         guard let identifier = sender.identifier else { return }
         switch identifier {
-        case .presets:
-            delegate?.didClickOnPresetsButton()
-            return
         case .origin:
             NotificationCenter.default.post(name: .prismOriginToggled, object: nil)
             return
@@ -226,7 +224,7 @@ extension ModesViewController {
     }
 
     @objc func onKeySelectionChanged() {
-        let selectedKeys = PrismKeyboard.keysSelected.compactMap { ($0 as? KeyColorView)?.prismKey }
+        let selectedKeys = PrismKeyboardDevice.keysSelected.compactMap { ($0 as? KeyColorView)?.prismKey }
         if selectedKeys.count == 0 { return }
 
         let allKeysSame = selectedKeys.allSatisfy {
@@ -389,7 +387,7 @@ extension ModesViewController {
         }
         switch selectedMode {
         case PrismKeyModes.steady:
-            PrismKeyboard.keysSelected.filter { ($0 as? KeyColorView) != nil }.forEach {
+            PrismKeyboardDevice.keysSelected.filter { ($0 as? KeyColorView) != nil }.forEach {
                 guard let colorView = $0 as? KeyColorView else { return }
                 guard let prismKey = colorView.prismKey else { return }
                 if prismKey.mode != .steady || prismKey.main != newColor {
@@ -416,7 +414,7 @@ extension ModesViewController {
             NotificationCenter.default.post(name: .updateOriginView, object: effect.direction)
 
             let speedDuration = UInt16(speedSlider.intValue)
-            PrismKeyboard.keysSelected.filter { ($0 as? KeyColorView) != nil }.forEach {
+            PrismKeyboardDevice.keysSelected.filter { ($0 as? KeyColorView) != nil }.forEach {
                 guard let colorView = $0 as? KeyColorView else { return }
                 guard let prismKey = colorView.prismKey else { return }
                 if prismKey.effect != effect ||
@@ -440,7 +438,7 @@ extension ModesViewController {
             let baseColor = reactRestColor.color.prismRGB
             let speedDuration = UInt16(speedSlider.intValue)
 
-            PrismKeyboard.keysSelected.filter { ($0 as? KeyColorView) != nil }.forEach {
+            PrismKeyboardDevice.keysSelected.filter { ($0 as? KeyColorView) != nil }.forEach {
                 guard let colorView = $0 as? KeyColorView else { return }
                 guard let prismKey = colorView.prismKey else { return }
                 if prismKey.mode != .reactive ||
@@ -456,7 +454,7 @@ extension ModesViewController {
                 }
             }
         case PrismKeyModes.disabled:
-            PrismKeyboard.keysSelected.filter { ($0 as? KeyColorView) != nil }.forEach {
+            PrismKeyboardDevice.keysSelected.filter { ($0 as? KeyColorView) != nil }.forEach {
                 guard let colorView = $0 as? KeyColorView else { return }
                 guard let prismKey = colorView.prismKey else { return }
                 if prismKey.mode != .disabled {
@@ -477,7 +475,7 @@ extension ModesViewController {
 
     private func getKeyEffect(mode: PrismKeyModes) -> PrismEffect? {
         var identifier: UInt8 = 0
-        let usedEffectId: [UInt8] = PrismKeyboard.keys.compactMap { ($0 as? PrismKey)?.effect?.identifier }
+        let usedEffectId: [UInt8] = PrismKeyboardDevice.keys.compactMap { ($0 as? PrismKey)?.effect?.identifier }
         for unusedId in 1...0xff {
             let containsId = usedEffectId.contains(UInt8(unusedId))
             if !containsId {
@@ -508,17 +506,17 @@ extension ModesViewController {
             }
         }
 
-        effect = PrismKeyboard.effects.compactMap({ $0 as? PrismEffect }).first(where: {$0 == effect}) ?? effect
-        PrismKeyboard.effects.add(effect)
+        effect = PrismKeyboardDevice.effects.compactMap({ $0 as? PrismEffect }).first(where: {$0 == effect}) ?? effect
+        PrismKeyboardDevice.effects.add(effect)
         return effect
 
     }
 
     private func removeUnusedEffecs() {
-        let effectsNotUsed = PrismKeyboard.effects
+        let effectsNotUsed = PrismKeyboardDevice.effects
             .compactMap { ($0 as? PrismEffect) }
-            .filter { !PrismKeyboard.keys.compactMap { ($0 as? PrismKey)?.effect }.contains($0) }
-        PrismKeyboard.effects.removeObjects(in: effectsNotUsed)
+            .filter { !PrismKeyboardDevice.keys.compactMap { ($0 as? PrismKey)?.effect }.contains($0) }
+        PrismKeyboardDevice.effects.removeObjects(in: effectsNotUsed)
     }
 
     func removePerKeySettingsLayout() {

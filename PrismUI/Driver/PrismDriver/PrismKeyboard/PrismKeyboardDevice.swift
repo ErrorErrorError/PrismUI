@@ -8,7 +8,7 @@
 
 import Foundation
 
-public final class PrismKeyboard: PrismDevice {
+public final class PrismKeyboardDevice: PrismDevice {
 
     static let packageSize = 0x20c
 
@@ -198,12 +198,18 @@ public final class PrismKeyboard: PrismDevice {
             // TODO: Update three region keyboard
         }
     }
+
+    deinit {
+        PrismKeyboardDevice.keys.removeAllObjects()
+        PrismKeyboardDevice.keysSelected.removeAllObjects()
+        PrismKeyboardDevice.effects.removeAllObjects()
+    }
 }
 
-extension PrismKeyboard {
+extension PrismKeyboardDevice {
 
     private func writeEffectsToKeyboard() -> IOReturn {
-        let effects = PrismKeyboard.effects.compactMap { $0 as? PrismEffect }
+        let effects = PrismKeyboardDevice.effects.compactMap { $0 as? PrismEffect }
         guard effects.count > 0 else { return kIOReturnNotFound }
 
         for effect in effects {
@@ -212,7 +218,7 @@ extension PrismKeyboard {
                 return kIOReturnError
             }
 
-            var data = Data(capacity: PrismKeyboard.packageSize)
+            var data = Data(capacity: PrismKeyboardDevice.packageSize)
             data.append([0x0b, 0x00], count: 2) // Start Packet
 
             // Transitions - each transition will take 8 bytes
@@ -277,7 +283,7 @@ extension PrismKeyboard {
             ], count: 5)
 
             // Fill remaining with zeros
-            fillZeros = [UInt8](repeating: 0x00, count: PrismKeyboard.packageSize - data.count)
+            fillZeros = [UInt8](repeating: 0x00, count: PrismKeyboardDevice.packageSize - data.count)
             data.append(fillZeros, count: fillZeros.count)
 
             let result = sendFeatureReport(data: data)
@@ -291,15 +297,19 @@ extension PrismKeyboard {
 
     private func updatePerKeyKeyboard(forceUpdate: Bool = false) {
         commandMutex.async {
-            let keysSelected = PrismKeyboard.keysSelected
+            let keysSelected = PrismKeyboardDevice.keysSelected
                 .compactMap { $0 as? KeyColorView }
                 .compactMap { $0.prismKey }
             guard keysSelected.count > 0 || forceUpdate else { return }
 
-            let updateModifiers = keysSelected.filter { $0.region == PrismKeyboard.regions[0] }.count > 0 || forceUpdate
-            let updateAlphanums = keysSelected.filter { $0.region == PrismKeyboard.regions[1] }.count > 0 || forceUpdate
-            let updateEnter = keysSelected.filter { $0.region == PrismKeyboard.regions[2] }.count > 0 || forceUpdate
-            let updateSpecial = keysSelected.filter { $0.region == PrismKeyboard.regions[3] }.count > 0 || forceUpdate
+            let updateModifiers = keysSelected.filter { $0.region == PrismKeyboardDevice.regions[0] }
+                                              .count > 0 || forceUpdate
+            let updateAlphanums = keysSelected.filter { $0.region == PrismKeyboardDevice.regions[1] }
+                                              .count > 0 || forceUpdate
+            let updateEnter = keysSelected.filter { $0.region == PrismKeyboardDevice.regions[2] }
+                                              .count > 0 || forceUpdate
+            let updateSpecial = keysSelected.filter { $0.region == PrismKeyboardDevice.regions[3] }
+                                            .count > 0 || forceUpdate
 
             // Update effects first
 
@@ -314,25 +324,28 @@ extension PrismKeyboard {
             var lastByte: UInt8 = 0
             if updateModifiers {
                 lastByte = 0x2d
-                self.writeKeysToKeyboard(region: PrismKeyboard.regions[0], keycodes: PrismKeyboard.modifiers)
+                self.writeKeysToKeyboard(region: PrismKeyboardDevice.regions[0],
+                                         keycodes: PrismKeyboardDevice.modifiers)
             }
 
             if updateAlphanums {
                 lastByte = 0x08
-                self.writeKeysToKeyboard(region: PrismKeyboard.regions[1], keycodes: PrismKeyboard.alphanums)
+                self.writeKeysToKeyboard(region: PrismKeyboardDevice.regions[1],
+                                         keycodes: PrismKeyboardDevice.alphanums)
             }
 
             if updateEnter {
                 lastByte = 0x87
-                self.writeKeysToKeyboard(region: PrismKeyboard.regions[2], keycodes: PrismKeyboard.enter)
+                self.writeKeysToKeyboard(region: PrismKeyboardDevice.regions[2],
+                                         keycodes: PrismKeyboardDevice.enter)
             }
 
             if updateSpecial {
                 lastByte = 0x44
-                self.writeKeysToKeyboard(region: PrismKeyboard.regions[3],
+                self.writeKeysToKeyboard(region: PrismKeyboardDevice.regions[3],
                                            keycodes: self.model == .perKey ?
-                                            PrismKeyboard.special :
-                                            PrismKeyboard.specialGS65)
+                                            PrismKeyboardDevice.special :
+                                            PrismKeyboardDevice.specialGS65)
             }
 
             // Update keyboard
@@ -353,10 +366,10 @@ extension PrismKeyboard {
     }
 
     private func writeKeysToKeyboard(region: UInt8, keycodes: [UInt8]) {
-        var data = Data(capacity: PrismKeyboard.packageSize)
+        var data = Data(capacity: PrismKeyboardDevice.packageSize)
 
         // This array contains only the usable keys
-        let keyboardKeys = PrismKeyboard.keys.compactMap { $0 as? PrismKey }.filter { $0.region == region }
+        let keyboardKeys = PrismKeyboardDevice.keys.compactMap { $0 as? PrismKey }.filter { $0.region == region }
 
         for keyCode in [region] + keycodes {
             if let key = keyboardKeys.filter({ $0.keycode == keyCode }).first {
@@ -399,7 +412,7 @@ extension PrismKeyboard {
         }
 
         // Fill rest of data with the remaining capacity
-        let sizeRemaining = PrismKeyboard.packageSize - data.count
+        let sizeRemaining = PrismKeyboardDevice.packageSize - data.count
         data.append([UInt8](repeating: 0, count: sizeRemaining), count: sizeRemaining)
         let result = sendFeatureReport(data: data)
         if result != kIOReturnSuccess {
@@ -426,6 +439,7 @@ extension PrismKeyboard {
 
         return 0
     }
+
 }
 
 enum PrismError: Error {

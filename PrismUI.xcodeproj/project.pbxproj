@@ -18,8 +18,10 @@
 		131285C324E7473C009CDBCE /* HIDDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131285BD24E7473C009CDBCE /* HIDDevice.swift */; };
 		1337E60624C01B5F008F2C89 /* NSColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1337E60524C01B5F008F2C89 /* NSColor+Extension.swift */; };
 		1337E60824C03707008F2C89 /* NoDividerSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1337E60724C03707008F2C89 /* NoDividerSplitView.swift */; };
+		133D8235256B26E9004282CB /* PresetsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133D8234256B26E9004282CB /* PresetsManager.swift */; };
 		134110EE251AAC37004EF11A /* PrismPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134110ED251AAC37004EF11A /* PrismPreset.swift */; };
 		134110F0251ABF2F004EF11A /* PresetsOutlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134110EF251ABF2F004EF11A /* PresetsOutlineView.swift */; };
+		134C37FF256D212800E10940 /* PrismAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134C37FE256D212800E10940 /* PrismAlert.swift */; };
 		134CE95524BD1C7F00D9D845 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134CE94E24BD1C7F00D9D845 /* AppDelegate.swift */; };
 		134CE95724BD1C7F00D9D845 /* PresetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134CE95124BD1C7F00D9D845 /* PresetsViewController.swift */; };
 		134CE95824BD1C7F00D9D845 /* ModesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134CE95224BD1C7F00D9D845 /* ModesViewController.swift */; };
@@ -29,12 +31,12 @@
 		134CE95E24BD31CF00D9D845 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134CE95D24BD31CF00D9D845 /* main.swift */; };
 		134CE96324BD3A3D00D9D845 /* KeyboardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134CE96224BD3A3D00D9D845 /* KeyboardLayout.swift */; };
 		134CE97924BD7B8F00D9D845 /* KeyColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134CE97824BD7B8F00D9D845 /* KeyColorView.swift */; };
-		13513B2124E8B3ED00D2A842 /* PrismKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13513B2024E8B3ED00D2A842 /* PrismKeyboard.swift */; };
+		13513B2124E8B3ED00D2A842 /* PrismKeyboardDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13513B2024E8B3ED00D2A842 /* PrismKeyboardDevice.swift */; };
 		13513B2424E9361500D2A842 /* PrismColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135999F824CD7CC800941DCC /* PrismColor.swift */; };
 		1384D28224BD184800655884 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1384D28124BD184800655884 /* Assets.xcassets */; };
 		1386D12424CCF76900B91092 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1386D12324CCF76900B91092 /* Log.swift */; };
 		1386D12824CD058A00B91092 /* ColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1386D12724CD058A00B91092 /* ColorView.swift */; };
-		138EEB1F2509E88D0038EDCC /* NotSupportedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138EEB1E2509E88D0038EDCC /* NotSupportedViewController.swift */; };
+		138EEB1F2509E88D0038EDCC /* PrismAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138EEB1E2509E88D0038EDCC /* PrismAlertViewController.swift */; };
 		138EEB212509F13C0038EDCC /* NSLocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138EEB202509F13C0038EDCC /* NSLocalizedString.swift */; };
 		138EEB252509F6F50038EDCC /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 138EEB242509F6F50038EDCC /* MainMenu.xib */; };
 		1393AEF924CC050800B53788 /* DragSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1393AEF824CC050800B53788 /* DragSelectionView.swift */; };
@@ -87,8 +89,10 @@
 		131285BD24E7473C009CDBCE /* HIDDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HIDDevice.swift; sourceTree = "<group>"; };
 		1337E60524C01B5F008F2C89 /* NSColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+Extension.swift"; sourceTree = "<group>"; };
 		1337E60724C03707008F2C89 /* NoDividerSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDividerSplitView.swift; sourceTree = "<group>"; };
+		133D8234256B26E9004282CB /* PresetsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetsManager.swift; sourceTree = "<group>"; };
 		134110ED251AAC37004EF11A /* PrismPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismPreset.swift; sourceTree = "<group>"; };
 		134110EF251ABF2F004EF11A /* PresetsOutlineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetsOutlineView.swift; sourceTree = "<group>"; };
+		134C37FE256D212800E10940 /* PrismAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismAlert.swift; sourceTree = "<group>"; };
 		134CE94E24BD1C7F00D9D845 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		134CE95124BD1C7F00D9D845 /* PresetsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresetsViewController.swift; sourceTree = "<group>"; };
 		134CE95224BD1C7F00D9D845 /* ModesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModesViewController.swift; sourceTree = "<group>"; };
@@ -98,7 +102,7 @@
 		134CE95D24BD31CF00D9D845 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		134CE96224BD3A3D00D9D845 /* KeyboardLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardLayout.swift; sourceTree = "<group>"; };
 		134CE97824BD7B8F00D9D845 /* KeyColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyColorView.swift; sourceTree = "<group>"; };
-		13513B2024E8B3ED00D2A842 /* PrismKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismKeyboard.swift; sourceTree = "<group>"; };
+		13513B2024E8B3ED00D2A842 /* PrismKeyboardDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismKeyboardDevice.swift; sourceTree = "<group>"; };
 		135999F824CD7CC800941DCC /* PrismColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrismColor.swift; sourceTree = "<group>"; };
 		138160CC250868DF007E13EA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		1384D27A24BD184700655884 /* PrismUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrismUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -107,7 +111,7 @@
 		1384D28724BD184800655884 /* PrismUI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PrismUI.entitlements; sourceTree = "<group>"; };
 		1386D12324CCF76900B91092 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		1386D12724CD058A00B91092 /* ColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorView.swift; sourceTree = "<group>"; };
-		138EEB1E2509E88D0038EDCC /* NotSupportedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotSupportedViewController.swift; sourceTree = "<group>"; };
+		138EEB1E2509E88D0038EDCC /* PrismAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismAlertViewController.swift; sourceTree = "<group>"; };
 		138EEB202509F13C0038EDCC /* NSLocalizedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLocalizedString.swift; sourceTree = "<group>"; };
 		138EEB242509F6F50038EDCC /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		1393AEF824CC050800B53788 /* DragSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragSelectionView.swift; sourceTree = "<group>"; };
@@ -198,7 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				13C161E724E7B06900384C07 /* PrismKeyModes.swift */,
-				13513B2024E8B3ED00D2A842 /* PrismKeyboard.swift */,
+				13513B2024E8B3ED00D2A842 /* PrismKeyboardDevice.swift */,
 				134CE96224BD3A3D00D9D845 /* KeyboardLayout.swift */,
 			);
 			path = PrismKeyboard;
@@ -265,7 +269,7 @@
 				134CE95324BD1C7F00D9D845 /* MainSplitViewController.swift */,
 				134CE95424BD1C7F00D9D845 /* KeyboardViewController.swift */,
 				134CE95B24BD26B700D9D845 /* BaseViewController.swift */,
-				138EEB1E2509E88D0038EDCC /* NotSupportedViewController.swift */,
+				138EEB1E2509E88D0038EDCC /* PrismAlertViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -334,6 +338,8 @@
 				13C56B2624E693F100C8C998 /* NSTextField+Extension.swift */,
 				138EEB202509F13C0038EDCC /* NSLocalizedString.swift */,
 				13FBFAFF252FE4FD003EA04D /* MathUtils.swift */,
+				133D8234256B26E9004282CB /* PresetsManager.swift */,
+				134C37FE256D212800E10940 /* PrismAlert.swift */,
 			);
 			path = "Supporting files";
 			sourceTree = "<group>";
@@ -554,7 +560,7 @@
 			files = (
 				134CE95524BD1C7F00D9D845 /* AppDelegate.swift in Sources */,
 				13B9F91E24E6897D00FAFA88 /* PrismDevice.swift in Sources */,
-				13513B2124E8B3ED00D2A842 /* PrismKeyboard.swift in Sources */,
+				13513B2124E8B3ED00D2A842 /* PrismKeyboardDevice.swift in Sources */,
 				134CE95E24BD31CF00D9D845 /* main.swift in Sources */,
 				131285C124E7473C009CDBCE /* IOHIDDevice+GetProperty.swift in Sources */,
 				1337E60624C01B5F008F2C89 /* NSColor+Extension.swift in Sources */,
@@ -562,11 +568,13 @@
 				13C161E824E7B06900384C07 /* PrismKeyModes.swift in Sources */,
 				138EEB212509F13C0038EDCC /* NSLocalizedString.swift in Sources */,
 				13FEACD724BEDD45009B86ED /* PrismKey.swift in Sources */,
+				133D8235256B26E9004282CB /* PresetsManager.swift in Sources */,
 				13B9F91F24E6897D00FAFA88 /* HIDDriver+PrismDeviceModel.swift in Sources */,
 				139875482522B91600A389F8 /* OriginEffectView.swift in Sources */,
 				134CE95A24BD1C7F00D9D845 /* KeyboardViewController.swift in Sources */,
 				134CE95824BD1C7F00D9D845 /* ModesViewController.swift in Sources */,
 				13A57022251C4E3D00C600DB /* PrismSavePresetWindow.swift in Sources */,
+				134C37FF256D212800E10940 /* PrismAlert.swift in Sources */,
 				134CE97924BD7B8F00D9D845 /* KeyColorView.swift in Sources */,
 				134CE95724BD1C7F00D9D845 /* PresetsViewController.swift in Sources */,
 				131285C224E7473C009CDBCE /* IOHIDDevice+Write.swift in Sources */,
@@ -589,7 +597,7 @@
 				13C56B2724E693F100C8C998 /* NSTextField+Extension.swift in Sources */,
 				13B9F92224E6897D00FAFA88 /* PrismDeviceModel.swift in Sources */,
 				13B9F91D24E6897D00FAFA88 /* PrismDriver.swift in Sources */,
-				138EEB1F2509E88D0038EDCC /* NotSupportedViewController.swift in Sources */,
+				138EEB1F2509E88D0038EDCC /* PrismAlertViewController.swift in Sources */,
 				13A0EC4225082A0100F552F1 /* KeyboardViewController+PerKey.swift in Sources */,
 				130B9A2424C7C70600989667 /* PrismColorPicker.swift in Sources */,
 				134110EE251AAC37004EF11A /* PrismPreset.swift in Sources */,

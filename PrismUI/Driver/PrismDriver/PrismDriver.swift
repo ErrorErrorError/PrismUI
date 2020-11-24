@@ -12,12 +12,12 @@ import IOKit.hid
 
 public class PrismDriver: NSObject {
 
+    // MARK: Public
+
     public static let shared = PrismDriver()
     public var currentDevice: PrismDevice?
-    private var monitoringThread: Thread?
     internal var models = PrismDeviceModel.allCases.map({ $0.productInformation() })
-
-    public var devices: NSMutableArray = NSMutableArray()
+    public var devices = NSMutableArray()
 
     private override init() {
         super.init()
@@ -48,17 +48,26 @@ public class PrismDriver: NSObject {
         RunLoop.current.run()
     }
 
+    func stop() {
+        monitoringThread?.cancel()
+        monitoringThread = nil
+    }
+
+    // MARK: Private
+
+    private var monitoringThread: Thread?
+
     private func deviceAdded(rawDevice: IOHIDDevice) {
         do {
             var prismDevice = try PrismDevice(device: rawDevice)
             if prismDevice.isKeyboardDevice {
-                prismDevice = try PrismKeyboard(device: rawDevice)
+                prismDevice = try PrismKeyboardDevice(device: rawDevice)
             }
-            if currentDevice == nil {
-                currentDevice = prismDevice
-            }
+//            if currentDevice == nil {
+//                currentDevice = prismDevice
+//            }
             self.devices.add(prismDevice)
-            Log.debug("Added \(prismDevice.description)")
+            Log.debug("Added device: \(prismDevice)")
             NotificationCenter.default.post(name: .prismDeviceAdded, object: prismDevice)
         } catch {
             Log.error("\(error)")
@@ -67,24 +76,18 @@ public class PrismDriver: NSObject {
 
     private func deviceRemoved(rawDevice: IOHIDDevice) {
         do {
-            var prismDevice = try PrismDevice(device: rawDevice)
-            if prismDevice.isKeyboardDevice {
-                prismDevice = try PrismKeyboard(device: rawDevice)
+            let prismDevice = try PrismDevice(device: rawDevice)
+            let deviceInArray = devices.compactMap { $0 as? PrismDevice }.first { device -> Bool in
+                prismDevice.identification == device.identification
             }
-            if prismDevice == currentDevice {
-                currentDevice = nil
+            if let deviceInArray = deviceInArray {
+                self.devices.remove(deviceInArray)
+                Log.debug("Removed device: \(deviceInArray)")
+                NotificationCenter.default.post(name: .prismDeviceRemoved, object: deviceInArray)
             }
-            self.devices.remove(prismDevice)
-            Log.debug("Removed \(prismDevice.description)")
-            NotificationCenter.default.post(name: .prismDeviceRemoved, object: prismDevice)
         } catch {
             Log.error("\(error)")
         }
-    }
-
-    func stop() {
-        monitoringThread?.cancel()
-        monitoringThread = nil
     }
 
     deinit {

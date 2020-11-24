@@ -54,7 +54,7 @@ class ModesViewController: BaseViewController {
 
     let modesPopUp: NSPopUpButton = {
         let popup = NSPopUpButton()
-        popup.action = #selector(didEffectPopupChanged(_:))
+        popup.action = #selector(onEffectPopupChanged(_:))
         return popup
     }()
 
@@ -207,17 +207,17 @@ class ModesViewController: BaseViewController {
 
         initCommonViews()
 
-        if let device = PrismDriver.shared.currentDevice {
-            if device.isKeyboardDevice {
-                if device.model != .threeRegion {
-                    perKeyLayoutSetup()
-                } else {
-                    // TODO: Setup three region views
-                }
-            } else {
-                // TODO: Setup non keyboard
-            }
-        }
+//        if let device = PrismDriver.shared.currentDevice {
+//            if device.isKeyboardDevice {
+//                if device.model != .threeRegion {
+//                    perKeyLayoutSetup()
+//                } else {
+//                    // TODO: Setup three region views
+//                }
+//            } else {
+//                // TODO: Setup non keyboard
+//            }
+//        }
     }
 
     private func initCommonViews() {
@@ -250,13 +250,14 @@ class ModesViewController: BaseViewController {
         }
 
         initCommonConstraints()
+
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(onPrismDeviceAdded(_:)),
                                                name: .prismDeviceAdded,
                                                object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(onPrismDeviceRemoved(_:)),
-                                               name: .prismDeviceAdded,
+                                               name: .prismDeviceRemoved,
                                                object: nil)
     }
 
@@ -292,19 +293,46 @@ class ModesViewController: BaseViewController {
 extension ModesViewController {
 
     @objc private func onPrismDeviceAdded(_ notification: NSNotification) {
-        print("deviceAdded: \(notification)")
         guard let newDevice = notification.object as? PrismDevice else { return }
-        devicesPopup.addItem(withTitle: newDevice.name)
+        DispatchQueue.main.async {
+            // Send selection changed if previously was no elements.
+            let previousItemCount = self.devicesPopup.itemTitles.count
+
+            if !self.devicesPopup.itemTitles.contains(newDevice.name) {
+                self.devicesPopup.addItem(withTitle: newDevice.name)
+            }
+
+            if previousItemCount == 0 {
+                self.devicesPopup.selectItem(withTitle: newDevice.name)
+                self.onChangedDevicePopup(self.devicesPopup)
+            }
+        }
     }
 
     @objc private func onPrismDeviceRemoved(_ notification: NSNotification) {
-        print("deviceAdded: \(notification)")
         guard let removeDevice = notification.object as? PrismDevice else { return }
-        devicesPopup.removeItem(withTitle: removeDevice.name)
-        if removeDevice.isKeyboardDevice && removeDevice.model != .threeRegion {
-            removePerKeySettingsLayout()
-        } else {
-            // TODO: Remove layout effects
+
+        DispatchQueue.main.async {
+            let selectedDevice = PrismDriver.shared.currentDevice
+            if selectedDevice == removeDevice {
+                PrismDriver.shared.currentDevice = nil
+            }
+
+            if let selectedDeviceName = self.devicesPopup.titleOfSelectedItem,
+               selectedDeviceName == removeDevice.name {
+
+                if removeDevice.isKeyboardDevice && removeDevice.model != .threeRegion {
+                    self.removePerKeySettingsLayout()
+                } else {
+                    // TODO: Remove layout effects for three region
+                }
+            }
+
+            self.devicesPopup.removeItem(withTitle: removeDevice.name)
+            if self.devicesPopup.itemArray.filter({ !$0.isHidden }).compactMap({ $0.title }).count == 0 {
+                Log.debug("Notify controllers that there are no items available.")
+                NotificationCenter.default.post(name: .prismSelectedDeviceChanged, object: nil)
+            }
         }
     }
 
@@ -315,7 +343,7 @@ extension ModesViewController {
         devicesPopup.item(withTitle: "No device selected")?.isHidden = true
         updateLayoutWithNewDevice(device: selectedDevice)
         PrismDriver.shared.currentDevice = selectedDevice
-        NotificationCenter.default.post(name: .prismCurrentDeviceChanged, object: selectedDevice)
+        NotificationCenter.default.post(name: .prismSelectedDeviceChanged, object: selectedDevice)
         Log.debug("Changed currently selected device: \(selectedDevice.description)")
     }
 
@@ -330,6 +358,18 @@ extension ModesViewController {
     }
 
     @objc func onButtonClicked(_ sender: NSButton, update: Bool = true) {
+        guard let identifier = sender.identifier else { return }
+
+        // Check if button is a common preset
+
+        switch identifier {
+        case .presets:
+            delegate?.didClickOnPresetsButton()
+            return
+        default:
+            break
+        }
+
         guard let device = PrismDriver.shared.currentDevice else { return }
         if device.isKeyboardDevice && device.model != .threeRegion {
             handlePerKeyButtonClicked(sender, update: update)
@@ -339,7 +379,7 @@ extension ModesViewController {
         }
     }
 
-    @objc func didEffectPopupChanged(_ sender: NSPopUpButton) {
+    @objc func onEffectPopupChanged(_ sender: NSPopUpButton) {
         guard let device = PrismDriver.shared.currentDevice else { return }
         if device.isKeyboardDevice && device.model != .threeRegion {
             handlePerKeyPopup(sender)
@@ -383,7 +423,7 @@ extension ModesViewController {
     }
 
     func updateDevice(forced: Bool = false) {
-        if PrismKeyboard.keysSelected.count > 0 || forced {
+        if PrismKeyboardDevice.keysSelected.count > 0 || forced {
             guard let device = PrismDriver.shared.currentDevice, device.model != .threeRegion else {
                 return
             }
@@ -402,7 +442,7 @@ protocol ModesViewControllerDelegate: AnyObject {
 // MARK: Notification broadcast
 
 extension Notification.Name {
-    public static let prismCurrentDeviceChanged = Notification.Name(rawValue: "prismCurrentDeviceChanged")
+    public static let prismSelectedDeviceChanged = Notification.Name(rawValue: "prismSelectedDeviceChanged")
 }
 
 extension NSUserInterfaceItemIdentifier {

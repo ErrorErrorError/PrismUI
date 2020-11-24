@@ -24,12 +24,8 @@ class MainSplitViewController: NSSplitViewController {
 
         setupSplitViewItems()
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(onMainDeviceChanged(_:)),
-                                               name: .prismCurrentDeviceChanged,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(onDeviceRemoved(_:)),
-                                               name: .prismDeviceRemoved,
+                                               selector: #selector(onSelectedDeviceChanged(_:)),
+                                               name: .prismSelectedDeviceChanged,
                                                object: nil)
     }
 
@@ -45,16 +41,10 @@ class MainSplitViewController: NSSplitViewController {
 
         var viewController: NSViewController?
 
-        if let device = PrismDriver.shared.currentDevice {
-            if device.isKeyboardDevice {
-                viewController = KeyboardViewController()
-            } else {
-                // TODO: Support other non keyboard devices
-                viewController = NotSupportedViewController()
-            }
+        if PrismDriver.shared.devices.count > 0 {
+            viewController = PrismAlertViewController(errorText: .noDeviceSelected)
         } else {
-            viewController = NotSupportedViewController()
-            (viewController as? NotSupportedViewController)?.label.stringValue = .noDevicesAvaliable
+            viewController = PrismAlertViewController(errorText: .noDevicesAvaliable)
         }
 
         rightSideItem = NSSplitViewItem(viewController: viewController!)
@@ -78,27 +68,29 @@ class MainSplitViewController: NSSplitViewController {
 
 extension MainSplitViewController {
 
-    @objc private func onMainDeviceChanged(_ notification: NSNotification) {
-        guard let device = notification.object as? PrismDevice else { return }
-        if device.isKeyboardDevice && device.model != .threeRegion {
-            if !(rightSideItem.viewController is KeyboardViewController) {
+    @objc private func onSelectedDeviceChanged(_ notification: NSNotification) {
+        if let device = notification.object as? PrismDevice {
+            if device.isKeyboardDevice && device.model != .threeRegion {
+                if !(rightSideItem.viewController is KeyboardViewController) {
+                    removeSplitViewItem(rightSideItem)
+                    rightSideItem = NSSplitViewItem(viewController: KeyboardViewController())
+                    addSplitViewItem(rightSideItem)
+                }
+            } else {
                 removeSplitViewItem(rightSideItem)
-                rightSideItem = NSSplitViewItem(viewController: KeyboardViewController())
+                rightSideItem = NSSplitViewItem(viewController: PrismAlertViewController())
                 addSplitViewItem(rightSideItem)
             }
         } else {
             removeSplitViewItem(rightSideItem)
-            rightSideItem = NSSplitViewItem(viewController: NotSupportedViewController())
+            rightSideItem = NSSplitViewItem(viewController: PrismAlertViewController(errorText: .noDevicesAvaliable))
             addSplitViewItem(rightSideItem)
         }
-    }
-
-    @objc private func onDeviceRemoved(_ notification: NSNotification) {
-
     }
 }
 
 // MARK: Attempt to hide split view divider
+
 extension MainSplitViewController {
     override func splitView(_ splitView: NSSplitView, shouldHideDividerAt dividerIndex: Int) -> Bool {
         return true
@@ -113,6 +105,7 @@ extension MainSplitViewController {
 }
 
 // MARK: ModesViewController delegate
+
 extension MainSplitViewController: ModesViewControllerDelegate {
     func didClickOnPresetsButton() {
         sidebarItem.animator().isCollapsed = !sidebarItem.isCollapsed

@@ -95,89 +95,39 @@ class PresetsViewController: BaseViewController {
         menu.autoenablesItems = false
         menu.addItem(NSMenuItem(title: "Delete", action: #selector(removePreset(_:)), keyEquivalent: ""))
         outlineView.menu = menu
-        setupDevicePresets()
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(selectedDeviceChanged(_:)),
+                                               name: .prismSelectedDeviceChanged,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(addNewPresetName(_:)),
+                                               name: .prismDeviceSavePresetFile,
+                                               object: nil)
     }
 
-    private func setupDevicePresets() {
+    private func setupDevicePresets(device: PrismDevice) {
+
         content.removeAll()
 
         // MARK: Setup default presets
 
-        guard let currentDevice = PrismDriver.shared.currentDevice, currentDevice.model != .unknown else { return }
-        let deviceModel = currentDevice.model
+        let deviceModel = device.model
 
         // MARK: Check to see if there is default presets for the selected model
-        if let resourceDir = Bundle.main.urls(forResourcesWithExtension: "bin", subdirectory: nil)?
-            .filter({ $0.lastPathComponent.contains("\(deviceModel).bin") }) {
-            let defaultPresets = PrismPreset(title: "Default Presets", type: .defaultPreset)
-            for url in resourceDir {
-                if let presetName = url.lastPathComponent.components(separatedBy: "-").first {
-                    let preset = PrismPreset(title: presetName, type: .defaultPreset)
-                    preset.url = url
-                    defaultPresets.children.append(preset)
-                }
-            }
 
-            content.append(contentsOf: [defaultPresets])
+        if let defaultPresets = PresetsManager.fetchAllDefaultPresets(with: deviceModel) {
+            content.append(defaultPresets)
+        } else {
+            Log.debug("There are no default presets for model: \(deviceModel)")
         }
 
-        // MARK: Setup custom presets
+        // MARK: Check to see if there are custom presets.
 
-        let fileManager = FileManager.default
-        if let appSupportURL = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first {
-            let prismUIDir = appSupportURL.appendingPathComponent("PrismUI")
-            if !fileManager.fileExists(atPath: prismUIDir.absoluteString) {
-                do {
-                    try fileManager.createDirectory(at: prismUIDir, withIntermediateDirectories: true, attributes: nil)
-                } catch {
-                    Log.error("\(error)")
-                }
-            }
-
-            let presetsFolder = prismUIDir.appendingPathComponent("presets-\(deviceModel)")
-
-            if !fileManager.fileExists(atPath: presetsFolder.absoluteString) {
-                do {
-                    try fileManager.createDirectory(at: presetsFolder,
-                                                    withIntermediateDirectories: true,
-                                                    attributes: nil)
-                } catch {
-                    Log.error("\(error)")
-                }
-            }
-
-            // MARK: Get custom presets if any
-
-            do {
-                var customPresetsURL = try fileManager.contentsOfDirectory(at: presetsFolder,
-                                                                                  includingPropertiesForKeys: .none,
-                                                                                  options: .skipsHiddenFiles)
-                try customPresetsURL.sort {
-                    let values1 = try $0.resourceValues(forKeys: [.creationDateKey])
-                    let values2 = try $1.resourceValues(forKeys: [.creationDateKey])
-
-                    if let date1 = values1.allValues.first?.value as? Date,
-                        let date2 = values2.allValues.first?.value as? Date {
-                        return date1.compare(date2) == (.orderedAscending)
-                    }
-                    return true
-                }
-
-                let customPresets = PrismPreset(title: "Custom Presets", type: .customPreset)
-                for url in customPresetsURL {
-                    if let presetName = url.lastPathComponent.components(separatedBy: "-").first {
-                        let preset = PrismPreset(title: presetName, type: .customPreset)
-                        preset.url = url
-                        customPresets.children.append(preset)
-                    }
-                }
-
-                content.append(contentsOf: [customPresets])
-            } catch {
-                Log.error("\(error)")
-            }
+        if let customPresets = PresetsManager.fetchAllCustomPresets(with: deviceModel) {
+            content.append(customPresets)
         } else {
-            Log.error("Could not get application support url.")
+            Log.error("Could not get custom presets for model: \(deviceModel)")
         }
     }
 }
@@ -231,14 +181,56 @@ extension PresetsViewController: NSOutlineViewDelegate {
 
 extension PresetsViewController {
 
+    @objc func addNewPresetName(_ notification: Notification) {
+        guard let tuple = notification.object as? (Int, URL) else { return }
+        if PrismDriver.shared.currentDevice?.identification == tuple.0 {
+            let presetUrl = tuple.1
+            let presetTitle = presetUrl.lastPathComponent.components(separatedBy: ".bin").first
+            let newPreset = PrismPreset(title: presetTitle!, type: .customPreset)
+            newPreset.url = presetUrl
+            DispatchQueue.main.async {
+                self.content.last?.children.append(newPreset)
+            }
+        }
+    }
+
+    @objc func selectedDeviceChanged(_ notification: NSNotification) {
+        content.removeAll()
+
+        if let device = notification.object as? PrismDevice {
+            setupDevicePresets(device: device)
+        }
+    }
+
     @objc func savePreset(_ sender: NSButton) {
         NotificationCenter.default.post(name: .prismDeviceSavePreset, object: nil)
     }
 
     @objc func removePreset(_ sender: NSMenuItem) {
-        guard let item = outlineView.item(atRow: outlineView.clickedRow) as? NSTreeNode else { return }
-        guard let preset = item.representedObject as? PrismPreset else { return }
-        print(preset)
+        if outlineView.clickedColumn != -1 {
+            if let treeNode = outlineView.item(atRow: outlineView.clickedRow) as? NSTreeNode,
+               let parentNode = outlineView.parent(forItem: treeNode) {
+                let childIndex = outlineView.childIndex(forItem: treeNode)
+
+                NSAnimationContext.runAnimationGroup({ _ in
+                    self.outlineView.removeItems(at: IndexSet(integer: childIndex),
+                                            inParent: parentNode,
+                                            withAnimation: .effectFade)
+                }, completionHandler: {
+                    let parentIndex = self.outlineView.childIndex(forItem: parentNode)
+                    self.content[parentIndex].children.remove(at: childIndex)
+                    if let preset = treeNode.representedObject as? PrismPreset, let url = preset.url {
+                        do {
+                            try PresetsManager.fileManager.removeItem(at: url)
+                        } catch {
+                            Log.error("Could not remove \(preset.title) from storage: \(error)")
+                        }
+                    }
+                })
+            } else {
+                Log.error("Could not parse preset to NSTreeNode.")
+            }
+        }
     }
 }
 
@@ -247,4 +239,5 @@ extension PresetsViewController {
 extension Notification.Name {
     public static let prismDeviceUpdateFromPreset: Notification.Name = .init(rawValue: "prismDeviceUpdateFromPreset")
     public static let prismDeviceSavePreset: Notification.Name = .init(rawValue: "prismDeviceSavePreset")
+    public static let prismDeviceSavePresetFile: Notification.Name = .init(rawValue: "prismDeviceSavePresetFile")
 }

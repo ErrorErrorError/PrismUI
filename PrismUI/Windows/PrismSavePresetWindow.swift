@@ -10,6 +10,8 @@ import Cocoa
 
 class PrismSavePresetWindow: NSWindow {
 
+    private var callback: ((_ fineName: String) -> Void)?
+
     private var view: NSView!
 
     private let icon: NSImageView = {
@@ -67,11 +69,13 @@ class PrismSavePresetWindow: NSWindow {
         return button
     }()
 
-    convenience init() {
+    convenience init(callback: ((String) -> Void)? = nil) {
         self.init(contentRect: NSRect(x: 0, y: 0, width: 450, height: 148),
                   styleMask: .titled,
                   backing: .buffered,
                   defer: false)
+
+        self.callback = callback
 
         isReleasedWhenClosed = true
         level = .floating
@@ -82,6 +86,7 @@ class PrismSavePresetWindow: NSWindow {
         gridView = NSGridView(views: [
             [presetNameLabel, presetName]
         ])
+        presetName.delegate = self
         gridView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         gridView.column(at: 0).xPlacement = .trailing
         gridView.column(at: 0).width = frame.width * 2/6
@@ -138,7 +143,8 @@ extension PrismSavePresetWindow {
         case .cancel:
             close()
         case .save:
-            break
+            callback?(presetName.stringValue)
+            close()
         default:
             Log.error("Unknown button pressed")
         }
@@ -147,7 +153,7 @@ extension PrismSavePresetWindow {
 
 extension PrismSavePresetWindow: NSTextFieldDelegate {
     func controlTextDidChange(_ obj: Notification) {
-
+        rightButton.isEnabled = !presetName.stringValue.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 }
 

@@ -6,7 +6,7 @@
 //  Copyright © 2020 ErrorErrorError. All rights reserved.
 //
 
-import Foundation
+import Cocoa
 
 extension KeyboardViewController {
 
@@ -37,7 +37,7 @@ extension KeyboardViewController {
                     key.delegate = self
                     return key
                 }()
-                PrismKeyboard.keys.add(keyView.prismKey!)
+                PrismKeyboardDevice.keys.add(keyView.prismKey!)
                 view.addSubview(keyView)
                 xPos += desiredKeyWidth * widthFract
             }
@@ -45,11 +45,11 @@ extension KeyboardViewController {
             yPos -= desiredKeyHeight
         }
 
-        let frame = NSRect(x: xOffset + padding,
+        let keyboardFrame = NSRect(x: xOffset + padding,
                            y: (view.frame.height - keyboardHeight) / 2 - padding,
                            width: keyboardWidth - padding,
                            height: keyboardHeight - padding)
-        originView = OriginEffectView(frame: frame)
+        originView = OriginEffectView(frame: keyboardFrame)
         originView?.isHidden = true
         view.addSubview(originView!)
 
@@ -64,15 +64,15 @@ extension KeyboardViewController {
         var region: UInt8
         switch char {
         case "ESC":
-            region = PrismKeyboard.regions[0]
+            region = PrismKeyboardDevice.regions[0]
         case "A":
-            region = PrismKeyboard.regions[1]
+            region = PrismKeyboardDevice.regions[1]
         case "ENTER":
-            region = PrismKeyboard.regions[2]
+            region = PrismKeyboardDevice.regions[2]
         case "F7":
-            region = PrismKeyboard.regions[3]
+            region = PrismKeyboardDevice.regions[3]
         default:
-            region = PrismKeyboard.getRegionFromKeycode(keycode)
+            region = PrismKeyboardDevice.getRegionFromKeycode(keycode)
         }
         return region
     }
@@ -104,14 +104,14 @@ extension KeyboardViewController {
 extension KeyboardViewController: ColorViewDelegate {
 
     func didSelect(_ sender: ColorView) {
-        if !PrismKeyboard.keysSelected.contains(sender) {
-            PrismKeyboard.keysSelected.add(sender)
+        if !PrismKeyboardDevice.keysSelected.contains(sender) {
+            PrismKeyboardDevice.keysSelected.add(sender)
         }
     }
 
     func didDeselect(_ sender: ColorView) {
-        if PrismKeyboard.keysSelected.contains(sender) {
-            PrismKeyboard.keysSelected.remove(sender)
+        if PrismKeyboardDevice.keysSelected.contains(sender) {
+            PrismKeyboardDevice.keysSelected.remove(sender)
         }
     }
 }

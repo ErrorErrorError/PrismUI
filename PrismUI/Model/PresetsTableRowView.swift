@@ -9,6 +9,7 @@
 import Cocoa
 
 class PresetsTableRowView: NSTableRowView {
+
     private var showHideButton: NSButton?
 
     override init(frame frameRect: NSRect) {
@@ -26,27 +27,19 @@ class PresetsTableRowView: NSTableRowView {
     }
 
     override func didAddSubview(_ subview: NSView) {
-
+        super.didAddSubview(subview)
         if let disclosureButton = subview as? NSButton,
            disclosureButton.identifier == NSOutlineView.disclosureButtonIdentifier {
-            disclosureButton.isHidden = true
-            disclosureButton.removeFromSuperview()
-
-            let newButton = NSButton()
-            newButton.target = disclosureButton.target
-            newButton.action = disclosureButton.action
-            newButton.setButtonType(.toggle)
-            self.addSubview(newButton)
-            showHideButton = newButton
-        } else if let newButton = subview as? NSButton,
-                  newButton.identifier != NSOutlineView.disclosureButtonIdentifier {
-            newButton.identifier = NSOutlineView.disclosureButtonIdentifier
-            newButton.title = "Show"
-            newButton.alternateTitle = "Hide"
-            newButton.bezelStyle = .inline
-            newButton.font = NSFont.systemFont(ofSize: 11)
-            newButton.frame = NSRect(x: frame.width - 46, y: 4, width: 40, height: 15)
-            newButton.alphaValue = 0.0
+            disclosureButton.setButtonType(.toggle)
+            disclosureButton.title = "Show"
+            disclosureButton.alternateTitle = "Hide"
+            disclosureButton.imagePosition = .noImage
+            disclosureButton.bezelStyle = .inline
+            disclosureButton.image = nil
+            disclosureButton.alternateImage = nil
+            disclosureButton.frame = NSRect(x: frame.width - 46, y: 4, width: 40, height: 15)
+            disclosureButton.alphaValue = 0.0
+            showHideButton = disclosureButton
         }
     }
 

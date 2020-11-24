@@ -12,6 +12,8 @@ class KeyboardViewController: BaseViewController {
 
     var originView: OriginEffectView?
 
+    var saveButton: NSButton?
+
     override func loadView() {
         view = DragSelectionView()
     }
@@ -53,8 +55,53 @@ extension KeyboardViewController {
              return
         }
 
-        let window = PrismSavePresetWindow()
-        currentWindow.beginSheet(window)
+        guard let device = PrismDriver.shared.currentDevice,
+              device.isKeyboardDevice,
+              device.model != .threeRegion else {
+            Log.error("Could not get current device selected.")
+            return
+        }
+
+        let prismKeys = PrismKeyboardDevice.keys.compactMap { $0 as? PrismKey }
+
+        let savePresetAlert = NSAlert()
+        savePresetAlert.messageText = "Do you want to save the color effect as a preset?"
+        savePresetAlert.informativeText = "Your changes will be lost if you don't save them."
+        saveButton = savePresetAlert.addButton(withTitle: "Save")
+        saveButton?.isEnabled = false
+        savePresetAlert.addButton(withTitle: "Cancel")
+        let saveLabel = NSTextField(labelWithString: "Save: ")
+        let saveLabelText = NSTextField(string: "")
+        saveLabelText.delegate = self
+        let gridView = NSGridView(frame: NSRect(x: 0, y: 0, width: 200, height: 29))
+        gridView.rowAlignment = .firstBaseline
+        gridView.addRow(with: [saveLabel, saveLabelText])
+        savePresetAlert.accessoryView = gridView
+        savePresetAlert.layout()
+        savePresetAlert.beginSheetModal(for: currentWindow) { response in
+            if response == NSApplication.ModalResponse.alertFirstButtonReturn {
+                let presetName = saveLabelText.stringValue
+                let encoder = JSONEncoder()
+                encoder.outputFormatting = .prettyPrinted
+                if let data = try? encoder.encode(prismKeys) {
+                    DispatchQueue.global(qos: .background).async {
+                        do {
+                            let presetURL = try PresetsManager.createCustomPresetFile(data: data,
+                                                                                      deviceModel: device.model,
+                                                                                      name: presetName)
+                            NotificationCenter.default.post(name: .prismDeviceSavePresetFile,
+                                                            object: (device.identification, presetURL))
+                        } catch {
+                            DispatchQueue.main.async {
+                                NSAlert(error: error).runModal()
+                            }
+                        }
+                    }
+                } else {
+                    Log.error("Error trying to encode items.")
+                }
+            }
+        }
     }
 
     @objc func updateKeyboardToPreset(_ notification: Notification) {
@@ -63,8 +110,8 @@ extension KeyboardViewController {
 
         if device.model != .threeRegion {
             guard let url = preset.url, let data = try? Data(contentsOf: url) else { return }
-            PrismKeyboard.effects.removeAllObjects()
-            PrismKeyboard.keysSelected.removeAllObjects()
+            PrismKeyboardDevice.effects.removeAllObjects()
+            PrismKeyboardDevice.keysSelected.removeAllObjects()
 
             // MARK: Deserialize JSON
 
@@ -72,7 +119,7 @@ extension KeyboardViewController {
                 let keys = try JSONDecoder().decode([PrismKey].self, from: data)
                 let effectsArray = keys.compactMap { $0.effect }
                 let effectsSet = NSSet(array: effectsArray).allObjects.compactMap({ $0 as? PrismEffect })
-                PrismKeyboard.effects.addObjects(from: effectsSet)
+                PrismKeyboardDevice.effects.addObjects(from: effectsSet)
                 for key in keys {
                     if key.effect != nil {
                         for effect in effectsSet where key.effect == effect {
@@ -97,6 +144,19 @@ extension KeyboardViewController {
                 device.update(forceUpdate: true)
             } catch {
                 Log.error("\(error)")
+            }
+        }
+    }
+}
+
+extension KeyboardViewController: NSTextFieldDelegate {
+    func controlTextDidChange(_ obj: Notification) {
+        if let textField = obj.object as? NSTextField {
+            if let device = PrismDriver.shared.currentDevice,
+               let usedPresetsName = PresetsManager.fetchAllCustomPresets(with: device.model)?
+                .children.compactMap({ $0.title }) {
+                let textBox = textField.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
+                saveButton?.isEnabled = !textBox.isEmpty && !usedPresetsName.contains(textBox)
             }
         }
     }

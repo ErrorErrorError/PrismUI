@@ -8,9 +8,14 @@
 
 import Cocoa
 
-public class NotSupportedViewController: BaseViewController {
+public class PrismAlertViewController: BaseViewController {
 
-    let label = NSTextField(labelWithString: "This device is currently not supported.")
+    let label = NSTextField(labelWithString: .notSupported)
+
+    convenience init(errorText: String = .notSupported) {
+        self.init()
+        label.stringValue = errorText
+    }
 
     public override func viewDidLoad() {
         label.font = NSFont.systemFont(ofSize: 24)
@@ -24,7 +29,9 @@ public class NotSupportedViewController: BaseViewController {
 
 extension String {
     static let notSupported = NSLocalizedString("This device is currently not supported.", comment: "")
-    static let noDevicesAvaliable = NSLocalizedString("There are no devices available.", comment: "")
+    static let noDevicesAvaliable = NSLocalizedString("There are no devices available. " +
+                                                        "Please make sure your device is not disabled and that is on.",
+                                                      comment: "")
     static let noDeviceSelected = NSLocalizedString("There is no device selected.", comment: "")
 
 }
