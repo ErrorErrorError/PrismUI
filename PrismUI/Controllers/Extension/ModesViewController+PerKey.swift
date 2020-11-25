@@ -22,6 +22,7 @@ extension ModesViewController {
         reactActiveColor.delegate = self
         reactRestColor.delegate = self
         multiSlider.delegate = self
+
         view.addSubview(multiSlider)
         view.addSubview(speedLabel)
         view.addSubview(speedSlider)
@@ -48,11 +49,11 @@ extension ModesViewController {
         modesPopUp.item(withTitle: "Mixed")?.isHidden = true
         modesPopUp.selectItem(withTitle: "\(PrismKeyModes.steady)")
 
-        perKeySetupContraints()
-        updatePending = false
-
         ModesViewController.waveOrigin.xPoint = 0
         ModesViewController.waveOrigin.yPoint = 0
+
+        perKeySetupContraints()
+        updatePending = false
 
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(onKeySelectionChanged),

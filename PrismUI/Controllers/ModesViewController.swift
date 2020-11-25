@@ -219,11 +219,9 @@ class ModesViewController: BaseViewController {
 
     private func initCommonViews() {
         presetsButton.target = self
+        devicesPopup.target = self
         modesPopUp.target = self
         colorPicker.delegate = self
-        devicesPopup.target = self
-        waveDirectionControl.target = self
-        waveInwardOutwardControl.target = self
 
         view.addSubview(presetsButton)
         view.addSubview(deviceLabel)

@@ -198,6 +198,7 @@ extension PresetsViewController {
             newPreset.url = presetUrl
             DispatchQueue.main.async {
                 self.content.last?.children.append(newPreset)
+                self.outlineView.reloadData()
             }
         }
     }
@@ -237,14 +238,15 @@ extension PresetsViewController {
                                             withAnimation: .effectFade)
                 }, completionHandler: {
                     let parentIndex = self.outlineView.childIndex(forItem: parentNode)
-                    self.content[parentIndex].children.remove(at: childIndex)
-                    if let preset = treeNode.representedObject as? PrismPreset, let url = preset.url {
+                    let preset = self.content[parentIndex].children.remove(at: childIndex)
+                    if let url = preset.url {
                         do {
                             try PresetsManager.fileManager.removeItem(at: url)
                         } catch {
                             Log.error("Could not remove \(preset.title) from storage: \(error)")
                         }
                     }
+                    self.outlineView.reloadData()
                 })
             } else {
                 Log.error("Could not parse preset to NSTreeNode.")
@@ -264,6 +266,7 @@ extension PresetsViewController: NSTextFieldDelegate {
         guard let textField = obj.object as? NSTextField else { return }
         guard let oldPresetName = oldPresetName else { return }
         guard let deviceModel = PrismDriver.shared.currentDevice?.model else { return }
+        textField.isEditable = false
         let titlesUsed = PresetsManager.fetchAllCustomPresets(with: deviceModel)?.children.compactMap({$0.title}) ?? []
         let newPresetTitle = textField.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
         if !titlesUsed.contains(newPresetTitle) {
@@ -286,8 +289,6 @@ extension PresetsViewController: NSTextFieldDelegate {
             self.view.window?.makeFirstResponder(nil)
             Log.error("Cannot rename preset with name: \(newPresetTitle) since the name is already being used.")
         }
-
-        textField.isEditable = false
     }
 }
 
