@@ -46,6 +46,8 @@ class PresetsViewController: BaseViewController {
         return view
     }()
 
+    var oldPresetName: String?
+
      override func viewDidLoad() {
         super.viewDidLoad()
         (self.view as? NSVisualEffectView)?.material = .sidebar
@@ -93,7 +95,8 @@ class PresetsViewController: BaseViewController {
 
         let menu = NSMenu()
         menu.autoenablesItems = false
-        menu.addItem(NSMenuItem(title: "Delete", action: #selector(removePreset(_:)), keyEquivalent: ""))
+        menu.addItem(NSMenuItem(title: "Rename Preset", action: #selector(renamePreset(_:)), keyEquivalent: ""))
+        menu.addItem(NSMenuItem(title: "Delete Preset", action: #selector(removePreset(_:)), keyEquivalent: ""))
         outlineView.menu = menu
 
         NotificationCenter.default.addObserver(self,
@@ -139,17 +142,22 @@ extension PresetsViewController: NSOutlineViewDelegate {
         let cell = NSTableCellView()
         cell.objectValue = node.representedObject
 
-        let textField = NSTextField(labelWithString: "")
+        let textField = NSTextField(wrappingLabelWithString: "")
         cell.textField = textField
         cell.addSubview(textField)
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.centerYAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
-        textField.font = NSFont.systemFont(ofSize: 13)
+        textField.trailingAnchor.constraint(equalTo: cell.trailingAnchor).isActive = true
+        textField.leadingAnchor.constraint(equalTo: cell.leadingAnchor).isActive = true
+        textField.isEditable = false
+        textField.cell?.truncatesLastVisibleLine = true
+//        textField.font = NSFont.systemFont(ofSize: 13)
 
         if !node.isLeaf {
-            textField.font = NSFont.systemFont(ofSize: 12)
-            textField.leadingAnchor.constraint(equalTo: cell.leadingAnchor).isActive = true
+//            textField.font = NSFont.systemFont(ofSize: 12)
             textField.textColor = NSColor.headerTextColor
+        } else {
+            textField.delegate = self
         }
         textField.bind(.value, to: cell, withKeyPath: "objectValue.title", options: nil)
         return cell
@@ -172,7 +180,7 @@ extension PresetsViewController: NSOutlineViewDelegate {
     func outlineViewSelectionDidChange(_ notification: Notification) {
         guard let preset = (outlineView.item(atRow: outlineView.selectedRow) as? NSTreeNode)?
             .representedObject as? PrismPreset else { return }
-        Log.debug("Updating device with preset: \(preset.title)")
+        Log.debug("Selected preset: \(preset.title)")
         NotificationCenter.default.post(name: .prismDeviceUpdateFromPreset, object: preset)
     }
 }
@@ -206,12 +214,23 @@ extension PresetsViewController {
         NotificationCenter.default.post(name: .prismDeviceSavePreset, object: nil)
     }
 
+    @objc func renamePreset(_ sender: NSMenuItem) {
+        let itemClickedIndex = outlineView.clickedRow
+        if itemClickedIndex != -1 {
+            let tableCellView = outlineView.view(atColumn: 0, row: itemClickedIndex, makeIfNecessary: false)
+            if let tableCellView = tableCellView as? NSTableCellView {
+                tableCellView.textField?.isEditable = true
+                self.view.window?.makeFirstResponder(tableCellView.textField)
+            }
+        }
+    }
+
     @objc func removePreset(_ sender: NSMenuItem) {
-        if outlineView.clickedColumn != -1 {
-            if let treeNode = outlineView.item(atRow: outlineView.clickedRow) as? NSTreeNode,
+        let itemClickedIndex = outlineView.clickedRow
+        if itemClickedIndex != -1 {
+            if let treeNode = outlineView.item(atRow: itemClickedIndex) as? NSTreeNode,
                let parentNode = outlineView.parent(forItem: treeNode) {
                 let childIndex = outlineView.childIndex(forItem: treeNode)
-
                 NSAnimationContext.runAnimationGroup({ _ in
                     self.outlineView.removeItems(at: IndexSet(integer: childIndex),
                                             inParent: parentNode,
@@ -231,6 +250,44 @@ extension PresetsViewController {
                 Log.error("Could not parse preset to NSTreeNode.")
             }
         }
+    }
+}
+
+extension PresetsViewController: NSTextFieldDelegate {
+
+    func controlTextDidBeginEditing(_ obj: Notification) {
+        guard let textField = obj.object as? NSTextField else { return }
+        oldPresetName = textField.stringValue
+    }
+
+    func controlTextDidEndEditing(_ obj: Notification) {
+        guard let textField = obj.object as? NSTextField else { return }
+        guard let oldPresetName = oldPresetName else { return }
+        guard let deviceModel = PrismDriver.shared.currentDevice?.model else { return }
+        let titlesUsed = PresetsManager.fetchAllCustomPresets(with: deviceModel)?.children.compactMap({$0.title}) ?? []
+        let newPresetTitle = textField.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !titlesUsed.contains(newPresetTitle) {
+            do {
+                if let preset = content.last?.children.first(where: {$0.title == newPresetTitle}),
+                   let url = preset.url {
+                    let newUrl = url.deletingLastPathComponent().appendingPathComponent("\(newPresetTitle).bin")
+                    try PresetsManager.fileManager.moveItem(at: url, to: newUrl)
+                    preset.title = newPresetTitle
+                    preset.url = newUrl
+                    Log.debug("Successfully renamed preset from: \(oldPresetName) to: \(newPresetTitle)")
+                } else {
+                    throw NSError()
+                }
+            } catch {
+                Log.error("There was an error renaming preset: \(error)")
+            }
+        } else {
+            textField.stringValue = oldPresetName
+            self.view.window?.makeFirstResponder(nil)
+            Log.error("Cannot rename preset with name: \(newPresetTitle) since the name is already being used.")
+        }
+
+        textField.isEditable = false
     }
 }
 

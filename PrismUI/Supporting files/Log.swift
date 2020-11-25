@@ -10,15 +10,23 @@ import Foundation
 import OSLog
 
 final class Log {
-    static func debug(_ message: String, functionName: String = #function) {
-        os_log("%{public}@", log: .prismUI, type: .info, "\(functionName): \(message)")
+    static func debug(_ message: String,
+                      fileName: String = #file,
+                      functionName: String = #function,
+                      lineNumber: Int = #line) {
+        os_log("%{public}@", log: .app, type: .info, "\((fileName as NSString).lastPathComponent) - " +
+                                                     "\(functionName) at line \(lineNumber): \(message)")
     }
 
-    static func error(_ message: String, functionName: String = #function) {
-        os_log("%{public}@", log: .prismUI, type: .error, "\(functionName): \(message)")
+    static func error(_ message: String,
+                      fileName: String = #file,
+                      functionName: String = #function,
+                      lineNumber: Int = #line) {
+        os_log("%{public}@", log: .app, type: .error, "\((fileName as NSString).lastPathComponent) - " +
+                                                      "\(functionName) at line \(lineNumber): \(message)")
     }
 }
 
 extension OSLog {
-    static let prismUI = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "PrismUI")
+    static let app = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "PrismUI")
 }

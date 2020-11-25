@@ -20,13 +20,11 @@ class MainSplitViewController: NSSplitViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.setFrameSize(NSSize(width: 1380, height: 720))
-        modesViewController.delegate = self
-
-        setupSplitViewItems()
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(onSelectedDeviceChanged(_:)),
                                                name: .prismSelectedDeviceChanged,
                                                object: nil)
+        setupSplitViewItems()
     }
 
     private func setupSplitViewItems() {
@@ -35,6 +33,7 @@ class MainSplitViewController: NSSplitViewController {
         sidebarItem.minimumThickness = 200
         sidebarItem.maximumThickness = 200
 
+        modesViewController.delegate = self
         leftSideItem = NSSplitViewItem(contentListWithViewController: modesViewController)
         leftSideItem.minimumThickness = 300
         leftSideItem.maximumThickness = 300

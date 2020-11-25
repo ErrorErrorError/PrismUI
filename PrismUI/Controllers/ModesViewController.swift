@@ -207,17 +207,14 @@ class ModesViewController: BaseViewController {
 
         initCommonViews()
 
-//        if let device = PrismDriver.shared.currentDevice {
-//            if device.isKeyboardDevice {
-//                if device.model != .threeRegion {
-//                    perKeyLayoutSetup()
-//                } else {
-//                    // TODO: Setup three region views
-//                }
-//            } else {
-//                // TODO: Setup non keyboard
-//            }
-//        }
+        // See if a device is already loaded
+
+        if let device = PrismDriver.shared.devices.compactMap({ $0 as? PrismDevice }).first {
+            DispatchQueue.main.async {
+                self.devicesPopup.title = device.name
+                self.onChangedDevicePopup(self.devicesPopup)
+            }
+        }
     }
 
     private func initCommonViews() {
@@ -296,7 +293,7 @@ extension ModesViewController {
         guard let newDevice = notification.object as? PrismDevice else { return }
         DispatchQueue.main.async {
             // Send selection changed if previously was no elements.
-            let previousItemCount = self.devicesPopup.itemTitles.count
+            let previousItemCount = self.devicesPopup.itemArray.filter({ !$0.isHidden }).compactMap({ $0.title }).count
 
             if !self.devicesPopup.itemTitles.contains(newDevice.name) {
                 self.devicesPopup.addItem(withTitle: newDevice.name)
