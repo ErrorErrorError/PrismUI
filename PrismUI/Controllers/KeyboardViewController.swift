@@ -43,12 +43,23 @@ class KeyboardViewController: BaseViewController {
                                                selector: #selector(createPresetWindow(_:)),
                                                name: .prismDeviceSavePreset,
                                                object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateView),
+                                               name: .prismDeviceUpdateView,
+                                               object: nil)
     }
 }
 
 // MARK: Actions
 
 extension KeyboardViewController {
+    @objc func updateView() {
+        guard let device = PrismDriver.shared.currentDevice else { return }
+        if device.isKeyboardDevice && device.model != .threeRegion {
+            view.subviews.compactMap({ $0 as? KeyColorView}).forEach { $0.updateAnimation() }
+        }
+    }
+
     @objc func createPresetWindow(_ notification: Notification) {
 
         guard let device = PrismDriver.shared.currentDevice,

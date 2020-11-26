@@ -65,9 +65,9 @@ class ColorView: NSView, CALayerDelegate {
     private func setup() {
         wantsLayer = true
         layer = newLayer
-        layer!.delegate = self
-        layer!.backgroundColor = color.cgColor
-        layer!.setNeedsDisplay()
+        layer?.delegate = self
+        layer?.backgroundColor = color.cgColor
+        layer?.setNeedsDisplay()
     }
 
     override func mouseUp(with event: NSEvent) {

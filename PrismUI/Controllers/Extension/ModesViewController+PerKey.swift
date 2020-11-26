@@ -396,7 +396,6 @@ extension ModesViewController {
                     prismKey.main = newColor
                     updatePending = true
                 }
-                colorView.prismKey = prismKey
             }
         case PrismKeyModes.colorShift,
              PrismKeyModes.breathing:
@@ -425,7 +424,6 @@ extension ModesViewController {
                     prismKey.effect = effect
                     prismKey.main = effect.start
                     prismKey.duration = speedDuration
-                    colorView.prismKey = prismKey
                     updatePending = true
                 }
             }
@@ -450,7 +448,6 @@ extension ModesViewController {
                     prismKey.active = activeColor
                     prismKey.main = baseColor
                     prismKey.duration = speedDuration
-                    colorView.prismKey = prismKey
                     updatePending = true
                 }
             }
@@ -460,13 +457,16 @@ extension ModesViewController {
                 guard let prismKey = colorView.prismKey else { return }
                 if prismKey.mode != .disabled {
                     prismKey.mode = .disabled
-                    colorView.prismKey = prismKey
                     updatePending = true
                 }
             }
         }
 
         removeUnusedEffecs()
+
+        if updatePending {
+            NotificationCenter.default.post(name: .prismDeviceUpdateView, object: nil)
+        }
 
         if finished && updatePending {
             updateDevice()
@@ -607,4 +607,5 @@ extension NSUserInterfaceItemIdentifier {
 extension Notification.Name {
     public static let prismOriginToggled = Notification.Name(rawValue: "prismOriginToggled")
     public static let updateOriginView: Notification.Name = .init("updateOriginView")
+    public static let prismDeviceUpdateView: Notification.Name = .init("updatePrismDeviceView")
 }

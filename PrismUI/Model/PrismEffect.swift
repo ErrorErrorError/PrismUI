@@ -15,8 +15,8 @@ public enum PrismDirection: UInt8 {
 }
 
 public enum PrismControl: UInt8 {
-    case outward = 0
-    case inward = 1
+    case inward = 0
+    case outward = 1
 }
 
 final class PrismEffect: NSObject {
