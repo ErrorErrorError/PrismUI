@@ -29,12 +29,12 @@ jobs:
         if [[ "$(git log -1 --pretty=format:%s)" != *"GH Release"* ]]; then
           sed -i '' -e "s/CURRENT_PROJECT_VERSION =.*/CURRENT_PROJECT_VERSION = ${GIT_SHA};/g" PrismUI.xcodeproj/project.pbxproj
         fi
-        echo "::set-env name=VER::$MARKETING_VERSION"
-        echo "::set-env name=SHORT_SHA::$GIT_SHA"
+        echo ">>$GITHUB_ENV VER=$MARKETING_VERSION"
+        echo ">>$GITHUB_ENV SHORT_SHA=$GIT_SHA"
         if [[ -z $CUR_TAG ]]; then
-          echo "::set-env name=OLD_PRE_TAG::NULL"
+          echo ">>$GITHUB_ENV OLD_PRE_TAG=NULL"
         else
-          echo "::set-env name=OLD_PRE_TAG::$CUR_TAG"
+          echo ">>$GITHUB_ENV OLD_PRE_TAG=$CUR_TAG"
         fi
       shell: zsh {0}
 
@@ -55,13 +55,13 @@ jobs:
     - name: Setup Prerelease Variables
       if: contains(github.event.head_commit.message, 'GH release') == false
       run: |
-        echo "::set-env name=REL_TAG::v${VER}-alpha"
-        echo "::set-env name=IS_PRE::true"
+        echo ">>$GITHUB_ENV REL_TAG=v${VER}-alpha"
+        echo ">>$GITHUB_ENV IS_PRE=true"
     - name: Setup Release Variables
       if: contains(github.event.head_commit.message, 'GH release')
       run: |
-        echo "::set-env name=REL_TAG::v${VER}"
-        echo "::set-env name=IS_PRE::false"
+        echo ">>$GITHUB_ENV REL_TAG=v${VER}"
+        echo ">>$GITHUB_ENV IS_PRE=false"
     - name: Generate Prerelease Release Notes
       if: contains(github.event.head_commit.message, 'GH release') == false
       run: |
