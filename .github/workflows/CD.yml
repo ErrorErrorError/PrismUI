@@ -3,6 +3,7 @@ name: Distribute GitHub Prerelease
 on:
   push:
     branches: master
+  workflow_dispatch:
 
 jobs:
 
@@ -11,8 +12,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-      with:
-        fetch-depth: '5'
 
     - name: Prepare Env
       run: |
@@ -20,27 +19,31 @@ jobs:
         brew install graphicsmagick imagemagick
         npm install --global create-dmg
         pod install
+
     - name: Manage Version
       run: |
         git fetch --prune --unshallow --tags
         GIT_SHA="$(git rev-parse --short HEAD)"
         CUR_TAG="$(git tag -l | grep 'alpha\|beta' | tail -1)"
         eval $(grep -m 1 "MARKETING_VERSION =" PrismUI.xcodeproj/project.pbxproj | tr -d ';' | tr -d '\t' | tr -d " ")
+
         if [[ "$(git log -1 --pretty=format:%s)" != *"GH Release"* ]]; then
           sed -i '' -e "s/CURRENT_PROJECT_VERSION =.*/CURRENT_PROJECT_VERSION = ${GIT_SHA};/g" PrismUI.xcodeproj/project.pbxproj
         fi
-        echo ">>$GITHUB_ENV VER=$MARKETING_VERSION"
-        echo ">>$GITHUB_ENV SHORT_SHA=$GIT_SHA"
+
+        echo "VER=$MARKETING_VERSION" >> $GITHUB_ENV 
+        echo "SHORT_SHA=$GIT_SHA" >> $GITHUB_ENV 
         if [[ -z $CUR_TAG ]]; then
-          echo ">>$GITHUB_ENV OLD_PRE_TAG=NULL"
+          echo "OLD_PRE_TAG=NULL" >> $GITHUB_ENV 
         else
-          echo ">>$GITHUB_ENV OLD_PRE_TAG=$CUR_TAG"
+          echo "OLD_PRE_TAG=$CUR_TAG" >> $GITHUB_ENV 
         fi
       shell: zsh {0}
 
     - name: Build
       run: |
         xcodebuild -workspace PrismUI.xcworkspace -scheme PrismUI -configuration Release -derivedDataPath build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty && exit ${PIPESTATUS[0]}
+
     - name: Create Disk Image
       run: |
         XCBUILD_PATH="build/Build/Products/Release"
@@ -52,27 +55,32 @@ jobs:
         cd -
         mkdir Artifacts
         cp -R ${XCBUILD_PATH}/*.dmg Artifacts
+
     - name: Setup Prerelease Variables
-      if: contains(github.event.head_commit.message, 'GH release') == false
+      if: github.event_name == 'push'
       run: |
-        echo ">>$GITHUB_ENV REL_TAG=v${VER}-alpha"
-        echo ">>$GITHUB_ENV IS_PRE=true"
+        echo "REL_TAG=v${VER}-alpha" >> $GITHUB_ENV
+        echo "IS_PRE=true" >> $GITHUB_ENV
+
     - name: Setup Release Variables
-      if: contains(github.event.head_commit.message, 'GH release')
+      if: github.event_name == 'workflow_dispatch'
       run: |
-        echo ">>$GITHUB_ENV REL_TAG=v${VER}"
-        echo ">>$GITHUB_ENV IS_PRE=false"
+        echo "REL_TAG=v${VER}" >> $GITHUB_ENV
+        echo "IS_PRE=false" >> $GITHUB_ENV
+  
     - name: Generate Prerelease Release Notes
-      if: contains(github.event.head_commit.message, 'GH release') == false
+      if: github.event_name == 'push'
       run: |
         echo '### Disclaimer:' >> ReleaseNotes.md
         echo '***This alpha version is for testing only.***' >> ReleaseNotes.md
         echo 'It is not ready for daily use and we do not guarantee its usability.' >> ReleaseNotes.md
-        echo 'If you discovered an issue and you do not have debugging skills, please check with the [Gitter Chat Room]() in advance before opening an Issue.' >> ReleaseNotes.md
+        echo 'If you discovered an issue and you do not have debugging skills, please check with the [Gitter Chat Room](https://gitter.im/ErrorErrorError/PrismUI) in advance before opening an Issue.' >> ReleaseNotes.md
+  
     - name: Generate Release Notes
       run: |
-        echo '### The latest five updates are:' >> ReleaseNotes.md
-        git log -"5" --format="- %H %s" | sed '/^$/d' >> ReleaseNotes.md
+        echo '### The latest updates are:' >> ReleaseNotes.md
+        git log -"$(git rev-list --count $(git rev-list -1 "$(git tag -l | grep -v 'alpha' | tail -1)")..HEAD)" --format="- %H %s" | grep -v '.git\|Merge\|yml\|CI' | sed  '/^$/d' >> ReleaseNotes.md
+
     - name: Delete Old Prerelease
       uses: dev-drprasad/delete-tag-and-release@v0.1.2
       with:
@@ -81,7 +89,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Init GitHub Release
-      if: contains(github.event.head_commit.message, 'GH release')
+      if: github.event_name == 'workflow_dispatch'
       uses: ncipollo/release-action@v1
       with:
         bodyFile: ReleaseNotes.md
@@ -98,6 +106,7 @@ jobs:
         curl -#LO "${URL}"
         tar xvf *.xz >/dev/null 2>&1
         cd ..
+
         PUBDATE="$(date +"%a, %d %b %Y %T %z")"
         APPCAST=(
             '<?xml version="1.0" standalone="yes"?>'
@@ -125,6 +134,7 @@ jobs:
         SPARKLE_KEY: ${{ secrets.SPARKLE_KEY }}
 
     - name: Publish GitHub Release
+      if: contains(github.event.head_commit.message, 'Bump version') == false
       uses: ncipollo/release-action@v1
       with:
         allowUpdates: true
