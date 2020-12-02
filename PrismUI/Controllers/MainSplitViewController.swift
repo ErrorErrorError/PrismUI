@@ -19,7 +19,7 @@ class MainSplitViewController: NSSplitViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.setFrameSize(NSSize(width: 1380, height: 720))
+        view.setFrameSize(NSSize(width: 1520, height: 720))
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(onSelectedDeviceChanged(_:)),
                                                name: .prismSelectedDeviceChanged,

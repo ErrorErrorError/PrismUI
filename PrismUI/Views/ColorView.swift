@@ -9,45 +9,47 @@
 import Foundation
 import Cocoa
 
-class ColorView: NSView, CALayerDelegate {
+class ColorView: NSView {
 
     weak var delegate: ColorViewDelegate?
 
+    let cornerRadius: CGFloat = 4.0
+
     var color: NSColor = .red {
       didSet {
-        layer?.backgroundColor = color.cgColor
+        backgroundLayer.borderColor = NSColor(hue: 0.0,
+                                              saturation: 0.0,
+                                              brightness: color.isDarkColor ? 1.0 : 0.0,
+                                              alpha: 0.5).cgColor
+        backgroundLayer.backgroundColor = color.cgColor
+        backgroundLayer.setNeedsDisplay()
       }
     }
 
     var selected = false {
         didSet {
+            backgroundLayer.borderWidth = selected ? 4 : 1
             if selected {
                 delegate?.didSelect(self)
-                layer?.borderColor = NSColor(hue: 0.0,
-                                             saturation: 0.0,
-                                             brightness: color.isDarkColor ? 1.0 : 0.0,
-                                             alpha: 0.5).cgColor
             } else {
                 delegate?.didDeselect(self)
-                layer?.borderColor = NSColor.gray.cgColor
+                backgroundLayer.borderColor = NSColor.gray.cgColor
             }
-            layer?.borderWidth = selected ? 5 : 1
-            layer?.setNeedsDisplay()
+            backgroundLayer.setNeedsDisplay()
         }
     }
 
-    let newLayer: CALayer = {
-        let new = CALayer()
-        new.cornerRadius = 4.0
-        new.borderColor = NSColor.lightGray.cgColor
-        new.borderWidth = 0
-        new.shadowOffset = CGSize(width: 0, height: -0.5)
-        new.shadowColor = NSColor.black.cgColor
-        new.shadowRadius = 0
-        new.shadowOpacity = 0.2
-        new.allowsEdgeAntialiasing = true
-        return new
-    }()
+    let backgroundLayer = CALayer()
+
+    override func setFrameSize(_ newSize: NSSize) {
+        super.setFrameSize(newSize)
+        let newFrame = NSRect(origin: CGPoint.zero, size: newSize)
+        backgroundLayer.frame = newFrame
+        layer?.shadowPath = CGPath(roundedRect: newFrame,
+                                   cornerWidth: cornerRadius,
+                                   cornerHeight: cornerRadius,
+                                   transform: nil)
+    }
 
     convenience init() {
         self.init(frame: NSRect.zero)
@@ -64,10 +66,32 @@ class ColorView: NSView, CALayerDelegate {
 
     private func setup() {
         wantsLayer = true
-        layer = newLayer
-        layer?.delegate = self
-        layer?.backgroundColor = color.cgColor
-        layer?.setNeedsDisplay()
+
+        layer?.backgroundColor = CGColor.clear
+
+        // Border Color
+
+        backgroundLayer.borderWidth = 1
+        backgroundLayer.backgroundColor = color.cgColor
+        backgroundLayer.actions = ["backgroundColor": NSNull()]
+
+        // Corner Radius
+
+        layer?.cornerRadius = cornerRadius
+        backgroundLayer.cornerRadius = cornerRadius
+
+        // Shadow
+
+        self.shadow = NSShadow()
+        layer?.shadowColor = CGColor.black
+        layer?.shadowOffset = .zero
+        layer?.shadowOpacity = 0.15
+        layer?.shadowRadius = 2
+        layer?.shadowOffset = CGSize(width: 0, height: -0.8)
+
+        layer?.allowsEdgeAntialiasing = true
+        layer?.addSublayer(backgroundLayer)
+        backgroundLayer.setNeedsDisplay()
     }
 
     override func mouseUp(with event: NSEvent) {

@@ -10,6 +10,12 @@ import Cocoa
 
 class PrismColorGraphView: NSView {
 
+    var isEnabled = true {
+        didSet {
+            needsDisplay = true
+        }
+    }
+
     private var selector: PrismSelector!
     private var saturationValueImage: CGImage?
     private var clickedBounds = false
@@ -55,7 +61,9 @@ extension PrismColorGraphView {
         context.closePath()
         context.clip()
         context.interpolationQuality = .high
-        drawBackgroundColor(context)
+        if isEnabled {
+            drawBackgroundColor(context)
+        }
         drawSaturationBrightnessOverlay(context)
     }
 
@@ -189,6 +197,7 @@ extension PrismColorGraphView {
 
     override func mouseDown(with event: NSEvent) {
         super.mouseDown(with: event)
+        guard isEnabled else { return }
         guard let newPoint = window?.contentView?.convert(event.locationInWindow, to: self) else {
             print("Could not convert window point to local point")
             return
@@ -200,6 +209,7 @@ extension PrismColorGraphView {
 
     override func mouseDragged(with event: NSEvent) {
         super.mouseDragged(with: event)
+        guard isEnabled else { return }
         guard let newPoint = window?.contentView?.convert(event.locationInWindow, to: self) else {
             print("Could not convert window point to local point")
             return
@@ -212,6 +222,7 @@ extension PrismColorGraphView {
 
     override func mouseUp(with event: NSEvent) {
         super.mouseUp(with: event)
+        guard isEnabled else { return }
         if clickedBounds {
             updateColorFromPoint(point: selector.frame.origin, mouseUp: true)
             clickedBounds = false

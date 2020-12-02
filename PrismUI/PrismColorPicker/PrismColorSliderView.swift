@@ -14,6 +14,15 @@ internal class PrismColorSliderView: NSView {
     private var colorHueImage: CGImage?
     private var clickedBounds = false
 
+    var isEnabled: Bool = true {
+        didSet {
+            if !isEnabled {
+                color = PrismHSB(hue: 0.0, saturation: 0.0, brightness: 0.0)
+            }
+            needsDisplay = true
+        }
+    }
+
     var color: PrismHSB = PrismHSB(hue: 1, saturation: 1, brightness: 1) {
         willSet(newValue) {
             updateSelectorFromColor(newValue)
@@ -133,6 +142,7 @@ extension PrismColorSliderView {
 
     override func mouseDown(with event: NSEvent) {
             super.mouseDown(with: event)
+        guard isEnabled else { return }
         guard let newPoint = window?.contentView?.convert(event.locationInWindow, to: self) else {
             print("Could not convert window point to local point")
             return
@@ -146,6 +156,7 @@ extension PrismColorSliderView {
 
     override func mouseDragged(with event: NSEvent) {
         super.mouseDragged(with: event)
+        guard isEnabled else { return }
         guard let newPoint = window?.contentView?.convert(event.locationInWindow, to: self) else {
             print("Could not convert window point to local point")
             return
@@ -158,6 +169,7 @@ extension PrismColorSliderView {
 
     override func mouseUp(with event: NSEvent) {
         super.mouseUp(with: event)
+        guard isEnabled else { return }
         if clickedBounds {
             updateColorFromPoint(point: selector.frame.origin, mouseUp: true)
             clickedBounds = false

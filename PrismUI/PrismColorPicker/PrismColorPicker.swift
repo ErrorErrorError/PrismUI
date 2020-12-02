@@ -10,6 +10,20 @@ import Cocoa
 
 public class PrismColorPicker: BaseViewController {
 
+    var enabled = true {
+        didSet {
+            if !enabled {
+                setColor(newColor: PrismHSB(hue: 0.0, saturation: 0.0, brightness: 0.0))
+            }
+            colorGraphView.isEnabled = enabled
+            colorSliderView.isEnabled = enabled
+            rColorField.isEnabled = enabled
+            gColorField.isEnabled = enabled
+            bColorField.isEnabled = enabled
+            hexColorField.isEnabled = enabled
+        }
+    }
+
     var colorGraphView: PrismColorGraphView!
     var colorSliderView: PrismColorSliderView!
     weak var delegate: PrismColorPickerDelegate?

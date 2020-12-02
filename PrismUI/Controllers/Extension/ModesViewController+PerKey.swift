@@ -147,26 +147,31 @@ extension ModesViewController {
             showColorShiftMode(shouldShow: false)
             showBreadingMode(shouldShow: false)
             modesPopUp.item(withTitle: "Mixed")?.isHidden = true
+            colorPicker.enabled = true
         case "\(PrismKeyModes.reactive)":
             showColorShiftMode(shouldShow: false)
             showBreadingMode(shouldShow: false)
             showReactiveMode()
             modesPopUp.item(withTitle: "Mixed")?.isHidden = true
+            colorPicker.enabled = true
         case "\(PrismKeyModes.colorShift)":
             showReactiveMode(shouldShow: false)
             showBreadingMode(shouldShow: false)
             showColorShiftMode()
             modesPopUp.item(withTitle: "Mixed")?.isHidden = true
+            colorPicker.enabled = true
         case "\(PrismKeyModes.breathing)":
             showReactiveMode(shouldShow: false)
             showColorShiftMode(shouldShow: false)
             showBreadingMode()
             modesPopUp.item(withTitle: "Mixed")?.isHidden = true
+            colorPicker.enabled = true
         case "\(PrismKeyModes.disabled)":
             showReactiveMode(shouldShow: false)
             showColorShiftMode(shouldShow: false)
             showBreadingMode(shouldShow: false)
             modesPopUp.item(withTitle: "Mixed")?.isHidden = true
+            colorPicker.enabled = true
         default:
             Log.error("Effect Unavalilable for perKey")
             return
@@ -274,6 +279,7 @@ extension ModesViewController {
                 showReactiveMode(shouldShow: false)
                 showColorShiftMode(shouldShow: false)
                 showBreadingMode(shouldShow: false)
+                colorPicker.enabled = false
             default:
                 return
             }
@@ -283,6 +289,7 @@ extension ModesViewController {
             showReactiveMode(shouldShow: false)
             showColorShiftMode(shouldShow: false)
             showBreadingMode(shouldShow: false)
+            colorPicker.enabled = false
         }
     }
 
@@ -349,7 +356,7 @@ extension ModesViewController {
             speedSlider.intValue = 300
             pulseSlider.intValue = 100
             waveToggle.state = .off
-            waveInwardOutwardControl.selectedSegment = 1
+            waveInwardOutwardControl.selectedSegment = 0
             waveDirectionControl.selectedSegment = 0
             ModesViewController.waveOrigin.xPoint = 0
             ModesViewController.waveOrigin.yPoint = 0
@@ -428,10 +435,13 @@ extension ModesViewController {
                 }
             }
         case PrismKeyModes.reactive:
+//            CATransaction.begin()
+//            CATransaction.setDisableActions(true)
             ModesViewController.selectorArray.filter { ($0 as? ColorView) != nil }.forEach {
                 guard let colorView = $0 as? ColorView else { return }
                 colorView.color = newColor.nsColor
             }
+//            CATransaction.commit()
 
             let activeColor = reactActiveColor.color.prismRGB
             let baseColor = reactRestColor.color.prismRGB

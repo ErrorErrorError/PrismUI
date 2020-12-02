@@ -273,19 +273,19 @@ extension PrismRGB {
                        alpha: self.alpha)
     }
 
-    public var redInt: UInt8 {
+    public var redUInt: UInt8 {
         return UInt8((red * 255))
     }
 
-    public var greenInt: UInt8 {
+    public var greenUInt: UInt8 {
         return UInt8((green * 255))
     }
 
-    public var blueInt: UInt8 {
+    public var blueUInt: UInt8 {
         return UInt8((blue * 255))
     }
 
-    public var alphaInt: UInt8 {
+    public var alphaUInt: UInt8 {
         return UInt8((alpha * 255))
     }
 

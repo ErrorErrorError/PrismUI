@@ -28,6 +28,18 @@ extension NSColor {
         var hue, saturation, value, alpha: CGFloat
         (hue, saturation, value, alpha) = (0, 0, 0, 0)
         self.getHue(&hue, saturation: &saturation, brightness: &value, alpha: &alpha)
-        return value < 0.20
+        return value < 0.25
+    }
+
+    func colorMergeOpacity(base: NSColor, opacity: CGFloat) -> NSColor {
+        let bgR = base.redComponent * (1.0 - opacity)
+        let bgG = base.greenComponent * (1.0 - opacity)
+        let bgB = base.blueComponent * (1.0 - opacity)
+
+        let fgR = self.redComponent * opacity
+        let fgG = self.greenComponent * opacity
+        let fgB = self.blueComponent * opacity
+
+        return NSColor(calibratedRed: (fgR + bgR), green: (fgG + bgG), blue: (fgB + bgB), alpha: 1.0)
     }
 }

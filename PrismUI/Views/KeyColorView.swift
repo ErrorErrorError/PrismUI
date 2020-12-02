@@ -10,6 +10,8 @@ import Cocoa
 
 class KeyColorView: ColorView {
 
+    // MARK: Public
+
     var prismKey: PrismKey! {
         didSet {
             updateAnimation()
@@ -17,64 +19,134 @@ class KeyColorView: ColorView {
     }
 
     override var selected: Bool {
-        didSet {
+        set {
+            CATransaction.lock()
+            CATransaction.setAnimationDuration(0.15)
+            backgroundLayer.borderWidth = newValue ? borderWidth : 0
+            CATransaction.unlock()
+            selected ? delegate?.didSelect(self) : delegate?.didDeselect(self)
             NotificationCenter.default.post(name: .keySelectionChanged, object: nil)
+        }
+        get {
+            return backgroundLayer.borderWidth != 0
         }
     }
 
-    var text: NSString = NSString()
+    override var color: NSColor {
+        set {
+            selectionLayer.backgroundColor = newValue.cgColor
+            backgroundLayer.borderColor = newValue.cgColor
+            dotLayer.backgroundColor = newValue.cgColor
+        }
 
-    var transitionIndex = 0
-    let textStyle: NSParagraphStyle = {
-        let style = NSMutableParagraphStyle()
-        style.alignment = .center
-        return style
+        get {
+            return NSColor(cgColor: dotLayer.backgroundColor ?? CGColor.clear) ?? NSColor.clear
+        }
+    }
+
+    private let textView = NSTextField(labelWithString: "")
+
+    // MARK: Private
+
+    // Layers
+
+    private let selectionLayer: CALayer = {
+        let layer = CALayer()
+        layer.isOpaque = true
+        layer.name = "selectionLayer"
+        layer.actions = ["backgroundColor": NSNull()]
+        return layer
     }()
+
+    private let dotLayer = CALayer()
+
+    private let borderWidth: CGFloat = 2
+    private let backgroundOpacity: Float = 0.40
+    private var text: NSString = NSString()
+    private var transitionIndex = 0
+
+    private let baseDarkBackground = NSColor(calibratedRed: 0x1a/0xff,
+                                             green: 0x1a/0xff,
+                                             blue: 0x1a/0xff,
+                                             alpha: 1.0)
+
+    private let baseLightBackground = NSColor(calibratedRed: 0xf8/0xff,
+                                              green: 0xf8/0xff,
+                                              blue: 0xf8/0xff,
+                                              alpha: 1.0)
 
     convenience init(text: String, key: PrismKey) {
         self.init()
         self.prismKey = key
         self.text = text as NSString
         color = prismKey.main.nsColor
+
+        backgroundLayer.backgroundColor = baseDarkBackground.cgColor
+        backgroundLayer.borderColor = color.cgColor
+        backgroundLayer.borderWidth = 0
+        backgroundLayer.name = "backgroundLayer"
+        backgroundLayer.actions = ["backgroundColor": NSNull(),
+                                   "borderColor": NSNull()]
+
+        // Selection layer
+
+        selectionLayer.backgroundColor = color.cgColor
+        selectionLayer.cornerRadius = cornerRadius
+        selectionLayer.opacity = backgroundOpacity
+        layer?.addSublayer(selectionLayer)
+
+        // Dot layer
+
+        dotLayer.backgroundColor = color.cgColor
+        dotLayer.name = "dotLayer"
+        dotLayer.actions = ["backgroundColor": NSNull()]
+
+        layer?.addSublayer(dotLayer)
+
+        addSubview(textView)
+
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.stringValue = text
+        textView.font = NSFont.boldSystemFont(ofSize: 14)
+        textView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        textView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+
     }
 
-    override func draw(_ dirtyRect: NSRect) {
-        super.draw(dirtyRect)
-        let textColor: NSColor = color.isDarkColor ? .white : .black
-        let attributes = [NSAttributedString.Key.paragraphStyle: textStyle,
-                          NSAttributedString.Key.foregroundColor: textColor]
-        text.drawVerticallyCentered(in: dirtyRect,
-                                    withAttributes: attributes)
+    override func setFrameSize(_ newSize: NSSize) {
+        super.setFrameSize(newSize)
+        let rect = NSRect(origin: CGPoint.zero, size: newSize)
+        selectionLayer.frame = rect
+        let newHeight = min(rect.height, rect.width) * 0.18
+        let margin: CGFloat = 4
+        dotLayer.frame = NSRect(origin: CGPoint(x: margin, y: rect.height - newHeight - margin),
+                                size: CGSize(width: newHeight, height: newHeight))
+        dotLayer.cornerRadius = dotLayer.frame.width/2
     }
 }
 
 // Update Animation
+
 extension KeyColorView: CAAnimationDelegate {
 
     func updateAnimation() {
-        layer?.removeAllAnimations()
         color = prismKey.main.nsColor
         if prismKey.effect != nil {
             transitionIndex = 0
-            animateEffect()
+            animate()
+        } else {
+            layer?.removeAllAnimations()
         }
     }
 
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         if flag {
-            self.animateEffect()
+            self.animate()
         }
     }
 
-    @objc func updateTextColorBackground() {
-        guard let presentationLayer = self.layer?.presentation() else { return }
-        guard let cgColor = presentationLayer.backgroundColor else { return }
-        guard let nsColor = NSColor(cgColor: cgColor) else { return }
-        self.color = nsColor
-    }
-
-    private func animateEffect() {
-        guard let waveLayer = layer else {
+    private func animate() {
+        guard let baseLayer = layer else {
             return
         }
 
@@ -82,22 +154,45 @@ extension KeyColorView: CAAnimationDelegate {
             return
         }
 
-        waveLayer.removeAllAnimations()
+        baseLayer.removeAnimation(forKey: "groupEffect")
+
         let transitions = effect.transitions
         let previousTransition = transitions[transitionIndex]
-        let animation = CABasicAnimation(keyPath: "backgroundColor")
-        animation.delegate = self
-        animation.fromValue = previousTransition.color.cgColor
-        if transitionIndex + 1 < transitions.count {
-            transitionIndex += 1
-        } else {
-            transitionIndex = 0
-        }
+        transitionIndex + 1 < transitions.count ? (transitionIndex += 1) : (transitionIndex = 0)
         let nextTransition = transitions[transitionIndex]
-        animation.toValue = nextTransition.color.cgColor
-        animation.duration = CFTimeInterval(CGFloat(previousTransition.duration) / 100)
+
+        let animationGroup = CAAnimationGroup()
+        animationGroup.delegate = self
+
+        let borderAnimation = CABasicAnimation(keyPath: "sublayers.backgroundLayer.borderColor")
+        borderAnimation.fromValue = previousTransition.color.cgColor
+        borderAnimation.toValue = nextTransition.color.cgColor
+
+        let selectionAnimation = CABasicAnimation(keyPath: "sublayers.selectionLayer.backgroundColor")
+        selectionAnimation.fromValue = borderAnimation.fromValue
+        selectionAnimation.toValue = borderAnimation.toValue
+
+        let dotAnimation = CABasicAnimation(keyPath: "sublayers.dotLayer.backgroundColor")
+        dotAnimation.fromValue = selectionAnimation.fromValue
+        dotAnimation.toValue = selectionAnimation.toValue
+
+        animationGroup.animations = [selectionAnimation, borderAnimation, dotAnimation]
+        animationGroup.duration = CFTimeInterval(CGFloat(previousTransition.duration) / 100)
+
         color = nextTransition.color.nsColor
-        waveLayer.add(animation, forKey: #keyPath(CALayer.backgroundColor))
+
+        baseLayer.add(animationGroup, forKey: "groupEffect")
+    }
+
+    // When appearance change happens
+
+    override func updateLayer() {
+        super.updateLayer()
+        if effectiveAppearance.name == .darkAqua {
+            backgroundLayer.backgroundColor = baseDarkBackground.cgColor
+        } else {
+            backgroundLayer.backgroundColor = baseLightBackground.cgColor
+        }
     }
 }
 

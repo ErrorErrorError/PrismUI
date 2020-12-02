@@ -63,9 +63,6 @@ public class PrismDriver: NSObject {
             if prismDevice.isKeyboardDevice {
                 prismDevice = try PrismKeyboardDevice(device: rawDevice)
             }
-//            if currentDevice == nil {
-//                currentDevice = prismDevice
-//            }
             self.devices.add(prismDevice)
             Log.debug("Added device: \(prismDevice)")
             NotificationCenter.default.post(name: .prismDeviceAdded, object: prismDevice)

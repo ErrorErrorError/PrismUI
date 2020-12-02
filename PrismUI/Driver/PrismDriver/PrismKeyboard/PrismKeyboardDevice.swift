@@ -191,7 +191,6 @@ public final class PrismKeyboardDevice: PrismDevice {
     ]
 
     public override func update(forceUpdate: Bool = false) {
-        Log.debug("Updating \(model) with new commands")
         if model != .threeRegion {
             updatePerKeyKeyboard(forceUpdate: forceUpdate)
         } else {
@@ -232,7 +231,7 @@ extension PrismKeyboardDevice {
 
                 data.append([index == 0 ? effect.identifier : idx,
                              0x0,
-                             colorDelta.redInt, colorDelta.greenInt, colorDelta.blueInt,
+                             colorDelta.redUInt, colorDelta.greenUInt, colorDelta.blueUInt,
                              0x0,
                              UInt8(transition.duration & 0x00ff),
                              UInt8((transition.duration & 0xff00) >> 8)
@@ -243,12 +242,12 @@ extension PrismKeyboardDevice {
             data.append(fillZeros, count: fillZeros.count)
 
             // Set starting color, each value will have 2 bytes
-            data.append([(effect.start.redInt & 0x0f) << 4,
-                         (effect.start.redInt & 0xf0) >> 4,
-                         (effect.start.greenInt & 0x0f) << 4,
-                         (effect.start.greenInt & 0xf0) >> 4,
-                         (effect.start.blueInt & 0x0f) << 4,
-                         (effect.start.blueInt & 0xf0) >> 4,
+            data.append([(effect.start.redUInt & 0x0f) << 4,
+                         (effect.start.redUInt & 0xf0) >> 4,
+                         (effect.start.greenUInt & 0x0f) << 4,
+                         (effect.start.greenUInt & 0xf0) >> 4,
+                         (effect.start.blueUInt & 0x0f) << 4,
+                         (effect.start.blueUInt & 0xf0) >> 4,
                          // Separator
                          0xff,
                          0x00
@@ -279,7 +278,7 @@ extension PrismKeyboardDevice {
                          0x00,
                          UInt8(effect.transitionDuration & 0x00ff),
                          UInt8((effect.transitionDuration & 0xff00) >> 8),
-                         effect.control == .inward ? 0x01 : 0x00
+                         effect.control.rawValue
             ], count: 5)
 
             // Fill remaining with zeros
@@ -313,7 +312,7 @@ extension PrismKeyboardDevice {
 
             // Update effects first
 
-            let result = self.writeEffectsToKeyboard()
+            var result = self.writeEffectsToKeyboard()
             guard result == kIOReturnSuccess || result == kIOReturnNotFound else {
                 Log.error("Cannot update effect: \(String(cString: mach_error_string(result)))")
                 return
@@ -324,48 +323,69 @@ extension PrismKeyboardDevice {
             var lastByte: UInt8 = 0
             if updateModifiers {
                 lastByte = 0x2d
-                self.writeKeysToKeyboard(region: PrismKeyboardDevice.regions[0],
-                                         keycodes: PrismKeyboardDevice.modifiers)
+                let result = self.writeKeysToKeyboard(region: PrismKeyboardDevice.regions[0],
+                                                         keycodes: PrismKeyboardDevice.modifiers)
+                if result != kIOReturnSuccess {
+                    Log.error("Error sending feature report for \(self.model): " +
+                                "\(String(cString: mach_error_string(result)))")
+                    return
+                }
             }
 
             if updateAlphanums {
                 lastByte = 0x08
-                self.writeKeysToKeyboard(region: PrismKeyboardDevice.regions[1],
-                                         keycodes: PrismKeyboardDevice.alphanums)
+                let result = self.writeKeysToKeyboard(region: PrismKeyboardDevice.regions[1],
+                                                      keycodes: PrismKeyboardDevice.alphanums)
+                if result != kIOReturnSuccess {
+                    Log.error("Error sending feature report for \(self.model): " +
+                                "\(String(cString: mach_error_string(result)))")
+                    return
+                }
             }
 
             if updateEnter {
                 lastByte = 0x87
-                self.writeKeysToKeyboard(region: PrismKeyboardDevice.regions[2],
-                                         keycodes: PrismKeyboardDevice.enter)
+                let result = self.writeKeysToKeyboard(region: PrismKeyboardDevice.regions[2],
+                                                      keycodes: PrismKeyboardDevice.enter)
+                if result != kIOReturnSuccess {
+                    Log.error("Error sending feature report for \(self.model): " +
+                                "\(String(cString: mach_error_string(result)))")
+                    return
+                }
             }
 
             if updateSpecial {
                 lastByte = 0x44
-                self.writeKeysToKeyboard(region: PrismKeyboardDevice.regions[3],
-                                           keycodes: self.model == .perKey ?
-                                            PrismKeyboardDevice.special :
-                                            PrismKeyboardDevice.specialGS65)
+                let result = self.writeKeysToKeyboard(region: PrismKeyboardDevice.regions[3],
+                                                      keycodes: self.model == .perKey ?
+                                                        PrismKeyboardDevice.special :
+                                                        PrismKeyboardDevice.specialGS65)
+                if result != kIOReturnSuccess {
+                    Log.error("Error sending feature report for \(self.model): " +
+                                "\(String(cString: mach_error_string(result)))")
+                    return
+                }
             }
 
             // Update keyboard
-            self.writeToPerKeyKeyboard(lastByte: lastByte)
+
+            result = self.writeToPerKeyKeyboard(lastByte: lastByte)
+            if result != kIOReturnSuccess {
+                Log.error("Error writing to keyboard: \(String(cString: mach_error_string(result)))")
+            }
         }
     }
 
-    private func writeToPerKeyKeyboard(lastByte: UInt8) {
+    private func writeToPerKeyKeyboard(lastByte: UInt8) -> IOReturn {
         var data = Data(capacity: 0x40)
 
         data.append([0x0d, 0x0, 0x02], count: 3)
         data.append([UInt8](repeating: 0, count: 60), count: 60)
         data.append([lastByte], count: 1)
-        let result = write(data: data)
-        if result != kIOReturnSuccess {
-            Log.error("Error writing keyboard: \(String(cString: mach_error_string(result)))")
-        }
+        return write(data: data)
     }
 
-    private func writeKeysToKeyboard(region: UInt8, keycodes: [UInt8]) {
+    private func writeKeysToKeyboard(region: UInt8, keycodes: [UInt8]) -> IOReturn {
         var data = Data(capacity: PrismKeyboardDevice.packageSize)
 
         // This array contains only the usable keys
@@ -391,12 +411,12 @@ extension PrismKeyboardDevice {
                     data.append([0x0, key.keycode], count: 2)
                 }
 
-                data.append([key.main.redInt,
-                             key.main.greenInt,
-                             key.main.blueInt,
-                             key.active.redInt,
-                             key.active.greenInt,
-                             key.active.blueInt,
+                data.append([key.main.redUInt,
+                             key.main.greenUInt,
+                             key.main.blueUInt,
+                             key.active.redUInt,
+                             key.active.greenUInt,
+                             key.active.blueUInt,
                              UInt8(key.duration & 0x00ff),
                              UInt8((key.duration & 0xff00) >> 8),
                              key.effect?.identifier ?? 0,
@@ -414,10 +434,7 @@ extension PrismKeyboardDevice {
         // Fill rest of data with the remaining capacity
         let sizeRemaining = PrismKeyboardDevice.packageSize - data.count
         data.append([UInt8](repeating: 0, count: sizeRemaining), count: sizeRemaining)
-        let result = sendFeatureReport(data: data)
-        if result != kIOReturnSuccess {
-            Log.error("Error updating keyboard: \(String(cString: mach_error_string(result)))")
-        }
+        return sendFeatureReport(data: data)
     }
 
     static func getRegionFromKeycode(_ keycode: UInt8) -> UInt8 {

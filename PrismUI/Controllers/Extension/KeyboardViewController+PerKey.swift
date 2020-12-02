@@ -15,7 +15,7 @@ extension KeyboardViewController {
         let keyboardKeyNames = model == .perKey ? KeyboardLayout.perKeyNames : KeyboardLayout.perKeyGS65KeyNames
         let keycodeArray = (model == .perKey ? KeyboardLayout.perKeyCodes : KeyboardLayout.perKeyGS65KeyCodes)
         let padding: CGFloat = 5
-        let desiredKeyWidth: CGFloat = model == .perKey ? 50 : 60
+        let desiredKeyWidth: CGFloat = model == .perKey ? 56 : 66
         let desiredKeyHeight = desiredKeyWidth
         let keyboardHeight = 6 * desiredKeyHeight
         let keyboardWidth = ((model == .perKey) ? 20 : 15) * desiredKeyWidth
@@ -62,16 +62,15 @@ extension KeyboardViewController {
 
     private func getRegionKey(_ char: String, keycode: UInt8) -> UInt8 {
         var region: UInt8
-        switch char {
-        case "ESC":
+        if char.contains("ESC") {
             region = PrismKeyboardDevice.regions[0]
-        case "A":
+        } else if char == "A" {
             region = PrismKeyboardDevice.regions[1]
-        case "ENTER":
+        } else if char.contains("ENTER") {
             region = PrismKeyboardDevice.regions[2]
-        case "F7":
+        } else if char == "F7" {
             region = PrismKeyboardDevice.regions[3]
-        default:
+        } else {
             region = PrismKeyboardDevice.getRegionFromKeycode(keycode)
         }
         return region

@@ -127,7 +127,7 @@ class ModesViewController: BaseViewController {
     }()
 
     let waveInwardOutwardControl: NSSegmentedControl = {
-        let segmented = NSSegmentedControl(labels: ["Out", "In"],
+        let segmented = NSSegmentedControl(labels: ["In", "Out"],
                                            trackingMode: .selectOne,
                                            target: nil,
                                            action: #selector(onButtonClicked(_:update:)))
@@ -383,6 +383,7 @@ extension ModesViewController {
                 "\(PrismDriver.shared.currentDevice?.name ?? "nil")")
         }
     }
+
 }
 
 // MARK: Color Picker delegate
