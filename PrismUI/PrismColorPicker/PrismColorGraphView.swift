@@ -102,13 +102,13 @@ extension PrismColorGraphView {
                 let index = row * width + column
                 let widthPercentage = CGFloat(column) / CGFloat(width)
                 let heightPercentage = 1 - CGFloat(row) / CGFloat(height)
-                let horizontalColor = linearGradient(fromColor: white,
+                let horizontalColor = PrismColor.linearGradient(fromColor: white,
                                                      toColor: transparent,
                                                      percent: widthPercentage)
-                let verticalColor = linearGradient(fromColor: black,
+                let verticalColor = PrismColor.linearGradient(fromColor: black,
                                                    toColor: transparent,
                                                    percent: heightPercentage)
-                let blendColor = blend(src: verticalColor, dest: horizontalColor)
+                let blendColor = PrismColor.blend(src: verticalColor, dest: horizontalColor)
                 buffer[index] =
                     UInt32(blendColor.red * 0xff) << 24 |
                     UInt32(blendColor.green * 0xff) << 16 |
@@ -161,35 +161,6 @@ extension PrismColorGraphView {
         selector.frame.origin = CGPoint(x: xAxis, y: yAxis)
         selector.needsDisplay = true
     }
-}
-
-// MARK: Color Function Methods
-extension PrismColorGraphView {
-
-    private func linearGradient(fromColor: PrismRGB, toColor: PrismRGB, percent: CGFloat) -> PrismRGB {
-        let red = lerp(fromValue: fromColor.red, toValue: toColor.red, percent: percent)
-        let green = lerp(fromValue: fromColor.green, toValue: toColor.green, percent: percent)
-        let blue = lerp(fromValue: fromColor.blue, toValue: toColor.blue, percent: percent)
-        let alpha = lerp(fromValue: fromColor.alpha, toValue: toColor.alpha, percent: percent)
-        return PrismRGB(red: red, green: green, blue: blue, alpha: alpha)
-    }
-
-    private func blend(src: PrismRGB, dest: PrismRGB) -> PrismRGB {
-        let red = alphaOverlay(from: src.red, to: dest.red, alpha: src.alpha)
-        let green = alphaOverlay(from: src.green, to: dest.green, alpha: src.alpha)
-        let blue = alphaOverlay(from: src.blue, to: dest.blue, alpha: src.alpha)
-        let alpha = 1 - (1 - src.alpha) * (1 - dest.alpha)
-        return PrismRGB(red: red, green: green, blue: blue, alpha: alpha)
-    }
-
-    private func lerp(fromValue: CGFloat, toValue: CGFloat, percent: CGFloat) -> CGFloat {
-        return (toValue - fromValue) * percent + fromValue
-    }
-
-    func alphaOverlay(from src: CGFloat, to dest: CGFloat, alpha: CGFloat) -> CGFloat {
-        return (1 - alpha) * dest + alpha * src
-    }
-
 }
 
 // MARK: Mouse events

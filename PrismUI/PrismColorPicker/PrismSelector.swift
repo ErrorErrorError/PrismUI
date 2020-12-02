@@ -37,20 +37,18 @@ class PrismSelector: NSView {
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         wantsLayer = true
+
         layer?.borderColor = CGColor.white
         layer?.cornerRadius = frame.width/2
         layer?.borderWidth = strokeWidth
         layer?.backgroundColor = color.nsColor.cgColor
+
         self.shadow = NSShadow()
         layer?.shadowColor = CGColor.black
-        layer?.shadowOffset = CGSize(width: 0, height: -2)
         layer?.shadowOffset = .zero
-        layer?.shadowOpacity = 1.0
-        layer?.shadowRadius = 10
-        layer?.shadowPath = CGPath(roundedRect: bounds,
-                                   cornerWidth: frame.width/2,
-                                   cornerHeight: frame.height/2,
-                                   transform: nil)
+        layer?.shadowOpacity = 0.15
+        layer?.shadowRadius = 2
+        layer?.shadowOffset = CGSize(width: 0, height: -0.8)
     }
 
     required init?(coder: NSCoder) {

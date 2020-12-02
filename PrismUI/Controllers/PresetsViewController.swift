@@ -142,7 +142,7 @@ extension PresetsViewController: NSOutlineViewDelegate {
         let cell = NSTableCellView()
         cell.objectValue = node.representedObject
 
-        let textField = NSTextField(wrappingLabelWithString: "")
+        let textField = NSTextField(labelWithString: "")
         cell.textField = textField
         cell.addSubview(textField)
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -151,10 +151,8 @@ extension PresetsViewController: NSOutlineViewDelegate {
         textField.leadingAnchor.constraint(equalTo: cell.leadingAnchor).isActive = true
         textField.isEditable = false
         textField.cell?.truncatesLastVisibleLine = true
-//        textField.font = NSFont.systemFont(ofSize: 13)
 
         if !node.isLeaf {
-//            textField.font = NSFont.systemFont(ofSize: 12)
             textField.textColor = NSColor.headerTextColor
         } else {
             textField.delegate = self

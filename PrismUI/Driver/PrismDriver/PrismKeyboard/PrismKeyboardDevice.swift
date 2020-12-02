@@ -24,6 +24,10 @@ public final class PrismKeyboardDevice: PrismDevice {
 
     static let effects = NSMutableArray()
 
+    // Origin
+
+    static let origin = PrismPoint()
+
     // MARK: GS65 and PerKey - Region keys
 
     static let regions: [UInt8] = [

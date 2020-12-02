@@ -23,7 +23,6 @@ extension ModesViewController {
         reactRestColor.delegate = self
         multiSlider.delegate = self
 
-        view.addSubview(multiSlider)
         view.addSubview(speedLabel)
         view.addSubview(speedSlider)
         view.addSubview(speedValue)
@@ -38,6 +37,7 @@ extension ModesViewController {
         view.addSubview(reactActiveColor)
         view.addSubview(reactRestText)
         view.addSubview(reactRestColor)
+        view.addSubview(multiSlider)
 
         modesPopUp.removeAllItems()
         modesPopUp.addItem(withTitle: "\(PrismKeyModes.steady)")
@@ -49,8 +49,8 @@ extension ModesViewController {
         modesPopUp.item(withTitle: "Mixed")?.isHidden = true
         modesPopUp.selectItem(withTitle: "\(PrismKeyModes.steady)")
 
-        ModesViewController.waveOrigin.xPoint = 0
-        ModesViewController.waveOrigin.yPoint = 0
+        PrismKeyboardDevice.origin.xPoint = 0
+        PrismKeyboardDevice.origin.yPoint = 0
 
         perKeySetupContraints()
         updatePending = false
@@ -269,10 +269,10 @@ extension ModesViewController {
                     waveInwardOutwardControl.selectedSegment = Int(effect.control.rawValue)
                     pulseSlider.intValue = Int32(effect.pulse)
                     handlePerKeyButtonClicked(waveToggle, update: false)
-                    ModesViewController.waveOrigin.xPoint = effect.origin.xPoint
-                    ModesViewController.waveOrigin.yPoint = effect.origin.yPoint
+                    PrismKeyboardDevice.origin.xPoint = effect.origin.xPoint
+                    PrismKeyboardDevice.origin.yPoint = effect.origin.yPoint
                     NotificationCenter.default.post(name: .updateOriginView, object: effect.transitions)
-                    NotificationCenter.default.post(name: .updateOriginView, object: ModesViewController.waveOrigin)
+                    NotificationCenter.default.post(name: .updateOriginView, object: PrismKeyboardDevice.origin)
                     NotificationCenter.default.post(name: .updateOriginView, object: effect.direction)
                 }
             case "\(PrismKeyModes.disabled)":
@@ -358,12 +358,12 @@ extension ModesViewController {
             waveToggle.state = .off
             waveInwardOutwardControl.selectedSegment = 0
             waveDirectionControl.selectedSegment = 0
-            ModesViewController.waveOrigin.xPoint = 0
-            ModesViewController.waveOrigin.yPoint = 0
+            PrismKeyboardDevice.origin.xPoint = 0
+            PrismKeyboardDevice.origin.yPoint = 0
             onButtonClicked(waveToggle, update: false)
             onSliderChanged(speedSlider, update: false)
             onSliderChanged(pulseSlider, update: false)
-            NotificationCenter.default.post(name: .updateOriginView, object: ModesViewController.waveOrigin)
+            NotificationCenter.default.post(name: .updateOriginView, object: PrismKeyboardDevice.origin)
         }
     }
 
@@ -510,7 +510,7 @@ extension ModesViewController {
         if mode == .colorShift {
             effect.waveActive = waveToggle.state == .on
             if effect.waveActive {
-                effect.origin = ModesViewController.waveOrigin.copy() as? PrismPoint ?? PrismPoint()
+                effect.origin = PrismKeyboardDevice.origin.copy() as? PrismPoint ?? PrismPoint()
                 effect.pulse = UInt16(pulseSlider.intValue)
                 effect.direction = PrismDirection(rawValue: UInt8(waveDirectionControl.selectedSegment)) ?? .xyAxis
                 effect.control = PrismControl(rawValue: UInt8(waveInwardOutwardControl.selectedSegment)) ?? .inward

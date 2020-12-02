@@ -325,6 +325,33 @@ extension PrismHSB {
         }
     }
 }
+// MARK: Color Function Methods
+
+class PrismColor {
+    static func linearGradient(fromColor: PrismRGB, toColor: PrismRGB, percent: CGFloat) -> PrismRGB {
+        let red = lerp(fromValue: fromColor.red, toValue: toColor.red, percent: percent)
+        let green = lerp(fromValue: fromColor.green, toValue: toColor.green, percent: percent)
+        let blue = lerp(fromValue: fromColor.blue, toValue: toColor.blue, percent: percent)
+        let alpha = lerp(fromValue: fromColor.alpha, toValue: toColor.alpha, percent: percent)
+        return PrismRGB(red: red, green: green, blue: blue, alpha: alpha)
+    }
+
+    static func blend(src: PrismRGB, dest: PrismRGB) -> PrismRGB {
+        let red = alphaOverlay(from: src.red, to: dest.red, alpha: src.alpha)
+        let green = alphaOverlay(from: src.green, to: dest.green, alpha: src.alpha)
+        let blue = alphaOverlay(from: src.blue, to: dest.blue, alpha: src.alpha)
+        let alpha = 1 - (1 - src.alpha) * (1 - dest.alpha)
+        return PrismRGB(red: red, green: green, blue: blue, alpha: alpha)
+    }
+
+    static func lerp(fromValue: CGFloat, toValue: CGFloat, percent: CGFloat) -> CGFloat {
+        return (toValue - fromValue) * percent + fromValue
+    }
+
+    static func alphaOverlay(from src: CGFloat, to dest: CGFloat, alpha: CGFloat) -> CGFloat {
+        return (1 - alpha) * dest + alpha * src
+    }
+}
 
 private extension CGFloat {
 

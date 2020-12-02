@@ -17,10 +17,6 @@ class ModesViewController: BaseViewController {
 
     static let selectorArray = NSMutableArray()
 
-    // MARK: PerKey variables
-
-    static var waveOrigin = PrismPoint()
-
     // MARK: Common initialization
 
     let edgeMargin: CGFloat = 18

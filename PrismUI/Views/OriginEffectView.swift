@@ -17,7 +17,7 @@ class OriginEffectView: NSView {
 
     override var isHidden: Bool {
         didSet {
-            setOrigin(origin: ModesViewController.waveOrigin)
+            setOrigin(origin: PrismKeyboardDevice.origin)
         }
     }
 
@@ -71,11 +71,11 @@ class OriginEffectView: NSView {
 
     override func mouseUp(with event: NSEvent) {
         let currentPoint = convert(event.locationInWindow, from: nil)
-        if startPoint != nil {
+        if didPointToCrosshair, startPoint != nil {
             if startPoint != currentPoint {
                 let getCalcVal = getCalculatedOrigin()
-                ModesViewController.waveOrigin.xPoint = getCalcVal.xPoint
-                ModesViewController.waveOrigin.yPoint = getCalcVal.yPoint
+                PrismKeyboardDevice.origin.xPoint = getCalcVal.xPoint
+                PrismKeyboardDevice.origin.yPoint = getCalcVal.yPoint
                 NotificationCenter.default.post(name: .prismUpdateFromNewPoint, object: nil)
             }
             startPoint = nil

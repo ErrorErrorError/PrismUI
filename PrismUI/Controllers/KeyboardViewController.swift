@@ -124,7 +124,7 @@ extension KeyboardViewController {
                             keyView.selected = false
                             keyObj.mode = key.mode
                             keyObj.effect = key.effect
-                            keyObj.main = key.main
+                            keyObj.main = key.effect?.start ?? key.main
                             keyObj.active = key.active
                             keyObj.duration = key.duration
                             keyView.updateAnimation()
