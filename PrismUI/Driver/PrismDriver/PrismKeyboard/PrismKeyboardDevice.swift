@@ -34,7 +34,7 @@ public final class PrismKeyboardDevice: PrismDevice {
         0x18,   // esc (modifiers)
         0x2a,   // a (alphanums)
         0x0b,   // enter (enter)
-        0x24    // f7 (special/numpad)
+        0x24    // f7 (special/numpad) // 0x13 for perKeyGS65 but works fine on both
     ]
 
     // MARK: GS65 and PerKey - Modifier Keys

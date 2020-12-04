@@ -307,6 +307,24 @@ extension PrismRGB {
 
         return PrismRGB(red: deltaR, green: deltaG, blue: deltaB)
     }
+
+    public func undoDelta(fromColor: PrismRGB, duration: UInt16) -> PrismRGB {
+        var duration = duration
+        if duration < 32 {
+            duration = 32
+        }
+
+        let divisible: CGFloat = CGFloat(duration / 16)
+        var targetR = (divisible * self.red) + fromColor.red
+        var targetG = (divisible * self.green) + fromColor.green
+        var targetB = (divisible * self.blue) + fromColor.blue
+
+        while targetR > 1.0 { targetR -= 1.0 }
+        while targetG > 1.0 { targetG -= 1.0 }
+        while targetB > 1.0 { targetB -= 1.0 }
+
+        return PrismRGB(red: targetR, green: targetG, blue: targetB)
+    }
 }
 
 extension PrismHSB {

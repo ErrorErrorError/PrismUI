@@ -131,6 +131,9 @@ class KeyColorView: ColorView {
 extension KeyColorView: CAAnimationDelegate {
 
     func updateAnimation() {
+        backgroundLayer.removeAllAnimations()
+        selectionLayer.removeAllAnimations()
+        dotLayer.removeAllAnimations()
         layer?.removeAllAnimations()
         color = prismKey.main.nsColor
         if let effect = prismKey.effect {
@@ -176,30 +179,12 @@ extension KeyColorView: CAAnimationDelegate {
     private func animateWave() {
         guard let originViewFrame = superview?.subviews.filter({ $0 is OriginEffectView }).first?.frame else { return }
 
-        guard let effect = prismKey.effect else {
-            return
-        }
+        guard let effect = prismKey.effect else { return }
 
         let originPoint = effect.origin
         let originXFloat = CGFloat(originPoint.xPoint) / CGFloat(0x105c)
         let originYFloat = 1 - CGFloat(originPoint.yPoint) / CGFloat(0x040d)
 
-        if effect.direction != .xyAxis {
-            animateLinearWave(effect: effect,
-                              originViewFrame: originViewFrame,
-                              originX: originXFloat,
-                              originY: originYFloat)
-        } else {
-            animateRadialWave(effect: effect,
-                              originViewFrame: originViewFrame,
-                              originX: originXFloat,
-                              originY: originYFloat)
-        }
-    }
-
-    private func animateRadialWave(effect: PrismEffect, originViewFrame: NSRect, originX: CGFloat, originY: CGFloat) {
-        // TODO: Work on the radius animation
-
         let beforeColor, afterColor: CGColor
         let durationAnimation: CFTimeInterval
         var totalDur: CGFloat = 0
@@ -211,22 +196,29 @@ extension KeyColorView: CAAnimationDelegate {
         }
 
         if !hasSetInitialWaveEffect {
-            let maxRadius = originViewFrame.height
+            var directionDelta: CGFloat
 
-            let keyPointX = frame.origin.x - originViewFrame.origin.x
-            let keyPointY = frame.origin.y - originViewFrame.origin.y
-
-            let viewPrismPointX = originX * originViewFrame.width
-            let viewPrismPointY = originY * originViewFrame.height
-
-            let distanceX = abs(viewPrismPointX - keyPointX)
-            let distanceY = abs(viewPrismPointY - keyPointY)
-
-            var diagDistance = sqrt(pow(distanceX, 2) + pow(distanceY, 2)) / maxRadius
-            while diagDistance > 1.0 { diagDistance -= 1.0 }
-            let totalDistance = diagDistance
+            let keyPointX = (frame.origin.x - originViewFrame.origin.x) + (frame.width / 2)
+            let keyPointY = (frame.origin.y - originViewFrame.origin.y) + (frame.height / 2)
             let pulseWidth = (CGFloat(effect.pulse) / 100)
-            var directionDelta = totalDistance / pulseWidth
+
+            if effect.direction == .xyAxis {
+                let maxRadius = originViewFrame.height
+
+                let distanceX = abs((originXFloat * originViewFrame.width) - keyPointX)
+                let distanceY = abs((originYFloat * originViewFrame.height) - keyPointY)
+
+                var diagDistance = sqrt(pow(distanceX, 2) + pow(distanceY, 2)) / maxRadius
+                while diagDistance > 1.0 { diagDistance -= 1.0 }
+
+                directionDelta = diagDistance / pulseWidth
+            } else {
+                var xDelta = abs((keyPointX / originViewFrame.width) - originXFloat)
+                var yDelta = abs((keyPointY / originViewFrame.height) - originYFloat)
+                if xDelta < 0 { xDelta += 1 }; if yDelta < 0 { yDelta += 1 }
+                directionDelta = (effect.direction == .xAxis ? xDelta : yDelta) / pulseWidth
+            }
+
             while directionDelta > 1.0 { directionDelta -= 1.0 }
             guard let headColor = colorAndLocation.filter({ $0.1 <= directionDelta }).last else { return }
             guard let headIndex = colorAndLocation.firstIndex(where: { $0 == headColor }) else { return }
@@ -240,117 +232,34 @@ extension KeyColorView: CAAnimationDelegate {
                                               outMax: 1.0)
 
             beforeColor = PrismColor.linearGradient(fromColor: headColor.0.color,
-                                                         toColor: tailColor.0.color,
-                                                         percent: colorLocation).cgColor
+                                                    toColor: tailColor.0.color,
+                                                    percent: colorLocation).cgColor
 
-            // Gets closest transition
+            // Get next transition for effect
 
-            let targetColor: PrismRGB
             let distanceLeft: CGFloat
-            let targetIndex: Int
             if effect.control == .inward {
-                targetColor = tailColor.0.color
-                targetIndex = headIndex + 1 < colorAndLocation.count ? headIndex + 1 : 0
+                afterColor = tailColor.0.color.cgColor
                 distanceLeft = CGFloat(headColor.0.duration) - (CGFloat(headColor.0.duration) * colorLocation)
+                transitionIndex = headIndex + 1 < colorAndLocation.count ? headIndex + 1 : 0
             } else {
                 if directionDelta > headColor.1 {
-                    targetIndex = headIndex
-                    targetColor = headColor.0.color
+                    afterColor = headColor.0.color.cgColor
                     distanceLeft = CGFloat(headColor.0.duration) * colorLocation
+                    transitionIndex = headIndex
                 } else {
-                    targetIndex = headIndex - 1 >= 0 ? headIndex - 1 : colorAndLocation.count - 1
-                    targetColor = colorAndLocation[targetIndex].0.color
-                    distanceLeft = CGFloat(colorAndLocation[targetIndex].0.duration)
+                    transitionIndex = headIndex - 1 >= 0 ? headIndex - 1 : colorAndLocation.count - 1
+                    afterColor = colorAndLocation[transitionIndex].0.color.cgColor
+                    distanceLeft = CGFloat(colorAndLocation[transitionIndex].0.duration)
                 }
             }
 
-            afterColor = targetColor.cgColor
             durationAnimation = CFTimeInterval(distanceLeft / 100.0)
-            transitionIndex = targetIndex
             hasSetInitialWaveEffect = true
         } else {
-            // Animates to the next transition depending on speed/color/direction
             let currentColor = colorAndLocation[transitionIndex]
             let nextIndex: Int
             if effect.control == .inward {
-                nextIndex = transitionIndex + 1 < colorAndLocation.count ? transitionIndex + 1 : 0
-            } else {
-                nextIndex = transitionIndex - 1 >= 0 ? transitionIndex - 1 : colorAndLocation.count - 1
-            }
-            beforeColor = currentColor.0.color.cgColor
-            afterColor = colorAndLocation[nextIndex].0.color.cgColor
-            durationAnimation = CFTimeInterval(CGFloat(currentColor.0.duration) / 100)
-            transitionIndex = nextIndex
-        }
-
-        createAnimationBackground(fromColor: beforeColor, toColor: afterColor, duration: durationAnimation)
-    }
-
-    private func animateLinearWave(effect: PrismEffect, originViewFrame: NSRect, originX: CGFloat, originY: CGFloat) {
-        let beforeColor, afterColor: CGColor
-        let durationAnimation: CFTimeInterval
-        var totalDur: CGFloat = 0
-
-        let colorAndLocation = effect.transitions.compactMap { transition -> (PrismTransition, CGFloat) in
-            let val = (transition, totalDur/CGFloat(effect.transitionDuration))
-            totalDur += CGFloat(transition.duration)
-            return val
-        }
-
-        if !hasSetInitialWaveEffect {
-            var xDelta = ((frame.origin.x - originViewFrame.origin.x) / originViewFrame.width) - originX
-            var yDelta = ((frame.origin.y - originViewFrame.origin.y) / originViewFrame.height) - originY
-            if xDelta < 0 { xDelta += 1 }; if yDelta < 0 { yDelta += 1 }
-            let pulseWidth = (CGFloat(effect.pulse) / 100)
-            var directionDelta = (effect.direction == .xAxis ? xDelta : yDelta) / pulseWidth
-            while directionDelta > 1.0 { directionDelta -= 1.0 }
-            guard let headColor = colorAndLocation.filter({ $0.1 <= directionDelta }).last else { return }
-            guard let headIndex = colorAndLocation.firstIndex(where: { $0 == headColor }) else { return }
-            guard let tailColor = colorAndLocation.filter({ $0.1 > directionDelta }).first ??
-                    colorAndLocation.first.map({($0.0, $0.1 + 1.0)}) else { return }
-
-            let colorLocation = MathUtils.map(value: directionDelta,
-                                              inMin: headColor.1,
-                                              inMax: tailColor.1,
-                                              outMin: 0.0,
-                                              outMax: 1.0)
-
-            beforeColor = PrismColor.linearGradient(fromColor: headColor.0.color,
-                                                         toColor: tailColor.0.color,
-                                                         percent: colorLocation).cgColor
-
-            // Gets closest transition
-
-            let targetColor: PrismRGB
-            let distanceLeft: CGFloat
-            let targetIndex: Int
-            if (effect.control == .inward && effect.direction == .xAxis) ||
-                (effect.control == .outward && effect.direction == .yAxis) {
-                targetColor = tailColor.0.color
-                targetIndex = headIndex + 1 < colorAndLocation.count ? headIndex + 1 : 0
-                distanceLeft = CGFloat(headColor.0.duration) - (CGFloat(headColor.0.duration) * colorLocation)
-            } else {
-                if directionDelta > headColor.1 {
-                    targetIndex = headIndex
-                    targetColor = headColor.0.color
-                    distanceLeft = CGFloat(headColor.0.duration) * colorLocation
-                } else {
-                    targetIndex = headIndex - 1 >= 0 ? headIndex - 1 : colorAndLocation.count - 1
-                    targetColor = colorAndLocation[targetIndex].0.color
-                    distanceLeft = CGFloat(colorAndLocation[targetIndex].0.duration)
-                }
-            }
-
-            afterColor = targetColor.cgColor
-            durationAnimation = CFTimeInterval(distanceLeft / 100.0)
-            transitionIndex = targetIndex
-            hasSetInitialWaveEffect = true
-        } else {
-            // Animates to the next transition depending on speed/color/direction
-            let currentColor = colorAndLocation[transitionIndex]
-            let nextIndex: Int
-            if (effect.control == .inward && effect.direction == .xAxis) ||
-                (effect.control == .outward && effect.direction == .yAxis) {
                 nextIndex = transitionIndex + 1 < colorAndLocation.count ? transitionIndex + 1 : 0
             } else {
                 nextIndex = transitionIndex - 1 >= 0 ? transitionIndex - 1 : colorAndLocation.count - 1
@@ -369,6 +278,9 @@ extension KeyColorView: CAAnimationDelegate {
         }
 
         baseLayer.removeAllAnimations()
+        backgroundLayer.removeAllAnimations()
+        selectionLayer.removeAllAnimations()
+        dotLayer.removeAllAnimations()
 
         let animationGroup = CAAnimationGroup()
         animationGroup.delegate = self
@@ -394,6 +306,7 @@ extension KeyColorView: CAAnimationDelegate {
             self.color = color
         }
     }
+
     // When appearance change happens
 
     override func updateLayer() {

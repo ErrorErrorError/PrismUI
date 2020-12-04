@@ -300,7 +300,7 @@ extension ModesViewController {
     }
 }
 
-// MARK: device settings
+// MARK: device layout settings
 
 extension ModesViewController {
 
@@ -387,6 +387,33 @@ extension ModesViewController {
         }
     }
 
+    func removePerKeySettingsLayout() {
+        let perKeyViews = [
+            multiSlider,
+            speedLabel,
+            speedSlider,
+            speedValue,
+            waveToggle,
+            originButton,
+            waveDirectionControl,
+            waveInwardOutwardControl,
+            pulseLabel,
+            pulseSlider,
+            pulseValue,
+            reactActiveText,
+            reactActiveColor,
+            reactRestText,
+            reactRestColor
+        ]
+
+        perKeyViews.forEach { $0.animator().removeFromSuperview() }
+        modesPopUp.removeAllItems()
+    }
+}
+
+// Handle updates on color
+
+extension ModesViewController {
     func updatePerKeyViews(newColor: PrismRGB, finished: Bool) {
         let selectedItem = modesPopUp.indexOfSelectedItem
         guard selectedItem != -1, let selectedMode = PrismKeyModes(rawValue: UInt32(selectedItem)) else {
@@ -424,7 +451,7 @@ extension ModesViewController {
             PrismKeyboardDevice.keysSelected.filter { ($0 as? KeyColorView) != nil }.forEach {
                 guard let colorView = $0 as? KeyColorView else { return }
                 guard let prismKey = colorView.prismKey else { return }
-                if prismKey.effect != effect ||
+                if prismKey.effect !== effect ||
                     prismKey.mode != selectedMode ||
                     prismKey.duration != speedDuration {
                     prismKey.mode = selectedMode
@@ -435,13 +462,10 @@ extension ModesViewController {
                 }
             }
         case PrismKeyModes.reactive:
-//            CATransaction.begin()
-//            CATransaction.setDisableActions(true)
             ModesViewController.selectorArray.filter { ($0 as? ColorView) != nil }.forEach {
                 guard let colorView = $0 as? ColorView else { return }
                 colorView.color = newColor.nsColor
             }
-//            CATransaction.commit()
 
             let activeColor = reactActiveColor.color.prismRGB
             let baseColor = reactRestColor.color.prismRGB
@@ -479,7 +503,7 @@ extension ModesViewController {
         }
 
         if finished && updatePending {
-            updateDevice()
+            updatePerKeyDevice()
             updatePending = false
         }
     }
@@ -506,21 +530,40 @@ extension ModesViewController {
             return nil
         }
 
-        var effect = PrismEffect(identifier: identifier, transitions: transitions)
-        if mode == .colorShift {
-            effect.waveActive = waveToggle.state == .on
-            if effect.waveActive {
-                effect.origin = PrismKeyboardDevice.origin.copy() as? PrismPoint ?? PrismPoint()
-                effect.pulse = UInt16(pulseSlider.intValue)
-                effect.direction = PrismDirection(rawValue: UInt8(waveDirectionControl.selectedSegment)) ?? .xyAxis
-                effect.control = PrismControl(rawValue: UInt8(waveInwardOutwardControl.selectedSegment)) ?? .inward
+        let waveActive = waveToggle.state == .on
+        let origin = PrismKeyboardDevice.origin.copy() as? PrismPoint ?? PrismPoint()
+        let pulse = UInt16(pulseSlider.intValue)
+        let direction = PrismDirection(rawValue: UInt8(waveDirectionControl.selectedSegment)) ?? .xyAxis
+        let control = PrismControl(rawValue: UInt8(waveInwardOutwardControl.selectedSegment)) ?? .inward
+
+        // See if it can find an effect with the same settings, if not create a new effect
+
+       var effect = PrismKeyboardDevice.effects.compactMap({ $0 as? PrismEffect }).first(where: {
+            $0.start == transitions[0].color &&
+                $0.waveActive == waveActive &&
+                $0.direction == direction &&
+                $0.control == control &&
+                $0.origin == origin &&
+                $0.pulse == pulse &&
+                $0.transitions == transitions
+        })
+
+        if effect == nil {
+            effect = PrismEffect(identifier: identifier, transitions: transitions)
+            guard let effect = effect else { return nil }
+            if mode == .colorShift {
+                effect.waveActive = waveToggle.state == .on
+                if effect.waveActive {
+                    effect.origin = PrismKeyboardDevice.origin.copy() as? PrismPoint ?? PrismPoint()
+                    effect.pulse = UInt16(pulseSlider.intValue)
+                    effect.direction = PrismDirection(rawValue: UInt8(waveDirectionControl.selectedSegment)) ?? .xyAxis
+                    effect.control = PrismControl(rawValue: UInt8(waveInwardOutwardControl.selectedSegment)) ?? .inward
+                }
             }
+            PrismKeyboardDevice.effects.add(effect)
         }
 
-        effect = PrismKeyboardDevice.effects.compactMap({ $0 as? PrismEffect }).first(where: {$0 == effect}) ?? effect
-        PrismKeyboardDevice.effects.add(effect)
         return effect
-
     }
 
     private func removeUnusedEffecs() {
@@ -530,27 +573,13 @@ extension ModesViewController {
         PrismKeyboardDevice.effects.removeObjects(in: effectsNotUsed)
     }
 
-    func removePerKeySettingsLayout() {
-        let perKeyViews = [
-            multiSlider,
-            speedLabel,
-            speedSlider,
-            speedValue,
-            waveToggle,
-            originButton,
-            waveDirectionControl,
-            waveInwardOutwardControl,
-            pulseLabel,
-            pulseSlider,
-            pulseValue,
-            reactActiveText,
-            reactActiveColor,
-            reactRestText,
-            reactRestColor
-        ]
+    private func updatePerKeyDevice(forced: Bool = false) {
+        if PrismKeyboardDevice.keysSelected.count > 0 || forced {
+            guard let device = PrismDriver.shared.currentDevice as? PrismKeyboardDevice,
+                  device.model != .threeRegion else { return }
 
-        perKeyViews.forEach { $0.animator().removeFromSuperview() }
-        modesPopUp.removeAllItems()
+            device.update()
+        }
     }
 }
 

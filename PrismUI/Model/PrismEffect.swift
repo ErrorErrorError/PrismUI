@@ -19,7 +19,7 @@ public enum PrismControl: UInt8 {
     case outward = 1
 }
 
-final class PrismEffect: NSObject {
+public final class PrismEffect: NSObject {
     let identifier: UInt8
     var start: PrismRGB = PrismRGB()
     var transitions: [PrismTransition]
@@ -44,13 +44,13 @@ final class PrismEffect: NSObject {
     public init(identifier: UInt8, transitions: [PrismTransition]) {
         self.identifier = identifier
         self.transitions = transitions
-        self.start = transitions[0].color
+        self.start = transitions.first?.color ?? PrismRGB()
         waveActive = false
     }
 }
 
-extension PrismEffect {
-    public override func isEqual(_ object: Any?) -> Bool {
+public extension PrismEffect {
+    override func isEqual(_ object: Any?) -> Bool {
         guard let otherEffect = object as? PrismEffect else { return false }
         return
             self.identifier == otherEffect.identifier &&
@@ -63,7 +63,7 @@ extension PrismEffect {
             self.transitions == otherEffect.transitions
     }
 
-    public override var hash: Int {
+    override var hash: Int {
         var hasher = Hasher()
         hasher.combine(identifier)
         hasher.combine(start)

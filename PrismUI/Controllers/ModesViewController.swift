@@ -312,7 +312,7 @@ extension ModesViewController {
             if let selectedDeviceName = self.devicesPopup.titleOfSelectedItem,
                selectedDeviceName == removeDevice.name {
 
-                if removeDevice.isKeyboardDevice && removeDevice.model != .threeRegion {
+                if removeDevice.model == .perKey || removeDevice.model == .perKeyGS65 {
                     self.removePerKeySettingsLayout()
                 } else {
                     // TODO: Remove layout effects for three region
@@ -340,7 +340,7 @@ extension ModesViewController {
 
     @objc func onSliderChanged(_ sender: NSSlider, update: Bool = true) {
         guard let device = PrismDriver.shared.currentDevice else { return }
-        if device.isKeyboardDevice && device.model != .threeRegion {
+        if device.model == .perKey || device.model == .perKeyGS65 {
             handlePerKeySliderChanged(sender, update: update)
         } else {
             Log.debug("Did not update slider \(sender.identifier?.rawValue ?? "nil") for " +
@@ -362,7 +362,7 @@ extension ModesViewController {
         }
 
         guard let device = PrismDriver.shared.currentDevice else { return }
-        if device.isKeyboardDevice && device.model != .threeRegion {
+        if device.model == .perKey || device.model == .perKeyGS65 {
             handlePerKeyButtonClicked(sender, update: update)
         } else {
             Log.debug("Did not update button \(sender.identifier?.rawValue ?? "nil") for " +
@@ -372,7 +372,7 @@ extension ModesViewController {
 
     @objc func onEffectPopupChanged(_ sender: NSPopUpButton) {
         guard let device = PrismDriver.shared.currentDevice else { return }
-        if device.isKeyboardDevice && device.model != .threeRegion {
+        if device.model == .perKey || device.model == .perKeyGS65 {
             handlePerKeyPopup(sender)
         } else {
             Log.debug("Did not update effecct \(sender.identifier?.rawValue ?? "nil") for " +
@@ -391,10 +391,10 @@ extension ModesViewController: PrismColorPickerDelegate {
             return
         }
 
-        if device.isKeyboardDevice && device.model != .threeRegion {
+        if device.model == .perKey || device.model == .perKeyGS65 {
             updatePerKeyViews(newColor: newColor, finished: finishedChanging)
-        } else if device.isKeyboardDevice && device.model == .threeRegion {
-            // TODO: Update three region keyboard viw
+        } else if device.model == .threeRegion {
+            // TODO: Update three region keyboard view
         }
     }
 }
@@ -411,16 +411,6 @@ extension ModesViewController {
             if device.model == .perKey || device.model == .perKeyGS65 {
                 perKeyLayoutSetup()
             }
-        }
-    }
-
-    func updateDevice(forced: Bool = false) {
-        if PrismKeyboardDevice.keysSelected.count > 0 || forced {
-            guard let device = PrismDriver.shared.currentDevice, device.model != .threeRegion else {
-                return
-            }
-
-            device.update()
         }
     }
 }
