@@ -274,31 +274,31 @@ extension PrismRGB {
     }
 
     public var redUInt: UInt8 {
-        return UInt8((red * 255))
+        return UInt8(round(red * 255))
     }
 
     public var greenUInt: UInt8 {
-        return UInt8((green * 255))
+        return UInt8(round(green * 255))
     }
 
     public var blueUInt: UInt8 {
-        return UInt8((blue * 255))
+        return UInt8(round(blue * 255))
     }
 
     public var alphaUInt: UInt8 {
-        return UInt8((alpha * 255))
+        return UInt8(round(alpha * 255))
     }
 
     public func delta(target: PrismRGB, duration: UInt16) -> PrismRGB {
         var duration = duration
-        if duration < 32 {
-            duration = 32
+        if duration < 0x21 {
+            duration = 0x21
         }
 
-        let divisible: CGFloat = CGFloat(duration / 16)
-        var deltaR = (target.red - self.red) / divisible
-        var deltaG = (target.green - self.green) / divisible
-        var deltaB = (target.blue - self.blue) / divisible
+        let divisible: CGFloat = CGFloat(duration * 16) / 0xff
+        var deltaR = CGFloat(target.red - self.red) / divisible
+        var deltaG = CGFloat(target.green - self.green) / divisible
+        var deltaB = CGFloat(target.blue - self.blue) / divisible
 
         // Handle underflow
         if deltaR < 0.0 { deltaR += 1 }
@@ -308,16 +308,16 @@ extension PrismRGB {
         return PrismRGB(red: deltaR, green: deltaG, blue: deltaB)
     }
 
-    public func undoDelta(fromColor: PrismRGB, duration: UInt16) -> PrismRGB {
+    public func undoDelta(startColor: PrismRGB, duration: UInt16) -> PrismRGB {
         var duration = duration
-        if duration < 32 {
-            duration = 32
+        if duration < 0x21 {
+            duration = 0x21
         }
 
-        let divisible: CGFloat = CGFloat(duration / 16)
-        var targetR = (divisible * self.red) + fromColor.red
-        var targetG = (divisible * self.green) + fromColor.green
-        var targetB = (divisible * self.blue) + fromColor.blue
+        let divisible: CGFloat = CGFloat(duration * 16) / 0xff
+        var targetR = (divisible * self.red) + startColor.red
+        var targetG = (divisible * self.green) + startColor.green
+        var targetB = (divisible * self.blue) + startColor.blue
 
         while targetR > 1.0 { targetR -= 1.0 }
         while targetG > 1.0 { targetG -= 1.0 }

@@ -167,10 +167,12 @@ func createEffectPreset(values: [UInt8]) -> PrismEffect? {
         let colorG = values[indexTransition + 0x03]
         let colorB = values[indexTransition + 0x04]
 
+        let delta = PrismRGB(red: colorR, green: colorG, blue: colorB)
+
         let transition = PrismTransition(color: beforeColor, duration: duration)
         transitions.append(transition)
 
-        let targetColor = PrismRGB(red: colorR, green: colorG, blue: colorB).undoDelta(fromColor: beforeColor, duration: duration)
+        let targetColor = delta.undoDelta(startColor: beforeColor, duration: duration)
         beforeColor = targetColor
     }
 
