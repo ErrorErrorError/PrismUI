@@ -37,6 +37,8 @@ class KeyColorView: ColorView {
             selectionLayer.backgroundColor = newValue.cgColor
             backgroundLayer.borderColor = newValue.cgColor
             dotLayer.backgroundColor = newValue.cgColor
+            layer?.setNeedsDisplay()
+            needsDisplay = true
         }
 
         get {
@@ -131,18 +133,15 @@ class KeyColorView: ColorView {
 extension KeyColorView: CAAnimationDelegate {
 
     func updateAnimation() {
-        backgroundLayer.removeAllAnimations()
-        selectionLayer.removeAllAnimations()
-        dotLayer.removeAllAnimations()
-        layer?.removeAllAnimations()
+        layer?.removeAnimation(forKey: "perKeyEffectAnimation")
         color = prismKey.main.nsColor
+        transitionIndex = 0
+        hasSetInitialWaveEffect = false
         if let effect = prismKey.effect {
-            transitionIndex = 0
-            hasSetInitialWaveEffect = false
             if effect.waveActive {
                 animateWave()
             } else {
-                animate()
+                animationGradient()
             }
         }
     }
@@ -156,24 +155,24 @@ extension KeyColorView: CAAnimationDelegate {
             if effect.waveActive {
                 self.animateWave()
             } else {
-                self.animate()
+                self.animationGradient()
             }
         }
     }
 
-    private func animate() {
+    private func animationGradient() {
         guard let effect = prismKey.effect else {
             return
         }
 
         let transitions = effect.transitions
-        let previousTransition = transitions[transitionIndex]
+        let currentTransition = transitions[transitionIndex]
         transitionIndex + 1 < transitions.count ? (transitionIndex += 1) : (transitionIndex = 0)
         let nextTransition = transitions[transitionIndex]
 
-        createAnimationBackground(fromColor: previousTransition.color.cgColor,
+        createAnimationBackground(fromColor: currentTransition.color.cgColor,
                                   toColor: nextTransition.color.cgColor,
-                                  duration: CFTimeInterval(CGFloat(previousTransition.duration) / 100))
+                                  duration: CFTimeInterval(CGFloat(currentTransition.duration) / 100))
     }
 
     private func animateWave() {
@@ -182,8 +181,8 @@ extension KeyColorView: CAAnimationDelegate {
         guard let effect = prismKey.effect else { return }
 
         let originPoint = effect.origin
-        let originXFloat = CGFloat(originPoint.xPoint) / CGFloat(0x105c)
-        let originYFloat = 1 - CGFloat(originPoint.yPoint) / CGFloat(0x040d)
+        let originXFloat = originPoint.xPoint
+        let originYFloat = 1 - originPoint.yPoint
 
         let beforeColor, afterColor: CGColor
         let durationAnimation: CFTimeInterval
@@ -208,8 +207,7 @@ extension KeyColorView: CAAnimationDelegate {
                 let distanceX = abs((originXFloat * originViewFrame.width) - keyPointX)
                 let distanceY = abs((originYFloat * originViewFrame.height) - keyPointY)
 
-                var diagDistance = sqrt(pow(distanceX, 2) + pow(distanceY, 2)) / maxRadius
-                while diagDistance > 1.0 { diagDistance -= 1.0 }
+                let diagDistance = sqrt(pow(distanceX, 2) + pow(distanceY, 2)) / maxRadius
 
                 directionDelta = diagDistance / pulseWidth
             } else {
@@ -259,14 +257,17 @@ extension KeyColorView: CAAnimationDelegate {
         } else {
             let currentColor = colorAndLocation[transitionIndex]
             let nextIndex: Int
+            let duration: UInt16
             if effect.control == .inward {
                 nextIndex = transitionIndex + 1 < colorAndLocation.count ? transitionIndex + 1 : 0
+                duration = currentColor.0.duration
             } else {
                 nextIndex = transitionIndex - 1 >= 0 ? transitionIndex - 1 : colorAndLocation.count - 1
+                duration = colorAndLocation[nextIndex].0.duration
             }
             beforeColor = currentColor.0.color.cgColor
             afterColor = colorAndLocation[nextIndex].0.color.cgColor
-            durationAnimation = CFTimeInterval(CGFloat(currentColor.0.duration) / 100)
+            durationAnimation = CFTimeInterval(CGFloat(duration) / 100)
             transitionIndex = nextIndex
         }
         createAnimationBackground(fromColor: beforeColor, toColor: afterColor, duration: durationAnimation)
@@ -277,10 +278,7 @@ extension KeyColorView: CAAnimationDelegate {
             return
         }
 
-        baseLayer.removeAllAnimations()
-        backgroundLayer.removeAllAnimations()
-        selectionLayer.removeAllAnimations()
-        dotLayer.removeAllAnimations()
+        baseLayer.removeAnimation(forKey: "perKeyEffectAnimation")
 
         let animationGroup = CAAnimationGroup()
         animationGroup.delegate = self
@@ -290,17 +288,17 @@ extension KeyColorView: CAAnimationDelegate {
         borderAnimation.toValue = toColor
 
         let selectionAnimation = CABasicAnimation(keyPath: "sublayers.selectionLayer.backgroundColor")
-        selectionAnimation.fromValue = borderAnimation.fromValue
-        selectionAnimation.toValue = borderAnimation.toValue
+        selectionAnimation.fromValue = fromColor
+        selectionAnimation.toValue = toColor
 
         let dotAnimation = CABasicAnimation(keyPath: "sublayers.dotLayer.backgroundColor")
-        dotAnimation.fromValue = selectionAnimation.fromValue
-        dotAnimation.toValue = selectionAnimation.toValue
+        dotAnimation.fromValue = fromColor
+        dotAnimation.toValue = toColor
 
-        animationGroup.animations = [selectionAnimation, borderAnimation, dotAnimation]
         animationGroup.duration = duration
+        animationGroup.animations = [selectionAnimation, borderAnimation, dotAnimation]
 
-        baseLayer.add(animationGroup, forKey: nil)
+        baseLayer.add(animationGroup, forKey: "perKeyEffectAnimation")
 
         if let color = NSColor(cgColor: toColor) {
             self.color = color

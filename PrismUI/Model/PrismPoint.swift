@@ -9,16 +9,28 @@
 import Foundation
 
 public final class PrismPoint: NSObject {
-    var xPoint: UInt16 = 0
-    var yPoint: UInt16 = 0
+    var xPoint: CGFloat = 0
+    var yPoint: CGFloat = 0
 
-    public init(xPoint: UInt16, yPoint: UInt16) {
-        self.xPoint = xPoint
-        self.yPoint = yPoint
+    var xUInt16: UInt16 {
+        return min(UInt16.max, max(UInt16(xPoint * 0x105C), 0))
+    }
+
+    var yUInt16: UInt16 {
+        return min(UInt16.max, max(UInt16(yPoint * 0x040D), 0))
+    }
+
+    convenience init(xPoint: UInt16, yPoint: UInt16) {
+        self.init(xPoint: CGFloat(xPoint) / 0x105C, yPoint: CGFloat(yPoint) / 0x040D)
+    }
+
+    public init(xPoint: CGFloat, yPoint: CGFloat) {
+        self.xPoint = min(1.0, max(xPoint, 0))
+        self.yPoint = min(1.0, max(yPoint, 0))
     }
 
     convenience override init() {
-        self.init(xPoint: 0, yPoint: 0)
+        self.init(xPoint: 0.0, yPoint: 0.0)
     }
 }
 
@@ -52,8 +64,8 @@ extension PrismPoint: Codable {
 
     public convenience init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let xVal = try container.decodeIfPresent(UInt16.self, forKey: .xAxis) ?? 0
-        let yVal = try container.decodeIfPresent(UInt16.self, forKey: .yAxis) ?? 0
+        let xVal = try container.decodeIfPresent(CGFloat.self, forKey: .xAxis) ?? 0
+        let yVal = try container.decodeIfPresent(CGFloat.self, forKey: .yAxis) ?? 0
         self.init(xPoint: xVal, yPoint: yVal)
     }
 

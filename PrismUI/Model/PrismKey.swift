@@ -11,7 +11,13 @@ import Foundation
 final class PrismKey: NSObject {
     let region: UInt8
     let keycode: UInt8
-    var effect: PrismEffect?
+    var effect: PrismEffect? {
+        didSet {
+            if let start = effect?.transitions.first?.color {
+                main = start
+            }
+        }
+    }
     var duration: UInt16 = 0x012c
     var main = PrismRGB(red: 1.0, green: 0.0, blue: 0.0)
     var active = PrismRGB()

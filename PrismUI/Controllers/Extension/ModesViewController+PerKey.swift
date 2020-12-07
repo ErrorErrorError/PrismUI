@@ -171,7 +171,7 @@ extension ModesViewController {
             showColorShiftMode(shouldShow: false)
             showBreadingMode(shouldShow: false)
             modesPopUp.item(withTitle: "Mixed")?.isHidden = true
-            colorPicker.enabled = true
+            colorPicker.enabled = false
         default:
             Log.error("Effect Unavalilable for perKey")
             return

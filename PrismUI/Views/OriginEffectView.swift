@@ -183,19 +183,15 @@ class OriginEffectView: NSView {
 
     func getCalculatedOrigin() -> PrismPoint {
         let flipYAxis = frame.height - crosshairLocation.y
-        let xAxis = UInt16(MathUtils.map(value: crosshairLocation.x, inMin: 0,
-                                         inMax: frame.width, outMin: 0, outMax: 0x105c))
-        let yAxis = UInt16(MathUtils.map(value: flipYAxis, inMin: 0,
-                                         inMax: frame.height, outMin: 0, outMax: 0x040d))
+        let xAxis = crosshairLocation.x / bounds.width
+        let yAxis = flipYAxis / bounds.height
         return PrismPoint(xPoint: xAxis, yPoint: yAxis)
     }
 
     func setOrigin(origin: PrismPoint) {
-        let flipYAxis =  0x040d - origin.yPoint
-        let xAxis = MathUtils.map(value: CGFloat(origin.xPoint), inMin: 0,
-                                           inMax: 0x105c, outMin: 0, outMax: frame.width)
-        let yAxis = MathUtils.map(value: CGFloat(flipYAxis), inMin: 0,
-                                           inMax: 0x040d, outMin: 0, outMax: frame.height)
+        let flipYAxis =  1.0 - origin.yPoint
+        let xAxis = origin.xPoint * bounds.width
+        let yAxis = flipYAxis * bounds.height
 
         crosshairLocation = clampBounds(point: NSPoint(x: xAxis, y: yAxis))
         needsDisplay = true

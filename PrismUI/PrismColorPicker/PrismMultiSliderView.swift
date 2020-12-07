@@ -250,7 +250,7 @@ extension PrismMultiSliderView {
                 let firstSelector = selectors[0]
                 distance = ((width - selector.frame.origin.x) + firstSelector.frame.origin.x) / width
             }
-            let transition = PrismTransition(color: selector.color.rgb, duration: UInt16(speed * distance))
+            let transition = PrismTransition(color: selector.color.rgb, duration: max(UInt16(speed * distance), 0x21))
             transitions.append(transition)
         }
 

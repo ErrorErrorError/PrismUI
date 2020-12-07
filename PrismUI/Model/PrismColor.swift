@@ -314,16 +314,29 @@ extension PrismRGB {
             duration = 0x21
         }
 
-        let divisible: CGFloat = CGFloat(duration * 16) / 0xff
-        var targetR = (divisible * self.red) + startColor.red
-        var targetG = (divisible * self.green) + startColor.green
-        var targetB = (divisible * self.blue) + startColor.blue
+        var valueR = self.red * CGFloat(duration) / 16
+        var valueG = self.green * CGFloat(duration) / 16
+        var valueB = self.blue * CGFloat(duration) / 16
 
-        while targetR > 1.0 { targetR -= 1.0 }
-        while targetG > 1.0 { targetG -= 1.0 }
-        while targetB > 1.0 { targetB -= 1.0 }
+        if valueR > 1.0 {
+            valueR = ((self.red - 1.0) * CGFloat(duration) / 16)
+        }
 
-        return PrismRGB(red: targetR, green: targetG, blue: targetB)
+        valueR += startColor.red
+
+        if valueG > 1.0 {
+            valueG = ((self.green - 1.0) * CGFloat(duration) / 16)
+        }
+
+        valueG += startColor.green
+
+        if valueB > 1.0 {
+            valueB = ((self.blue - 1.0) * CGFloat(duration) / 16)
+        }
+
+        valueB += startColor.blue
+
+        return PrismRGB(red: valueR, green: valueG, blue: valueB)
     }
 }
 

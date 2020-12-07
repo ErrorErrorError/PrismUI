@@ -36,6 +36,15 @@
 		1384D28224BD184800655884 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1384D28124BD184800655884 /* Assets.xcassets */; };
 		1386D12424CCF76900B91092 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1386D12324CCF76900B91092 /* Log.swift */; };
 		1386D12824CD058A00B91092 /* ColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1386D12724CD058A00B91092 /* ColorView.swift */; };
+		138CB730257DA9BB001CC618 /* Plain-perKeyGS65.bin in Resources */ = {isa = PBXBuildFile; fileRef = 138CB727257DA9BA001CC618 /* Plain-perKeyGS65.bin */; };
+		138CB731257DA9BB001CC618 /* Default-perKeyGS65.bin in Resources */ = {isa = PBXBuildFile; fileRef = 138CB728257DA9BA001CC618 /* Default-perKeyGS65.bin */; };
+		138CB732257DA9BB001CC618 /* Disco-perKeyGS65.bin in Resources */ = {isa = PBXBuildFile; fileRef = 138CB729257DA9BA001CC618 /* Disco-perKeyGS65.bin */; };
+		138CB733257DA9BB001CC618 /* Chakra-perKeyGS65.bin in Resources */ = {isa = PBXBuildFile; fileRef = 138CB72A257DA9BA001CC618 /* Chakra-perKeyGS65.bin */; };
+		138CB734257DA9BB001CC618 /* Freeway-perKeyGS65.bin in Resources */ = {isa = PBXBuildFile; fileRef = 138CB72B257DA9BA001CC618 /* Freeway-perKeyGS65.bin */; };
+		138CB735257DA9BB001CC618 /* Drain-perKeyGS65.bin in Resources */ = {isa = PBXBuildFile; fileRef = 138CB72C257DA9BA001CC618 /* Drain-perKeyGS65.bin */; };
+		138CB736257DA9BB001CC618 /* Aqua-perKeyGS65.bin in Resources */ = {isa = PBXBuildFile; fileRef = 138CB72D257DA9BA001CC618 /* Aqua-perKeyGS65.bin */; };
+		138CB737257DA9BB001CC618 /* Rainbow Split-perKeyGS65.bin in Resources */ = {isa = PBXBuildFile; fileRef = 138CB72E257DA9BA001CC618 /* Rainbow Split-perKeyGS65.bin */; };
+		138CB738257DA9BB001CC618 /* Roulette-perKeyGS65.bin in Resources */ = {isa = PBXBuildFile; fileRef = 138CB72F257DA9BA001CC618 /* Roulette-perKeyGS65.bin */; };
 		138EEB212509F13C0038EDCC /* NSLocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138EEB202509F13C0038EDCC /* NSLocalizedString.swift */; };
 		138EEB252509F6F50038EDCC /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 138EEB242509F6F50038EDCC /* MainMenu.xib */; };
 		1393AEF924CC050800B53788 /* DragSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1393AEF824CC050800B53788 /* DragSelectionView.swift */; };
@@ -56,14 +65,6 @@
 		13C161EA24E7B0E800384C07 /* PrismEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C161E924E7B0E800384C07 /* PrismEffect.swift */; };
 		13C56B2324E6907100C8C998 /* PrismMultiSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C56B2224E6907100C8C998 /* PrismMultiSliderView.swift */; };
 		13C56B2724E693F100C8C998 /* NSTextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C56B2624E693F100C8C998 /* NSTextField+Extension.swift */; };
-		13D879D2257B85B200F6EB79 /* Chakra-perKeyGS65.bin in Resources */ = {isa = PBXBuildFile; fileRef = 13D879CA257B85B200F6EB79 /* Chakra-perKeyGS65.bin */; };
-		13D879D3257B85B200F6EB79 /* Drain-perKeyGS65.bin in Resources */ = {isa = PBXBuildFile; fileRef = 13D879CB257B85B200F6EB79 /* Drain-perKeyGS65.bin */; };
-		13D879D4257B85B200F6EB79 /* Aqua-perKeyGS65.bin in Resources */ = {isa = PBXBuildFile; fileRef = 13D879CC257B85B200F6EB79 /* Aqua-perKeyGS65.bin */; };
-		13D879D5257B85B200F6EB79 /* Plain-perKeyGS65.bin in Resources */ = {isa = PBXBuildFile; fileRef = 13D879CD257B85B200F6EB79 /* Plain-perKeyGS65.bin */; };
-		13D879D6257B85B200F6EB79 /* Roulette-perKeyGS65.bin in Resources */ = {isa = PBXBuildFile; fileRef = 13D879CE257B85B200F6EB79 /* Roulette-perKeyGS65.bin */; };
-		13D879D7257B85B200F6EB79 /* Freeway-perKeyGS65.bin in Resources */ = {isa = PBXBuildFile; fileRef = 13D879CF257B85B200F6EB79 /* Freeway-perKeyGS65.bin */; };
-		13D879D8257B85B200F6EB79 /* Default-perKeyGS65.bin in Resources */ = {isa = PBXBuildFile; fileRef = 13D879D0257B85B200F6EB79 /* Default-perKeyGS65.bin */; };
-		13D879D9257B85B200F6EB79 /* Rainbow Split-perKeyGS65.bin in Resources */ = {isa = PBXBuildFile; fileRef = 13D879D1257B85B200F6EB79 /* Rainbow Split-perKeyGS65.bin */; };
 		13D879E2257B85BC00F6EB79 /* Rainbow Split-perKey.bin in Resources */ = {isa = PBXBuildFile; fileRef = 13D879DD257B85BB00F6EB79 /* Rainbow Split-perKey.bin */; };
 		13D879E3257B85BC00F6EB79 /* Drain-perKey.bin in Resources */ = {isa = PBXBuildFile; fileRef = 13D879DE257B85BB00F6EB79 /* Drain-perKey.bin */; };
 		13D879E4257B85BC00F6EB79 /* Aqua-perKey.bin in Resources */ = {isa = PBXBuildFile; fileRef = 13D879DF257B85BB00F6EB79 /* Aqua-perKey.bin */; };
@@ -140,6 +141,15 @@
 		1384D28724BD184800655884 /* PrismUI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PrismUI.entitlements; sourceTree = "<group>"; };
 		1386D12324CCF76900B91092 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		1386D12724CD058A00B91092 /* ColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorView.swift; sourceTree = "<group>"; };
+		138CB727257DA9BA001CC618 /* Plain-perKeyGS65.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Plain-perKeyGS65.bin"; sourceTree = "<group>"; };
+		138CB728257DA9BA001CC618 /* Default-perKeyGS65.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Default-perKeyGS65.bin"; sourceTree = "<group>"; };
+		138CB729257DA9BA001CC618 /* Disco-perKeyGS65.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Disco-perKeyGS65.bin"; sourceTree = "<group>"; };
+		138CB72A257DA9BA001CC618 /* Chakra-perKeyGS65.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Chakra-perKeyGS65.bin"; sourceTree = "<group>"; };
+		138CB72B257DA9BA001CC618 /* Freeway-perKeyGS65.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Freeway-perKeyGS65.bin"; sourceTree = "<group>"; };
+		138CB72C257DA9BA001CC618 /* Drain-perKeyGS65.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Drain-perKeyGS65.bin"; sourceTree = "<group>"; };
+		138CB72D257DA9BA001CC618 /* Aqua-perKeyGS65.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Aqua-perKeyGS65.bin"; sourceTree = "<group>"; };
+		138CB72E257DA9BA001CC618 /* Rainbow Split-perKeyGS65.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Rainbow Split-perKeyGS65.bin"; sourceTree = "<group>"; };
+		138CB72F257DA9BA001CC618 /* Roulette-perKeyGS65.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Roulette-perKeyGS65.bin"; sourceTree = "<group>"; };
 		138EEB202509F13C0038EDCC /* NSLocalizedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLocalizedString.swift; sourceTree = "<group>"; };
 		138EEB242509F6F50038EDCC /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		1393AEF824CC050800B53788 /* DragSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragSelectionView.swift; sourceTree = "<group>"; };
@@ -162,14 +172,6 @@
 		13C161E924E7B0E800384C07 /* PrismEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismEffect.swift; sourceTree = "<group>"; };
 		13C56B2224E6907100C8C998 /* PrismMultiSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismMultiSliderView.swift; sourceTree = "<group>"; };
 		13C56B2624E693F100C8C998 /* NSTextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTextField+Extension.swift"; sourceTree = "<group>"; };
-		13D879CA257B85B200F6EB79 /* Chakra-perKeyGS65.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Chakra-perKeyGS65.bin"; sourceTree = "<group>"; };
-		13D879CB257B85B200F6EB79 /* Drain-perKeyGS65.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Drain-perKeyGS65.bin"; sourceTree = "<group>"; };
-		13D879CC257B85B200F6EB79 /* Aqua-perKeyGS65.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Aqua-perKeyGS65.bin"; sourceTree = "<group>"; };
-		13D879CD257B85B200F6EB79 /* Plain-perKeyGS65.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Plain-perKeyGS65.bin"; sourceTree = "<group>"; };
-		13D879CE257B85B200F6EB79 /* Roulette-perKeyGS65.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Roulette-perKeyGS65.bin"; sourceTree = "<group>"; };
-		13D879CF257B85B200F6EB79 /* Freeway-perKeyGS65.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Freeway-perKeyGS65.bin"; sourceTree = "<group>"; };
-		13D879D0257B85B200F6EB79 /* Default-perKeyGS65.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Default-perKeyGS65.bin"; sourceTree = "<group>"; };
-		13D879D1257B85B200F6EB79 /* Rainbow Split-perKeyGS65.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Rainbow Split-perKeyGS65.bin"; sourceTree = "<group>"; };
 		13D879DD257B85BB00F6EB79 /* Rainbow Split-perKey.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Rainbow Split-perKey.bin"; sourceTree = "<group>"; };
 		13D879DE257B85BB00F6EB79 /* Drain-perKey.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Drain-perKey.bin"; sourceTree = "<group>"; };
 		13D879DF257B85BB00F6EB79 /* Aqua-perKey.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Aqua-perKey.bin"; sourceTree = "<group>"; };
@@ -260,14 +262,15 @@
 		134110AE251A8C59004EF11A /* gs65 */ = {
 			isa = PBXGroup;
 			children = (
-				13D879CC257B85B200F6EB79 /* Aqua-perKeyGS65.bin */,
-				13D879CA257B85B200F6EB79 /* Chakra-perKeyGS65.bin */,
-				13D879D0257B85B200F6EB79 /* Default-perKeyGS65.bin */,
-				13D879CB257B85B200F6EB79 /* Drain-perKeyGS65.bin */,
-				13D879CF257B85B200F6EB79 /* Freeway-perKeyGS65.bin */,
-				13D879CD257B85B200F6EB79 /* Plain-perKeyGS65.bin */,
-				13D879D1257B85B200F6EB79 /* Rainbow Split-perKeyGS65.bin */,
-				13D879CE257B85B200F6EB79 /* Roulette-perKeyGS65.bin */,
+				138CB72D257DA9BA001CC618 /* Aqua-perKeyGS65.bin */,
+				138CB72A257DA9BA001CC618 /* Chakra-perKeyGS65.bin */,
+				138CB728257DA9BA001CC618 /* Default-perKeyGS65.bin */,
+				138CB729257DA9BA001CC618 /* Disco-perKeyGS65.bin */,
+				138CB72C257DA9BA001CC618 /* Drain-perKeyGS65.bin */,
+				138CB72B257DA9BA001CC618 /* Freeway-perKeyGS65.bin */,
+				138CB727257DA9BA001CC618 /* Plain-perKeyGS65.bin */,
+				138CB72E257DA9BA001CC618 /* Rainbow Split-perKeyGS65.bin */,
+				138CB72F257DA9BA001CC618 /* Roulette-perKeyGS65.bin */,
 			);
 			path = gs65;
 			sourceTree = "<group>";
@@ -588,21 +591,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13D879D8257B85B200F6EB79 /* Default-perKeyGS65.bin in Resources */,
-				13D879D9257B85B200F6EB79 /* Rainbow Split-perKeyGS65.bin in Resources */,
+				138CB735257DA9BB001CC618 /* Drain-perKeyGS65.bin in Resources */,
+				138CB733257DA9BB001CC618 /* Chakra-perKeyGS65.bin in Resources */,
+				138CB731257DA9BB001CC618 /* Default-perKeyGS65.bin in Resources */,
 				13D879E3257B85BC00F6EB79 /* Drain-perKey.bin in Resources */,
-				13D879D4257B85B200F6EB79 /* Aqua-perKeyGS65.bin in Resources */,
-				13D879D5257B85B200F6EB79 /* Plain-perKeyGS65.bin in Resources */,
+				138CB738257DA9BB001CC618 /* Roulette-perKeyGS65.bin in Resources */,
+				138CB730257DA9BB001CC618 /* Plain-perKeyGS65.bin in Resources */,
+				138CB732257DA9BB001CC618 /* Disco-perKeyGS65.bin in Resources */,
+				138CB736257DA9BB001CC618 /* Aqua-perKeyGS65.bin in Resources */,
 				13D879E4257B85BC00F6EB79 /* Aqua-perKey.bin in Resources */,
-				13D879D7257B85B200F6EB79 /* Freeway-perKeyGS65.bin in Resources */,
+				138CB734257DA9BB001CC618 /* Freeway-perKeyGS65.bin in Resources */,
+				138CB737257DA9BB001CC618 /* Rainbow Split-perKeyGS65.bin in Resources */,
 				1384D28224BD184800655884 /* Assets.xcassets in Resources */,
-				13D879D6257B85B200F6EB79 /* Roulette-perKeyGS65.bin in Resources */,
-				13D879D2257B85B200F6EB79 /* Chakra-perKeyGS65.bin in Resources */,
 				13D879E2257B85BC00F6EB79 /* Rainbow Split-perKey.bin in Resources */,
 				13D879E5257B85BC00F6EB79 /* Default-perKey.bin in Resources */,
 				138EEB252509F6F50038EDCC /* MainMenu.xib in Resources */,
 				13D879E6257B85BC00F6EB79 /* Freeway-perKey.bin in Resources */,
-				13D879D3257B85B200F6EB79 /* Drain-perKeyGS65.bin in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

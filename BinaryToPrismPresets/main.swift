@@ -21,7 +21,7 @@ if let url = fileManager.fileExists(atPath: fileName) ? URL(fileURLWithPath: fil
         if let jsonResult = jsonResult as? [String: AnyObject] {
             for (key, value) in jsonResult {
                 if let array = value as? NSArray {
-                    if key.contains("rainbow-split") {
+                    if key.contains("chakra") {
                         print("")
                     }
                     createPreset(name: key, values: array, model: name)
@@ -90,7 +90,7 @@ func createPrismKeys(values: [UInt8], effects: [PrismEffect]) -> [PrismKey]? {
         let indexArray = index * 12 + 2
         let keyCode: UInt8
         if values[indexArray] != 0 {
-            keyCode = values[indexArray] == 0x13 ? 0x24 : values[indexArray]
+            keyCode = region
         } else if values[indexArray + 1] != 0 {
             keyCode = values[indexArray + 1]
         } else {
@@ -114,33 +114,28 @@ func createPrismKeys(values: [UInt8], effects: [PrismEffect]) -> [PrismKey]? {
         let restColor = PrismRGB(red: activeR, green: activeG, blue: activeB)
 
         let prismKey = PrismKey(region: region, keycode: keyCode)
-        prismKey.main = mainColor
-        prismKey.active = restColor
-        prismKey.duration = duration
 
-        if mode == 0x1 {
-            prismKey.mode = .steady
-        } else if mode == 0x08 {
-            prismKey.mode = .reactive
-        } else if mode == 0x03 {
-            prismKey.mode = .disabled
-        }
-
-        if mode == 0 {
+        if mode != 0x0 {
+            if mode == 0x1 {
+                prismKey.mode = .steady
+            } else if mode == 0x08 {
+                prismKey.mode = .reactive
+            } else if mode == 0x03 {
+                prismKey.mode = .disabled
+            }
+        } else {
             guard let effect = effects.first(where: { $0.identifier == effectId }) else {
                 // If it gets here then the key must be a null key
                 continue
             }
-            let blackColorCount = effect.transitions.compactMap({ $0.color })
-                .filter({ $0 == PrismRGB(red: 0, green: 0, blue: 0)}).count
-            if !effect.waveActive && blackColorCount > 0 &&
-                (effect.transitions.count / blackColorCount) == 2 {
-                prismKey.mode = .breathing
-            } else {
-                prismKey.mode = .colorShift
-            }
+
+            prismKey.mode = .colorShift
             prismKey.effect = effect
         }
+
+        prismKey.main = mainColor
+        prismKey.active = restColor
+        prismKey.duration = duration
 
         prismKeyArray.append(prismKey)
     }
@@ -191,11 +186,19 @@ func createEffectPreset(values: [UInt8]) -> PrismEffect? {
 //    let effectLength = (UInt16(values[0x99]) << 8) | UInt16(values[0x98])
 
     let effect = PrismEffect(identifier: effectId, transitions: transitions)
-    if xOrigin != 0 || yOrigin != 0 || xDirection != 0 || yDirection != 0 || pulse != 0 || control != 0 {
+    if xDirection != 0 || yDirection != 0 {
         effect.waveActive = true
         effect.origin = PrismPoint(xPoint: xOrigin, yPoint: yOrigin)
-        effect.direction = xDirection == 1 && yDirection == 1 ? .xyAxis : (xDirection == 1 ? .xAxis : .yAxis)
+        if xDirection == 1 && yDirection == 1 {
+            effect.direction = .xyAxis
+        } else if xDirection == 1 {
+            effect.direction = .xAxis
+        } else {
+            effect.direction = .yAxis
+        }
         effect.pulse = pulse
+    } else {
+        effect.waveActive = false
     }
     effect.control = PrismControl(rawValue: control) ?? .inward
     return effect
