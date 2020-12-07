@@ -43,7 +43,7 @@ class KeyboardViewController: BaseViewController {
                                                name: .prismDeviceSavePreset,
                                                object: nil)
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(updateView),
+                                               selector: #selector(updateDeviceView),
                                                name: .prismDeviceUpdateView,
                                                object: nil)
     }
@@ -53,7 +53,7 @@ class KeyboardViewController: BaseViewController {
 
 extension KeyboardViewController {
 
-    @objc func updateView() {
+    @objc func updateDeviceView() {
         guard let device = PrismDriver.shared.currentDevice else { return }
         if device.isKeyboardDevice && device.model != .threeRegion {
             CATransaction.begin()
@@ -127,11 +127,12 @@ extension KeyboardViewController {
                             keyObj.main = key.effect?.start ?? key.main
                             keyObj.active = key.active
                             keyObj.duration = key.duration
-                            keyView.updateAnimation()
                             break keyViewLoop
                         }
                     }
                 }
+
+                updateDeviceView()
 
                 device.update(forceUpdate: true)
             } catch {

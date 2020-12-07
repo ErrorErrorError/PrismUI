@@ -2940,7 +2940,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -4356,7 +4356,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -6716,7 +6716,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -11790,7 +11790,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,

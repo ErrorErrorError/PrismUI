@@ -10,7 +10,7 @@ import Foundation
 
 public class PrismTransition: NSObject, Codable {
     var color = PrismRGB()
-    var duration: UInt16 = 0
+    var duration: UInt16 = 0x21
 
     public init(color: PrismRGB, duration: UInt16) {
         self.color = color

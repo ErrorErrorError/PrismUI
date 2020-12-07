@@ -134,44 +134,40 @@ extension PrismMultiSliderView {
         maxSize = 14
         let centerView = (frame.size.height - selectorSize.height) / 2
 
+        subviews.forEach { $0.removeFromSuperviewWithoutNeedingDisplay() }
         while subviews.count != 3 {
-            if subviews.count > 3 {
-                subviews.last?.removeFromSuperviewWithoutNeedingDisplay()
-            } else if subviews.count < 3 {
                 let selector = PrismSelector(frame: NSRect(origin: CGPoint(x: 0, y: centerView), size: selectorSize))
                 selector.allowsSelection = true
                 selector.delegate = self
                 addSubview(selector)
-            }
         }
 
-        let thumbOne = (subviews[0] as? PrismSelector)
-        let thumbTwo = (subviews[1] as? PrismSelector)
-        let thumbThree = (subviews[2] as? PrismSelector)
+        guard let thumbOne = subviews[0] as? PrismSelector,
+              let thumbTwo = subviews[1] as? PrismSelector,
+              let thumbThree = subviews[2] as? PrismSelector else { return }
 
-        thumbOne?.frame.origin.x = 0
-        thumbTwo?.frame.origin.x = 76
-        thumbThree?.frame.origin.x = 152
-        thumbOne?.color = PrismRGB(red: 1.0, green: 0.0, blue: 0.88).hsb
-        thumbTwo?.color = PrismRGB(red: 1.0, green: 0xea/0xff, blue: 0.0).hsb
-        thumbThree?.color = PrismRGB(red: 0.0, green: 0xcc/0xff, blue: 1.0).hsb
+        thumbOne.frame.origin.x = 0
+        thumbTwo.frame.origin.x = 76
+        thumbThree.frame.origin.x = 152
+        thumbOne.color = PrismRGB(red: 1.0, green: 0.0, blue: 0.88).hsb
+        thumbTwo.color = PrismRGB(red: 1.0, green: 0xea/0xff, blue: 0.0).hsb
+        thumbThree.color = PrismRGB(red: 0.0, green: 0xcc/0xff, blue: 1.0).hsb
     }
 
     private func createDefaultBreathing() {
         maxSize = 4
         let centerView = (frame.size.height - selectorSize.height) / 2
+        subviews.forEach { $0.removeFromSuperviewWithoutNeedingDisplay() }
+
         while subviews.count != 1 {
-            if subviews.count > 1 {
-                subviews.last?.removeFromSuperviewWithoutNeedingDisplay()
-            } else if subviews.count < 1 {
-                let selector = PrismSelector(frame: NSRect(origin: CGPoint(x: 0, y: centerView), size: selectorSize))
-                selector.allowsSelection = true
-                selector.delegate = self
-                addSubview(selector)
-            }
+            let selector = PrismSelector(frame: NSRect(origin: CGPoint(x: 0, y: centerView), size: selectorSize))
+            selector.allowsSelection = true
+            selector.delegate = self
+            addSubview(selector)
         }
 
-        (subviews[0] as? PrismSelector)?.color = PrismRGB(red: 1.0, green: 0.0, blue: 0.0).hsb
+        guard let thumb = subviews.first as? PrismSelector else { return }
+        thumb.color = PrismRGB(red: 1.0, green: 0.0, blue: 0.0).hsb
     }
 
     public func colorShiftTransitions(speed: CGFloat) -> [PrismTransition] {

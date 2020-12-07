@@ -3,7 +3,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -81,7 +81,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -94,7 +94,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -172,7 +172,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -185,7 +185,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -263,7 +263,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -276,7 +276,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -354,7 +354,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -367,7 +367,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -445,7 +445,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -458,7 +458,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -536,7 +536,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -549,7 +549,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -627,7 +627,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -640,7 +640,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -718,7 +718,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -731,7 +731,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -809,7 +809,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -822,7 +822,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -900,7 +900,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -913,7 +913,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -991,7 +991,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -1004,7 +1004,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -1082,7 +1082,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -1095,7 +1095,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -1173,7 +1173,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -1186,7 +1186,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -1264,7 +1264,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -1277,7 +1277,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -1355,7 +1355,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -1368,7 +1368,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -1446,7 +1446,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -1459,7 +1459,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -1537,7 +1537,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -1550,7 +1550,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -1628,7 +1628,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -1641,7 +1641,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -1719,7 +1719,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -1732,7 +1732,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -1810,7 +1810,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -1823,7 +1823,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -1901,7 +1901,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -1914,7 +1914,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -1992,7 +1992,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -2005,7 +2005,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -2083,7 +2083,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -2096,7 +2096,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -2174,7 +2174,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -2187,7 +2187,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -2265,7 +2265,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -2278,7 +2278,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -2356,7 +2356,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -2369,7 +2369,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -2447,7 +2447,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -2460,7 +2460,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -2538,7 +2538,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -2551,7 +2551,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -2629,7 +2629,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -2642,7 +2642,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -2720,7 +2720,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -2733,7 +2733,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -2811,7 +2811,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -2824,7 +2824,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -2902,7 +2902,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -2914,7 +2914,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -2993,7 +2993,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -3005,7 +3005,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -3084,7 +3084,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -3096,7 +3096,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -3175,7 +3175,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -3187,7 +3187,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -3266,7 +3266,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -3278,7 +3278,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -3357,7 +3357,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -3369,7 +3369,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -3448,7 +3448,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -3460,7 +3460,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -3539,7 +3539,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -3551,7 +3551,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -3630,7 +3630,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -3643,7 +3643,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -3721,7 +3721,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -3734,7 +3734,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -3812,7 +3812,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -3825,7 +3825,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -3903,7 +3903,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -3916,7 +3916,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -3994,7 +3994,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -4007,7 +4007,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -4085,7 +4085,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -4097,7 +4097,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -4176,7 +4176,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -4189,7 +4189,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -4267,7 +4267,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -4280,7 +4280,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -4358,7 +4358,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -4370,7 +4370,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -4449,7 +4449,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -4461,7 +4461,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -4540,7 +4540,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -4552,7 +4552,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -4631,7 +4631,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -4643,7 +4643,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -4722,7 +4722,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -4735,7 +4735,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -4813,7 +4813,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -4825,7 +4825,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -4904,7 +4904,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -4916,7 +4916,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -4995,7 +4995,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -5007,7 +5007,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -5086,7 +5086,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -5098,7 +5098,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -5177,7 +5177,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -5189,7 +5189,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -5268,7 +5268,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -5280,7 +5280,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -5359,7 +5359,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -5371,7 +5371,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -5450,7 +5450,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -5462,7 +5462,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -5541,7 +5541,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -5553,7 +5553,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -5632,7 +5632,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -5644,7 +5644,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -5723,7 +5723,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -5735,7 +5735,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -5814,7 +5814,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -5827,7 +5827,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -5905,7 +5905,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -5918,7 +5918,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -5996,7 +5996,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -6009,7 +6009,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -6087,7 +6087,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -6100,7 +6100,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -6178,7 +6178,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -6190,7 +6190,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -6269,7 +6269,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -6281,7 +6281,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -6360,7 +6360,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -6372,7 +6372,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -6451,7 +6451,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -6463,7 +6463,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -6542,7 +6542,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -6554,7 +6554,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -6633,7 +6633,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -6646,7 +6646,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -6724,7 +6724,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -6737,7 +6737,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -6815,7 +6815,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -6827,7 +6827,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -6906,7 +6906,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -6919,7 +6919,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -6997,7 +6997,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -7009,7 +7009,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -7088,7 +7088,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -7100,7 +7100,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -7179,7 +7179,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -7192,7 +7192,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -7270,7 +7270,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -7283,7 +7283,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -7361,7 +7361,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -7374,7 +7374,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -7452,7 +7452,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -7465,7 +7465,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -7543,7 +7543,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -7556,7 +7556,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -7634,7 +7634,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -7647,7 +7647,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -7725,7 +7725,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -7737,7 +7737,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -7816,7 +7816,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -7829,7 +7829,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -7907,7 +7907,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -7920,7 +7920,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -7998,7 +7998,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -8011,7 +8011,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -8089,7 +8089,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -8101,7 +8101,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -8180,7 +8180,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -8193,7 +8193,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -8271,7 +8271,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -8283,7 +8283,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -8362,7 +8362,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -8374,7 +8374,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -8453,7 +8453,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -8465,7 +8465,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -8544,7 +8544,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -8556,7 +8556,7 @@
   {
     "effect" : {
       "origin" : {
-        "xAxis" : 1,
+        "xAxis" : 0.0011938872970391596,
         "yAxis" : 0.99710703953712632
       },
       "start" : {
@@ -8635,7 +8635,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -8648,7 +8648,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -8726,7 +8726,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -8739,7 +8739,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -8817,7 +8817,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -8830,7 +8830,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -8908,7 +8908,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -8921,7 +8921,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -8999,7 +8999,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,
@@ -9012,7 +9012,7 @@
     "effect" : {
       "origin" : {
         "xAxis" : 0.89995224450811839,
-        "yAxis" : 1
+        "yAxis" : 0
       },
       "start" : {
         "red" : 1,
@@ -9090,7 +9090,7 @@
       "green" : 0
     },
     "mode" : 1,
-    "duration" : 300,
+    "duration" : 0,
     "main" : {
       "red" : 0,
       "alpha" : 1,

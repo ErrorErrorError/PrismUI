@@ -173,8 +173,11 @@ func createEffectPreset(values: [UInt8]) -> PrismEffect? {
 
     // Wave
 
-    let xOrigin = (UInt16(values[0x8d]) << 8) | UInt16(values[0x8c])
-    let yOrigin = (UInt16(values[0x8f]) << 8) | UInt16(values[0x8e])
+    var xOrigin = (UInt16(values[0x8d]) << 8) | UInt16(values[0x8c])
+    var yOrigin = (UInt16(values[0x8f]) << 8) | UInt16(values[0x8e])
+
+    if xOrigin > 0x105C { xOrigin = 0xffff - xOrigin }
+    if yOrigin > 0x40f { yOrigin = 0xffff - yOrigin }
 
     let xDirection = values[0x90]
     let yDirection = values[0x92]
