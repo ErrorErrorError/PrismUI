@@ -188,29 +188,29 @@ extension PrismMultiSliderView {
             }
         }
 
-        let maxDuration = transitions.compactMap({ $0.duration }).reduce(0, +)
+//        let maxDuration = transitions.compactMap({ $0.duration }).reduce(0, +)
         let width = getDrawBounds().size.width
 
         if mode == .colorShift {
-            var originX: CGFloat = 0
+//            var originX: CGFloat = 0
             for (index, transition) in transitions.enumerated() {
                 guard let selector = subviews[index] as? PrismSelector else { return }
-                selector.frame.origin.x = originX
+                selector.frame.origin.x = transition.position * width
                 selector.color = transition.color.hsb
-                originX += (CGFloat(transition.duration) / CGFloat(maxDuration)) * width
+//                originX += transition.position * width
             }
         } else {
-            var originX: CGFloat = 0
+//            var originX: CGFloat = 0
             var selectorInx = 0
             for (index, transition) in transitions.enumerated() {
                 if index % 2 != 0 {
-                    originX += (CGFloat(transition.duration) / CGFloat(maxDuration)) * width
+//                    originX += transition.position * width
                     continue
                 }
                 guard let selector = subviews[selectorInx] as? PrismSelector else { return }
-                selector.frame.origin.x = originX
+                selector.frame.origin.x = transition.position * width
                 selector.color = transition.color.hsb
-                originX += (CGFloat(transition.duration) / CGFloat(maxDuration)) * width
+//                originX += transition.position * width
                 selectorInx += 1
             }
         }
@@ -222,11 +222,18 @@ extension PrismMultiSliderView {
 
         for index in 0..<transitions.count {
             let transition = transitions[index]
-            let newDuration = transition.duration / 2
-            transition.duration = newDuration
             newTransitions.append(transition)
-            let newTrans = PrismTransition(color: PrismRGB(), duration: newDuration)
-            newTransitions.append(newTrans)
+
+            if index + 1 < transitions.count {
+                let nextTransition = transitions[index + 1]
+                let position = nextTransition.position - ((nextTransition.position - transition.position) / 2)
+                let newTrans = PrismTransition(color: PrismRGB(), position: position)
+                newTransitions.append(newTrans)
+            } else {
+                let position = 1.0 - ((1.0 - transition.position) / 2)
+                let newTrans = PrismTransition(color: PrismRGB(), position: position)
+                newTransitions.append(newTrans)
+            }
         }
 
         return newTransitions
@@ -239,14 +246,8 @@ extension PrismMultiSliderView {
         for index in 0..<selectors.count {
             let selector = selectors[index]
             let distance: CGFloat
-            if (index + 1) < selectors.count {
-                let nextSelector = selectors[index + 1]
-                distance = (nextSelector.frame.origin.x - selector.frame.origin.x) / width
-            } else {
-                let firstSelector = selectors[0]
-                distance = ((width - selector.frame.origin.x) + firstSelector.frame.origin.x) / width
-            }
-            let transition = PrismTransition(color: selector.color.rgb, duration: max(UInt16(speed * distance), 0x21))
+            distance = selector.frame.origin.x / width
+            let transition = PrismTransition(color: selector.color.rgb, position: distance)
             transitions.append(transition)
         }
 

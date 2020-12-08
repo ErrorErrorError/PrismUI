@@ -224,23 +224,33 @@ extension PrismKeyboardDevice {
             var data = Data(capacity: PrismKeyboardDevice.packageSize)
             data.append([0x0b, 0x00], count: 2) // Start Packet
 
+            let totalDuration = effect.transitionDuration
+
             // Transitions - each transition will take 8 bytes
             let transitions = effect.transitions
             for (index, transition) in transitions.enumerated() {
                 let idx = UInt8(index)
 
+                let nextTransition = (index + 1) < transitions.count ? transitions[index + 1] : transitions[0]
+
+                var deltaPosition =  nextTransition.position - transition.position
+                if deltaPosition < 0 { deltaPosition += 1.0 }
+
+                let duration = UInt16(deltaPosition * CGFloat(totalDuration))
+
                 // Calculate color difference
-                let nextColor = (index + 1) < transitions.count ? transitions[index + 1].color : effect.start
-                let colorDelta = transition.color.delta(target: nextColor, duration: transition.duration)
+
+                let colorDelta = transition.color.delta(target: nextTransition.color, duration: duration)
 
                 data.append([index == 0 ? effect.identifier : idx,
                              0x0,
                              colorDelta.redUInt, colorDelta.greenUInt, colorDelta.blueUInt,
                              0x0,
-                             UInt8(transition.duration & 0x00ff),
-                             UInt8((transition.duration & 0xff00) >> 8)
+                             UInt8(duration & 0x00ff),
+                             UInt8(duration >> 8)
                 ], count: 8)
             }
+
             // Fill spaces
             var fillZeros = [UInt8](repeating: 0x00, count: 0x84 - data.count)
             data.append(fillZeros, count: fillZeros.count)
@@ -252,7 +262,6 @@ extension PrismKeyboardDevice {
                          (effect.start.greenUInt & 0xf0) >> 4,
                          (effect.start.blueUInt & 0x0f) << 4,
                          (effect.start.blueUInt & 0xf0) >> 4,
-                         // Separator
                          0xff,
                          0x00
             ], count: 8)
@@ -263,15 +272,15 @@ extension PrismKeyboardDevice {
                 let origin = effect.origin
 
                 data.append([UInt8(origin.xUInt16 & 0x00ff),
-                             UInt8((origin.xUInt16 & 0xff00) >> 8),
+                             UInt8(origin.xUInt16 >> 8),
                              UInt8(origin.yUInt16 & 0x00ff),
-                             UInt8((origin.yUInt16 & 0xff00) >> 8),
+                             UInt8(origin.yUInt16 >> 8),
                              effect.direction != .yAxis ? 0x01 : 0x00,
                              0x00,
                              effect.direction != .xAxis ? 0x01 : 0x00,
                              0x00,
                              UInt8(effect.pulse & 0x00ff),
-                             UInt8((effect.pulse & 0xff00) >> 8)
+                             UInt8(effect.pulse >> 8)
                 ], count: 10)
             } else {
                 fillZeros = [UInt8](repeating: 0x00, count: 10)
@@ -281,7 +290,7 @@ extension PrismKeyboardDevice {
             data.append([UInt8(effect.transitions.count),
                          0x00,
                          UInt8(effect.transitionDuration & 0x00ff),
-                         UInt8((effect.transitionDuration & 0xff00) >> 8),
+                         UInt8(effect.transitionDuration >> 8),
                          effect.control.rawValue
             ], count: 5)
 
@@ -422,7 +431,7 @@ extension PrismKeyboardDevice {
                              key.active.greenUInt,
                              key.active.blueUInt,
                              UInt8(key.duration & 0x00ff),
-                             UInt8((key.duration & 0xff00) >> 8),
+                             UInt8(key.duration >> 8),
                              key.effect?.identifier ?? 0,
                              mode], count: 10)
             } else {

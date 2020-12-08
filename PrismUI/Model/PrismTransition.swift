@@ -10,11 +10,11 @@ import Foundation
 
 public class PrismTransition: NSObject, Codable {
     var color = PrismRGB()
-    var duration: UInt16 = 0x21
+    var position: CGFloat = 0x21 / 0xBB8
 
-    public init(color: PrismRGB, duration: UInt16) {
+    public init(color: PrismRGB, position: CGFloat) {
         self.color = color
-        self.duration = duration
+        self.position = position
     }
 }
 
@@ -22,13 +22,13 @@ extension PrismTransition {
     public override func isEqual(_ object: Any?) -> Bool {
         guard let otherTransition = object as? PrismTransition else { return false }
         return self.color == otherTransition.color &&
-            self.duration == otherTransition.duration
+            self.position == otherTransition.position
     }
 
     public override var hash: Int {
         var hasher = Hasher()
         hasher.combine(color)
-        hasher.combine(duration)
+        hasher.combine(position)
         return hasher.finalize()
     }
 }

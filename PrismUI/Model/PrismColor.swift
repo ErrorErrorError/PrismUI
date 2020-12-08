@@ -384,7 +384,7 @@ class PrismColor {
     }
 }
 
-private extension CGFloat {
+public extension CGFloat {
 
     mutating func clamped(min: CGFloat, max: CGFloat) {
         if self > max {

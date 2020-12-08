@@ -165,14 +165,17 @@ extension KeyColorView: CAAnimationDelegate {
             return
         }
 
+        let transitionDuration = CGFloat(effect.transitionDuration)
         let transitions = effect.transitions
         let currentTransition = transitions[transitionIndex]
         transitionIndex + 1 < transitions.count ? (transitionIndex += 1) : (transitionIndex = 0)
         let nextTransition = transitions[transitionIndex]
-
+        var deltaPosition = nextTransition.position - currentTransition.position
+        if deltaPosition < 0 { deltaPosition += 1.0 }
+        let duration = deltaPosition * transitionDuration
         createAnimationBackground(fromColor: currentTransition.color.cgColor,
                                   toColor: nextTransition.color.cgColor,
-                                  duration: CFTimeInterval(CGFloat(currentTransition.duration) / 100))
+                                  duration: CFTimeInterval(duration / 100))
     }
 
     private func animateWave() {
@@ -180,19 +183,14 @@ extension KeyColorView: CAAnimationDelegate {
 
         guard let effect = prismKey.effect else { return }
 
-        let originPoint = effect.origin
-        let originXFloat = originPoint.xPoint
-        let originYFloat = 1 - originPoint.yPoint
+        let originXFloat = effect.origin.xPoint
+        let originYFloat = 1 - effect.origin.yPoint
 
         let beforeColor, afterColor: CGColor
         let durationAnimation: CFTimeInterval
-        var totalDur: CGFloat = 0
+        let totalDuration = CGFloat(effect.transitionDuration)
 
-        let colorAndLocation = effect.transitions.compactMap { transition -> (PrismTransition, CGFloat) in
-            let val = (transition, totalDur/CGFloat(effect.transitionDuration))
-            totalDur += CGFloat(transition.duration)
-            return val
-        }
+        let transitions = effect.transitions
 
         if !hasSetInitialWaveEffect {
             var directionDelta: CGFloat
@@ -218,56 +216,54 @@ extension KeyColorView: CAAnimationDelegate {
             }
 
             while directionDelta > 1.0 { directionDelta -= 1.0 }
-            guard let headColor = colorAndLocation.filter({ $0.1 <= directionDelta }).last else { return }
-            guard let headIndex = colorAndLocation.firstIndex(where: { $0 == headColor }) else { return }
-            guard let tailColor = colorAndLocation.filter({ $0.1 > directionDelta }).first ??
-                    colorAndLocation.first.map({($0.0, $0.1 + 1.0)}) else { return }
+            guard let headColor = transitions.filter({ $0.position <= directionDelta }).last ??
+                    transitions.last.map({ PrismTransition(color: $0.color,
+                                                           position: $0.position - 1.0) }) else { return }
+            let headIndex = transitions.firstIndex(where: { $0 == headColor }) ?? transitions.count - 1
+            guard let tailColor = transitions.filter({ $0.position > directionDelta }).first ??
+                    transitions.first.map({ PrismTransition(color: $0.color,
+                                                            position: $0.position + 1.0) }) else { return }
 
             let colorLocation = MathUtils.map(value: directionDelta,
-                                              inMin: headColor.1,
-                                              inMax: tailColor.1,
+                                              inMin: headColor.position,
+                                              inMax: tailColor.position,
                                               outMin: 0.0,
                                               outMax: 1.0)
 
-            beforeColor = PrismColor.linearGradient(fromColor: headColor.0.color,
-                                                    toColor: tailColor.0.color,
+            beforeColor = PrismColor.linearGradient(fromColor: headColor.color,
+                                                    toColor: tailColor.color,
                                                     percent: colorLocation).cgColor
 
-            // Get next transition for effect
+            var distanceLeft: CGFloat
 
-            let distanceLeft: CGFloat
             if effect.control == .inward {
-                afterColor = tailColor.0.color.cgColor
-                distanceLeft = CGFloat(headColor.0.duration) - (CGFloat(headColor.0.duration) * colorLocation)
-                transitionIndex = headIndex + 1 < colorAndLocation.count ? headIndex + 1 : 0
+                afterColor = tailColor.color.cgColor
+                distanceLeft = tailColor.position - directionDelta
+                transitionIndex = headIndex + 1 < transitions.count ? headIndex + 1 : 0
             } else {
-                if directionDelta > headColor.1 {
-                    afterColor = headColor.0.color.cgColor
-                    distanceLeft = CGFloat(headColor.0.duration) * colorLocation
-                    transitionIndex = headIndex
-                } else {
-                    transitionIndex = headIndex - 1 >= 0 ? headIndex - 1 : colorAndLocation.count - 1
-                    afterColor = colorAndLocation[transitionIndex].0.color.cgColor
-                    distanceLeft = CGFloat(colorAndLocation[transitionIndex].0.duration)
-                }
+                afterColor = headColor.color.cgColor
+                distanceLeft = directionDelta - headColor.position
+                transitionIndex = headIndex
             }
+            if distanceLeft < 0 { distanceLeft += 1.0 }
 
-            durationAnimation = CFTimeInterval(distanceLeft / 100.0)
+            durationAnimation = CFTimeInterval(distanceLeft * totalDuration / 100.0)
             hasSetInitialWaveEffect = true
         } else {
-            let currentColor = colorAndLocation[transitionIndex]
+            let currentColor = transitions[transitionIndex]
             let nextIndex: Int
-            let duration: UInt16
             if effect.control == .inward {
-                nextIndex = transitionIndex + 1 < colorAndLocation.count ? transitionIndex + 1 : 0
-                duration = currentColor.0.duration
+                nextIndex = transitionIndex + 1 < transitions.count ? transitionIndex + 1 : 0
             } else {
-                nextIndex = transitionIndex - 1 >= 0 ? transitionIndex - 1 : colorAndLocation.count - 1
-                duration = colorAndLocation[nextIndex].0.duration
+                nextIndex = transitionIndex - 1 >= 0 ? transitionIndex - 1 : transitions.count - 1
             }
-            beforeColor = currentColor.0.color.cgColor
-            afterColor = colorAndLocation[nextIndex].0.color.cgColor
-            durationAnimation = CFTimeInterval(CGFloat(duration) / 100)
+
+            var distanceDelta = transitions[nextIndex].position - currentColor.position
+            if distanceDelta < 0 { distanceDelta += 1.0 }
+
+            beforeColor = currentColor.color.cgColor
+            afterColor = transitions[nextIndex].color.cgColor
+            durationAnimation = CFTimeInterval(distanceDelta * totalDuration / 100)
             transitionIndex = nextIndex
         }
         createAnimationBackground(fromColor: beforeColor, toColor: afterColor, duration: durationAnimation)

@@ -535,6 +535,7 @@ extension ModesViewController {
         let pulse = UInt16(pulseSlider.intValue)
         let direction = PrismDirection(rawValue: UInt8(waveDirectionControl.selectedSegment)) ?? .xyAxis
         let control = PrismControl(rawValue: UInt8(waveInwardOutwardControl.selectedSegment)) ?? .inward
+        let transitionDuration = UInt16(speedSlider.intValue)
 
         // See if it can find an effect with the same settings, if not create a new effect
 
@@ -545,12 +546,14 @@ extension ModesViewController {
                 $0.control == control &&
                 $0.origin == origin &&
                 $0.pulse == pulse &&
-                $0.transitions == transitions
+                $0.transitions == transitions &&
+                $0.transitionDuration == transitionDuration
         })
 
         if effect == nil {
             effect = PrismEffect(identifier: identifier, transitions: transitions)
             guard let effect = effect else { return nil }
+            effect.transitionDuration = transitionDuration
             if mode == .colorShift {
                 effect.waveActive = waveToggle.state == .on
                 if effect.waveActive {

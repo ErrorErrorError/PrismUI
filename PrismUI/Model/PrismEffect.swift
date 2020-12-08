@@ -23,9 +23,7 @@ public final class PrismEffect: NSObject {
     let identifier: UInt8
     var start: PrismRGB = PrismRGB()
     var transitions: [PrismTransition]
-    var transitionDuration: UInt16 {
-        return transitions.compactMap { $0.duration }.reduce(0, +)
-    }
+    var transitionDuration: UInt16 = 0x12c
     var waveActive: Bool = false {
         didSet {
             if !waveActive {
