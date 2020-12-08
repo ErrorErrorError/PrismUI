@@ -1,4 +1,4 @@
-name: Distribute GitHub Prerelease
+name: Distribute GitHub Release
 
 on:
   push:
