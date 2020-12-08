@@ -267,7 +267,7 @@ extension PrismRGB {
     }
 
     public var cgColor: CGColor {
-        return CGColor(srgbRed: self.red,
+        return CGColor(red: self.red,
                        green: self.green,
                        blue: self.blue,
                        alpha: self.alpha)
