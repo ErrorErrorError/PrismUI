@@ -12,6 +12,7 @@ import Sparkle
 class AppMenu: NSMenu {
 
     private lazy var applicationName = ProcessInfo.processInfo.processName
+    private let updater = SUUpdater()
 
     convenience init() {
         self.init(title: "")
@@ -50,7 +51,7 @@ class AppMenu: NSMenu {
     }
 
     @objc func checkForUpdates(_ sender: NSMenuItem) {
-        SUUpdater.shared()?.checkForUpdates(sender)
+        updater.checkForUpdates(self)
     }
 
     @objc func generateLog(_ selector: NSMenuItem) {
