@@ -46,6 +46,7 @@
 		13A0EC4225082A0100F552F1 /* KeyboardViewController+PerKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A0EC4125082A0100F552F1 /* KeyboardViewController+PerKey.swift */; };
 		13A57022251C4E3D00C600DB /* PrismSavePresetWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A57021251C4E3D00C600DB /* PrismSavePresetWindow.swift */; };
 		13A624092519E60F004D71F6 /* PresetsTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A624082519E60F004D71F6 /* PresetsTableRowView.swift */; };
+		13B109D625809FBD008767F3 /* Pods_PrismUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C08081D643B770DF1F5178 /* Pods_PrismUI.framework */; };
 		13B297822501BDE4003AA30E /* ModesViewController+PerKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B297812501BDE4003AA30E /* ModesViewController+PerKey.swift */; };
 		13B8825524C8BAB600700325 /* PrismColorSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B8825424C8BAB600700325 /* PrismColorSliderView.swift */; };
 		13B9F91D24E6897D00FAFA88 /* PrismDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B9F91524E6897D00FAFA88 /* PrismDriver.swift */; };
@@ -72,11 +73,12 @@
 		13F819E6251BF4B300E96CF9 /* PrismTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F819E5251BF4B300E96CF9 /* PrismTransition.swift */; };
 		13FBFB00252FE4FD003EA04D /* MathUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FBFAFF252FE4FD003EA04D /* MathUtils.swift */; };
 		13FEACD724BEDD45009B86ED /* PrismKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FEACD624BEDD45009B86ED /* PrismKey.swift */; };
-		4EE2D008240733F7C050689F /* Pods_PrismUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C08081D643B770DF1F5178 /* Pods_PrismUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		00C08081D643B770DF1F5178 /* Pods_PrismUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrismUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0D43D2DF86765D4293EB9C1A /* Pods-PrismUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrismUI.release.xcconfig"; path = "Target Support Files/Pods-PrismUI/Pods-PrismUI.release.xcconfig"; sourceTree = "<group>"; };
+		0DF8246F24DB6B25E1F63C0D /* Pods-PrismUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrismUI.debug.xcconfig"; path = "Target Support Files/Pods-PrismUI/Pods-PrismUI.debug.xcconfig"; sourceTree = "<group>"; };
 		130B9A2324C7C70600989667 /* PrismColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismColorPicker.swift; sourceTree = "<group>"; };
 		130B9A2524C7C76A00989667 /* PrismColorGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismColorGraphView.swift; sourceTree = "<group>"; };
 		131285B424E72D1E009CDBCE /* PrismSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismSelector.swift; sourceTree = "<group>"; };
@@ -148,8 +150,6 @@
 		13F819E5251BF4B300E96CF9 /* PrismTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismTransition.swift; sourceTree = "<group>"; };
 		13FBFAFF252FE4FD003EA04D /* MathUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathUtils.swift; sourceTree = "<group>"; };
 		13FEACD624BEDD45009B86ED /* PrismKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismKey.swift; sourceTree = "<group>"; };
-		15747D84AFE6667ADB3C2E4F /* Pods-PrismUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrismUI.debug.xcconfig"; path = "Target Support Files/Pods-PrismUI/Pods-PrismUI.debug.xcconfig"; sourceTree = "<group>"; };
-		C68ECFAA71BE30DF82042E44 /* Pods-PrismUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrismUI.release.xcconfig"; path = "Target Support Files/Pods-PrismUI/Pods-PrismUI.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,8 +157,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13B109D625809FBD008767F3 /* Pods_PrismUI.framework in Frameworks */,
 				13B9F92524E689E500FAFA88 /* IOKit.framework in Frameworks */,
-				4EE2D008240733F7C050689F /* Pods_PrismUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,7 +297,7 @@
 				1384D27C24BD184700655884 /* PrismUI */,
 				1384D27B24BD184700655884 /* Products */,
 				134CE96424BD427800D9D845 /* Frameworks */,
-				D960B0921A9C84FC10D4FF1E /* Pods */,
+				68ED9DEEE385F4376B2DE8BA /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -404,11 +404,11 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		D960B0921A9C84FC10D4FF1E /* Pods */ = {
+		68ED9DEEE385F4376B2DE8BA /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				15747D84AFE6667ADB3C2E4F /* Pods-PrismUI.debug.xcconfig */,
-				C68ECFAA71BE30DF82042E44 /* Pods-PrismUI.release.xcconfig */,
+				0DF8246F24DB6B25E1F63C0D /* Pods-PrismUI.debug.xcconfig */,
+				0D43D2DF86765D4293EB9C1A /* Pods-PrismUI.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -425,7 +425,7 @@
 				1384D27724BD184700655884 /* Frameworks */,
 				1384D27824BD184700655884 /* Resources */,
 				13FEACD024BE450A009B86ED /* SwiftLint Script */,
-				DEF4C20453C4507F72817EED /* [CP] Embed Pods Frameworks */,
+				4FF4CCACE315312E0A11EDCE /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -509,7 +509,7 @@
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which \"${PODS_ROOT}/SwiftLint/swiftlint\" >/dev/null; then \n    ${PODS_ROOT}/SwiftLint/swiftlint\nelif which swiftlint >/dev/null; then\n    swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
-		DEF4C20453C4507F72817EED /* [CP] Embed Pods Frameworks */ = {
+		4FF4CCACE315312E0A11EDCE /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -733,15 +733,15 @@
 		};
 		1384D28B24BD184800655884 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 15747D84AFE6667ADB3C2E4F /* Pods-PrismUI.debug.xcconfig */;
+			baseConfigurationReference = 0DF8246F24DB6B25E1F63C0D /* Pods-PrismUI.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = PrismUI/PrismUI.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1.0.0;
-				DEVELOPMENT_TEAM = "";
+				CURRENT_PROJECT_VERSION = "1.0.0";
+				DEVELOPMENT_TEAM = A6HC4Y86NJ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = PrismUI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -761,15 +761,15 @@
 		};
 		1384D28C24BD184800655884 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C68ECFAA71BE30DF82042E44 /* Pods-PrismUI.release.xcconfig */;
+			baseConfigurationReference = 0D43D2DF86765D4293EB9C1A /* Pods-PrismUI.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = PrismUI/PrismUI.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1.0.0;
-				DEVELOPMENT_TEAM = "";
+				CURRENT_PROJECT_VERSION = "1.0.0";
+				DEVELOPMENT_TEAM = A6HC4Y86NJ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = PrismUI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

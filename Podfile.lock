@@ -1,5 +1,5 @@
 PODS:
-  - Sparkle (1.23.0)
+  - Sparkle (1.24.0)
   - SwiftLint (0.39.2)
 
 DEPENDENCIES:
@@ -12,7 +12,7 @@ SPEC REPOS:
     - SwiftLint
 
 SPEC CHECKSUMS:
-  Sparkle: 55b1a87ba69d56913375a281546b7c82dec95bb0
+  Sparkle: 270cd27377bf04e9c128af06e3a22d0f572d6ee3
   SwiftLint: 22ccbbe3b8008684be5955693bab135e0ed6a447
 
 PODFILE CHECKSUM: 78c53544c39f8ceec3b5829f1f6d835659a1868e
