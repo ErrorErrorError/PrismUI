@@ -1,4 +1,4 @@
-name: Distribute GitHub Prerelease
+name: Distribute GitHub Release
 
 on:
   push:
@@ -6,7 +6,6 @@ on:
   workflow_dispatch:
 
 jobs:
-
   CD:
     runs-on: macos-11.0
 
@@ -16,9 +15,8 @@ jobs:
     - name: Prepare Env
       run: |
         sudo xcode-select -s "/Applications/Xcode_12.2.app"
-        brew install graphicsmagick imagemagick
-        npm install --global create-dmg
         pod install
+        npm install --global create-dmg
 
     - name: Manage Version
       run: |
@@ -26,11 +24,9 @@ jobs:
         GIT_SHA="$(git rev-parse --short HEAD)"
         CUR_TAG="$(git tag -l | grep 'alpha\|beta' | tail -1)"
         eval $(grep -m 1 "MARKETING_VERSION =" PrismUI.xcodeproj/project.pbxproj | tr -d ';' | tr -d '\t' | tr -d " ")
-
-        if [[ "$(git log -1 --pretty=format:%s)" != *"GH Release"* ]]; then
-          sed -i '' -e "s/CURRENT_PROJECT_VERSION =.*/CURRENT_PROJECT_VERSION = \"\$(MARKETING_VERSION)-alpha-${GIT_SHA};/g" PrismUI.xcodeproj/project.pbxproj
+        if [ '${{ github.event_name == 'workflow_dispatch' }}' ]; then
+          /usr/libexec/PlistBuddy -c "Set CFBundleVersion ${MARKETING_VERSION}-alpha-${GIT_SHA}" PrismUI/Info.plist
         fi
-
         echo "VER=$MARKETING_VERSION" >> $GITHUB_ENV 
         echo "SHORT_SHA=$GIT_SHA" >> $GITHUB_ENV 
         if [[ -z $CUR_TAG ]]; then
@@ -38,9 +34,10 @@ jobs:
         else
           echo "OLD_PRE_TAG=$CUR_TAG" >> $GITHUB_ENV 
         fi
+
       shell: zsh {0}
 
-    - name: Build
+    - name: Xcode Build
       run: |
         xcodebuild -workspace PrismUI.xcworkspace -scheme PrismUI -configuration Release -derivedDataPath build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty && exit ${PIPESTATUS[0]}
 
@@ -79,7 +76,7 @@ jobs:
     - name: Generate Release Notes
       run: |
         echo '### The latest updates are:' >> ReleaseNotes.md
-        git log -"$(git rev-list --count $(git rev-list -1 "$(git tag -l | grep -v 'alpha' | tail -1)")..HEAD)" --format="- %H %s" | grep -v '.git\|Merge\|yml\|CI' | sed  '/^$/d' >> ReleaseNotes.md
+        git log -n 5 --pretty=format:'- %H %s' | sed '/^$/d' >> ReleaseNotes.md  
 
     - name: Delete Old Prerelease
       uses: dev-drprasad/delete-tag-and-release@v0.1.2
@@ -97,7 +94,7 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Generate Sparkle Appcast
-      if: contains(github.event.head_commit.message, 'GH release')
+      if: github.event_name == 'workflow_dispatch'
       run: |
         mkdir sparkle
         cd sparkle
@@ -106,13 +103,12 @@ jobs:
         curl -#LO "${URL}"
         tar xvf *.xz >/dev/null 2>&1
         cd ..
-
         PUBDATE="$(date +"%a, %d %b %Y %T %z")"
         APPCAST=(
             '<?xml version="1.0" standalone="yes"?>'
             '<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">'
             '    <channel>'
-            '        <title>PrismUI</title>'
+            '        <title>HeliPort</title>'
             '        <item>'
             "            <title>${VER}</title>"
             "            <pubDate>${PUBDATE}</pubDate>"
@@ -121,7 +117,7 @@ jobs:
             '            ]]>'
             '            </description>'
             "            <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>"
-            "            <enclosure url=\"https://PrismUI.dev/https://github.com/ErrorErrorError/PrismUI/releases/latest/download/PrismUI.dmg\" sparkle:version=\"${VER}\" sparkle:shortVersionString=\"${VER}\" type=\"application/octet-stream\" $(./sparkle/bin/sign_update -s ${SPARKLE_KEY} ./Artifacts/PrismUI.dmg)/>"
+            "            <enclosure url=\"https://prismui.errorerrorerror.workers.dev/https://github.com/ErrorErrorError/PrismUI/releases/latest/download/PrismUI.dmg\" sparkle:version=\"${VER}\" sparkle:shortVersionString=\"${VER}\" type=\"application/octet-stream\" $(./sparkle/bin/sign_update -s ${SPARKLE_KEY} ./Artifacts/PrismUI.dmg)/>"
             '        </item>'
             '    </channel>'
             '</rss>'
@@ -129,7 +125,7 @@ jobs:
         for appcast in "${APPCAST[@]}"; do
             echo "${appcast}" >> ./Artifacts/appcast.xml
         done
-      shell: bash
+      shell: zsh {0}
       env:
         SPARKLE_KEY: ${{ secrets.SPARKLE_KEY }}
 

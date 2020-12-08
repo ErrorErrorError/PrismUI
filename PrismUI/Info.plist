@@ -32,5 +32,9 @@
 	<true/>
 	<key>NSSupportsSuddenTermination</key>
 	<true/>
+	<key>SUFeedURL</key>
+	<string>https://prismui.errorerrorerror.workers.dev/https://github.com/ErrorErrorError/PrismUI/releases/latest/download/appcast.xml</string>
+	<key>SUPublicEDKey</key>
+	<string>eXqWnKp8ZsckV5j+b2ts4oHlLI0xOmgEAf0DUaLAchE=</string>
 </dict>
 </plist>

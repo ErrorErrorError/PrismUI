@@ -20,6 +20,7 @@ class AppMenu: NSMenu {
         let mainMenu = NSMenuItem()
         mainMenu.target = self
         mainMenu.submenu = NSMenu(title: "MainMenu")
+        mainMenu.submenu?.autoenablesItems = false
         mainMenu.submenu?.items = [NSMenuItem(title: "About \(applicationName)",
                                               action: #selector(NSApplication.orderFrontStandardAboutPanel(_:)),
                                               keyEquivalent: ""),
@@ -32,7 +33,9 @@ class AppMenu: NSMenu {
                                               action: #selector(generateLog(_:)),
                                               keyEquivalent: ""),
                                    NSMenuItem.separator(),
-                                   NSMenuItem(title: "Preferences...", action: nil, keyEquivalent: ","),
+                                   NSMenuItem(title: "Preferences",
+                                              action: #selector(openPreferenceWindow(_:)),
+                                              keyEquivalent: ","),
                                    NSMenuItem.separator(),
                                    NSMenuItem(title: "Hide \(applicationName)",
                                               action: #selector(NSApplication.hide(_:)), keyEquivalent: "h"),
@@ -50,8 +53,13 @@ class AppMenu: NSMenu {
         items = [mainMenu]
     }
 
+    @objc func openPreferenceWindow(_ sende: NSMenuItem) {
+    }
+
     @objc func checkForUpdates(_ sender: NSMenuItem) {
+        sender.isEnabled = false
         updater.checkForUpdates(self)
+        sender.isEnabled = true
     }
 
     @objc func generateLog(_ selector: NSMenuItem) {
