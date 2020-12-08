@@ -15,13 +15,21 @@
 
 This is a revised version of my previous repo SSKeyboardHue. The driver and the app is now all within one app and uses pure Swift!
 
-## Installation
+## Download
 
-Currently it is still a WIP but if you'd like to contribute feel free to fork this repo and submit a pull request.
+### Latest Stable Version
+
+[![Download from https://github.com/ErrorErrorError/PrismUI/releases/latest](https://img.shields.io/github/v/release/ErrorErrorError/PrismUI?color=%2300AABB&label=Download)](https://github.com/ErrorErrorError/PrismUI/releases/latest)
+
+### Latest Alpha Version
+
+[![Download from https://github.com/ErrorErrorError/PrismUI/releases/](https://img.shields.io/github/v/release/ErrorErrorError/PrismUI?include_prereleases&label=Download)](https://github.com/ErrorErrorError/PrismUI/releases/)
 
 ## Usage
 
-Open PrismUI app and customize your peripheral's RGB!
+Download the stable version and install the app to `~/Applications` folder.
+
+Open PrismUI app and customize your RGB peripherals!
 
 ## Compatibility
 
@@ -39,3 +47,10 @@ Please make sure to update tests as appropriate.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
+
+## Credits
+- [Stevelacy](https://github.com/stevelacy/msi-keyboard-gui) for the idea creating a gui.
+- [Askannz](https://github.com/Askannz/msi-perkeyrgb) for `.perKey` keycodes.
+- [TauAkiou](https://github.com/TauAkiou/msi-perkeyrgb) for their documentation with the effects implementation.
+- [flozz](https://github.com/flozz/rivalcfg) for their color delta calculations.
+- [Matt Chaldwell](https://dribbble.com/mchalwell) for the inspiration of the logo.

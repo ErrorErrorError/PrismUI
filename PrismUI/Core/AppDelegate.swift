@@ -7,26 +7,15 @@
 //
 
 import Cocoa
+import Sparkle
 
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     let driver = PrismDriver.shared
 
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
-        var topLevelObjects: NSArray? = []
-        Bundle.main.loadNibNamed("MainMenu", owner: self, topLevelObjects: &topLevelObjects)
-        guard let menu = topLevelObjects?.filter({ $0 is NSMenu }).first as? NSMenu else {
-            let alert = NSAlert()
-            alert.addButton(withTitle: "Exit")
-            alert.alertStyle = .critical
-            alert.messageText = "Menu not loaded."
-            alert.informativeText = "There was an error trying to load menu."
-            alert.runModal()
-            alert.showsSuppressionButton = true
-            NSApp.terminate(nil)
-            return
-        }
+    private let menu: NSMenu = AppMenu()
 
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
         let mainWindow: NSWindow = {
             let window = NSWindow()
             window.setContentSize(NSSize(width: 1380, height: 720))
@@ -38,6 +27,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             window.center()
             return window
         }()
+
         NSApplication.shared.mainMenu = menu
         mainWindow.delegate = self
         let splitViewController = MainSplitViewController()

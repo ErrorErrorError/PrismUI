@@ -30,8 +30,8 @@ public class PrismAlertViewController: BaseViewController {
 extension String {
     static let notSupported = NSLocalizedString("This device is currently not supported.", comment: "")
     static let noDevicesAvaliable = NSLocalizedString("There are no devices available. " +
-                                                        "Please make sure your device is not disabled and that is on.",
+                                                        "Please make sure your device is not disabled and that the device is currently supported.",
                                                       comment: "")
-    static let noDeviceSelected = NSLocalizedString("There is no device selected.", comment: "")
+    static let noDeviceSelected = NSLocalizedString("Please select a device.", comment: "")
 
 }

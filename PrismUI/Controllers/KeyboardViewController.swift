@@ -56,10 +56,10 @@ extension KeyboardViewController {
     @objc func updateDeviceView() {
         guard let device = PrismDriver.shared.currentDevice else { return }
         if device.isKeyboardDevice && device.model != .threeRegion {
-            CATransaction.begin()
-            CATransaction.setDisableActions(true)
-            self.view.subviews.compactMap({ $0 as? KeyColorView}).forEach { $0.updateAnimation() }
-            CATransaction.commit()
+            DispatchQueue.main.async {
+                self.view.subviews.compactMap({ $0 as? KeyColorView}).forEach { $0.removeAnimation() }
+                self.view.subviews.compactMap({ $0 as? KeyColorView}).forEach { $0.updateAnimation() }
+            }
         }
     }
 

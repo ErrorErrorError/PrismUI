@@ -132,8 +132,13 @@ class KeyColorView: ColorView {
 
 extension KeyColorView: CAAnimationDelegate {
 
+    func removeAnimation() {
+        guard let baseLayer = layer else { return }
+        baseLayer.removeAnimation(forKey: "perKeyEffectAnimation")
+    }
+
     func updateAnimation() {
-        layer?.removeAnimation(forKey: "perKeyEffectAnimation")
+        removeAnimation()
         color = prismKey.main.nsColor
         transitionIndex = 0
         hasSetInitialWaveEffect = false
@@ -164,6 +169,7 @@ extension KeyColorView: CAAnimationDelegate {
         guard let effect = prismKey.effect else {
             return
         }
+        if transitionIndex >= effect.transitions.count { transitionIndex = 0 }
 
         let transitionDuration = CGFloat(effect.transitionDuration)
         let transitions = effect.transitions
@@ -250,6 +256,7 @@ extension KeyColorView: CAAnimationDelegate {
             durationAnimation = CFTimeInterval((distanceLeft * totalDuration) / 100.0)
             hasSetInitialWaveEffect = true
         } else {
+            if transitionIndex >= effect.transitions.count { transitionIndex = 0 }
             let currentColor = transitions[transitionIndex]
             let nextIndex: Int
             var distanceDelta: CGFloat = 0
@@ -276,7 +283,7 @@ extension KeyColorView: CAAnimationDelegate {
             return
         }
 
-        baseLayer.removeAnimation(forKey: "perKeyEffectAnimation")
+        removeAnimation()
 
         let animationGroup = CAAnimationGroup()
         animationGroup.delegate = self
