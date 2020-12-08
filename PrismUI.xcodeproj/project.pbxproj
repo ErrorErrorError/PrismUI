@@ -34,6 +34,7 @@
 		13513B2124E8B3ED00D2A842 /* PrismKeyboardDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13513B2024E8B3ED00D2A842 /* PrismKeyboardDevice.swift */; };
 		13513B2424E9361500D2A842 /* PrismColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135999F824CD7CC800941DCC /* PrismColor.swift */; };
 		1358E31A257F896700E8386C /* AppMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1358E319257F896700E8386C /* AppMenu.swift */; };
+		137AB33D257F8E8C002AA4F7 /* SteelseriesToPrismUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F74DE92579A796002CD1D5 /* SteelseriesToPrismUI.swift */; };
 		1384D28224BD184800655884 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1384D28124BD184800655884 /* Assets.xcassets */; };
 		1386D12424CCF76900B91092 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1386D12324CCF76900B91092 /* Log.swift */; };
 		1386D12824CD058A00B91092 /* ColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1386D12724CD058A00B91092 /* ColorView.swift */; };
@@ -56,13 +57,6 @@
 		13C161EA24E7B0E800384C07 /* PrismEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C161E924E7B0E800384C07 /* PrismEffect.swift */; };
 		13C56B2324E6907100C8C998 /* PrismMultiSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C56B2224E6907100C8C998 /* PrismMultiSliderView.swift */; };
 		13C56B2724E693F100C8C998 /* NSTextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C56B2624E693F100C8C998 /* NSTextField+Extension.swift */; };
-		13F74DEA2579A796002CD1D5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F74DE92579A796002CD1D5 /* main.swift */; };
-		13F74E062579C1DF002CD1D5 /* PrismEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C161E924E7B0E800384C07 /* PrismEffect.swift */; };
-		13F74E092579C261002CD1D5 /* PrismColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135999F824CD7CC800941DCC /* PrismColor.swift */; };
-		13F74E0C2579C27D002CD1D5 /* PrismTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F819E5251BF4B300E96CF9 /* PrismTransition.swift */; };
-		13F74E0F2579C284002CD1D5 /* PrismPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F819E3251BF47400E96CF9 /* PrismPoint.swift */; };
-		13F74E122579C28B002CD1D5 /* PrismKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FEACD624BEDD45009B86ED /* PrismKey.swift */; };
-		13F74E152579C2A6002CD1D5 /* PrismKeyModes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C161E724E7B06900384C07 /* PrismKeyModes.swift */; };
 		13F7B431257F4CBC00179DC3 /* Default-perKeyGS65.bin in Resources */ = {isa = PBXBuildFile; fileRef = 13F7B428257F4CBB00179DC3 /* Default-perKeyGS65.bin */; };
 		13F7B432257F4CBC00179DC3 /* Drain-perKeyGS65.bin in Resources */ = {isa = PBXBuildFile; fileRef = 13F7B429257F4CBB00179DC3 /* Drain-perKeyGS65.bin */; };
 		13F7B433257F4CBC00179DC3 /* Chakra-perKeyGS65.bin in Resources */ = {isa = PBXBuildFile; fileRef = 13F7B42A257F4CBB00179DC3 /* Chakra-perKeyGS65.bin */; };
@@ -91,18 +85,6 @@
 			remoteInfo = PrismUI;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		13F74DE52579A796002CD1D5 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		00C08081D643B770DF1F5178 /* Pods_PrismUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrismUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -161,8 +143,7 @@
 		13C161E924E7B0E800384C07 /* PrismEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismEffect.swift; sourceTree = "<group>"; };
 		13C56B2224E6907100C8C998 /* PrismMultiSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismMultiSliderView.swift; sourceTree = "<group>"; };
 		13C56B2624E693F100C8C998 /* NSTextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTextField+Extension.swift"; sourceTree = "<group>"; };
-		13F74DE72579A796002CD1D5 /* BinaryToPrismPresets */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BinaryToPrismPresets; sourceTree = BUILT_PRODUCTS_DIR; };
-		13F74DE92579A796002CD1D5 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		13F74DE92579A796002CD1D5 /* SteelseriesToPrismUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SteelseriesToPrismUI.swift; sourceTree = "<group>"; };
 		13F74DF42579B186002CD1D5 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		13F74DF82579B190002CD1D5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		13F7B428257F4CBB00179DC3 /* Default-perKeyGS65.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Default-perKeyGS65.bin"; sourceTree = "<group>"; };
@@ -196,13 +177,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		13A4E70B257B570F00BF9056 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		13F74DE42579A796002CD1D5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -342,7 +316,6 @@
 			children = (
 				138160CC250868DF007E13EA /* README.md */,
 				1384D27C24BD184700655884 /* PrismUI */,
-				13F74DE82579A796002CD1D5 /* BinaryToPrismPresets */,
 				13A4E70F257B570F00BF9056 /* PrismUITests */,
 				1384D27B24BD184700655884 /* Products */,
 				134CE96424BD427800D9D845 /* Frameworks */,
@@ -354,7 +327,6 @@
 			isa = PBXGroup;
 			children = (
 				1384D27A24BD184700655884 /* PrismUI.app */,
-				13F74DE72579A796002CD1D5 /* BinaryToPrismPresets */,
 				13A4E70E257B570F00BF9056 /* PrismUITests.xctest */,
 			);
 			name = Products;
@@ -375,6 +347,7 @@
 				1384D28624BD184800655884 /* Info.plist */,
 				1384D28724BD184800655884 /* PrismUI.entitlements */,
 				13F7B45E257F66F700179DC3 /* Credits.rtf */,
+				13F74DE92579A796002CD1D5 /* SteelseriesToPrismUI.swift */,
 			);
 			path = PrismUI;
 			sourceTree = "<group>";
@@ -450,14 +423,6 @@
 			path = Driver;
 			sourceTree = "<group>";
 		};
-		13F74DE82579A796002CD1D5 /* BinaryToPrismPresets */ = {
-			isa = PBXGroup;
-			children = (
-				13F74DE92579A796002CD1D5 /* main.swift */,
-			);
-			path = BinaryToPrismPresets;
-			sourceTree = "<group>";
-		};
 		13FEACD524BEDAE1009B86ED /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -521,23 +486,6 @@
 			productReference = 13A4E70E257B570F00BF9056 /* PrismUITests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13F74DE62579A796002CD1D5 /* BinaryToPrismPresets */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 13F74DED2579A796002CD1D5 /* Build configuration list for PBXNativeTarget "BinaryToPrismPresets" */;
-			buildPhases = (
-				13F74DE32579A796002CD1D5 /* Sources */,
-				13F74DE42579A796002CD1D5 /* Frameworks */,
-				13F74DE52579A796002CD1D5 /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = BinaryToPrismPresets;
-			productName = BinaryToPrismPresets;
-			productReference = 13F74DE72579A796002CD1D5 /* BinaryToPrismPresets */;
-			productType = "com.apple.product-type.tool";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -555,9 +503,6 @@
 						CreatedOnToolsVersion = 12.2;
 						TestTargetID = 1384D27924BD184700655884;
 					};
-					13F74DE62579A796002CD1D5 = {
-						CreatedOnToolsVersion = 12.2;
-					};
 				};
 			};
 			buildConfigurationList = 1384D27524BD184700655884 /* Build configuration list for PBXProject "PrismUI" */;
@@ -574,7 +519,6 @@
 			projectRoot = "";
 			targets = (
 				1384D27924BD184700655884 /* PrismUI */,
-				13F74DE62579A796002CD1D5 /* BinaryToPrismPresets */,
 				13A4E70D257B570F00BF9056 /* PrismUITests */,
 			);
 		};
@@ -724,6 +668,7 @@
 				1386D12424CCF76900B91092 /* Log.swift in Sources */,
 				134CE95C24BD26B700D9D845 /* BaseViewController.swift in Sources */,
 				130B9A2624C7C76A00989667 /* PrismColorGraphView.swift in Sources */,
+				137AB33D257F8E8C002AA4F7 /* SteelseriesToPrismUI.swift in Sources */,
 				131285B524E72D1E009CDBCE /* PrismSelector.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -733,20 +678,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				13A4E711257B570F00BF9056 /* PrismUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		13F74DE32579A796002CD1D5 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				13F74E152579C2A6002CD1D5 /* PrismKeyModes.swift in Sources */,
-				13F74E122579C28B002CD1D5 /* PrismKey.swift in Sources */,
-				13F74E0F2579C284002CD1D5 /* PrismPoint.swift in Sources */,
-				13F74E0C2579C27D002CD1D5 /* PrismTransition.swift in Sources */,
-				13F74E092579C261002CD1D5 /* PrismColor.swift in Sources */,
-				13F74E062579C1DF002CD1D5 /* PrismEffect.swift in Sources */,
-				13F74DEA2579A796002CD1D5 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -972,30 +903,6 @@
 			};
 			name = Release;
 		};
-		13F74DEB2579A796002CD1D5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FYT4JTMSQ8;
-				ENABLE_HARDENED_RUNTIME = YES;
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		13F74DEC2579A796002CD1D5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FYT4JTMSQ8;
-				ENABLE_HARDENED_RUNTIME = YES;
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1022,15 +929,6 @@
 			buildConfigurations = (
 				13A4E715257B570F00BF9056 /* Debug */,
 				13A4E716257B570F00BF9056 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		13F74DED2579A796002CD1D5 /* Build configuration list for PBXNativeTarget "BinaryToPrismPresets" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				13F74DEB2579A796002CD1D5 /* Debug */,
-				13F74DEC2579A796002CD1D5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
