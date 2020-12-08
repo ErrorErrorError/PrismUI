@@ -34,7 +34,7 @@
 		13513B2124E8B3ED00D2A842 /* PrismKeyboardDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13513B2024E8B3ED00D2A842 /* PrismKeyboardDevice.swift */; };
 		13513B2424E9361500D2A842 /* PrismColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135999F824CD7CC800941DCC /* PrismColor.swift */; };
 		1358E31A257F896700E8386C /* AppMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1358E319257F896700E8386C /* AppMenu.swift */; };
-		137AB33D257F8E8C002AA4F7 /* SteelseriesToPrismUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F74DE92579A796002CD1D5 /* SteelseriesToPrismUI.swift */; };
+		1381A6FC2580004900970C70 /* SteelseriesToPrismUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F74DE92579A796002CD1D5 /* SteelseriesToPrismUI.swift */; };
 		1384D28224BD184800655884 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1384D28124BD184800655884 /* Assets.xcassets */; };
 		1386D12424CCF76900B91092 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1386D12324CCF76900B91092 /* Log.swift */; };
 		1386D12824CD058A00B91092 /* ColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1386D12724CD058A00B91092 /* ColorView.swift */; };
@@ -617,6 +617,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1381A6FC2580004900970C70 /* SteelseriesToPrismUI.swift in Sources */,
 				134CE95524BD1C7F00D9D845 /* AppDelegate.swift in Sources */,
 				13B9F91E24E6897D00FAFA88 /* PrismDevice.swift in Sources */,
 				13513B2124E8B3ED00D2A842 /* PrismKeyboardDevice.swift in Sources */,
@@ -668,7 +669,6 @@
 				1386D12424CCF76900B91092 /* Log.swift in Sources */,
 				134CE95C24BD26B700D9D845 /* BaseViewController.swift in Sources */,
 				130B9A2624C7C76A00989667 /* PrismColorGraphView.swift in Sources */,
-				137AB33D257F8E8C002AA4F7 /* SteelseriesToPrismUI.swift in Sources */,
 				131285B524E72D1E009CDBCE /* PrismSelector.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -729,6 +729,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				EXCLUDED_ARCHS = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -790,6 +791,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXCLUDED_ARCHS = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
