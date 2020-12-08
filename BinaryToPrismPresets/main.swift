@@ -145,7 +145,6 @@ func createPrismKeys(values: [UInt8], effects: [PrismEffect]) -> [PrismKey]? {
 
 func createEffectPreset(values: [UInt8]) -> PrismEffect? {
     guard values.count == maxPackageSize && values.first == 0x0b else { return nil }
-    let transitionCount = values[0x96]
 
     let effectId = values[0x2]
 
@@ -155,17 +154,23 @@ func createEffectPreset(values: [UInt8]) -> PrismEffect? {
 
     var transitions = [PrismTransition]()
 
+    let transitionCount = values[0x96]
+    let effectLength = (UInt16(values[0x99]) << 8) | UInt16(values[0x98])
+    var transitionPosition: CGFloat = 0
+
     for index in 0..<transitionCount {
         let indexTransition = Int(index) * 8 + 0x2
-        let duration = (UInt16(values[indexTransition + 0x7]) << 8) | UInt16(values[indexTransition + 0x06])
+        let duration = (UInt16(values[indexTransition + 0x7]) << 8) |
+                                UInt16(values[indexTransition + 0x06])
         let colorR = values[indexTransition + 0x02]
         let colorG = values[indexTransition + 0x03]
         let colorB = values[indexTransition + 0x04]
 
         let delta = PrismRGB(red: colorR, green: colorG, blue: colorB)
 
-        let transition = PrismTransition(color: beforeColor, duration: duration)
+        let transition = PrismTransition(color: beforeColor, position: transitionPosition)
         transitions.append(transition)
+        transitionPosition += (CGFloat(duration) / CGFloat(effectLength))
 
         let targetColor = delta.undoDelta(startColor: beforeColor, duration: duration)
         beforeColor = targetColor
@@ -186,9 +191,8 @@ func createEffectPreset(values: [UInt8]) -> PrismEffect? {
 
     let control = values[0x9a]
 
-//    let effectLength = (UInt16(values[0x99]) << 8) | UInt16(values[0x98])
-
     let effect = PrismEffect(identifier: effectId, transitions: transitions)
+    effect.transitionDuration = effectLength
     if xDirection != 0 || yDirection != 0 {
         effect.waveActive = true
         effect.origin = PrismPoint(xPoint: xOrigin, yPoint: yOrigin)

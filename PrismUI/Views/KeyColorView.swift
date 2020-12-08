@@ -247,23 +247,25 @@ extension KeyColorView: CAAnimationDelegate {
             }
             if distanceLeft < 0 { distanceLeft += 1.0 }
 
-            durationAnimation = CFTimeInterval(distanceLeft * totalDuration / 100.0)
+            durationAnimation = CFTimeInterval((distanceLeft * totalDuration) / 100.0)
             hasSetInitialWaveEffect = true
         } else {
             let currentColor = transitions[transitionIndex]
             let nextIndex: Int
+            var distanceDelta: CGFloat = 0
             if effect.control == .inward {
                 nextIndex = transitionIndex + 1 < transitions.count ? transitionIndex + 1 : 0
+                distanceDelta = transitions[nextIndex].position - currentColor.position
             } else {
                 nextIndex = transitionIndex - 1 >= 0 ? transitionIndex - 1 : transitions.count - 1
+                distanceDelta = currentColor.position - transitions[nextIndex].position
             }
 
-            var distanceDelta = transitions[nextIndex].position - currentColor.position
             if distanceDelta < 0 { distanceDelta += 1.0 }
 
             beforeColor = currentColor.color.cgColor
             afterColor = transitions[nextIndex].color.cgColor
-            durationAnimation = CFTimeInterval(distanceDelta * totalDuration / 100)
+            durationAnimation = CFTimeInterval((distanceDelta * totalDuration) / 100)
             transitionIndex = nextIndex
         }
         createAnimationBackground(fromColor: beforeColor, toColor: afterColor, duration: durationAnimation)
