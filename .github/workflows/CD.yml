@@ -24,7 +24,7 @@ jobs:
         GIT_SHA="$(git rev-parse --short HEAD)"
         CUR_TAG="$(git tag -l | grep 'alpha\|beta' | tail -1)"
         eval $(grep -m 1 "MARKETING_VERSION =" PrismUI.xcodeproj/project.pbxproj | tr -d ';' | tr -d '\t' | tr -d " ")
-        if [ '${{ github.event_name == 'workflow_dispatch' }}' ]; then
+        if [ '${{ github.event_name }}' != 'workflow_dispatch' ]; then
           /usr/libexec/PlistBuddy -c "Set CFBundleVersion ${MARKETING_VERSION}-alpha-${GIT_SHA}" PrismUI/Info.plist
         fi
         echo "VER=$MARKETING_VERSION" >> $GITHUB_ENV 
@@ -34,9 +34,8 @@ jobs:
         else
           echo "OLD_PRE_TAG=$CUR_TAG" >> $GITHUB_ENV 
         fi
-
       shell: zsh {0}
-
+      
     - name: Xcode Build
       run: |
         xcodebuild -workspace PrismUI.xcworkspace -scheme PrismUI -configuration Release -derivedDataPath build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty && exit ${PIPESTATUS[0]}
