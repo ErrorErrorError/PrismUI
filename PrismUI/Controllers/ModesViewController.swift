@@ -335,7 +335,7 @@ extension ModesViewController {
         updateLayoutWithNewDevice(device: selectedDevice)
         PrismDriver.shared.currentDevice = selectedDevice
         NotificationCenter.default.post(name: .prismSelectedDeviceChanged, object: selectedDevice)
-        Log.debug("Changed currently selected device: \(selectedDevice.description)")
+        Log.debug("Changed currently selected device: \(selectedDevice.name)")
     }
 
     @objc func onSliderChanged(_ sender: NSSlider, update: Bool = true) {
