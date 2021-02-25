@@ -8,7 +8,9 @@
 
 import Cocoa
 
-class KeyColorView: ColorView {
+class PerKeyColorView: ColorView {
+
+    static let now = CACurrentMediaTime()
 
     // MARK: Public
 
@@ -40,7 +42,6 @@ class KeyColorView: ColorView {
             layer?.setNeedsDisplay()
             needsDisplay = true
         }
-
         get {
             return NSColor(cgColor: dotLayer.backgroundColor ?? CGColor.clear) ?? NSColor.clear
         }
@@ -106,11 +107,12 @@ class KeyColorView: ColorView {
 
         layer?.addSublayer(dotLayer)
 
+        textView.stringValue = text
+        textView.font = NSFont.boldSystemFont(ofSize: 14)
+        textView.alignment = .center
         addSubview(textView)
 
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.stringValue = text
-        textView.font = NSFont.boldSystemFont(ofSize: 14)
         textView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         textView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
 
@@ -130,7 +132,7 @@ class KeyColorView: ColorView {
 
 // Update Animation
 
-extension KeyColorView: CAAnimationDelegate {
+extension PerKeyColorView: CAAnimationDelegate {
 
     func removeAnimation() {
         guard let baseLayer = layer else { return }
@@ -138,8 +140,8 @@ extension KeyColorView: CAAnimationDelegate {
     }
 
     func updateAnimation() {
-        removeAnimation()
         color = prismKey.main.nsColor
+        removeAnimation()
         transitionIndex = 0
         hasSetInitialWaveEffect = false
         if let effect = prismKey.effect {
@@ -186,16 +188,12 @@ extension KeyColorView: CAAnimationDelegate {
 
     private func animateWave() {
         guard let originViewFrame = superview?.subviews.filter({ $0 is OriginEffectView }).first?.frame else { return }
-
         guard let effect = prismKey.effect else { return }
-
         let originXFloat = effect.origin.xPoint
         let originYFloat = 1 - effect.origin.yPoint
-
         let beforeColor, afterColor: CGColor
         let durationAnimation: CFTimeInterval
         let totalDuration = CGFloat(effect.transitionDuration)
-
         let transitions = effect.transitions
 
         if !hasSetInitialWaveEffect {
@@ -319,18 +317,6 @@ extension KeyColorView: CAAnimationDelegate {
         } else {
             backgroundLayer.backgroundColor = baseLightBackground.cgColor
         }
-    }
-}
-
-/// From https://stackoverflow.com/a/46691271
-extension NSString {
-    func drawVerticallyCentered(in rect: CGRect, withAttributes attributes: [NSAttributedString.Key: Any]? = nil) {
-        let size = self.size(withAttributes: attributes)
-        let centeredRect = CGRect(x: rect.origin.x,
-                                  y: rect.origin.y + (rect.size.height-size.height)/2.0,
-                                  width: rect.size.width,
-                                  height: size.height)
-        self.draw(in: centeredRect, withAttributes: attributes)
     }
 }
 

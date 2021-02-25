@@ -230,7 +230,7 @@ extension ModesViewController {
     }
 
     @objc func onKeySelectionChanged() {
-        let selectedKeys = PrismKeyboardDevice.keysSelected.compactMap { ($0 as? KeyColorView)?.prismKey }
+        let selectedKeys = PrismKeyboardDevice.keysSelected.compactMap { ($0 as? PerKeyColorView)?.prismKey }
         if selectedKeys.count == 0 { return }
 
         let allKeysSame = selectedKeys.allSatisfy {
@@ -422,8 +422,8 @@ extension ModesViewController {
         }
         switch selectedMode {
         case PrismKeyModes.steady:
-            PrismKeyboardDevice.keysSelected.filter { ($0 as? KeyColorView) != nil }.forEach {
-                guard let colorView = $0 as? KeyColorView else { return }
+            PrismKeyboardDevice.keysSelected.filter { ($0 as? PerKeyColorView) != nil }.forEach {
+                guard let colorView = $0 as? PerKeyColorView else { return }
                 guard let prismKey = colorView.prismKey else { return }
                 if prismKey.mode != .steady || prismKey.main != newColor {
                     prismKey.mode = .steady
@@ -448,8 +448,8 @@ extension ModesViewController {
             NotificationCenter.default.post(name: .updateOriginView, object: effect.direction)
 
             let speedDuration = UInt16(speedSlider.intValue)
-            PrismKeyboardDevice.keysSelected.filter { ($0 as? KeyColorView) != nil }.forEach {
-                guard let colorView = $0 as? KeyColorView else { return }
+            PrismKeyboardDevice.keysSelected.filter { ($0 as? PerKeyColorView) != nil }.forEach {
+                guard let colorView = $0 as? PerKeyColorView else { return }
                 guard let prismKey = colorView.prismKey else { return }
                 if prismKey.effect !== effect ||
                     prismKey.mode != selectedMode ||
@@ -471,8 +471,8 @@ extension ModesViewController {
             let baseColor = reactRestColor.color.prismRGB
             let speedDuration = UInt16(speedSlider.intValue)
 
-            PrismKeyboardDevice.keysSelected.filter { ($0 as? KeyColorView) != nil }.forEach {
-                guard let colorView = $0 as? KeyColorView else { return }
+            PrismKeyboardDevice.keysSelected.filter { ($0 as? PerKeyColorView) != nil }.forEach {
+                guard let colorView = $0 as? PerKeyColorView else { return }
                 guard let prismKey = colorView.prismKey else { return }
                 if prismKey.mode != .reactive ||
                     prismKey.active != activeColor ||
@@ -486,8 +486,8 @@ extension ModesViewController {
                 }
             }
         case PrismKeyModes.disabled:
-            PrismKeyboardDevice.keysSelected.filter { ($0 as? KeyColorView) != nil }.forEach {
-                guard let colorView = $0 as? KeyColorView else { return }
+            PrismKeyboardDevice.keysSelected.filter { ($0 as? PerKeyColorView) != nil }.forEach {
+                guard let colorView = $0 as? PerKeyColorView else { return }
                 guard let prismKey = colorView.prismKey else { return }
                 if prismKey.mode != .disabled {
                     prismKey.mode = .disabled

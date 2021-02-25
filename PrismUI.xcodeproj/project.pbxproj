@@ -15,7 +15,6 @@
 		131285C024E7473C009CDBCE /* IOHIDManager+Configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131285BA24E7473C009CDBCE /* IOHIDManager+Configure.swift */; };
 		131285C124E7473C009CDBCE /* IOHIDDevice+GetProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131285BB24E7473C009CDBCE /* IOHIDDevice+GetProperty.swift */; };
 		131285C224E7473C009CDBCE /* IOHIDDevice+Write.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131285BC24E7473C009CDBCE /* IOHIDDevice+Write.swift */; };
-		131285C324E7473C009CDBCE /* HIDDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131285BD24E7473C009CDBCE /* HIDDevice.swift */; };
 		1337E60624C01B5F008F2C89 /* NSColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1337E60524C01B5F008F2C89 /* NSColor+Extension.swift */; };
 		1337E60824C03707008F2C89 /* NoDividerSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1337E60724C03707008F2C89 /* NoDividerSplitView.swift */; };
 		133D8235256B26E9004282CB /* PresetsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133D8234256B26E9004282CB /* PresetsManager.swift */; };
@@ -30,7 +29,7 @@
 		134CE95C24BD26B700D9D845 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134CE95B24BD26B700D9D845 /* BaseViewController.swift */; };
 		134CE95E24BD31CF00D9D845 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134CE95D24BD31CF00D9D845 /* main.swift */; };
 		134CE96324BD3A3D00D9D845 /* KeyboardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134CE96224BD3A3D00D9D845 /* KeyboardLayout.swift */; };
-		134CE97924BD7B8F00D9D845 /* KeyColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134CE97824BD7B8F00D9D845 /* KeyColorView.swift */; };
+		134CE97924BD7B8F00D9D845 /* PerKeyColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134CE97824BD7B8F00D9D845 /* PerKeyColorView.swift */; };
 		13513B2124E8B3ED00D2A842 /* PrismKeyboardDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13513B2024E8B3ED00D2A842 /* PrismKeyboardDevice.swift */; };
 		13513B2424E9361500D2A842 /* PrismColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135999F824CD7CC800941DCC /* PrismColor.swift */; };
 		1358E31A257F896700E8386C /* AppMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1358E319257F896700E8386C /* AppMenu.swift */; };
@@ -87,7 +86,6 @@
 		131285BA24E7473C009CDBCE /* IOHIDManager+Configure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IOHIDManager+Configure.swift"; sourceTree = "<group>"; };
 		131285BB24E7473C009CDBCE /* IOHIDDevice+GetProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IOHIDDevice+GetProperty.swift"; sourceTree = "<group>"; };
 		131285BC24E7473C009CDBCE /* IOHIDDevice+Write.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IOHIDDevice+Write.swift"; sourceTree = "<group>"; };
-		131285BD24E7473C009CDBCE /* HIDDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HIDDevice.swift; sourceTree = "<group>"; };
 		1337E60524C01B5F008F2C89 /* NSColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+Extension.swift"; sourceTree = "<group>"; };
 		1337E60724C03707008F2C89 /* NoDividerSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDividerSplitView.swift; sourceTree = "<group>"; };
 		133D8234256B26E9004282CB /* PresetsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetsManager.swift; sourceTree = "<group>"; };
@@ -102,7 +100,7 @@
 		134CE95B24BD26B700D9D845 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		134CE95D24BD31CF00D9D845 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		134CE96224BD3A3D00D9D845 /* KeyboardLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardLayout.swift; sourceTree = "<group>"; };
-		134CE97824BD7B8F00D9D845 /* KeyColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyColorView.swift; sourceTree = "<group>"; };
+		134CE97824BD7B8F00D9D845 /* PerKeyColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerKeyColorView.swift; sourceTree = "<group>"; };
 		13513B2024E8B3ED00D2A842 /* PrismKeyboardDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismKeyboardDevice.swift; sourceTree = "<group>"; };
 		1358E319257F896700E8386C /* AppMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMenu.swift; sourceTree = "<group>"; };
 		135999F824CD7CC800941DCC /* PrismColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrismColor.swift; sourceTree = "<group>"; };
@@ -177,14 +175,13 @@
 			path = PrismColorPicker;
 			sourceTree = "<group>";
 		};
-		131285B624E7473C009CDBCE /* HIDSwift */ = {
+		131285B624E7473C009CDBCE /* IOHIDSwift */ = {
 			isa = PBXGroup;
 			children = (
 				131285B724E7473C009CDBCE /* RawDeviceProtocols.swift */,
 				131285B824E7473C009CDBCE /* Extensions */,
-				131285BD24E7473C009CDBCE /* HIDDevice.swift */,
 			);
-			path = HIDSwift;
+			path = IOHIDSwift;
 			sourceTree = "<group>";
 		};
 		131285B824E7473C009CDBCE /* Extensions */ = {
@@ -235,7 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				1393AEFC24CC06F100B53788 /* Extensions */,
-				134CE97824BD7B8F00D9D845 /* KeyColorView.swift */,
+				134CE97824BD7B8F00D9D845 /* PerKeyColorView.swift */,
 				1337E60724C03707008F2C89 /* NoDividerSplitView.swift */,
 				1393AEF824CC050800B53788 /* DragSelectionView.swift */,
 				1386D12724CD058A00B91092 /* ColorView.swift */,
@@ -385,7 +382,7 @@
 		13B9F91424E6893400FAFA88 /* Driver */ = {
 			isa = PBXGroup;
 			children = (
-				131285B624E7473C009CDBCE /* HIDSwift */,
+				131285B624E7473C009CDBCE /* IOHIDSwift */,
 				13A074DC24E68D30004C81DD /* PrismDriver */,
 			);
 			path = Driver;
@@ -577,7 +574,7 @@
 				134CE95824BD1C7F00D9D845 /* ModesViewController.swift in Sources */,
 				13A57022251C4E3D00C600DB /* PrismSavePresetWindow.swift in Sources */,
 				134C37FF256D212800E10940 /* PrismAlert.swift in Sources */,
-				134CE97924BD7B8F00D9D845 /* KeyColorView.swift in Sources */,
+				134CE97924BD7B8F00D9D845 /* PerKeyColorView.swift in Sources */,
 				134CE95724BD1C7F00D9D845 /* PresetsViewController.swift in Sources */,
 				131285C224E7473C009CDBCE /* IOHIDDevice+Write.swift in Sources */,
 				13A624092519E60F004D71F6 /* PresetsTableRowView.swift in Sources */,
@@ -588,7 +585,6 @@
 				13F819E4251BF47400E96CF9 /* PrismPoint.swift in Sources */,
 				13C56B2324E6907100C8C998 /* PrismMultiSliderView.swift in Sources */,
 				13B297822501BDE4003AA30E /* ModesViewController+PerKey.swift in Sources */,
-				131285C324E7473C009CDBCE /* HIDDevice.swift in Sources */,
 				131285BE24E7473C009CDBCE /* RawDeviceProtocols.swift in Sources */,
 				1358E31A257F896700E8386C /* AppMenu.swift in Sources */,
 				1393AEFB24CC069F00B53788 /* NSView+Extensions.swift in Sources */,

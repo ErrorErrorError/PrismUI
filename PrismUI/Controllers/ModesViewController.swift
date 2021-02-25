@@ -202,15 +202,6 @@ class ModesViewController: BaseViewController {
         }
 
         initCommonViews()
-
-        // See if a device is already loaded
-
-        if let device = PrismDriver.shared.devices.compactMap({ $0 as? PrismDevice }).first {
-            DispatchQueue.main.async {
-                self.devicesPopup.title = device.name
-                self.onChangedDevicePopup(self.devicesPopup)
-            }
-        }
     }
 
     private func initCommonViews() {
@@ -229,17 +220,6 @@ class ModesViewController: BaseViewController {
 
         view.addSubview(colorPicker.view)
 
-        for deviceName in PrismDriver.shared.devices.compactMap({ ($0 as? PrismDevice)?.name }) {
-            devicesPopup.addItem(withTitle: deviceName)
-        }
-
-        if let currentDevice = PrismDriver.shared.currentDevice {
-            devicesPopup.selectItem(withTitle: currentDevice.name)
-        } else {
-            devicesPopup.addItem(withTitle: "No device selected")
-            devicesPopup.selectItem(withTitle: "No device selected")
-        }
-
         initCommonConstraints()
 
         NotificationCenter.default.addObserver(self,
@@ -250,6 +230,26 @@ class ModesViewController: BaseViewController {
                                                selector: #selector(onPrismDeviceRemoved(_:)),
                                                name: .prismDeviceRemoved,
                                                object: nil)
+        for deviceName in PrismDriver.shared.devices.compactMap({ ($0 as? PrismDevice)?.name }) {
+            devicesPopup.addItem(withTitle: deviceName)
+        }
+
+//        if let currentDevice = PrismDriver.shared.currentDevice {
+//            devicesPopup.selectItem(withTitle: currentDevice.name)
+//        } else {
+            devicesPopup.addItem(withTitle: "No device selected")
+            devicesPopup.selectItem(withTitle: "No device selected")
+//        }
+
+        // See if a device is already loaded
+
+//        if let device = PrismDriver.shared.devices.compactMap({ $0 as? PrismDevice }).first {
+//            DispatchQueue.main.async {
+//                self.devicesPopup.title = device.name
+//                self.onChangedDevicePopup(self.devicesPopup)
+//            }
+//        }
+
     }
 
     private func initCommonConstraints() {
@@ -293,10 +293,10 @@ extension ModesViewController {
                 self.devicesPopup.addItem(withTitle: newDevice.name)
             }
 
-            if previousItemCount == 0 {
-                self.devicesPopup.selectItem(withTitle: newDevice.name)
-                self.onChangedDevicePopup(self.devicesPopup)
-            }
+//            if previousItemCount == 0 {
+//                self.devicesPopup.selectItem(withTitle: newDevice.name)
+//                self.onChangedDevicePopup(self.devicesPopup)
+//            }
         }
     }
 

@@ -29,10 +29,10 @@ extension KeyboardViewController {
                 let keyWidth = (desiredKeyWidth * widthFract) - padding
                 let keyHeight = (isDoubleHeight ? (2 * desiredKeyHeight) - padding : desiredKeyHeight - padding)
                 let keyChar = keyboardKeyNames[index][subIndex]
-                let keyView: KeyColorView = {
+                let keyView: PerKeyColorView = {
                     let keycode = keycodeArray[index][subIndex]
                     let prismKey = PrismKey(region: getRegionKey(keyChar, keycode: keycode), keycode: keycode)
-                    let key = KeyColorView(text: keyChar, key: prismKey)
+                    let key = PerKeyColorView(text: keyChar, key: prismKey)
                     key.frame = NSRect(x: xPos + padding, y: yPos - padding, width: keyWidth, height: keyHeight)
                     key.delegate = self
                     return key

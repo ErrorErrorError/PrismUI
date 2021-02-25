@@ -1,6 +1,6 @@
 //
 //  BugReporter.swift
-//  HeliPort
+//  PrismUI
 //
 //  Created by Erik Bautista on 7/26/20.
 //  Copyright © 2020 ErrorErrorError. All rights reserved.
@@ -20,7 +20,7 @@ class BugReporter: NSObject {
         let appBuildVer = Bundle.main.infoDictionary?["CFBundleVersion"] ?? "Unknown"
         let appLogCommand = ["show", "--predicate",
                                   "(subsystem == '\(appIdentifier)')", "--info", "--last", "boot"]
-        let appLog = Commands.execute(executablePath: .log, args: appLogCommand).0 ?? "No logs for HeliPort"
+        let appLog = Commands.execute(executablePath: .log, args: appLogCommand).0 ?? "No logs for PrismUI"
 
         let printLoadedDrivers = PrismDriver.shared.devices.compactMap { "\($0)" }
 
@@ -61,8 +61,8 @@ class BugReporter: NSObject {
 
         do {
             try fileManager.createDirectory(at: reportDirUrl, withIntermediateDirectories: true, attributes: nil)
-            let heliPortFile = reportDirUrl.appendingPathComponent("PrismUI_app.log")
-            try appOutput.write(to: heliPortFile, atomically: true, encoding: .utf8)
+            let prismUIFile = reportDirUrl.appendingPathComponent("PrismUI_app.log")
+            try appOutput.write(to: prismUIFile, atomically: true, encoding: .utf8)
         } catch {
             Log.error("\(error)")
             return

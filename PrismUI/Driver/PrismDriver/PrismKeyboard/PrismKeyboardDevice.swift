@@ -209,6 +209,8 @@ public final class PrismKeyboardDevice: PrismDevice {
     }
 }
 
+// PerKeyKeyboard methods
+
 extension PrismKeyboardDevice {
 
     private func writeEffectsToKeyboard() -> IOReturn {
@@ -244,7 +246,9 @@ extension PrismKeyboardDevice {
 
                 data.append([index == 0 ? effect.identifier : idx,
                              0x0,
-                             colorDelta.redUInt, colorDelta.greenUInt, colorDelta.blueUInt,
+                             colorDelta.redUInt,
+                             colorDelta.greenUInt,
+                             colorDelta.blueUInt,
                              0x0,
                              UInt8(duration & 0x00ff),
                              UInt8(duration >> 8)
@@ -310,7 +314,7 @@ extension PrismKeyboardDevice {
     private func updatePerKeyKeyboard(forceUpdate: Bool = false) {
         commandMutex.async {
             let keysSelected = PrismKeyboardDevice.keysSelected
-                .compactMap { $0 as? KeyColorView }
+                .compactMap { $0 as? PerKeyColorView }
                 .compactMap { $0.prismKey }
             guard keysSelected.count > 0 || forceUpdate else { return }
 

@@ -11,7 +11,6 @@ import Cocoa
 class KeyboardViewController: BaseViewController {
 
     var originView: OriginEffectView?
-
     var saveButton: NSButton?
 
     override func loadView() {
@@ -20,7 +19,6 @@ class KeyboardViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         (self.view as? NSVisualEffectView)?.material = .contentBackground
     }
 
@@ -57,8 +55,7 @@ extension KeyboardViewController {
         guard let device = PrismDriver.shared.currentDevice else { return }
         if device.isKeyboardDevice && device.model != .threeRegion {
             DispatchQueue.main.async {
-                self.view.subviews.compactMap({ $0 as? KeyColorView}).forEach { $0.removeAnimation() }
-                self.view.subviews.compactMap({ $0 as? KeyColorView}).forEach { $0.updateAnimation() }
+                self.view.subviews.compactMap({ $0 as? PerKeyColorView}).forEach { $0.updateAnimation() }
             }
         }
     }
@@ -119,7 +116,7 @@ extension KeyboardViewController {
                         }
                     }
 
-                    keyViewLoop: for keyView in view.subviews.compactMap({ $0 as? KeyColorView }) {
+                    keyViewLoop: for keyView in view.subviews.compactMap({ $0 as? PerKeyColorView }) {
                         if let keyObj = keyView.prismKey, keyObj.region == key.region && keyObj.keycode == key.keycode {
                             keyView.selected = false
                             keyObj.mode = key.mode
