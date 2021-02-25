@@ -45,6 +45,13 @@ class KeyboardViewController: BaseViewController {
                                                name: .prismDeviceUpdateView,
                                                object: nil)
     }
+
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        NotificationCenter.default.removeObserver(self, name: .prismDeviceUpdateFromPreset, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .prismDeviceSavePreset, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .prismDeviceUpdateView, object: nil)
+    }
 }
 
 // MARK: Actions
@@ -61,7 +68,6 @@ extension KeyboardViewController {
     }
 
     @objc func createSavePresetWindow(_ notification: Notification) {
-
         guard let device = PrismDriver.shared.currentDevice,
               device.isKeyboardDevice,
               device.model != .threeRegion else {

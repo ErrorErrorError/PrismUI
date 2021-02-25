@@ -109,6 +109,16 @@ class PresetsViewController: BaseViewController {
                                                object: nil)
     }
 
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        NotificationCenter.default.removeObserver(self,
+                                               name: .prismSelectedDeviceChanged,
+                                               object: nil)
+        NotificationCenter.default.removeObserver(self,
+                                               name: .prismDeviceSavePresetFile,
+                                               object: nil)
+    }
+
     private func setupDevicePresets(device: PrismDevice) {
 
         content.removeAll()

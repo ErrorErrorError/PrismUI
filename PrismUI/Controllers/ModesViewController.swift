@@ -230,6 +230,7 @@ class ModesViewController: BaseViewController {
                                                selector: #selector(onPrismDeviceRemoved(_:)),
                                                name: .prismDeviceRemoved,
                                                object: nil)
+
         for deviceName in PrismDriver.shared.devices.compactMap({ ($0 as? PrismDevice)?.name }) {
             devicesPopup.addItem(withTitle: deviceName)
         }
@@ -249,6 +250,17 @@ class ModesViewController: BaseViewController {
 //                self.onChangedDevicePopup(self.devicesPopup)
 //            }
 //        }
+
+    }
+
+    override func viewDidDisappear() {
+        NotificationCenter.default.removeObserver(self,
+                                               name: .prismDeviceAdded,
+                                               object: nil)
+
+        NotificationCenter.default.removeObserver(self,
+                                               name: .prismDeviceRemoved,
+                                               object: nil)
 
     }
 

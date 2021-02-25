@@ -27,6 +27,11 @@ class MainSplitViewController: NSSplitViewController {
         setupSplitViewItems()
     }
 
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        NotificationCenter.default.removeObserver(self, name: .prismSelectedDeviceChanged, object: nil)
+    }
+
     private func setupSplitViewItems() {
         sidebarItem = NSSplitViewItem(sidebarWithViewController: presetsViewController)
         sidebarItem.isCollapsed = true

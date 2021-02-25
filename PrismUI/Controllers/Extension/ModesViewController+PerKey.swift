@@ -134,6 +134,32 @@ extension ModesViewController {
         pulseValue.topAnchor.constraint(equalTo: pulseSlider.topAnchor).isActive = true
         pulseValue.trailingAnchor.constraint(equalTo: colorPicker.view.trailingAnchor).isActive = true
     }
+
+    func removePerKeySettingsLayout() {
+        let perKeyViews = [
+            multiSlider,
+            speedLabel,
+            speedSlider,
+            speedValue,
+            waveToggle,
+            originButton,
+            waveDirectionControl,
+            waveInwardOutwardControl,
+            pulseLabel,
+            pulseSlider,
+            pulseValue,
+            reactActiveText,
+            reactActiveColor,
+            reactRestText,
+            reactRestColor
+        ]
+
+        perKeyViews.forEach { $0.animator().removeFromSuperview() }
+        modesPopUp.removeAllItems()
+
+        NotificationCenter.default.removeObserver(self, name: .keySelectionChanged, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .prismUpdateFromNewPoint, object: nil)
+    }
 }
 
 // MARK: Action PerKey
@@ -141,43 +167,36 @@ extension ModesViewController {
 extension ModesViewController {
     func handlePerKeyPopup(_ sender: NSPopUpButton, update: Bool = true) {
         Log.debug("sender: \(String(describing: sender.titleOfSelectedItem))")
+        colorPicker.enabled = false
+        modesPopUp.item(withTitle: "Mixed")?.isHidden = true
         switch sender.titleOfSelectedItem {
         case "\(PrismKeyModes.steady)":
             showReactiveMode(shouldShow: false)
             showColorShiftMode(shouldShow: false)
             showBreadingMode(shouldShow: false)
-            modesPopUp.item(withTitle: "Mixed")?.isHidden = true
             colorPicker.enabled = true
+            colorPicker.setColor(newColor: PrismRGB(red: 1.0, green: 0, blue: 0))
         case "\(PrismKeyModes.reactive)":
             showColorShiftMode(shouldShow: false)
             showBreadingMode(shouldShow: false)
             showReactiveMode()
-            modesPopUp.item(withTitle: "Mixed")?.isHidden = true
-            colorPicker.enabled = true
         case "\(PrismKeyModes.colorShift)":
             showReactiveMode(shouldShow: false)
             showBreadingMode(shouldShow: false)
             showColorShiftMode()
-            modesPopUp.item(withTitle: "Mixed")?.isHidden = true
-            colorPicker.enabled = true
         case "\(PrismKeyModes.breathing)":
             showReactiveMode(shouldShow: false)
             showColorShiftMode(shouldShow: false)
             showBreadingMode()
-            modesPopUp.item(withTitle: "Mixed")?.isHidden = true
-            colorPicker.enabled = true
         case "\(PrismKeyModes.disabled)":
             showReactiveMode(shouldShow: false)
             showColorShiftMode(shouldShow: false)
             showBreadingMode(shouldShow: false)
-            modesPopUp.item(withTitle: "Mixed")?.isHidden = true
-            colorPicker.enabled = false
         default:
             Log.error("Effect Unavalilable for perKey")
             return
         }
 
-        colorPicker.setColor(newColor: PrismRGB(red: 1.0, green: 0, blue: 0))
         if update {
             didColorChange(newColor: colorPicker.colorGraphView.color.rgb, finishedChanging: true)
         }
@@ -386,29 +405,6 @@ extension ModesViewController {
             onSliderChanged(speedSlider, update: false)
         }
     }
-
-    func removePerKeySettingsLayout() {
-        let perKeyViews = [
-            multiSlider,
-            speedLabel,
-            speedSlider,
-            speedValue,
-            waveToggle,
-            originButton,
-            waveDirectionControl,
-            waveInwardOutwardControl,
-            pulseLabel,
-            pulseSlider,
-            pulseValue,
-            reactActiveText,
-            reactActiveColor,
-            reactRestText,
-            reactRestColor
-        ]
-
-        perKeyViews.forEach { $0.animator().removeFromSuperview() }
-        modesPopUp.removeAllItems()
-    }
 }
 
 // Handle updates on color
@@ -614,11 +610,15 @@ extension ModesViewController: PrismMultiSliderDelegate {
     }
 
     func didSelect(_ sender: PrismSelector) {
+        colorPicker.enabled = true
         ModesViewController.selectorArray.add(sender)
     }
 
     func didDeselect(_ sender: PrismSelector) {
         ModesViewController.selectorArray.remove(sender)
+        if ModesViewController.selectorArray.compactMap({ $0 as? PrismSelector}).count == 0 {
+            colorPicker.enabled = false
+        }
     }
 }
 
@@ -626,11 +626,21 @@ extension ModesViewController: PrismMultiSliderDelegate {
 
 extension ModesViewController: ColorViewDelegate {
     func didSelect(_ sender: ColorView) {
+        if sender == reactActiveColor || sender == reactRestColor {
+            colorPicker.enabled = true
+            colorPicker.setColor(newColor: sender.color.prismHSB)
+        }
+
         ModesViewController.selectorArray.add(sender)
     }
 
     func didDeselect(_ sender: ColorView) {
         ModesViewController.selectorArray.remove(sender)
+
+        if !ModesViewController.selectorArray.contains(reactActiveColor) &&
+            !ModesViewController.selectorArray.contains(reactRestColor) {
+            colorPicker.enabled = false
+        }
     }
 }
 

@@ -10,8 +10,6 @@ import Cocoa
 
 class PerKeyColorView: ColorView {
 
-    static let now = CACurrentMediaTime()
-
     // MARK: Public
 
     var prismKey: PrismKey! {

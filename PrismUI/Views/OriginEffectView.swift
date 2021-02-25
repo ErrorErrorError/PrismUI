@@ -109,49 +109,20 @@ class OriginEffectView: NSView {
                                            endRadius: frame.width / 2,
                                            options: .drawsAfterEndLocation)
             }
-
-        } else if typeOfRad == .xAxis {
-            for inx in 0..<(colorArray.count * 2) {
-                let index = (inx < colorArray.count) ? inx : (inx - colorArray.count)
-                let color = colorArray[index]
-                let newPointX = MathUtils.map(value: crosshairLocation.x,
-                                              inMin: 0,
-                                              inMax: frame.width,
-                                              outMin: 0.0,
-                                              outMax: 1.0)
-                var location: CGFloat
-                if inx < colorArray.count {
-                    location = (newPointX/CGFloat(colorArray.count) * CGFloat(inx))
-                } else {
-                    location = newPointX + (((1.0 - newPointX) / CGFloat(colorArray.count)) * CGFloat(index))
-                }
-                newColorArray.append(color.withAlphaComponent(0.7).cgColor)
-                newLocation.append(location)
-            }
-
-            let colorSpace = CGColorSpaceCreateDeviceRGB()
-            if let gradient = CGGradient(colorsSpace: colorSpace,
-                                         colors: newColorArray as CFArray,
-                                         locations: newLocation) {
-                context.drawLinearGradient(gradient,
-                                           start: CGPoint.zero,
-                                           end: CGPoint(x: bounds.width, y: 0),
-                                           options: .drawsAfterEndLocation)
-            }
         } else {
             for inx in 0..<(colorArray.count * 2) {
                 let index = (inx < colorArray.count) ? inx : (inx - colorArray.count)
                 let color = colorArray[index]
-                let newPointY = MathUtils.map(value: crosshairLocation.y,
-                                              inMin: 0,
-                                              inMax: frame.height,
-                                              outMin: 0.0,
-                                              outMax: 1.0)
+                let newPoint = MathUtils.map(value: (typeOfRad == .xAxis) ? crosshairLocation.x : crosshairLocation.y,
+                                             inMin: 0,
+                                             inMax: (typeOfRad == .xAxis) ? frame.width : frame.height,
+                                             outMin: 0.0,
+                                             outMax: 1.0)
                 var location: CGFloat
                 if inx < colorArray.count {
-                    location = (newPointY/CGFloat(colorArray.count) * CGFloat(inx))
+                    location = (newPoint/CGFloat(colorArray.count) * CGFloat(inx))
                 } else {
-                    location = newPointY + (((1.0 - newPointY) / CGFloat(colorArray.count)) * CGFloat(index))
+                    location = newPoint + (((1.0 - newPoint) / CGFloat(colorArray.count)) * CGFloat(index))
                 }
                 newColorArray.append(color.withAlphaComponent(0.7).cgColor)
                 newLocation.append(location)
@@ -161,9 +132,10 @@ class OriginEffectView: NSView {
             if let gradient = CGGradient(colorsSpace: colorSpace,
                                          colors: newColorArray as CFArray,
                                          locations: newLocation) {
+                let endPoint = (typeOfRad == .xAxis) ? CGPoint(x: bounds.width, y: 0) : CGPoint(x: 0, y: bounds.height)
                 context.drawLinearGradient(gradient,
                                            start: CGPoint.zero,
-                                           end: CGPoint(x: 0, y: bounds.height),
+                                           end: endPoint,
                                            options: .drawsAfterEndLocation)
             }
         }
