@@ -170,8 +170,8 @@ extension PrismMultiSliderView {
         thumb.color = PrismRGB(red: 1.0, green: 0.0, blue: 0.0).hsb
     }
 
-    public func colorShiftTransitions(speed: CGFloat) -> [PrismTransition] {
-        return calculateTransitions(speed: speed)
+    public func colorShiftTransitions() -> [PrismTransition] {
+        return calculateTransitions()
     }
 
     func setSelectorsFromTransitions(transitions: [PrismTransition]) {
@@ -188,37 +188,31 @@ extension PrismMultiSliderView {
             }
         }
 
-//        let maxDuration = transitions.compactMap({ $0.duration }).reduce(0, +)
         let width = getDrawBounds().size.width
 
         if mode == .colorShift {
-//            var originX: CGFloat = 0
             for (index, transition) in transitions.enumerated() {
                 guard let selector = subviews[index] as? PrismSelector else { return }
                 selector.frame.origin.x = transition.position * width
                 selector.color = transition.color.hsb
-//                originX += transition.position * width
             }
         } else {
-//            var originX: CGFloat = 0
             var selectorInx = 0
             for (index, transition) in transitions.enumerated() {
                 if index % 2 != 0 {
-//                    originX += transition.position * width
                     continue
                 }
                 guard let selector = subviews[selectorInx] as? PrismSelector else { return }
                 selector.frame.origin.x = transition.position * width
                 selector.color = transition.color.hsb
-//                originX += transition.position * width
                 selectorInx += 1
             }
         }
     }
 
-    public func breathingTransitions(speed: CGFloat) -> [PrismTransition] {
+    public func breathingTransitions() -> [PrismTransition] {
         var newTransitions: [PrismTransition] = []
-        let transitions = calculateTransitions(speed: speed)
+        let transitions = calculateTransitions()
 
         for index in 0..<transitions.count {
             let transition = transitions[index]
@@ -239,7 +233,7 @@ extension PrismMultiSliderView {
         return newTransitions
     }
 
-    private func calculateTransitions(speed: CGFloat) -> [PrismTransition] {
+    private func calculateTransitions() -> [PrismTransition] {
         var transitions: [PrismTransition] = []
         let selectors = getSubviewsInOrder()
         let width = getDrawBounds().size.width

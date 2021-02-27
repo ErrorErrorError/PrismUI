@@ -238,7 +238,7 @@ extension PrismKeyboardDevice {
                 var deltaPosition =  nextTransition.position - transition.position
                 if deltaPosition < 0 { deltaPosition += 1.0 }
 
-                let duration = UInt16(deltaPosition * CGFloat(totalDuration))
+                let duration = UInt16((deltaPosition * CGFloat(totalDuration)) / 10)
 
                 // Calculate color difference
 

@@ -234,7 +234,7 @@ extension ModesViewController {
         guard let identifierr = sender.identifier else { return }
         switch identifierr {
         case .speed:
-            speedValue.stringValue = "\(sender.intValue.description.dropLast(2))s"
+            speedValue.stringValue = "\(sender.intValue.description.dropLast(modesPopUp.indexOfSelectedItem == 3 ? 2 : 3))s"
         case .pulse:
             pulseValue.stringValue = "\(sender.intValue.description.dropLast(1))"
         default:
@@ -370,9 +370,9 @@ extension ModesViewController {
 
         if shouldShow {
             multiSlider.mode = .colorShift
-            speedSlider.minValue = 100
-            speedSlider.maxValue = 3000
-            speedSlider.intValue = 300
+            speedSlider.minValue = 1000
+            speedSlider.maxValue = 30000
+            speedSlider.intValue = 3000
             pulseSlider.intValue = 100
             waveToggle.state = .off
             waveInwardOutwardControl.selectedSegment = 0
@@ -399,9 +399,9 @@ extension ModesViewController {
 
         if shouldShow {
             multiSlider.mode = .breathing
-            speedSlider.minValue = 200
-            speedSlider.maxValue = 3000
-            speedSlider.intValue = 400
+            speedSlider.minValue = 2000
+            speedSlider.maxValue = 30000
+            speedSlider.intValue = 4000
             onSliderChanged(speedSlider, update: false)
         }
     }
@@ -453,7 +453,7 @@ extension ModesViewController {
                     prismKey.mode = selectedMode
                     prismKey.effect = effect
                     prismKey.main = effect.start
-                    prismKey.duration = speedDuration
+                    prismKey.duration = 0x012c
                     updatePending = true
                 }
             }
@@ -517,9 +517,9 @@ extension ModesViewController {
 
         var transitions: [PrismTransition]
         if mode == .colorShift {
-            transitions = multiSlider.colorShiftTransitions(speed: CGFloat(speedSlider.floatValue))
+            transitions = multiSlider.colorShiftTransitions()
         } else {
-            transitions = multiSlider.breathingTransitions(speed: CGFloat(speedSlider.floatValue))
+            transitions = multiSlider.breathingTransitions()
         }
 
         guard transitions.count > 0 else {
@@ -582,7 +582,7 @@ extension ModesViewController {
     }
 }
 
-// MARK: MultiSlider Selector delegate
+// MARK: MultiSlider Selector delegate for ColorShift and Breathing
 
 extension ModesViewController: PrismMultiSliderDelegate {
 

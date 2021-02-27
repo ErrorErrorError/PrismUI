@@ -221,13 +221,6 @@
 			path = gs65;
 			sourceTree = "<group>";
 		};
-		134110C1251A8C70004EF11A /* perkey */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = perkey;
-			sourceTree = "<group>";
-		};
 		134CE94C24BD1C7F00D9D845 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -281,7 +274,6 @@
 		1368068225135E090081FB80 /* Presets */ = {
 			isa = PBXGroup;
 			children = (
-				134110C1251A8C70004EF11A /* perkey */,
 				134110AE251A8C59004EF11A /* gs65 */,
 			);
 			path = Presets;

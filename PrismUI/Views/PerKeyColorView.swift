@@ -171,7 +171,7 @@ extension PerKeyColorView: CAAnimationDelegate {
         }
         if transitionIndex >= effect.transitions.count { transitionIndex = 0 }
 
-        let transitionDuration = CGFloat(effect.transitionDuration)
+        let transitionDuration = CGFloat(effect.transitionDuration) / 10
         let transitions = effect.transitions
         let currentTransition = transitions[transitionIndex]
         transitionIndex + 1 < transitions.count ? (transitionIndex += 1) : (transitionIndex = 0)
@@ -191,7 +191,7 @@ extension PerKeyColorView: CAAnimationDelegate {
         let originYFloat = 1 - effect.origin.yPoint
         let beforeColor, afterColor: CGColor
         let durationAnimation: CFTimeInterval
-        let totalDuration = CGFloat(effect.transitionDuration)
+        let totalDuration = CGFloat(effect.transitionDuration) / 10
         let transitions = effect.transitions
 
         if !hasSetInitialWaveEffect {
