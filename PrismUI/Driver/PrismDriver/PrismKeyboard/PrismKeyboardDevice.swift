@@ -195,10 +195,11 @@ public final class PrismKeyboardDevice: PrismDevice {
     ]
 
     public override func update(forceUpdate: Bool = false) {
-        if model != .threeRegion {
+        if isKeyboardDevice, model != .threeRegion {
             updatePerKeyKeyboard(forceUpdate: forceUpdate)
         } else {
             // TODO: Update three region keyboard
+            Log.error("This model is incompartible: Three Region Keyboard")
         }
     }
 
@@ -215,11 +216,15 @@ extension PrismKeyboardDevice {
 
     private func writeEffectsToKeyboard() -> IOReturn {
         let effects = PrismKeyboardDevice.effects.compactMap { $0 as? PrismEffect }
-        guard effects.count > 0 else { return kIOReturnNotFound }
+        guard effects.count > 0 else {
+            Log.debug("No available effects found for: \(model)")
+            return kIOReturnNotFound
+        }
 
         for effect in effects {
             guard effect.transitions.count > 0 else {
                 // Must have at least one transition or will return error
+                Log.error("An effect has no transitions for \(model). Will not update keyboard with effect due to it can cause bricking keyboard.")
                 return kIOReturnError
             }
 
@@ -304,7 +309,7 @@ extension PrismKeyboardDevice {
 
             let result = sendFeatureReport(data: data)
             guard result == kIOReturnSuccess else {
-                Log.debug("Could not send effect report: \(String(cString: mach_error_string(result)))")
+                Log.error("Could not send effect to \(model): \(String(cString: mach_error_string(result)))")
                 return result
             }
         }
@@ -331,7 +336,7 @@ extension PrismKeyboardDevice {
 
             var result = self.writeEffectsToKeyboard()
             guard result == kIOReturnSuccess || result == kIOReturnNotFound else {
-                Log.error("Cannot update effect: \(String(cString: mach_error_string(result)))")
+                Log.error("Cannot update effect for \(self.model): \(String(cString: mach_error_string(result)))")
                 return
             }
 
@@ -343,7 +348,7 @@ extension PrismKeyboardDevice {
                 let result = self.writeKeysToKeyboard(region: PrismKeyboardDevice.regions[0],
                                                          keycodes: PrismKeyboardDevice.modifiers)
                 if result != kIOReturnSuccess {
-                    Log.error("Error sending feature report for \(self.model): " +
+                    Log.error("Error sending feature report for modifiers; \(self.model): " +
                                 "\(String(cString: mach_error_string(result)))")
                     return
                 }
@@ -354,7 +359,7 @@ extension PrismKeyboardDevice {
                 let result = self.writeKeysToKeyboard(region: PrismKeyboardDevice.regions[1],
                                                       keycodes: PrismKeyboardDevice.alphanums)
                 if result != kIOReturnSuccess {
-                    Log.error("Error sending feature report for \(self.model): " +
+                    Log.error("Error sending feature report for alphanums; \(self.model): " +
                                 "\(String(cString: mach_error_string(result)))")
                     return
                 }
@@ -365,7 +370,7 @@ extension PrismKeyboardDevice {
                 let result = self.writeKeysToKeyboard(region: PrismKeyboardDevice.regions[2],
                                                       keycodes: PrismKeyboardDevice.enter)
                 if result != kIOReturnSuccess {
-                    Log.error("Error sending feature report for \(self.model): " +
+                    Log.error("Error sending feature report for enter key; \(self.model): " +
                                 "\(String(cString: mach_error_string(result)))")
                     return
                 }
@@ -378,7 +383,7 @@ extension PrismKeyboardDevice {
                                                         PrismKeyboardDevice.special :
                                                         PrismKeyboardDevice.specialGS65)
                 if result != kIOReturnSuccess {
-                    Log.error("Error sending feature report for \(self.model): " +
+                    Log.error("Error sending feature report for special; \(self.model): " +
                                 "\(String(cString: mach_error_string(result)))")
                     return
                 }
@@ -388,7 +393,7 @@ extension PrismKeyboardDevice {
 
             result = self.writeToPerKeyKeyboard(lastByte: lastByte)
             if result != kIOReturnSuccess {
-                Log.error("Error writing to keyboard: \(String(cString: mach_error_string(result)))")
+                Log.error("Error writing to \(self.model): \(String(cString: mach_error_string(result)))")
             }
         }
     }
