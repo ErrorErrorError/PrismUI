@@ -1,7 +1,11 @@
+<!-- Banner Image -->
+<img src="images/PrismUI-Logo.png" width="100" height="100">
+
+
 # PrismUI
 
 <!-- Banner Image -->
-![PrismUI Banner](images/PrismUI-Banner-Text.jpg)
+![PrismUI Banner](images/PrismUI-Banner-Text.png)
 
 <!-- Badges -->
 ![Build Status](https://action-badges.now.sh/ErrorErrorError/PrismUI)
@@ -35,7 +39,9 @@ Open PrismUI app and customize your RGB peripherals!
 
 As of creating this README, only models with Per-Key RGB keyboard work. Soon I will see if I can bring support for three-region keyboards, and with the help of the community support Mystic Light peripherals.
 
-As for Per-Key RGB keyboards, all animations work as intended. Just need to improve as to when to update keyboard with effects.
+As for Per-Key RGB keyboards, all animations work as intended. If there are any issues please create an issue request.
+
+I am happy to support more MSI or SteelSeries peripherals on macOS!
 
 ### Tested On:
 - MSI GS65
@@ -49,8 +55,7 @@ Please make sure to update tests as appropriate.
 [MIT](https://choosealicense.com/licenses/mit/)
 
 ## Credits
-- [Stevelacy](https://github.com/stevelacy/msi-keyboard-gui) for the idea creating a gui.
+- [Stevelacy](https://github.com/stevelacy/msi-keyboard-gui) for the inspiration of creating a gui.
 - [Askannz](https://github.com/Askannz/msi-perkeyrgb) for `.perKey` keycodes.
 - [TauAkiou](https://github.com/TauAkiou/msi-perkeyrgb) for their documentation with the effects implementation.
 - [flozz](https://github.com/flozz/rivalcfg) for their color delta calculations.
-- [Matt Chaldwell](https://dribbble.com/mchalwell) for the inspiration of the logo.
