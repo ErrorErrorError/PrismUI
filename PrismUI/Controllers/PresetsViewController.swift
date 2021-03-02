@@ -107,10 +107,11 @@ class PresetsViewController: BaseViewController {
                                                selector: #selector(addNewPresetName(_:)),
                                                name: .prismDeviceSavePresetFile,
                                                object: nil)
-    }
+     }
 
-    override func viewDidDisappear() {
-        super.viewDidDisappear()
+    // Removing in deinit because this view controller can be hidden so we will still
+    // want to be able to change presets while it's hidden.
+    deinit {
         NotificationCenter.default.removeObserver(self,
                                                name: .prismSelectedDeviceChanged,
                                                object: nil)

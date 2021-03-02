@@ -53,6 +53,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 11,
@@ -126,6 +127,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 11,
@@ -199,6 +201,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 11,
@@ -272,6 +275,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 11,
@@ -345,6 +349,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 11,
@@ -418,6 +423,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 11,
@@ -491,6 +497,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 11,
@@ -564,6 +571,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 11,
@@ -637,6 +645,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 11,
@@ -710,6 +719,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 11,
@@ -783,6 +793,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 11,
@@ -856,6 +867,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 11,
@@ -929,6 +941,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -1002,6 +1015,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -1075,6 +1089,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -1148,6 +1163,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -1221,6 +1237,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -1294,6 +1311,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -1367,6 +1385,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -1440,6 +1459,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -1513,6 +1533,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -1586,6 +1607,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -1659,6 +1681,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -1732,6 +1755,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -1805,6 +1829,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -1878,6 +1903,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -1951,6 +1977,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -2024,6 +2051,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -2097,6 +2125,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -2170,6 +2199,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -2243,6 +2273,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -2316,6 +2347,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -2389,6 +2421,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -2462,6 +2495,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -2535,6 +2569,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -2608,6 +2643,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -2681,6 +2717,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -2754,6 +2791,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -2827,6 +2865,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -2900,6 +2939,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -2973,6 +3013,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -3046,6 +3087,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -3119,6 +3161,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -3192,6 +3235,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -3265,6 +3309,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -3338,6 +3383,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -3411,6 +3457,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -3484,6 +3531,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -3557,6 +3605,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -3630,6 +3679,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -3703,6 +3753,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -3776,6 +3827,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -3849,6 +3901,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -3922,6 +3975,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -3995,6 +4049,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 42,
@@ -4068,6 +4123,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 24,
@@ -4141,6 +4197,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 24,
@@ -4214,6 +4271,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 24,
@@ -4287,6 +4345,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 24,
@@ -4360,6 +4419,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 24,
@@ -4433,6 +4493,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 24,
@@ -4506,6 +4567,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 24,
@@ -4579,6 +4641,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 24,
@@ -4652,6 +4715,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 24,
@@ -4725,6 +4789,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 24,
@@ -4798,6 +4863,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 24,
@@ -4871,6 +4937,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 24,
@@ -4944,6 +5011,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 24,
@@ -5017,6 +5085,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 24,
@@ -5090,6 +5159,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 24,
@@ -5163,6 +5233,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 24,
@@ -5236,6 +5307,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 24,
@@ -5309,6 +5381,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 24,
@@ -5382,6 +5455,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 24,
@@ -5455,6 +5529,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 24,
@@ -5528,6 +5603,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 24,
@@ -5601,6 +5677,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 24,
@@ -5674,6 +5751,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 24,
@@ -5747,6 +5825,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 24,
@@ -5820,6 +5899,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 0,
+      "duration" : 5980,
       "control" : 1
     },
     "region" : 24,
@@ -5838,1465 +5918,5 @@
       "green" : 0
     },
     "keycode" : 240
-  },
-  {
-    "effect" : {
-      "origin" : {
-        "xAxis" : 0.41786055396370581,
-        "yAxis" : 0.62970106075216969
-      },
-      "start" : {
-        "red" : 1,
-        "alpha" : 1,
-        "blue" : 0,
-        "green" : 0.66666666666666663
-      },
-      "pulse" : 189,
-      "transitions" : [
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0
-        },
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0.1806020066889632
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.32274247491638797
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.94481605351170572
-        }
-      ],
-      "identifier" : 0,
-      "waveActive" : true,
-      "direction" : 0,
-      "control" : 1
-    },
-    "region" : 36,
-    "active" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "mode" : 1,
-    "duration" : 0,
-    "main" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "keycode" : 36
-  },
-  {
-    "effect" : {
-      "origin" : {
-        "xAxis" : 0.41786055396370581,
-        "yAxis" : 0.62970106075216969
-      },
-      "start" : {
-        "red" : 1,
-        "alpha" : 1,
-        "blue" : 0,
-        "green" : 0.66666666666666663
-      },
-      "pulse" : 189,
-      "transitions" : [
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0
-        },
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0.1806020066889632
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.32274247491638797
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.94481605351170572
-        }
-      ],
-      "identifier" : 0,
-      "waveActive" : true,
-      "direction" : 0,
-      "control" : 1
-    },
-    "region" : 36,
-    "active" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "mode" : 1,
-    "duration" : 0,
-    "main" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "keycode" : 64
-  },
-  {
-    "effect" : {
-      "origin" : {
-        "xAxis" : 0.41786055396370581,
-        "yAxis" : 0.62970106075216969
-      },
-      "start" : {
-        "red" : 1,
-        "alpha" : 1,
-        "blue" : 0,
-        "green" : 0.66666666666666663
-      },
-      "pulse" : 189,
-      "transitions" : [
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0
-        },
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0.1806020066889632
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.32274247491638797
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.94481605351170572
-        }
-      ],
-      "identifier" : 0,
-      "waveActive" : true,
-      "direction" : 0,
-      "control" : 1
-    },
-    "region" : 36,
-    "active" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "mode" : 1,
-    "duration" : 0,
-    "main" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "keycode" : 65
-  },
-  {
-    "effect" : {
-      "origin" : {
-        "xAxis" : 0.41786055396370581,
-        "yAxis" : 0.62970106075216969
-      },
-      "start" : {
-        "red" : 1,
-        "alpha" : 1,
-        "blue" : 0,
-        "green" : 0.66666666666666663
-      },
-      "pulse" : 189,
-      "transitions" : [
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0
-        },
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0.1806020066889632
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.32274247491638797
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.94481605351170572
-        }
-      ],
-      "identifier" : 0,
-      "waveActive" : true,
-      "direction" : 0,
-      "control" : 1
-    },
-    "region" : 36,
-    "active" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "mode" : 1,
-    "duration" : 0,
-    "main" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "keycode" : 66
-  },
-  {
-    "effect" : {
-      "origin" : {
-        "xAxis" : 0.41786055396370581,
-        "yAxis" : 0.62970106075216969
-      },
-      "start" : {
-        "red" : 1,
-        "alpha" : 1,
-        "blue" : 0,
-        "green" : 0.66666666666666663
-      },
-      "pulse" : 189,
-      "transitions" : [
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0
-        },
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0.1806020066889632
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.32274247491638797
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.94481605351170572
-        }
-      ],
-      "identifier" : 0,
-      "waveActive" : true,
-      "direction" : 0,
-      "control" : 1
-    },
-    "region" : 36,
-    "active" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "mode" : 1,
-    "duration" : 0,
-    "main" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "keycode" : 67
-  },
-  {
-    "effect" : {
-      "origin" : {
-        "xAxis" : 0.41786055396370581,
-        "yAxis" : 0.62970106075216969
-      },
-      "start" : {
-        "red" : 1,
-        "alpha" : 1,
-        "blue" : 0,
-        "green" : 0.66666666666666663
-      },
-      "pulse" : 189,
-      "transitions" : [
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0
-        },
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0.1806020066889632
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.32274247491638797
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.94481605351170572
-        }
-      ],
-      "identifier" : 0,
-      "waveActive" : true,
-      "direction" : 0,
-      "control" : 1
-    },
-    "region" : 36,
-    "active" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "mode" : 1,
-    "duration" : 0,
-    "main" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "keycode" : 68
-  },
-  {
-    "effect" : {
-      "origin" : {
-        "xAxis" : 0.41786055396370581,
-        "yAxis" : 0.62970106075216969
-      },
-      "start" : {
-        "red" : 1,
-        "alpha" : 1,
-        "blue" : 0,
-        "green" : 0.66666666666666663
-      },
-      "pulse" : 189,
-      "transitions" : [
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0
-        },
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0.1806020066889632
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.32274247491638797
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.94481605351170572
-        }
-      ],
-      "identifier" : 0,
-      "waveActive" : true,
-      "direction" : 0,
-      "control" : 1
-    },
-    "region" : 36,
-    "active" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "mode" : 1,
-    "duration" : 0,
-    "main" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "keycode" : 69
-  },
-  {
-    "effect" : {
-      "origin" : {
-        "xAxis" : 0.41786055396370581,
-        "yAxis" : 0.62970106075216969
-      },
-      "start" : {
-        "red" : 1,
-        "alpha" : 1,
-        "blue" : 0,
-        "green" : 0.66666666666666663
-      },
-      "pulse" : 189,
-      "transitions" : [
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0
-        },
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0.1806020066889632
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.32274247491638797
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.94481605351170572
-        }
-      ],
-      "identifier" : 0,
-      "waveActive" : true,
-      "direction" : 0,
-      "control" : 1
-    },
-    "region" : 36,
-    "active" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "mode" : 1,
-    "duration" : 0,
-    "main" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "keycode" : 70
-  },
-  {
-    "effect" : {
-      "origin" : {
-        "xAxis" : 0.41786055396370581,
-        "yAxis" : 0.62970106075216969
-      },
-      "start" : {
-        "red" : 1,
-        "alpha" : 1,
-        "blue" : 0,
-        "green" : 0.66666666666666663
-      },
-      "pulse" : 189,
-      "transitions" : [
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0
-        },
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0.1806020066889632
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.32274247491638797
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.94481605351170572
-        }
-      ],
-      "identifier" : 0,
-      "waveActive" : true,
-      "direction" : 0,
-      "control" : 1
-    },
-    "region" : 36,
-    "active" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "mode" : 1,
-    "duration" : 0,
-    "main" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "keycode" : 71
-  },
-  {
-    "effect" : {
-      "origin" : {
-        "xAxis" : 0.41786055396370581,
-        "yAxis" : 0.62970106075216969
-      },
-      "start" : {
-        "red" : 1,
-        "alpha" : 1,
-        "blue" : 0,
-        "green" : 0.66666666666666663
-      },
-      "pulse" : 189,
-      "transitions" : [
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0
-        },
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0.1806020066889632
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.32274247491638797
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.94481605351170572
-        }
-      ],
-      "identifier" : 0,
-      "waveActive" : true,
-      "direction" : 0,
-      "control" : 1
-    },
-    "region" : 36,
-    "active" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "mode" : 1,
-    "duration" : 0,
-    "main" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "keycode" : 72
-  },
-  {
-    "effect" : {
-      "origin" : {
-        "xAxis" : 0.41786055396370581,
-        "yAxis" : 0.62970106075216969
-      },
-      "start" : {
-        "red" : 1,
-        "alpha" : 1,
-        "blue" : 0,
-        "green" : 0.66666666666666663
-      },
-      "pulse" : 189,
-      "transitions" : [
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0
-        },
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0.1806020066889632
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.32274247491638797
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.94481605351170572
-        }
-      ],
-      "identifier" : 0,
-      "waveActive" : true,
-      "direction" : 0,
-      "control" : 1
-    },
-    "region" : 36,
-    "active" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "mode" : 1,
-    "duration" : 0,
-    "main" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "keycode" : 73
-  },
-  {
-    "effect" : {
-      "origin" : {
-        "xAxis" : 0.41786055396370581,
-        "yAxis" : 0.62970106075216969
-      },
-      "start" : {
-        "red" : 1,
-        "alpha" : 1,
-        "blue" : 0,
-        "green" : 0.66666666666666663
-      },
-      "pulse" : 189,
-      "transitions" : [
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0
-        },
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0.1806020066889632
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.32274247491638797
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.94481605351170572
-        }
-      ],
-      "identifier" : 0,
-      "waveActive" : true,
-      "direction" : 0,
-      "control" : 1
-    },
-    "region" : 36,
-    "active" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "mode" : 1,
-    "duration" : 0,
-    "main" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "keycode" : 74
-  },
-  {
-    "effect" : {
-      "origin" : {
-        "xAxis" : 0.41786055396370581,
-        "yAxis" : 0.62970106075216969
-      },
-      "start" : {
-        "red" : 1,
-        "alpha" : 1,
-        "blue" : 0,
-        "green" : 0.66666666666666663
-      },
-      "pulse" : 189,
-      "transitions" : [
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0
-        },
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0.1806020066889632
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.32274247491638797
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.94481605351170572
-        }
-      ],
-      "identifier" : 0,
-      "waveActive" : true,
-      "direction" : 0,
-      "control" : 1
-    },
-    "region" : 36,
-    "active" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "mode" : 1,
-    "duration" : 0,
-    "main" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "keycode" : 75
-  },
-  {
-    "effect" : {
-      "origin" : {
-        "xAxis" : 0.41786055396370581,
-        "yAxis" : 0.62970106075216969
-      },
-      "start" : {
-        "red" : 1,
-        "alpha" : 1,
-        "blue" : 0,
-        "green" : 0.66666666666666663
-      },
-      "pulse" : 189,
-      "transitions" : [
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0
-        },
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0.1806020066889632
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.32274247491638797
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.94481605351170572
-        }
-      ],
-      "identifier" : 0,
-      "waveActive" : true,
-      "direction" : 0,
-      "control" : 1
-    },
-    "region" : 36,
-    "active" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "mode" : 1,
-    "duration" : 0,
-    "main" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "keycode" : 76
-  },
-  {
-    "effect" : {
-      "origin" : {
-        "xAxis" : 0.41786055396370581,
-        "yAxis" : 0.62970106075216969
-      },
-      "start" : {
-        "red" : 1,
-        "alpha" : 1,
-        "blue" : 0,
-        "green" : 0.66666666666666663
-      },
-      "pulse" : 189,
-      "transitions" : [
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0
-        },
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0.1806020066889632
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.32274247491638797
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.94481605351170572
-        }
-      ],
-      "identifier" : 0,
-      "waveActive" : true,
-      "direction" : 0,
-      "control" : 1
-    },
-    "region" : 36,
-    "active" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "mode" : 1,
-    "duration" : 0,
-    "main" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "keycode" : 77
-  },
-  {
-    "effect" : {
-      "origin" : {
-        "xAxis" : 0.41786055396370581,
-        "yAxis" : 0.62970106075216969
-      },
-      "start" : {
-        "red" : 1,
-        "alpha" : 1,
-        "blue" : 0,
-        "green" : 0.66666666666666663
-      },
-      "pulse" : 189,
-      "transitions" : [
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0
-        },
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0.1806020066889632
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.32274247491638797
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.94481605351170572
-        }
-      ],
-      "identifier" : 0,
-      "waveActive" : true,
-      "direction" : 0,
-      "control" : 1
-    },
-    "region" : 36,
-    "active" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "mode" : 1,
-    "duration" : 0,
-    "main" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "keycode" : 78
-  },
-  {
-    "effect" : {
-      "origin" : {
-        "xAxis" : 0.41786055396370581,
-        "yAxis" : 0.62970106075216969
-      },
-      "start" : {
-        "red" : 1,
-        "alpha" : 1,
-        "blue" : 0,
-        "green" : 0.66666666666666663
-      },
-      "pulse" : 189,
-      "transitions" : [
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0
-        },
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0.1806020066889632
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.32274247491638797
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.94481605351170572
-        }
-      ],
-      "identifier" : 0,
-      "waveActive" : true,
-      "direction" : 0,
-      "control" : 1
-    },
-    "region" : 36,
-    "active" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "mode" : 1,
-    "duration" : 0,
-    "main" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "keycode" : 79
-  },
-  {
-    "effect" : {
-      "origin" : {
-        "xAxis" : 0.41786055396370581,
-        "yAxis" : 0.62970106075216969
-      },
-      "start" : {
-        "red" : 1,
-        "alpha" : 1,
-        "blue" : 0,
-        "green" : 0.66666666666666663
-      },
-      "pulse" : 189,
-      "transitions" : [
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0
-        },
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0.1806020066889632
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.32274247491638797
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.94481605351170572
-        }
-      ],
-      "identifier" : 0,
-      "waveActive" : true,
-      "direction" : 0,
-      "control" : 1
-    },
-    "region" : 36,
-    "active" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "mode" : 1,
-    "duration" : 0,
-    "main" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "keycode" : 80
-  },
-  {
-    "effect" : {
-      "origin" : {
-        "xAxis" : 0.41786055396370581,
-        "yAxis" : 0.62970106075216969
-      },
-      "start" : {
-        "red" : 1,
-        "alpha" : 1,
-        "blue" : 0,
-        "green" : 0.66666666666666663
-      },
-      "pulse" : 189,
-      "transitions" : [
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0
-        },
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0.1806020066889632
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.32274247491638797
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.94481605351170572
-        }
-      ],
-      "identifier" : 0,
-      "waveActive" : true,
-      "direction" : 0,
-      "control" : 1
-    },
-    "region" : 36,
-    "active" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "mode" : 1,
-    "duration" : 0,
-    "main" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "keycode" : 81
-  },
-  {
-    "effect" : {
-      "origin" : {
-        "xAxis" : 0.41786055396370581,
-        "yAxis" : 0.62970106075216969
-      },
-      "start" : {
-        "red" : 1,
-        "alpha" : 1,
-        "blue" : 0,
-        "green" : 0.66666666666666663
-      },
-      "pulse" : 189,
-      "transitions" : [
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0
-        },
-        {
-          "color" : {
-            "red" : 1,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.66666666666666663
-          },
-          "position" : 0.1806020066889632
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.32274247491638797
-        },
-        {
-          "color" : {
-            "red" : 0.020833333333333259,
-            "alpha" : 1,
-            "blue" : 0,
-            "green" : 0.020833333333333259
-          },
-          "position" : 0.94481605351170572
-        }
-      ],
-      "identifier" : 0,
-      "waveActive" : true,
-      "direction" : 0,
-      "control" : 1
-    },
-    "region" : 36,
-    "active" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "mode" : 1,
-    "duration" : 0,
-    "main" : {
-      "red" : 0,
-      "alpha" : 1,
-      "blue" : 0,
-      "green" : 0
-    },
-    "keycode" : 82
   }
 ]

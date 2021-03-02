@@ -71,6 +71,7 @@
       "identifier" : 1,
       "waveActive" : true,
       "direction" : 2,
+      "duration" : 2700,
       "control" : 1
     },
     "region" : 24,
@@ -162,6 +163,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 24,
@@ -253,6 +255,7 @@
       "identifier" : 1,
       "waveActive" : true,
       "direction" : 2,
+      "duration" : 2700,
       "control" : 1
     },
     "region" : 24,
@@ -344,6 +347,7 @@
       "identifier" : 3,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 24,
@@ -435,6 +439,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 24,
@@ -526,6 +531,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 24,
@@ -617,6 +623,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 24,
@@ -708,6 +715,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 24,
@@ -799,6 +807,7 @@
       "identifier" : 3,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 24,
@@ -890,6 +899,7 @@
       "identifier" : 3,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 24,
@@ -981,6 +991,7 @@
       "identifier" : 1,
       "waveActive" : true,
       "direction" : 2,
+      "duration" : 2700,
       "control" : 1
     },
     "region" : 24,
@@ -1072,6 +1083,7 @@
       "identifier" : 3,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 24,
@@ -1163,6 +1175,7 @@
       "identifier" : 3,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 24,
@@ -1254,6 +1267,7 @@
       "identifier" : 3,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 24,
@@ -1345,6 +1359,7 @@
       "identifier" : 1,
       "waveActive" : true,
       "direction" : 2,
+      "duration" : 2700,
       "control" : 1
     },
     "region" : 24,
@@ -1436,6 +1451,7 @@
       "identifier" : 3,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 24,
@@ -1527,6 +1543,7 @@
       "identifier" : 1,
       "waveActive" : true,
       "direction" : 2,
+      "duration" : 2700,
       "control" : 1
     },
     "region" : 24,
@@ -1618,6 +1635,7 @@
       "identifier" : 1,
       "waveActive" : true,
       "direction" : 2,
+      "duration" : 2700,
       "control" : 1
     },
     "region" : 24,
@@ -1709,6 +1727,7 @@
       "identifier" : 3,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 24,
@@ -1800,6 +1819,7 @@
       "identifier" : 3,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 24,
@@ -1891,6 +1911,7 @@
       "identifier" : 3,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 24,
@@ -1982,6 +2003,7 @@
       "identifier" : 3,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 24,
@@ -2073,6 +2095,7 @@
       "identifier" : 3,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 24,
@@ -2164,6 +2187,7 @@
       "identifier" : 3,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 24,
@@ -2255,6 +2279,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 24,
@@ -2346,6 +2371,7 @@
       "identifier" : 2,
       "waveActive" : true,
       "direction" : 2,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 11,
@@ -2437,6 +2463,7 @@
       "identifier" : 2,
       "waveActive" : true,
       "direction" : 2,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 11,
@@ -2528,6 +2555,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 11,
@@ -2619,6 +2647,7 @@
       "identifier" : 3,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 11,
@@ -2710,6 +2739,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 11,
@@ -2801,6 +2831,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 11,
@@ -2892,6 +2923,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 11,
@@ -2983,6 +3015,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 11,
@@ -3074,6 +3107,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 11,
@@ -3165,6 +3199,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 11,
@@ -3256,6 +3291,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 11,
@@ -3347,6 +3383,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 11,
@@ -3438,6 +3475,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 36,
@@ -3529,6 +3567,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 36,
@@ -3620,6 +3659,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 36,
@@ -3711,6 +3751,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 36,
@@ -3802,6 +3843,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 36,
@@ -3893,6 +3935,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 36,
@@ -3984,6 +4027,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 36,
@@ -4075,6 +4119,7 @@
       "identifier" : 3,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 36,
@@ -4166,6 +4211,7 @@
       "identifier" : 3,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 36,
@@ -4257,6 +4303,7 @@
       "identifier" : 3,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 36,
@@ -4348,6 +4395,7 @@
       "identifier" : 2,
       "waveActive" : true,
       "direction" : 2,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 36,
@@ -4439,6 +4487,7 @@
       "identifier" : 2,
       "waveActive" : true,
       "direction" : 2,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 36,
@@ -4530,6 +4579,7 @@
       "identifier" : 2,
       "waveActive" : true,
       "direction" : 2,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 36,
@@ -4621,6 +4671,7 @@
       "identifier" : 2,
       "waveActive" : true,
       "direction" : 2,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 36,
@@ -4712,6 +4763,7 @@
       "identifier" : 2,
       "waveActive" : true,
       "direction" : 2,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 36,
@@ -4803,6 +4855,7 @@
       "identifier" : 2,
       "waveActive" : true,
       "direction" : 2,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 36,
@@ -4894,6 +4947,7 @@
       "identifier" : 3,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 36,
@@ -4985,6 +5039,7 @@
       "identifier" : 3,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 36,
@@ -5076,6 +5131,7 @@
       "identifier" : 2,
       "waveActive" : true,
       "direction" : 2,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 36,
@@ -5167,6 +5223,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 36,
@@ -5258,6 +5315,7 @@
       "identifier" : 1,
       "waveActive" : true,
       "direction" : 2,
+      "duration" : 2700,
       "control" : 1
     },
     "region" : 42,
@@ -5349,6 +5407,7 @@
       "identifier" : 3,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -5440,6 +5499,7 @@
       "identifier" : 3,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -5531,6 +5591,7 @@
       "identifier" : 3,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -5622,6 +5683,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -5713,6 +5775,7 @@
       "identifier" : 3,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -5804,6 +5867,7 @@
       "identifier" : 3,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -5895,6 +5959,7 @@
       "identifier" : 3,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -5986,6 +6051,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -6077,6 +6143,7 @@
       "identifier" : 3,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -6168,6 +6235,7 @@
       "identifier" : 3,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -6259,6 +6327,7 @@
       "identifier" : 3,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -6350,6 +6419,7 @@
       "identifier" : 3,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -6441,6 +6511,7 @@
       "identifier" : 3,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -6532,6 +6603,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -6623,6 +6695,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -6714,6 +6787,7 @@
       "identifier" : 1,
       "waveActive" : true,
       "direction" : 2,
+      "duration" : 2700,
       "control" : 1
     },
     "region" : 42,
@@ -6805,6 +6879,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -6896,6 +6971,7 @@
       "identifier" : 3,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -6987,6 +7063,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -7078,6 +7155,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -7169,6 +7247,7 @@
       "identifier" : 3,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -7260,6 +7339,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -7351,6 +7431,7 @@
       "identifier" : 3,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -7442,6 +7523,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -7533,6 +7615,7 @@
       "identifier" : 3,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -7624,6 +7707,7 @@
       "identifier" : 1,
       "waveActive" : true,
       "direction" : 2,
+      "duration" : 2700,
       "control" : 1
     },
     "region" : 42,
@@ -7715,6 +7799,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -7806,6 +7891,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -7897,6 +7983,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -7988,6 +8075,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -8079,6 +8167,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -8170,6 +8259,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -8261,6 +8351,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -8352,6 +8443,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -8443,6 +8535,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -8534,6 +8627,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -8625,6 +8719,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -8716,6 +8811,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -8807,6 +8903,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -8898,6 +8995,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -8989,6 +9087,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,
@@ -9080,6 +9179,7 @@
       "identifier" : 0,
       "waveActive" : true,
       "direction" : 1,
+      "duration" : 2700,
       "control" : 0
     },
     "region" : 42,

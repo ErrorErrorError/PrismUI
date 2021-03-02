@@ -14,11 +14,18 @@ extension ModesViewController {
 
     func perKeyLayoutSetup() {
         speedSlider.target = self
+        speedSlider.action = #selector(onSliderChanged(_:update:))
         waveToggle.target = self
+        waveToggle.action = #selector(onButtonClicked(_:update:))
         pulseSlider.target = self
+        pulseSlider.action = #selector(onSliderChanged(_:update:))
         originButton.target = self
+        originButton.action = #selector(onButtonClicked(_:update:))
         waveDirectionControl.target = self
+        waveDirectionControl.action = #selector(onButtonClicked(_:update:))
         waveInwardOutwardControl.target = self
+        waveInwardOutwardControl.action = #selector(onButtonClicked(_:update:))
+
         reactActiveColor.delegate = self
         reactRestColor.delegate = self
         multiSlider.delegate = self
@@ -280,7 +287,7 @@ extension ModesViewController {
                 handlePerKeySliderChanged(speedSlider, update: false)
                 multiSlider.mode = modeName == "\(PrismKeyModes.colorShift)" ? .colorShift : .breathing
                 multiSlider.setSelectorsFromTransitions(transitions: effect.transitions)
-                speedSlider.intValue = Int32(key.duration)
+                speedSlider.intValue = Int32(effect.duration)
                 handlePerKeySliderChanged(pulseSlider, update: false)
                 if key.mode == .colorShift {
                     waveToggle.state = effect.waveActive ? .on : .off
@@ -543,13 +550,13 @@ extension ModesViewController {
                 $0.origin == origin &&
                 $0.pulse == pulse &&
                 $0.transitions == transitions &&
-                $0.transitionDuration == transitionDuration
+                $0.duration == transitionDuration
         })
 
         if effect == nil {
             effect = PrismEffect(identifier: identifier, transitions: transitions)
             guard let effect = effect else { return nil }
-            effect.transitionDuration = transitionDuration
+            effect.duration = transitionDuration
             if mode == .colorShift {
                 effect.waveActive = waveToggle.state == .on
                 if effect.waveActive {

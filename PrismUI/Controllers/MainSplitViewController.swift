@@ -27,8 +27,7 @@ class MainSplitViewController: NSSplitViewController {
         setupSplitViewItems()
     }
 
-    override func viewDidDisappear() {
-        super.viewDidDisappear()
+    deinit {
         NotificationCenter.default.removeObserver(self, name: .prismSelectedDeviceChanged, object: nil)
     }
 

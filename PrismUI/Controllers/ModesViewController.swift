@@ -56,6 +56,18 @@ class ModesViewController: BaseViewController {
 
     let colorPicker: PrismColorPicker = PrismColorPicker()
 
+    let cursorSegment: NSSegmentedControl = {
+        let singleSelectImage = NSCursor.arrow.image
+        let multiSelectSameImage = NSCursor.pointingHand.image
+        let segment = NSSegmentedControl(images: [singleSelectImage,
+                                                  multiSelectSameImage],
+                                         trackingMode: .selectOne,
+                                         target: nil,
+                                         action: nil)
+        segment.selectedSegment = 0
+        return segment
+    }()
+
     // MARK: Per Key Views
 
     let speedLabel: NSTextField = {
@@ -201,16 +213,13 @@ class ModesViewController: BaseViewController {
             }
         }
 
-        initCommonViews()
-    }
-
-    private func initCommonViews() {
         presetsButton.target = self
         devicesPopup.target = self
         modesPopUp.target = self
         colorPicker.delegate = self
 
         view.addSubview(presetsButton)
+        view.addSubview(cursorSegment)
         view.addSubview(deviceLabel)
         view.addSubview(devicesPopup)
         view.addSubview(modesLabel)
@@ -231,29 +240,15 @@ class ModesViewController: BaseViewController {
                                                name: .prismDeviceRemoved,
                                                object: nil)
 
+        devicesPopup.addItem(withTitle: "No device selected")
+        devicesPopup.selectItem(withTitle: "No device selected")
+
         for deviceName in PrismDriver.shared.devices.compactMap({ ($0 as? PrismDevice)?.name }) {
             devicesPopup.addItem(withTitle: deviceName)
         }
-
-//        if let currentDevice = PrismDriver.shared.currentDevice {
-//            devicesPopup.selectItem(withTitle: currentDevice.name)
-//        } else {
-            devicesPopup.addItem(withTitle: "No device selected")
-            devicesPopup.selectItem(withTitle: "No device selected")
-//        }
-
-        // See if a device is already loaded
-
-//        if let device = PrismDriver.shared.devices.compactMap({ $0 as? PrismDevice }).first {
-//            DispatchQueue.main.async {
-//                self.devicesPopup.title = device.name
-//                self.onChangedDevicePopup(self.devicesPopup)
-//            }
-//        }
-
     }
 
-    override func viewDidDisappear() {
+    deinit {
         NotificationCenter.default.removeObserver(self,
                                                name: .prismDeviceAdded,
                                                object: nil)
@@ -261,16 +256,16 @@ class ModesViewController: BaseViewController {
         NotificationCenter.default.removeObserver(self,
                                                name: .prismDeviceRemoved,
                                                object: nil)
-
     }
 
     private func initCommonConstraints() {
-        view.subviews.forEach { subview in
-            subview.translatesAutoresizingMaskIntoConstraints = false
-        }
+        view.subviews.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
 
         presetsButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: edgeMargin).isActive = true
         presetsButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
+
+        cursorSegment.topAnchor.constraint(equalTo: presetsButton.topAnchor).isActive = true
+        cursorSegment.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -edgeMargin).isActive = true
 
         deviceLabel.leadingAnchor.constraint(equalTo: presetsButton.leadingAnchor).isActive = true
         deviceLabel.topAnchor.constraint(equalTo: presetsButton.bottomAnchor, constant: 20).isActive = true
@@ -443,3 +438,8 @@ extension NSUserInterfaceItemIdentifier {
     static let speed = NSUserInterfaceItemIdentifier(rawValue: "speed-slider")
     static let presets = NSUserInterfaceItemIdentifier(rawValue: "presets")
 }
+
+//public protocol PrismUpdateDeviceProtocol {
+//    func updateViews(color: PrismRGB, finished: Bool)
+//    func updateEffect(effect: String)
+//}

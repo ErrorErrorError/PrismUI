@@ -231,7 +231,7 @@ extension PrismKeyboardDevice {
             var data = Data(capacity: PrismKeyboardDevice.packageSize)
             data.append([0x0b, 0x00], count: 2) // Start Packet
 
-            let totalDuration = effect.transitionDuration
+            let totalDuration = effect.duration
 
             // Transitions - each transition will take 8 bytes
             let transitions = effect.transitions
@@ -298,8 +298,8 @@ extension PrismKeyboardDevice {
 
             data.append([UInt8(effect.transitions.count),
                          0x00,
-                         UInt8(effect.transitionDuration & 0x00ff),
-                         UInt8(effect.transitionDuration >> 8),
+                         UInt8(effect.duration & 0x00ff),
+                         UInt8(effect.duration >> 8),
                          effect.control.rawValue
             ], count: 5)
 

@@ -23,7 +23,7 @@ public final class PrismEffect: NSObject {
     let identifier: UInt8
     var start: PrismRGB = PrismRGB()
     var transitions: [PrismTransition]
-    var transitionDuration: UInt16 = 0x12c
+    var duration: UInt16 = 0x12c
     var waveActive: Bool = false {
         didSet {
             if !waveActive {
@@ -58,6 +58,7 @@ public extension PrismEffect {
             self.control == otherEffect.control &&
             self.origin == otherEffect.origin &&
             self.pulse == otherEffect.pulse &&
+            self.duration == otherEffect.duration &&
             self.transitions == otherEffect.transitions
     }
 
@@ -69,6 +70,7 @@ public extension PrismEffect {
         hasher.combine(direction)
         hasher.combine(control)
         hasher.combine(origin)
+        hasher.combine(duration)
         hasher.combine(pulse)
         hasher.combine(transitions)
         return hasher.finalize()
@@ -78,7 +80,7 @@ public extension PrismEffect {
 extension PrismEffect: Codable {
 
     private enum CodingKeys: String, CodingKey {
-        case identifier, start, waveActive, direction, control, origin, pulse, transitions
+        case identifier, start, waveActive, direction, control, origin, pulse, transitions, duration
     }
 
     public convenience init(from decoder: Decoder) throws {
@@ -92,6 +94,7 @@ extension PrismEffect: Codable {
         self.control = PrismControl(rawValue: try container.decode(UInt8.self, forKey: .control))!
         self.origin = try container.decode(PrismPoint.self, forKey: .origin)
         self.pulse = try container.decode(UInt16.self, forKey: .pulse)
+        self.duration = try container.decode(UInt16.self, forKey: .duration)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -104,5 +107,6 @@ extension PrismEffect: Codable {
         try container.encode(origin, forKey: .origin)
         try container.encode(pulse, forKey: .pulse)
         try container.encode(transitions, forKey: .transitions)
+        try container.encode(duration, forKey: .duration)
     }
 }

@@ -100,7 +100,6 @@ class DragSelectionView: NSVisualEffectView {
         selectionRect = nil
         downPoint = nil
     }
-
 }
 
 extension NSRect {

@@ -46,8 +46,7 @@ class KeyboardViewController: BaseViewController {
                                                object: nil)
     }
 
-    override func viewDidDisappear() {
-        super.viewDidDisappear()
+    deinit {
         NotificationCenter.default.removeObserver(self, name: .prismDeviceUpdateFromPreset, object: nil)
         NotificationCenter.default.removeObserver(self, name: .prismDeviceSavePreset, object: nil)
         NotificationCenter.default.removeObserver(self, name: .prismDeviceUpdateView, object: nil)
