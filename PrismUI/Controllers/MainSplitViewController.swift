@@ -11,7 +11,7 @@ import Cocoa
 class MainSplitViewController: NSSplitViewController {
 
     let presetsViewController = PresetsViewController()
-    let modesViewController = ModesViewController()
+    let modesViewController = DeviceControlViewController()
 
     var sidebarItem: NSSplitViewItem!
     var leftSideItem: NSSplitViewItem!

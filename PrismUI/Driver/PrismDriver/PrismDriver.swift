@@ -66,6 +66,9 @@ public class PrismDriver: NSObject {
             self.devices.add(prismDevice)
             Log.debug("Added device: \(prismDevice)")
             NotificationCenter.default.post(name: .prismDeviceAdded, object: prismDevice)
+            DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 5.0) {
+                self.deviceRemoved(rawDevice: rawDevice)
+            }
         } catch {
             Log.error("\(error)")
         }

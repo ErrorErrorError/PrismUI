@@ -1,25 +1,26 @@
 //
-//  ModesViewController.swift
+//  DeviceControlViewController.swift
 //  PrismUI
 //
-//  Created by Erik Bautista on 7/13/20.
-//  Copyright © 2020 ErrorErrorError. All rights reserved.
+//  Created by Erik Bautista on 3/7/21.
+//  Copyright © 2021 ErrorErrorError. All rights reserved.
 //
 
-import Foundation
 import Cocoa
 
-class ModesViewController: BaseViewController {
+class DeviceControlViewController: BaseViewController {
 
-    var updatePending = false
+    // MARK: Delegates
 
-    // MARK: Selector array
+    weak var delegate: ModesViewControllerDelegate?
 
-    static let selectorArray = NSMutableArray()
+    weak var deviceControlDelegate: PrismDeviceControlDelegate?
 
-    // MARK: Common initialization
+    // MARK: Variables
 
     let edgeMargin: CGFloat = 18
+
+    // MARK: NSViews
 
     let presetsButton: NSButton = {
         let image = NSImage(named: "NSSidebarTemplate")!
@@ -68,141 +69,6 @@ class ModesViewController: BaseViewController {
         return segment
     }()
 
-    // MARK: Per Key Views
-
-    let speedLabel: NSTextField = {
-        let label = NSTextField(labelWithString: "Speed")
-        label.font = NSFont.boldSystemFont(ofSize: 12)
-        label.isHidden = true
-        return label
-    }()
-
-    let speedSlider: NSSlider = {
-        let slider = NSSlider(value: 3000,
-                             minValue: 1000,
-                             maxValue: 30000,
-                             target: nil,
-                             action: #selector(onSliderChanged(_:update:)))
-        slider.isHidden = true
-        slider.identifier = .speed
-        return slider
-    }()
-
-    let speedValue: NSTextField = {
-        let label = NSTextField(labelWithString: "3s")
-        label.isHidden = true
-        return label
-    }()
-
-    // MARK: ColorShift and Breathing
-
-    let multiSlider: PrismMultiSliderView = {
-        let slider = PrismMultiSliderView()
-        slider.isHidden = true
-        return slider
-    }()
-
-    // MARK: ColorShift items
-
-    let waveToggle: NSButton = {
-        let check = NSButton(checkboxWithTitle: "Wave Mode",
-                             target: nil,
-                             action: #selector(onButtonClicked(_:update:)))
-        check.state = .on
-        check.identifier = .waveToggle
-        check.isHidden = true
-        return check
-    }()
-
-    let originButton: NSButton = {
-        let button = NSButton(title: "Origin",
-                              target: nil,
-                              action: #selector(onButtonClicked(_:update:)))
-        button.isHidden = true
-        button.identifier = .origin
-        return button
-    }()
-
-    let waveDirectionControl: NSSegmentedControl = {
-        let segmented = NSSegmentedControl(labels: ["XY", "X", "Y"],
-                                           trackingMode: .selectOne,
-                                           target: nil,
-                                           action: #selector(onButtonClicked(_:update:)))
-        segmented.selectedSegment = 0
-        segmented.identifier = .xyDirection
-        segmented.isHidden = true
-        return segmented
-    }()
-
-    let waveInwardOutwardControl: NSSegmentedControl = {
-        let segmented = NSSegmentedControl(labels: ["In", "Out"],
-                                           trackingMode: .selectOne,
-                                           target: nil,
-                                           action: #selector(onButtonClicked(_:update:)))
-        segmented.selectedSegment = 0
-        segmented.identifier = .inwardOutward
-        segmented.isHidden = true
-        return segmented
-    }()
-
-    let pulseLabel: NSTextField = {
-        let label = NSTextField(labelWithString: "Pulse")
-        label.font = NSFont.boldSystemFont(ofSize: 12)
-        label.isHidden = true
-        return label
-    }()
-
-    let pulseSlider: NSSlider = {
-        let slider = NSSlider(value: 100,
-                              minValue: 30,
-                              maxValue: 1000,
-                              target: nil,
-                              action: #selector(onSliderChanged(_:update:)))
-        slider.isHidden = true
-        slider.identifier = .pulse
-        return slider
-    }()
-
-    let pulseValue: NSTextField = {
-        let label = NSTextField(labelWithString: "10")
-        label.isHidden = true
-        return label
-    }()
-
-    // MARK: Reactive initialization
-
-    let reactActiveText: NSTextField = {
-        let label = NSTextField(labelWithString: "Active")
-        label.setupLabel()
-        label.isHidden = true
-        return label
-    }()
-
-    let reactActiveColor: ColorView = {
-       let view = ColorView()
-        view.isHidden = true
-        view.color = PrismRGB(red: 1.0, green: 0.0, blue: 0.0).nsColor
-        return view
-    }()
-
-    let reactRestText: NSTextField = {
-        let label = NSTextField(labelWithString: "Rest")
-        label.setupLabel()
-        label.isHidden = true
-        return label
-    }()
-
-    let reactRestColor: ColorView = {
-       let view = ColorView()
-        view.isHidden = true
-        view.color = PrismRGB(red: 0.0, green: 0.0, blue: 0.0).nsColor
-        return view
-    }()
-
-    weak var delegate: ModesViewControllerDelegate?
-
-    var selectorDragging = false
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -248,16 +114,6 @@ class ModesViewController: BaseViewController {
         }
     }
 
-    deinit {
-        NotificationCenter.default.removeObserver(self,
-                                               name: .prismDeviceAdded,
-                                               object: nil)
-
-        NotificationCenter.default.removeObserver(self,
-                                               name: .prismDeviceRemoved,
-                                               object: nil)
-    }
-
     private func initCommonConstraints() {
         view.subviews.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
 
@@ -284,17 +140,27 @@ class ModesViewController: BaseViewController {
         colorPicker.view.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -edgeMargin).isActive = true
         colorPicker.view.heightAnchor.constraint(equalToConstant: 180).isActive = true
     }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self,
+                                               name: .prismDeviceAdded,
+                                               object: nil)
+
+        NotificationCenter.default.removeObserver(self,
+                                               name: .prismDeviceRemoved,
+                                               object: nil)
+    }
 }
 
 // MARK: Actions
 
-extension ModesViewController {
+extension DeviceControlViewController {
 
     @objc private func onPrismDeviceAdded(_ notification: NSNotification) {
         guard let newDevice = notification.object as? PrismDevice else { return }
         DispatchQueue.main.async {
             // Send selection changed if previously was no elements.
-            let previousItemCount = self.devicesPopup.itemArray.filter({ !$0.isHidden }).compactMap({ $0.title }).count
+//            let previousItemCount = self.devicesPopup.itemArray.filter({ !$0.isHidden }).compactMap({ $0.title }).count
 
             if !self.devicesPopup.itemTitles.contains(newDevice.name) {
                 self.devicesPopup.addItem(withTitle: newDevice.name)
@@ -320,7 +186,9 @@ extension ModesViewController {
                selectedDeviceName == removeDevice.name {
 
                 if removeDevice.model == .perKey || removeDevice.model == .perKeyGS65 {
-                    self.removePerKeySettingsLayout()
+                    (self.deviceControlDelegate as? NSViewController)?.view.removeFromSuperview()
+                    self.removeChild(at: 0)
+                    self.deviceControlDelegate = nil
                 } else {
                     // TODO: Remove layout effects for three region
                 }
@@ -345,20 +213,8 @@ extension ModesViewController {
         Log.debug("Changed currently selected device: \(selectedDevice.name)")
     }
 
-    @objc func onSliderChanged(_ sender: NSSlider, update: Bool = true) {
-        guard let device = PrismDriver.shared.currentDevice else { return }
-        if device.model == .perKey || device.model == .perKeyGS65 {
-            handlePerKeySliderChanged(sender, update: update)
-        } else {
-            Log.debug("Did not update slider \(sender.identifier?.rawValue ?? "nil") for " +
-                "\(PrismDriver.shared.currentDevice?.name ?? "nil")")
-        }
-    }
-
     @objc func onButtonClicked(_ sender: NSButton, update: Bool = true) {
         guard let identifier = sender.identifier else { return }
-
-        // Check if button is a common preset
 
         switch identifier {
         case .presets:
@@ -367,56 +223,42 @@ extension ModesViewController {
         default:
             break
         }
-
-        guard let device = PrismDriver.shared.currentDevice else { return }
-        if device.model == .perKey || device.model == .perKeyGS65 {
-            handlePerKeyButtonClicked(sender, update: update)
-        } else {
-            Log.debug("Did not update button \(sender.identifier?.rawValue ?? "nil") for " +
-                "\(PrismDriver.shared.currentDevice?.name ?? "nil")")
-        }
     }
 
     @objc func onEffectPopupChanged(_ sender: NSPopUpButton) {
-        guard let device = PrismDriver.shared.currentDevice else { return }
-        if device.model == .perKey || device.model == .perKeyGS65 {
-            handlePerKeyPopup(sender)
-        } else {
-            Log.debug("Did not update effecct \(sender.identifier?.rawValue ?? "nil") for " +
-                "\(PrismDriver.shared.currentDevice?.name ?? "nil")")
-        }
+        deviceControlDelegate?.modesChanged(mode: sender.title, update: true)
     }
-
 }
 
 // MARK: Color Picker delegate
 
-extension ModesViewController: PrismColorPickerDelegate {
+extension DeviceControlViewController: PrismColorPickerDelegate {
 
     func didColorChange(newColor: PrismRGB, finishedChanging: Bool) {
         guard let device = PrismDriver.shared.currentDevice, device.model != .unknown else {
             return
         }
 
-        if device.model == .perKey || device.model == .perKeyGS65 {
-            updatePerKeyViews(newColor: newColor, finished: finishedChanging)
-        } else if device.model == .threeRegion {
-            // TODO: Update three region keyboard view
-        }
+        deviceControlDelegate?.updateViews(color: newColor, finished: finishedChanging)
     }
 }
 
 // MARK: Device functions
 
-extension ModesViewController {
+extension DeviceControlViewController {
 
     func updateLayoutWithNewDevice(device: PrismDevice) {
         if device != PrismDriver.shared.currentDevice {
-            removePerKeySettingsLayout()
-            // TODO: Remove other layouts so we can prepare for the next layout
 
             if device.model == .perKey || device.model == .perKeyGS65 {
-                perKeyLayoutSetup()
+                let perKeyControlLayout = PerKeyControlViewController()
+                addChild(perKeyControlLayout)
+                view.addSubview(perKeyControlLayout.view)
+                perKeyControlLayout.view.translatesAutoresizingMaskIntoConstraints = false
+                perKeyControlLayout.view.leadingAnchor.constraint(equalTo: colorPicker.view.leadingAnchor).isActive = true
+                perKeyControlLayout.view.topAnchor.constraint(equalTo: colorPicker.view.bottomAnchor).isActive = true
+                perKeyControlLayout.view.trailingAnchor.constraint(equalTo: colorPicker.view.trailingAnchor).isActive = true
+                perKeyControlLayout.view.heightAnchor.constraint(equalToConstant: 200).isActive = true
             }
         }
     }
@@ -439,7 +281,7 @@ extension NSUserInterfaceItemIdentifier {
     static let presets = NSUserInterfaceItemIdentifier(rawValue: "presets")
 }
 
-//public protocol PrismUpdateDeviceProtocol {
-//    func updateViews(color: PrismRGB, finished: Bool)
-//    func updateEffect(effect: String)
-//}
+public protocol PrismDeviceControlDelegate: AnyObject {
+    func updateViews(color: PrismRGB, finished: Bool)
+    func modesChanged(mode: String, update: Bool)
+}
