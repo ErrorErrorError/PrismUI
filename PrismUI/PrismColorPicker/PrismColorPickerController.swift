@@ -8,7 +8,7 @@
 
 import Cocoa
 
-public class PrismColorPicker: BaseViewController {
+public class PrismColorPickerController: BaseViewController {
 
     var enabled = true {
         didSet {
@@ -210,7 +210,7 @@ public class PrismColorPicker: BaseViewController {
 }
 
 // MARK: Updates Color picker based on set color method
-extension PrismColorPicker {
+extension PrismColorPickerController {
 
     private func updateGraphViewFromSlider(newColor: PrismHSB) {
         guard let originalColor = colorGraphView.color.copy() as? PrismHSB else { return }
@@ -244,7 +244,7 @@ extension PrismColorPicker {
     }
 }
 
-extension PrismColorPicker: PrismColorSliderDelegate, PrismColorGraphDelegate {
+extension PrismColorPickerController: PrismColorSliderDelegate, PrismColorGraphDelegate {
 
     func didColorChange(color: PrismHSB, mouseUp: Bool) {
         let toRGB = color.rgb
@@ -264,7 +264,7 @@ public protocol PrismColorPickerDelegate: AnyObject {
     func didColorChange(newColor: PrismRGB, finishedChanging: Bool)
 }
 
-extension PrismColorPicker: NSTextFieldDelegate {
+extension PrismColorPickerController: NSTextFieldDelegate {
 
     private func hexColorValidation(_ string: String) -> Bool {
         return string.count == 6 && string.isHexadecimalChar

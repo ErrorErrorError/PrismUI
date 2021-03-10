@@ -55,7 +55,7 @@ class DeviceControlViewController: BaseViewController {
         return popup
     }()
 
-    let colorPicker: PrismColorPicker = PrismColorPicker()
+    let colorPicker: PrismColorPickerController = PrismColorPickerController()
 
     let cursorSegment: NSSegmentedControl = {
         let singleSelectImage = NSCursor.arrow.image
@@ -101,6 +101,7 @@ class DeviceControlViewController: BaseViewController {
                                                selector: #selector(onPrismDeviceAdded(_:)),
                                                name: .prismDeviceAdded,
                                                object: nil)
+
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(onPrismDeviceRemoved(_:)),
                                                name: .prismDeviceRemoved,
@@ -159,39 +160,20 @@ extension DeviceControlViewController {
     @objc private func onPrismDeviceAdded(_ notification: NSNotification) {
         guard let newDevice = notification.object as? PrismDevice else { return }
         DispatchQueue.main.async {
-            // Send selection changed if previously was no elements.
-//            let previousItemCount = self.devicesPopup.itemArray.filter({ !$0.isHidden }).compactMap({ $0.title }).count
-
             if !self.devicesPopup.itemTitles.contains(newDevice.name) {
                 self.devicesPopup.addItem(withTitle: newDevice.name)
             }
-
-//            if previousItemCount == 0 {
-//                self.devicesPopup.selectItem(withTitle: newDevice.name)
-//                self.onChangedDevicePopup(self.devicesPopup)
-//            }
         }
     }
 
     @objc private func onPrismDeviceRemoved(_ notification: NSNotification) {
         guard let removeDevice = notification.object as? PrismDevice else { return }
-
         DispatchQueue.main.async {
             let selectedDevice = PrismDriver.shared.currentDevice
             if selectedDevice == removeDevice {
                 PrismDriver.shared.currentDevice = nil
-            }
-
-            if let selectedDeviceName = self.devicesPopup.titleOfSelectedItem,
-               selectedDeviceName == removeDevice.name {
-
-                if removeDevice.model == .perKey || removeDevice.model == .perKeyGS65 {
-                    (self.deviceControlDelegate as? NSViewController)?.view.removeFromSuperview()
-                    self.removeChild(at: 0)
-                    self.deviceControlDelegate = nil
-                } else {
-                    // TODO: Remove layout effects for three region
-                }
+                self.children.filter({ $0 as? PrismColorPickerController == nil}).forEach({ $0.removeFromParent() })
+                self.deviceControlDelegate = nil
             }
 
             self.devicesPopup.removeItem(withTitle: removeDevice.name)
@@ -235,10 +217,6 @@ extension DeviceControlViewController {
 extension DeviceControlViewController: PrismColorPickerDelegate {
 
     func didColorChange(newColor: PrismRGB, finishedChanging: Bool) {
-        guard let device = PrismDriver.shared.currentDevice, device.model != .unknown else {
-            return
-        }
-
         deviceControlDelegate?.updateViews(color: newColor, finished: finishedChanging)
     }
 }
@@ -249,16 +227,17 @@ extension DeviceControlViewController {
 
     func updateLayoutWithNewDevice(device: PrismDevice) {
         if device != PrismDriver.shared.currentDevice {
-
             if device.model == .perKey || device.model == .perKeyGS65 {
-                let perKeyControlLayout = PerKeyControlViewController()
-                addChild(perKeyControlLayout)
-                view.addSubview(perKeyControlLayout.view)
-                perKeyControlLayout.view.translatesAutoresizingMaskIntoConstraints = false
-                perKeyControlLayout.view.leadingAnchor.constraint(equalTo: colorPicker.view.leadingAnchor).isActive = true
-                perKeyControlLayout.view.topAnchor.constraint(equalTo: colorPicker.view.bottomAnchor).isActive = true
-                perKeyControlLayout.view.trailingAnchor.constraint(equalTo: colorPicker.view.trailingAnchor).isActive = true
-                perKeyControlLayout.view.heightAnchor.constraint(equalToConstant: 200).isActive = true
+                let perKeyLayout = PerKeyControlViewController()
+                addChild(perKeyLayout)
+                view.addSubview(perKeyLayout.view)
+                perKeyLayout.view.translatesAutoresizingMaskIntoConstraints = false
+                perKeyLayout.view.leadingAnchor.constraint(equalTo: colorPicker.view.leadingAnchor).isActive = true
+                perKeyLayout.view.topAnchor.constraint(equalTo: colorPicker.view.bottomAnchor).isActive = true
+                perKeyLayout.view.trailingAnchor.constraint(equalTo: colorPicker.view.trailingAnchor).isActive = true
+                perKeyLayout.view.heightAnchor.constraint(equalToConstant: 200).isActive = true
+            } else {
+                Log.error("Currently do not have this device implemented: \(device)")
             }
         }
     }

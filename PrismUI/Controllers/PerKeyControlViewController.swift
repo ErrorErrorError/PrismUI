@@ -323,7 +323,7 @@ extension PerKeyControlViewController: PrismMultiSliderDelegate {
     func didDeselect(_ sender: PrismSelector) {
         selectorArray.remove(sender)
         if let parent = parent as? DeviceControlViewController {
-            parent.colorPicker.enabled = true
+            parent.colorPicker.enabled = false
         }
     }
 }
@@ -433,7 +433,7 @@ extension PerKeyControlViewController {
         guard let identifierr = sender.identifier else { return }
         switch identifierr {
         case .speed:
-            speedValue.stringValue = "\(sender.intValue.description.dropLast(3))s"
+            speedValue.stringValue = "\(sender.intValue.description.dropLast(waveToggle.isHidden ? 2 : 3))s"
         case .pulse:
             pulseValue.stringValue = "\(sender.intValue.description.dropLast(1))"
         default:
@@ -606,8 +606,14 @@ extension PerKeyControlViewController: PrismDeviceControlDelegate {
     }
 
     func updateViews(color: PrismRGB, finished: Bool) {
-        guard let effect = (parent as? DeviceControlViewController)?.modesPopUp.indexOfSelectedItem else { return }
-        let selectedItem = effect
+        guard let device = PrismDriver.shared.currentDevice, device.model != .unknown else {
+            return
+        }
+        guard let effectIndex = (parent as? DeviceControlViewController)?.modesPopUp.indexOfSelectedItem else {
+            Log.error("Parent class is not an instance of \(DeviceControlViewController.className())")
+            return
+        }
+        let selectedItem = effectIndex
         guard selectedItem != -1, let selectedMode = PrismKeyModes(rawValue: UInt32(selectedItem)) else {
             Log.debug("Unknown mode: \(selectedItem)")
             return
@@ -777,6 +783,7 @@ extension PerKeyControlViewController {
     private func updatePerKeyDevice(forced: Bool = false) {
         if PrismKeyboardDevice.keysSelected.count > 0 || forced {
             guard let device = PrismDriver.shared.currentDevice as? PrismKeyboardDevice,
+                  device.isKeyboardDevice,
                   device.model != .threeRegion else { return }
 
             device.update()
