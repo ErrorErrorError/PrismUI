@@ -20,8 +20,14 @@ extension KeyboardViewController {
         let keyboardHeight = 6 * desiredKeyHeight
         let keyboardWidth = ((model == .perKey) ? 20 : 15) * desiredKeyWidth
         let xOffset: CGFloat = (view.frame.width - keyboardWidth) / 2
+        var height: CGFloat = 0
+        if #available(macOS 11.0, *) {
+            height = view.safeAreaRect.height
+        } else {
+            height = view.frame.height
+        }
         var xPos: CGFloat = xOffset
-        var yPos: CGFloat = (view.frame.height - keyboardHeight) / 2 + keyboardHeight - desiredKeyHeight
+        var yPos: CGFloat = (height - keyboardHeight) / 2 + keyboardHeight - desiredKeyHeight
 
         for (index, row) in keyboardMap.enumerated() {
             for (subIndex, widthFract) in row.enumerated() {
@@ -46,7 +52,7 @@ extension KeyboardViewController {
         }
 
         let keyboardFrame = NSRect(x: xOffset + padding,
-                           y: (view.frame.height - keyboardHeight) / 2 - padding,
+                           y: (height - keyboardHeight) / 2 - padding,
                            width: keyboardWidth - padding,
                            height: keyboardHeight - padding)
         originView = OriginEffectView(frame: keyboardFrame)

@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class MainSplitViewController: NSSplitViewController {
+class MainViewController: NSSplitViewController {
 
     let presetsViewController = PresetsViewController()
     let modesViewController = DeviceControlViewController()
@@ -19,16 +19,12 @@ class MainSplitViewController: NSSplitViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.setFrameSize(NSSize(width: 1520, height: 720))
+        view.setFrameSize(NSSize(width: 1460, height: 720))
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(onSelectedDeviceChanged(_:)),
                                                name: .prismSelectedDeviceChanged,
                                                object: nil)
         setupSplitViewItems()
-    }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self, name: .prismSelectedDeviceChanged, object: nil)
     }
 
     private func setupSplitViewItems() {
@@ -65,11 +61,15 @@ class MainSplitViewController: NSSplitViewController {
             sidebarItem.animator().isCollapsed = true
         }
     }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .prismSelectedDeviceChanged, object: nil)
+    }
 }
 
 // MARK: Observe device changes
 
-extension MainSplitViewController {
+extension MainViewController {
 
     @objc private func onSelectedDeviceChanged(_ notification: NSNotification) {
         if let device = notification.object as? PrismDevice {
@@ -94,7 +94,7 @@ extension MainSplitViewController {
 
 // MARK: Attempt to hide split view divider
 
-extension MainSplitViewController {
+extension MainViewController {
     override func splitView(_ splitView: NSSplitView, shouldHideDividerAt dividerIndex: Int) -> Bool {
         return true
     }
@@ -109,7 +109,7 @@ extension MainSplitViewController {
 
 // MARK: ModesViewController delegate
 
-extension MainSplitViewController: ModesViewControllerDelegate {
+extension MainViewController: ModesViewControllerDelegate {
     func didClickOnPresetsButton() {
         sidebarItem.animator().isCollapsed = !sidebarItem.isCollapsed
     }

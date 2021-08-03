@@ -22,8 +22,13 @@ public class PrismAlertViewController: BaseViewController {
         (self.view as? NSVisualEffectView)?.material = .contentBackground
         view.addSubview(label)
         view.subviews.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
-        label.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        label.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        if #available(macOS 11.0, *) {
+            label.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor).isActive = true
+            label.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        } else {
+            label.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        }
     }
 }
 

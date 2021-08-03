@@ -18,7 +18,7 @@ class DeviceControlViewController: BaseViewController {
 
     // MARK: Variables
 
-    let edgeMargin: CGFloat = 18
+    let edgeMargin: CGFloat = 20
 
     // MARK: NSViews
 
@@ -73,19 +73,17 @@ class DeviceControlViewController: BaseViewController {
         super.viewDidLoad()
 
         if let mainView = view as? NSVisualEffectView {
-            mainView.material = .underPageBackground
-            if let colorPickerView = colorPicker.view as? NSVisualEffectView {
-                colorPickerView.material = mainView.material
-            }
+            mainView.material = .windowBackground
         }
 
-        presetsButton.target = self
+        if let colorPickerView = colorPicker.view as? NSVisualEffectView {
+            colorPickerView.material = .windowBackground
+        }
+
         devicesPopup.target = self
         modesPopUp.target = self
         colorPicker.delegate = self
 
-        view.addSubview(presetsButton)
-        view.addSubview(cursorSegment)
         view.addSubview(deviceLabel)
         view.addSubview(devicesPopup)
         view.addSubview(modesLabel)
@@ -118,14 +116,15 @@ class DeviceControlViewController: BaseViewController {
     private func initCommonConstraints() {
         view.subviews.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
 
-        presetsButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: edgeMargin).isActive = true
-        presetsButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
-
-        cursorSegment.topAnchor.constraint(equalTo: presetsButton.topAnchor).isActive = true
-        cursorSegment.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -edgeMargin).isActive = true
-
-        deviceLabel.leadingAnchor.constraint(equalTo: presetsButton.leadingAnchor).isActive = true
-        deviceLabel.topAnchor.constraint(equalTo: presetsButton.bottomAnchor, constant: 20).isActive = true
+        if #available(macOS 11.0, *) {
+            deviceLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,
+                                                 constant: edgeMargin).isActive = true
+            deviceLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
+                                             constant: edgeMargin).isActive = true
+        } else {
+            deviceLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: edgeMargin).isActive = true
+            deviceLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: edgeMargin).isActive = true
+        }
 
         devicesPopup.leadingAnchor.constraint(equalTo: deviceLabel.leadingAnchor).isActive = true
         devicesPopup.topAnchor.constraint(equalTo: deviceLabel.bottomAnchor, constant: 4).isActive = true
@@ -136,8 +135,8 @@ class DeviceControlViewController: BaseViewController {
         modesPopUp.leadingAnchor.constraint(equalTo: modesLabel.leadingAnchor).isActive = true
         modesPopUp.topAnchor.constraint(equalTo: modesLabel.bottomAnchor, constant: 4).isActive = true
 
+        colorPicker.view.topAnchor.constraint(equalTo: modesPopUp.bottomAnchor, constant: edgeMargin).isActive = true
         colorPicker.view.leadingAnchor.constraint(equalTo: modesPopUp.leadingAnchor).isActive = true
-        colorPicker.view.topAnchor.constraint(equalTo: modesPopUp.bottomAnchor, constant: 20).isActive = true
         colorPicker.view.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -edgeMargin).isActive = true
         colorPicker.view.heightAnchor.constraint(equalToConstant: 180).isActive = true
     }

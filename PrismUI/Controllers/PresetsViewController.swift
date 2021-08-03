@@ -10,8 +10,7 @@ import Foundation
 import Cocoa
 
 class PresetsViewController: BaseViewController {
-
-    let treeController = NSTreeController()
+    private let treeController = NSTreeController()
     @objc dynamic var content = [PrismPreset]()
 
     let column: NSTableColumn = {
@@ -21,7 +20,11 @@ class PresetsViewController: BaseViewController {
 
     let outlineView: PresetsOutlineView = {
         let view = PresetsOutlineView()
-        view.backgroundColor = NSColor.clear
+        if #available(macOS 11.0, *) {
+            view.style = .sourceList
+        } else {
+            view.selectionHighlightStyle = .sourceList
+        }
         view.headerView = nil
         view.focusRingType = .none
         return view
@@ -29,7 +32,6 @@ class PresetsViewController: BaseViewController {
 
     let scrollView: NSScrollView = {
         let view = NSScrollView()
-        view.backgroundColor = NSColor.clear
         view.drawsBackground = false
         return view
     }()
@@ -50,7 +52,6 @@ class PresetsViewController: BaseViewController {
 
      override func viewDidLoad() {
         super.viewDidLoad()
-        (self.view as? NSVisualEffectView)?.material = .sidebar
 
         outlineView.addTableColumn(column)
         outlineView.outlineTableColumn = column
@@ -187,8 +188,8 @@ extension PresetsViewController: NSOutlineViewDelegate {
     }
 
     func outlineViewSelectionDidChange(_ notification: Notification) {
-        guard let preset = (outlineView.item(atRow: outlineView.selectedRow) as? NSTreeNode)?
-            .representedObject as? PrismPreset else { return }
+        guard let node = (outlineView.item(atRow: outlineView.selectedRow) as? NSTreeNode),
+              let preset = node.representedObject as? PrismPreset else { return }
         Log.debug("Selected preset: \(preset.title)")
         NotificationCenter.default.post(name: .prismDeviceUpdateFromPreset, object: preset)
     }

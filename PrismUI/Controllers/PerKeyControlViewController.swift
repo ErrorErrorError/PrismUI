@@ -151,7 +151,7 @@ class PerKeyControlViewController: BaseViewController {
         super.viewDidLoad()
 
         if let mainView = view as? NSVisualEffectView {
-            mainView.material = .underPageBackground
+            mainView.material = .windowBackground
         }
 
         speedSlider.target = self
